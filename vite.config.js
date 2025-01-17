@@ -3,5 +3,5 @@ import { defineConfig } from 'vite';
 
 export default defineConfig({
   plugins: [react()],
-  base: '',  // Replace with your repo name
+  base: '/global-show-tell/',  // GitHub Pages repo name
 });
