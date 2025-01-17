@@ -7,6 +7,7 @@ function App() {
   return (
     <Router basename="/global-show-tell">
       <Routes>
+      <Route path="/*" element={<Showcase />} />
         <Route path="/showcase" element={<Showcase />} />
       </Routes>
     </Router>

@@ -1,4 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
+import showcaseSampleCover from '../assets/showcase-sample-cover.png';
+
 
 interface ShowcaseItem {
   id: number;
@@ -316,7 +318,7 @@ const Showcase: React.FC = () => {
               }}
             >
               <img
-                src="/showcase-sample-cover.png"
+                src={showcaseSampleCover}
                 alt={`${item.title} cover`}
                 style={{
                   width: '100%',
