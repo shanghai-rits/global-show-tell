@@ -1,17 +1,39 @@
+import React from 'react';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
-import './App.css';
 import Showcase from './pages/Showcase.tsx';
 
 function App() {
-
   return (
     <Router basename="/global-show-tell">
       <Routes>
-      <Route path="/*" element={<Showcase />} />
-        <Route path="/showcase" element={<Showcase />} />
+        <Route path="/" element={<Home />} />
+        <Route
+          path="/opencall"
+          element={<RedirectToOpenCall />}
+        />
+        <Route
+          path="/showcase"
+          element={< Showcase/>}
+        />
       </Routes>
     </Router>
   );
 }
 
 export default App;
+
+function Home() {
+  return (
+    <div>
+      <h1>Home</h1>
+      <a href="/global-show-tell/opencall">Open Call</a>
+    </div>
+  )
+}
+
+function RedirectToOpenCall() {
+  React.useEffect(() => {
+    window.location.href = '/global-show-tell/opencall/index.html';
+  }, []);
+  return null;
+}

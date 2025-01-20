@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import showcaseSampleCover from '../assets/showcase-sample-cover.png';
 
-
 interface ShowcaseItem {
   id: number;
   title: string;
