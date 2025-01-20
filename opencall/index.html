@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<link rel="icon" href="/favicon.ico" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/inter-ui/inter.css">
+	<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+	<title>open call</title>
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no,viewport-fit=cover">
+	<script>
+		//rem自动计算
+		(function (doc, win) {
+			var docEl = doc.documentElement,
+				resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+				recalc = function () {
+					var clientWidth = docEl.clientWidth;
+					if (!clientWidth) return;
+					docEl.style.fontSize = 100 * (clientWidth / 720) + 'px';
+				};
+
+			if (!doc.addEventListener) return;
+			win.addEventListener(resizeEvt, recalc, false);
+			doc.addEventListener('DOMContentLoaded', recalc, false);
+		})(document, window);
+	</script>
+
+
+	<style>
+		* {
+			padding: 0;
+			margin: 0;
+		}
+
+		body {
+			font-family: 'Inter', sans-serif;
+			color: #333;
+		}
+
+		.page-body {
+			width: 100%;
+			/* overflow-x: auto; */
+		}
+
+		.li-box {
+			height: 1400px;
+			width: 100%;
+			position: relative;
+			z-index: 1;
+		}
+
+		.zhuti {
+			height: 1300px;
+			margin: 0px 0;
+			position: relative;
+			/* padding-bottom: 100px; */
+		}
+
+		.shadow-title {
+			position: sticky;
+			z-index: -1;
+			left: 20px;
+			top: 0;
+			color: #000;
+		}
+
+		.title-text-bg {
+			background: url('/global-show-tell/opencall/assets/title-text.png');
+			width: calc(942px /2);
+			height: calc(545px /2);
+			background-size: 100% 100%;
+		}
+
+		.center-box {
+			height: 960px;
+			margin-top: -60px;
+			position: relative;
+			z-index: 1;
+		}
+
+		.img-bg {
+			background: url('/global-show-tell/opencall/assets/head-bg-all.jpg');
+			height: 950px;
+		}
+
+		.on-shadow-title-box {
+			position: absolute;
+			z-index: 3;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 1300px;
+			pointer-events: none;
+
+		}
+
+		.on-shadow-title-bg {
+			position: sticky;
+			z-index: -1;
+			left: 0;
+			top: 0;
+			background: url('/global-show-tell/opencall/assets/title-shadow.png');
+			width: calc(971px /2);
+			height: calc(531px /2);
+			background-size: 100% 100%;
+		}
+
+		.content {
+			position: relative;
+			top: 0;
+			/* opacity: 0; */
+			left: 0;
+			right: 0;
+			margin: 0 auto;
+			font-family: 'Inter', sans-serif;
+		}
+
+
+		::-webkit-scrollbar {
+			width: 0px;
+			/*  */
+			/* 纵向滚动条的宽度 */
+			/* height: 10px; */
+			/* 横向滚动条的高度 */
+		}
+
+		.tab-box {
+			padding: 30px 63px;
+			max-width: 1414px;
+			/* min-width: 954px; */
+			margin: 0 auto;
+			display: flex;
+			gap: 20px;
+
+		}
+
+		.tab-item {
+			padding: 0 40px;
+			height: 57px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			border: 2px solid rgba(0, 0, 0, 1);
+			color: #000;
+			border-radius: 50px;
+			cursor: pointer;
+			white-space: nowrap;
+			flex: 0;
+			font-size: 32px;
+			text-align: center;
+			font-family: 'Inter', sans-serif;
+		}
+
+		.tab-box .active {
+			animation: active 0.75s forwards linear;
+		}
+
+		.tab-box .normal {
+			animation: noActive 0.75s forwards linear;
+		}
+
+		.paragraph-box {
+			padding: 30px 63px;
+			/* min-width: 954px; */
+			max-width: 1414px;
+			display: block;
+			margin: 0 auto;
+			font-size: 20px;
+		}
+
+
+		.paragraph-box p {
+			margin-bottom: 20px;
+			font-size: 20px;
+			font-family: 'Inter', sans-serif;
+		}
+
+		.group-class {
+			margin-bottom: 20px;
+		}
+
+		.group-class p {
+			margin-bottom: 0;
+			font-family: 'Inter', sans-serif;
+		}
+
+		.paragraph-box .title {
+			color: rgba(184, 184, 18, 1);
+			font-size: 42px;
+			font-weight: 700;
+			line-height: 89px;
+		}
+
+		.paragraph-box b {
+			font-weight: 700;
+		}
+
+		.paragraph-box li {
+			font-size: 26px;
+		}
+
+		.paragraph-box a {
+			color: #000;
+		}
+
+		@keyframes active {
+
+			/* from表示动画的开始位置，也可以使用0%来表示。 */
+			from {}
+
+			/* to表示动画的结束位置，也可以使用100%来表示。 */
+			to {
+				flex: 1;
+				border: 2px solid rgba(234, 234, 36, 1);
+				background: rgba(234, 234, 36, 1);
+				font-weight: 600;
+			}
+		}
+
+		@keyframes noActive {
+
+			/* from表示动画的开始位置，也可以使用0%来表示。 */
+			from {
+				flex: 1
+			}
+
+			/* to表示动画的结束位置，也可以使用100%来表示。 */
+			to {
+				border: 2px solid rgba(0, 0, 0, 1);
+				background: #ffffff;
+				font-weight: 400;
+			}
+		}
+
+		@keyframes activeforMax1080 {
+
+			/* from表示动画的开始位置，也可以使用0%来表示。 */
+			from {}
+
+			/* to表示动画的结束位置，也可以使用100%来表示。 */
+			to {
+				width: calc(100% - 72px);
+				border: 2px solid rgba(234, 234, 36, 1);
+				background: rgba(234, 234, 36, 1);
+				font-weight: 600;
+			}
+		}
+
+		@keyframes noActiveforMax1080 {
+
+			/* from表示动画的开始位置，也可以使用0%来表示。 */
+			from {
+				width: calc(100% - 72px);
+			}
+
+			/* to表示动画的结束位置，也可以使用100%来表示。 */
+			to {
+				border: 2px solid rgba(0, 0, 0, 1);
+				background: #ffffff;
+				font-weight: 400;
+			}
+		}
+
+
+		@media screen and (max-width:1080px) and (min-width:768px) {
+
+			.tab-box {
+				padding: 0.2rem 0.36rem;
+				max-width: 1414px;
+				/* min-width: 954px; */
+				margin: 0 auto;
+				display: flex;
+				flex-direction: column;
+				gap: 0;
+				font-size: 0;
+			}
+
+			.tab-item {
+				padding: 0 40px;
+				height: 57px;
+				line-height: 57px;
+				display: inline-table;
+				align-items: center;
+				justify-content: center;
+				border: 2px solid rgba(0, 0, 0, 1);
+				color: #000;
+				border-radius: 50px;
+				cursor: pointer;
+				white-space: nowrap;
+				flex: 0;
+				font-size: 0.2rem;
+				text-align: center;
+			}
+
+			.tab-box .normal {
+				animation: noActiveforMax1080 0.75s forwards linear;
+				margin-bottom: 10px;
+			}
+
+			.tab-box .active {
+				animation: activeforMax1080 0.75s forwards linear;
+				margin-bottom: 10px;
+			}
+
+			.paragraph-box {
+				padding: 20px 63px;
+				/* min-width: 954px; */
+				max-width: 1414px;
+				display: block;
+				margin: 0 auto;
+				font-size: 20px;
+			}
+		}
+
+		@media screen and (max-width:640px) {
+			.li-box {
+				height: 14rem;
+			}
+
+			.zhuti {
+				height: 13rem;
+			}
+
+			.on-shadow-title-box {
+				height: 13rem;
+			}
+
+			.center-box {
+				height: 9.6rem;
+				margin-top: -0.6rem;
+			}
+
+			.img-bg {
+				height: 9.5rem;
+			}
+
+			.title-text-bg {
+				background: url('/global-show-tell/opencall/assets/title-text.png');
+				width: calc(9.42rem /2);
+				height: calc(5.45rem /2);
+				background-size: 100% 100%;
+			}
+
+			.on-shadow-title-bg {
+				position: sticky;
+				z-index: -1;
+				left: 0;
+				top: 0;
+				background: url('/global-show-tell/opencall/assets/title-shadow.png');
+				width: calc(9.71rem /2);
+				height: calc(5.31rem /2);
+				background-size: 100% 100%;
+			}
+
+			.tab-box {
+				padding: 0.3rem 0.36rem;
+				max-width: 1414px;
+				/* min-width: 954px; */
+				margin: 0 auto;
+				display: flex;
+				flex-direction: column;
+				font-size: 0;
+				gap: 0
+			}
+
+			.tab-item {
+				padding: 0 40px;
+				height: 57px;
+				line-height: 57px;
+				display: inline-table;
+				width: auto;
+				align-items: center;
+				justify-content: center;
+				border: 2px solid rgba(0, 0, 0, 1);
+				color: #000;
+				border-radius: 50px;
+				cursor: pointer;
+				font-size: 0.32rem;
+
+				text-align: center;
+			}
+
+			.tab-box .normal {
+				animation: noActiveforMax1080 0.75s forwards linear;
+				margin-bottom: 10px;
+			}
+
+			.tab-box .active {
+				animation: activeforMax1080 0.75s forwards linear;
+				margin-bottom: 10px;
+			}
+
+			.paragraph-box {
+				padding: 0.3rem 0.24rem;
+				/* min-width: 954px; */
+				max-width: 1414px;
+				display: block;
+				margin: 0 auto;
+				font-size: 0.2rem;
+			}
+
+			.paragraph-box p {
+				margin-bottom: 0.2rem;
+				font-size: 0.3rem;
+			}
+
+			.paragraph-box .title {
+				font-size: 0.42rem;
+				line-height: 0.89rem;
+			}
+
+			.paragraph-box li {
+				font-size: 0.3rem;
+			}
+		}
+	</style>
+</head>
+
+<body>
+	<div id="app">
+		<div class="page-body" id="allText">
+			<div class="li-box">
+				<div class="zhuti">
+					<div class="shadow-title">
+						<div class="title-text-bg">
+							<!-- <div>OPEN </div>
+							<div class="second-line">CALL</div> -->
+						</div>
+					</div>
+					<div class="center-box">
+						<div class="img-bg" id="imgBg"></div>
+					</div>
+					<div class="on-shadow-title-box">
+						<div class="on-shadow-title-bg">
+							<!-- <div>OPEN </div>
+							<div class="second-line">CALL</div> -->
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<div class="content" id="content">
+				<div class="tab-box">
+					<div class="tab-item" @click="classActive = true"
+						:class="{active : classActive,normal:!classActive }">
+						Submission Guidelines</div>
+					<div class="tab-item" @click="classActive = false"
+						:class="{active : !classActive ,normal:classActive }">Call For Collaboration</div>
+				</div>
+				<template v-if="classActive">
+					<div class="paragraph-box">
+						<p>Join us for NYU's first global showcase of student works that bring together Artificial
+							Intelligence
+							(AI) and interactive media!</p>
+						<p>This is your chance to share your creativity through projects that highlight three core
+							elements:
+							<b>AI integration, interactivity</b>, and <b>global learning</b>. Connect with others, spark
+							conversations, and collaborate to build a vibrant community of innovators. Your ideas and
+							contributions will inspire others and drive innovation forward.
+						</p>
+						<p>We can't wait to see what you create!</p>
+					</div>
+					<div class="paragraph-box">
+						<div class="title">Eligibility</div>
+						<p>We welcome submissions of student projects that tackle all the following aspects. </p>
+						<p><b>I. Global Learning.</b> For your learning, who supported you while you built this project
+							in
+							NYU's
+							global
+							network? This could be a mentor, a seminar, or an office hour. Beyond classrooms, what
+							inspired
+							you
+							during your project journey? This could be a story, a conversation, or a collaboration. </p>
+						<p><b>II. AI Integration.</b> Your project should incorporate AI in some meaningful way. </p>
+						<p><b>III. Interactivity.</b> Your project should be interactive. Here are some keywords for
+							your
+							inspiration:
+							generative, autonomous, responsive, participatory, kinetic, spatial, algorithmic, systemic,
+							multisensory, augmented, live processing, networked, procedural, embodied, real-time, and
+							hybrid.
+						</p>
+						<p>The possibilities are endless, so be creative!</p>
+					</div>
+					<div class="paragraph-box">
+						<div class="title">How your work will be displayed</div>
+						<p>You'll have the opportunity to share your work with audiences worldwide through these
+							channels.
+						</p>
+						<p>I. Online SpaceWhen
+							<br>
+							your work demonstrates all three core elements (AI integration,
+							interactivity,
+							and global learning), your work will be showcased on the event website.
+						</p>
+						<p>II. Physical Space
+							<br />Want to exhibit your work at a physical location?
+						</p>
+						<p>You could exhibit your work at your home campus or even have it travel across our global
+							locations.
+							(Subject to technical requirements and space availability.)</p>
+						<div style="padding-left: 24px;">
+							<div class="group-class">
+								<p>> Venues at NYU Shanghai campus (XR Space, The Hub, Magnolia House) </p>
+								<p>> Locations at NYU Abu Dhabi to be added </p>
+								<p>> Locations at NYU New York to be added</p>
+							</div>
+						</div>
+						<p>In Fall 2025, you may see your work displayed in prestigious public exhibition spaces during
+							Shanghai
+							arts festival season. More details to be announced in Spring.</p>
+						<p>III. Networked display at three campuses<br>
+							One project will be selected and showcased through a
+							networked setup at three campuses. </p>
+					</div>
+					<div class="paragraph-box">
+						<div class="title">How to submit your work</div>
+						<p>Fill in the Google Form to submit your work (Google sign-in required). You can submit
+							multiple
+							works.
+							We will follow up with you once we receive your submission. </p>
+						<p>Submission will be received on a rolling basis until March 31, 2025. </p>
+					</div>
+					<div class="paragraph-box">
+						<div class="title">Contact</div>
+						<p>For updates, please check the <a href="">website link</a> regularly.<br />
+							For inquiries, please contact <a href="">group email</a>.
+						</p>
+					</div>
+
+				</template>
+				<template v-else>
+					<div class="paragraph-box">
+						<div class="title">How to find collaborators</div>
+						<p>If you are looking for collaborations, we provide multiple opportunities.
+						</p>
+						<p style="padding-left: 20px;">
+						<ul style="padding-left: 20px;">
+							<li>Complete the Google Form to describe your interest. For Question 4, select "Looking for
+								collaboration." Your information will be added to a shared spreadsheet along with other
+								participants'. Once we receive your request, we will share the spreadsheet with you to
+								help
+								you find a collaborator.</li>
+							<li>Keep an eye on the upcoming speed dating sessions to present your ideas, proposals, and
+								works, and to find collaborators. </li>
+						</ul>
+						</p>
+					</div>
+					<div class="paragraph-box">
+						<div class="title">Contact</div>
+						<p>For updates, please check the <a href="">website link</a> regularly.<br />
+							For inquiries, please contact <a href="">group email</a>.
+						</p>
+					</div>
+				</template>
+
+			</div>
+
+		</div>
+
+	</div>
+
+	<script>
+		const { createApp, ref, onMounted } = Vue
+
+		createApp({
+			setup() {
+				const classActive = ref(true);
+
+				return {
+					classActive
+				}
+			}
+		}).mount('#app')
+	</script>
+</body>
+
+</html>
