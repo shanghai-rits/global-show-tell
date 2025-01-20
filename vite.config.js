@@ -4,7 +4,7 @@ import { defineConfig } from 'vite'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: '/global-show-tell/',
+  base: '/',
   build: {
     rollupOptions: {
       input: {

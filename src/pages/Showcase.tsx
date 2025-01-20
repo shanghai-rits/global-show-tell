@@ -308,7 +308,7 @@ const Showcase: React.FC = () => {
           const item = items.find(i => i.id === pos.id);
           if (!item) return null;
 
-          const coverImagePath = `/global-show-tell/showcase/${item.id}/cover.jpg`;
+          const coverImagePath = `/showcase/${item.id}/cover.jpg`;
 
           return (
             <div

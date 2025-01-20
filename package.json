@@ -3,11 +3,12 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://shanghai-rits.github.io/global-show-tell",
+  "homepage": "https://nyuglobal.show",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
+    "postbuild": "echo 'nyuglobal.show' > dist/CNAME",
     "preview": "vite preview",
     "deploy": "gh-pages -d dist"
   },

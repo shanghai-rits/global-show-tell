@@ -4,7 +4,7 @@ import Showcase from './pages/Showcase.tsx';
 
 function App() {
   return (
-    <Router basename="/global-show-tell">
+    <Router>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route
@@ -26,14 +26,14 @@ function Home() {
   return (
     <div>
       <h1>Home</h1>
-      <a href="/global-show-tell/opencall">Open Call</a>
+      <a href="/opencall">Open Call</a>
     </div>
   )
 }
 
 function RedirectToOpenCall() {
   React.useEffect(() => {
-    window.location.href = '/global-show-tell/opencall/index.html';
+    window.location.href = '/opencall/index.html';
   }, []);
   return null;
 }
