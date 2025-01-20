@@ -1,10 +1,11 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useLayoutEffect, useRef, useState } from 'react';
 import showcaseSampleCover from '../assets/showcase-sample-cover.png';
 
 interface ShowcaseItem {
   id: number;
   title: string;
   authors: string;
+  size?: { width?: number; height?: number };
 }
 
 // Helper: Check overlap between two items
@@ -123,22 +124,22 @@ function generateNonOverlappingPositions(
 
 const Showcase: React.FC = () => {
   const items: ShowcaseItem[] = [
-    { id: 1, title: 'Title #1', authors: 'Author A' },
-    { id: 2, title: 'Title #2', authors: 'Author B' },
-    { id: 3, title: 'Title #3', authors: 'Author C' },
-    { id: 4, title: 'Title #4', authors: 'Author D' },
-    { id: 5, title: 'Title #5', authors: 'Author E' },
-    { id: 6, title: 'Title #6', authors: 'Author F' },
-    { id: 7, title: 'Title #7', authors: 'Author G' },
-    { id: 8, title: 'Title #8', authors: 'Author H' },
+    { id: 1, title: 'Live Diffusion', authors: 'Author A, Author B', size: { width: 380 } },
+    { id: 2, title: 'Title of the work 2', authors: 'Authors' },
+    { id: 3, title: 'Title of the work 3', authors: 'Authors' },
+    { id: 4, title: 'Title of the work 4', authors: 'Authors' },
+    { id: 5, title: 'Title of the work 5', authors: 'Authors' },
+    { id: 6, title: 'Title of the work 6', authors: 'Authors' },
+    { id: 7, title: 'Title of the work 7', authors: 'Authors' },
+    { id: 8, title: 'Title of the work 8', authors: 'Authors' },
   ];
 
   // Canvas = "map" we can drag around.
   const CANVAS_WIDTH = 1800;
-  const CANVAS_HEIGHT = 1000;
+  const CANVAS_HEIGHT = 1400;
 
-  const ITEM_WIDTH = 200;
-  const ITEM_HEIGHT = 200;
+  const MAX_ITEM_WIDTH = 350; // Adjust as needed
+  const MAX_ITEM_HEIGHT = 300; // Adjust as needed
 
   // Extra gap so items don’t overlap
   const SPACING = 20;
@@ -160,7 +161,7 @@ const Showcase: React.FC = () => {
   const [viewportHeight, setViewportHeight] = useState(0);
   const fixedPositions = [
     {
-      "x": 361.2581214840093,
+      "x": 411.2581214840093,
       "y": 218.01766202246705,
       "id": 1
     },
@@ -176,7 +177,7 @@ const Showcase: React.FC = () => {
     },
     {
       "x": 180.07582196936465,
-      "y": 525.9928869502138,
+      "y": 625.9928869502138,
       "id": 4
     },
     {
@@ -190,7 +191,7 @@ const Showcase: React.FC = () => {
       "id": 6
     },
     {
-      "x": 123.741773541528133,
+      "x": 23.741773541528133,
       "y": 32.98154229677599,
       "id": 7
     },
@@ -202,10 +203,19 @@ const Showcase: React.FC = () => {
   ]
 
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (outerRef.current) {
-      setViewportWidth(outerRef.current.clientWidth);
-      setViewportHeight(outerRef.current.clientHeight);
+      const viewportWidth = outerRef.current.clientWidth;
+      const viewportHeight = outerRef.current.clientHeight;
+      setViewportWidth(viewportWidth);
+      setViewportHeight(viewportHeight);
+      console.log('Viewport size:', viewportWidth, viewportHeight);
+
+      // Calculate initial offset to center the canvas
+      const initialOffsetX = (viewportWidth - CANVAS_WIDTH) / 2;
+      const initialOffsetY = (viewportHeight - CANVAS_HEIGHT) / 2;
+      setOffset({ x: initialOffsetX, y: initialOffsetY });
+      console.log('Initial offset:', initialOffsetX, initialOffsetY);
     }
 
     // const randomPositions = generateNonOverlappingPositions(
@@ -298,6 +308,8 @@ const Showcase: React.FC = () => {
           const item = items.find(i => i.id === pos.id);
           if (!item) return null;
 
+          const coverImagePath = `/global-show-tell/showcase/${item.id}/cover.jpg`;
+
           return (
             <div
               key={item.id}
@@ -305,34 +317,45 @@ const Showcase: React.FC = () => {
                 position: 'absolute',
                 left: pos.x,
                 top: pos.y,
-                width: ITEM_WIDTH,
-                height: ITEM_HEIGHT,
-                background: '#f2f2f2',
-                boxShadow: '0 1px 4px rgba(0,0,0,0.2)',
+                background: 'transparent',
+                // boxShadow: '0px 1px 4px rgba(0,0,0,0.2)',
                 display: 'flex',
                 flexDirection: 'column',
-                justifyContent: 'center',
-                alignItems: 'center',
-                borderRadius: 8,
+                justifyContent: 'flex-start',
+                // alignItems: 'center',
+                borderRadius: 0,
+                overflow: 'hidden',
+                padding: 0,
+                margin: 0,
               }}
             >
               <img
-                src={showcaseSampleCover}
+                src={coverImagePath}
                 alt={`${item.title} cover`}
+                onError={(e) => { e.currentTarget.src = showcaseSampleCover; }}
+                onDragStart={(e) => e.preventDefault()}
                 style={{
                   width: '100%',
                   height: 'auto',
+                  maxWidth: item.size?.width ?? MAX_ITEM_WIDTH,
+                  maxHeight: item.size?.height ?? MAX_ITEM_HEIGHT,
                   objectFit: 'cover',
+                  margin: 0,
+                  padding: 0,
+                  boxShadow: '0px 1px 4px 0px rgba(0,0,0,0.2)',
                 }}
               />
-              <div style={{ padding: '0em', textAlign: 'center' }}>
-                <h4 style={{ margin: '0em 0' }}>{item.title} {item.authors}</h4>
+              <div style={{ lineHeight: '1', marginTop: '15px', fontFamily: 'inter', fontSize: '32px', fontWeight: 'unset', color: 'rgba(128, 128, 128, 1)' }}>
+                {item.title}
+              </div>
+              <div style={{ marginTop: '5px', marginLeft: '2px', color: 'rgba(128, 128, 128, 1)', fontSize: '20px' }}>
+                {item.authors}
               </div>
             </div>
           );
         })}
       </div>
-    </div>
+    </div >
   );
 };
 
