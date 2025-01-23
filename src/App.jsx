@@ -13,7 +13,7 @@ function App() {
         />
         <Route
           path="/showcase"
-          element={< Showcase/>}
+          element={<Showcase />}
         />
       </Routes>
     </Router>
@@ -27,6 +27,7 @@ function Home() {
     <div>
       <h1>Home</h1>
       <a href="/opencall">Open Call</a>
+      <a href="/showcase">Showcase</a>
     </div>
   )
 }

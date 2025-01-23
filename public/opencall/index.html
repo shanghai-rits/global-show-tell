@@ -45,14 +45,14 @@
 		}
 
 		.li-box {
-			height: 1400px;
+			height: 610px;
 			width: 100%;
 			position: relative;
 			z-index: 1;
 		}
 
 		.zhuti {
-			height: 1300px;
+			height: 600px;
 			margin: 0px 0;
 			position: relative;
 			/* padding-bottom: 100px; */
@@ -68,13 +68,13 @@
 
 		.title-text-bg {
 			background: url('/opencall/assets/title-text.png');
-			width: calc(942px /2);
-			height: calc(545px /2);
+			width: calc(942px /1.8);
+			height: calc(545px /1.8);
 			background-size: 100% 100%;
 		}
 
 		.center-box {
-			height: 960px;
+			height: 300px;
 			margin-top: -60px;
 			position: relative;
 			z-index: 1;
@@ -82,7 +82,7 @@
 
 		.img-bg {
 			background: url('/opencall/assets/head-bg-all.jpg');
-			height: 950px;
+			height: 310px;
 		}
 
 		.on-shadow-title-box {
@@ -91,7 +91,7 @@
 			top: 0;
 			left: 0;
 			width: 100%;
-			height: 1300px;
+			height: 600px;
 			pointer-events: none;
 
 		}
@@ -102,8 +102,8 @@
 			left: 0;
 			top: 0;
 			background: url('/opencall/assets/title-shadow.png');
-			width: calc(971px /2);
-			height: calc(531px /2);
+			width: calc(971px /1.8);
+			height: calc(531px /1.8);
 			background-size: 100% 100%;
 		}
 
@@ -114,6 +114,7 @@
 			left: 0;
 			right: 0;
 			margin: 0 auto;
+			margin-bottom: 150px;
 			font-family: 'Inter', sans-serif;
 		}
 
@@ -130,7 +131,7 @@
 			padding: 30px 63px;
 			max-width: 1414px;
 			/* min-width: 954px; */
-			margin: 0 auto;
+			margin: 0px auto;
 			display: flex;
 			gap: 20px;
 
@@ -162,7 +163,7 @@
 		}
 
 		.paragraph-box {
-			padding: 30px 63px;
+			padding: 12px 63px;
 			/* min-width: 954px; */
 			max-width: 1414px;
 			display: block;
@@ -189,7 +190,7 @@
 		.paragraph-box .title {
 			color: rgba(184, 184, 18, 1);
 			font-size: 42px;
-			font-weight: 700;
+			font-weight: 500;
 			line-height: 89px;
 		}
 
@@ -198,7 +199,7 @@
 		}
 
 		.paragraph-box li {
-			font-size: 26px;
+			font-size: 20px;
 		}
 
 		.paragraph-box a {
@@ -447,7 +448,7 @@
 						:class="{active : classActive,normal:!classActive }">
 						Submission Guidelines</div>
 					<div class="tab-item" @click="classActive = false"
-						:class="{active : !classActive ,normal:classActive }">Call For Collaboration</div>
+						:class="{active : !classActive ,normal:classActive }">Call for Collaboration</div>
 				</div>
 				<template v-if="classActive">
 					<div class="paragraph-box">
@@ -488,9 +489,9 @@
 						<p>You'll have the opportunity to share your work with audiences worldwide through these
 							channels.
 						</p>
-						<p>I. Online SpaceWhen
+						<p>I. Online Space
 							<br>
-							your work demonstrates all three core elements (AI integration,
+							When your work demonstrates all three core elements (AI integration,
 							interactivity,
 							and global learning), your work will be showcased on the event website.
 						</p>
@@ -502,30 +503,28 @@
 							(Subject to technical requirements and space availability.)</p>
 						<div style="padding-left: 24px;">
 							<div class="group-class">
-								<p>> Venues at NYU Shanghai campus (XR Space, The Hub, Magnolia House) </p>
-								<p>> Locations at NYU Abu Dhabi to be added </p>
-								<p>> Locations at NYU New York to be added</p>
+								<p>> XR Space, Interdisciplinary Digital Research Lab, The Hub, Magnolia House at NYU Shanghai campus </p>
+								<p>> Lobby of 370 Jay St location at NYU New York’s Brooklyn Campus </p>
+								<p>> More locations at three campuses to be added</p>
 							</div>
 						</div>
-						<p>In Fall 2025, you may see your work displayed in prestigious public exhibition spaces during
-							Shanghai
-							arts festival season. More details to be announced in Spring.</p>
+						<p>In Fall 2025, you may see your work displayed in prestigious public exhibition spaces during Shanghai International Arts Festival season. More details to be announced in Spring.</p>
 						<p>III. Networked display at three campuses<br>
-							One project will be selected and showcased through a
-							networked setup at three campuses. </p>
+							One project will be selected and showcased through a networked setup at three campuses. </p>
+						<p>Networked projects will be managing your own networking (i.e. running a backend server that facilitates communication between locations, etc.). 
+						</p>
 					</div>
 					<div class="paragraph-box">
 						<div class="title">How to submit your work</div>
-						<p>Fill in the Google Form to submit your work (Google sign-in required). You can submit
-							multiple
-							works.
+						<p>Fill in the <b><a href="https://docs.google.com/forms/d/e/1FAIpQLSe38JDSQrawukkE_iaPIl7ht5cLzc24lO6kcThk4Fn89UNXnA/viewform?usp=dialog">Google Form</a></b> to submit your work (Google sign-in required). You can submit
+							multiple works.
 							We will follow up with you once we receive your submission. </p>
 						<p>Submission will be received on a rolling basis until March 31, 2025. </p>
 					</div>
 					<div class="paragraph-box">
 						<div class="title">Contact</div>
-						<p>For updates, please check the <a href="">website link</a> regularly.<br />
-							For inquiries, please contact <a href="">group email</a>.
+						<p>For updates, please check <a href="https://nyuglobal.show/opencall/">our website</a> regularly.<br />
+							For inquiries, please contact <u>global.show@nyu.edu</u>.
 						</p>
 					</div>
 
@@ -537,7 +536,8 @@
 						</p>
 						<p style="padding-left: 20px;">
 						<ul style="padding-left: 20px;">
-							<li>Complete the Google Form to describe your interest. For Question 4, select "Looking for
+							<li>Complete the <b><a href="https://docs.google.com/forms/d/e/1FAIpQLSe38JDSQrawukkE_iaPIl7ht5cLzc24lO6kcThk4Fn89UNXnA/viewform?usp=dialog">Google Form</a></b> 
+								to describe your interest. For Question 4, select "Looking for
 								collaboration." Your information will be added to a shared spreadsheet along with other
 								participants'. Once we receive your request, we will share the spreadsheet with you to
 								help
@@ -549,8 +549,8 @@
 					</div>
 					<div class="paragraph-box">
 						<div class="title">Contact</div>
-						<p>For updates, please check the <a href="">website link</a> regularly.<br />
-							For inquiries, please contact <a href="">group email</a>.
+						<p>For updates, please check <a href="https://nyuglobal.show/opencall/">our website</a> regularly.<br />
+							For inquiries, please contact <u>global.show@nyu.edu</u>.
 						</p>
 					</div>
 				</template>

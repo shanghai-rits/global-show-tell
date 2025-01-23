@@ -11,71 +11,196 @@ interface ShowcaseItem {
 // Helper: Check overlap between two items
 // rect1: (x1, y1, w, h), rect2: (x2, y2, w, h)
 // with an additional "spacing" margin so they don’t crowd each other.
+// function isOverlap(
+//   x1: number,
+//   y1: number,
+//   x2: number,
+//   y2: number,
+//   w: number,
+//   h: number,
+//   spacing: number
+// ): boolean {
+//   const noOverlap =
+//     x1 + w + spacing < x2 ||
+//     x2 + w + spacing < x1 ||
+//     y1 + h + spacing < y2 ||
+//     y2 + h + spacing < y1;
+
+//   return !noOverlap;
+// }
+
+// // Generate random positions for items so that they don’t overlap and
+// // each new item is within `maxDistance` of at least one placed item.
+// function generateNonOverlappingPositions(
+//   count: number,
+//   canvasWidth: number,
+//   canvasHeight: number,
+//   itemWidth: number,
+//   itemHeight: number,
+//   spacing: number
+// ): Array<{ x: number; y: number }> {
+//   const positions: Array<{ x: number; y: number }> = [];
+
+//   console.log('Generating positions for', count, 'items');
+
+//   // Center of the canvas
+//   const centerX = canvasWidth / 2;
+//   const centerY = canvasHeight / 2;
+
+//   // Radius increment for each circle layer
+//   const radiusIncrement = itemWidth + spacing;
+
+//   // Place the first item at the center
+//   positions.push({ x: centerX - itemWidth / 2, y: centerY - itemHeight / 2 });
+
+//   let currentRadius = radiusIncrement;
+//   let itemsInCurrentCircle = 3;
+
+//   for (let i = 1; i < count; i++) {
+//     console.log('Placing item', i);
+//     let placed = false;
+//     let tries = 0;
+
+//     while (!placed && tries < 10000) {
+//       tries++;
+//       // Calculate angle and position for the item
+//       const angle = Math.random() * 2 * Math.PI;
+//       const x = centerX + currentRadius * Math.cos(angle) - itemWidth / 2;
+//       const y = centerY + currentRadius * Math.sin(angle) - itemHeight / 2;
+
+//       // Check overlap
+//       let overlapFound = false;
+//       for (const pos of positions) {
+//         if (isOverlap(pos.x, pos.y, x, y, itemWidth, itemHeight, spacing)) {
+//           overlapFound = true;
+//           break;
+//         }
+//       }
+
+//       if (!overlapFound) {
+//         positions.push({ x, y });
+//         console.log('Placed item', i, 'at', x, y);
+//         placed = true;
+//       }
+
+//       tries++;
+//       // console.log('Tries:', tries);
+//     }
+
+//     // if ((i + 1) % itemsInCurrentCircle === 0) {
+//     //   currentRadius += radiusIncrement; // Increase radius more often
+//     // }
+
+//     // Move to the next circle layer if the current one is filled
+//     if (positions.length >= itemsInCurrentCircle) {
+//       currentRadius += radiusIncrement;
+//       itemsInCurrentCircle += 4;
+//       console.log('Moving to next circle layer:', currentRadius, 'Items in current circle:', itemsInCurrentCircle);
+//     }
+
+//     console.log('Current positions:', positions);
+//   }
+
+//   return positions;
+// }
+
+/**
+ * Checks if two items (by top-left corner) with the same width/height/spacing overlap.
+ * Adjust to fit your actual isOverlap function signature.
+ */
 function isOverlap(
   x1: number,
   y1: number,
   x2: number,
   y2: number,
-  w: number,
-  h: number,
+  itemWidth: number,
+  itemHeight: number,
   spacing: number
 ): boolean {
-  const noOverlap =
-    x1 + w + spacing < x2 ||
-    x2 + w + spacing < x1 ||
-    y1 + h + spacing < y2 ||
-    y2 + h + spacing < y1;
-
-  return !noOverlap;
+  // Basic bounding-box collision
+  return !(
+    x1 + itemWidth + spacing < x2 ||
+    x2 + itemWidth + spacing < x1 ||
+    y1 + itemHeight + spacing < y2 ||
+    y2 + itemHeight + spacing < y1
+  );
 }
 
-// Helper: distance between centers of two items
-function centerDistance(
-  x1: number,
-  y1: number,
-  x2: number,
-  y2: number,
-  itemWidth: number,
-  itemHeight: number
-) {
-  // center of item1
-  const cx1 = x1 + itemWidth / 2;
-  const cy1 = y1 + itemHeight / 2;
-  // center of item2
-  const cx2 = x2 + itemWidth / 2;
-  const cy2 = y2 + itemHeight / 2;
-
-  const dx = cx2 - cx1;
-  const dy = cy2 - cy1;
-  return Math.sqrt(dx * dx + dy * dy);
-}
-
-// Generate random positions for items so that they don’t overlap and
-// each new item is within `maxDistance` of at least one placed item.
+/**
+ * Generates random non-overlapping positions around a center point in "rings".
+ * - The first item is at the center.
+ * - Then ring by ring, we place items at random angles.
+ *
+ * @param count Number of items to place
+ * @param canvasWidth Overall canvas width
+ * @param canvasHeight Overall canvas height
+ * @param itemWidth The width of each item (for overlap checks)
+ * @param itemHeight The height of each item (for overlap checks)
+ * @param spacing Additional space to pad around items (prevents collisions)
+ * @returns Array of (x,y) coordinates for each item’s top-left corner
+ */
 function generateNonOverlappingPositions(
   count: number,
   canvasWidth: number,
   canvasHeight: number,
   itemWidth: number,
   itemHeight: number,
-  spacing: number,
-  maxDistance: number
+  spacing: number
 ): Array<{ x: number; y: number }> {
   const positions: Array<{ x: number; y: number }> = [];
+  if (count <= 0) {
+    return positions;
+  }
 
-  // how many times we try to find a valid spot for an item
-  const MAX_TRIES = 3000;
+  // Center of the canvas
+  const centerX = canvasWidth / 2;
+  const centerY = canvasHeight / 2;
 
-  for (let i = 0; i < count; i++) {
-    let placed = false;
-    let tries = 0;
+  // Radius increment for each ring
+  const radiusIncrement = itemWidth + spacing;
 
-    while (!placed && tries < MAX_TRIES) {
-      // pick a random x,y
-      const x = Math.random() * (canvasWidth - itemWidth);
-      const y = Math.random() * (canvasHeight - itemHeight);
+  // Place the first item in the center:
+  positions.push({
+    x: centerX - itemWidth / 2,
+    y: centerY - itemHeight / 2,
+  });
 
-      // check overlap
+  // How many items have we successfully placed so far?
+  let placedCount = 1;
+
+  // Start from ring #1 outward
+  let ringNumber = 1;
+
+  // For demonstration, let’s say ring 1 can have 3 items, ring 2 can have 5, ring 3 can have 7, etc.
+  // You can make this simpler or more complicated as you see fit.
+  let itemsInThisRing = 6;
+
+  while (placedCount < count) {
+    // How many items do we still need to place?
+    const itemsRemaining = count - placedCount;
+
+    // For this ring, we only try to place as many as we still need:
+    const ringSlots = Math.min(itemsInThisRing, itemsRemaining);
+
+    // Current ring radius
+    const ringRadius = ringNumber * radiusIncrement;
+
+    let placedThisRing = 0;
+    let attempt = 0;
+    const maxAttempts = 1000; // Just to avoid infinite loops
+
+    // Keep trying angles until we've placed ringSlots or run out of attempts
+    while (placedThisRing < ringSlots && attempt < maxAttempts) {
+      attempt++;
+
+      // Pick a random angle for the item in this ring
+      const angle = Math.random() * 2 * Math.PI;
+
+      // Convert polar -> cartesian (with item offset for top-left)
+      const x = centerX + ringRadius * Math.cos(angle) - itemWidth / 2;
+      const y = centerY + ringRadius * Math.sin(angle) - itemHeight / 2;
+
+      // Check overlap with already-placed positions
       let overlapFound = false;
       for (const pos of positions) {
         if (isOverlap(pos.x, pos.y, x, y, itemWidth, itemHeight, spacing)) {
@@ -84,43 +209,44 @@ function generateNonOverlappingPositions(
         }
       }
 
-      if (overlapFound) {
-        tries++;
-        continue;
+      // If there's no collision, we can place it
+      if (!overlapFound) {
+        positions.push({ x, y });
+        placedCount++;
+        placedThisRing++;
       }
-
-      // Now check maxDistance condition:
-      // If this is the first item, we can skip distance check 
-      // (because there's no “existing item” to compare to).
-      if (positions.length > 0) {
-        // We want the new item to be within `maxDistance` from at least one existing item
-        const isWithinDistance = positions.some(pos => {
-          const dist = centerDistance(pos.x, pos.y, x, y, itemWidth, itemHeight);
-          return dist <= maxDistance;
-        });
-
-        if (!isWithinDistance) {
-          tries++;
-          continue;
-        }
-      }
-
-      // If we passed overlap + distance checks, we are good
-      positions.push({ x, y });
-      placed = true;
-
-      tries++;
     }
 
-    // if we fail to find a position within MAX_TRIES,
-    // fallback to (0,0) or do something else
-    if (!placed) {
-      positions.push({ x: 0, y: 0 });
-    }
+    // Move on to the next ring
+    ringNumber++;
+
+    // If you want each ring to hold 3 more items than the previous ring, do:
+    // itemsInThisRing += 3;
+    // Or if you want a different pattern, just change it here:
+    itemsInThisRing += 2; // Example: ring 1 has 3, ring 2 has 5, ring 3 has 7, etc.
   }
 
   return positions;
 }
+
+// Usage Example:
+const CANVAS_WIDTH = 2800;
+const CANVAS_HEIGHT = 2400;
+const MAX_ITEM_WIDTH = 350;
+const MAX_ITEM_HEIGHT = 300;
+const SPACING = 20;
+
+const positions = generateNonOverlappingPositions(
+  8, // number of items
+  CANVAS_WIDTH,
+  CANVAS_HEIGHT,
+  MAX_ITEM_WIDTH,
+  MAX_ITEM_HEIGHT,
+  SPACING
+);
+
+console.log("Final positions:", positions);
+
 
 const Showcase: React.FC = () => {
   const items: ShowcaseItem[] = [
@@ -135,8 +261,8 @@ const Showcase: React.FC = () => {
   ];
 
   // Canvas = "map" we can drag around.
-  const CANVAS_WIDTH = 1800;
-  const CANVAS_HEIGHT = 1400;
+  const CANVAS_WIDTH = 2800;
+  const CANVAS_HEIGHT = 2400;
 
   const MAX_ITEM_WIDTH = 350; // Adjust as needed
   const MAX_ITEM_HEIGHT = 300; // Adjust as needed
@@ -209,33 +335,30 @@ const Showcase: React.FC = () => {
       const viewportHeight = outerRef.current.clientHeight;
       setViewportWidth(viewportWidth);
       setViewportHeight(viewportHeight);
-      console.log('Viewport size:', viewportWidth, viewportHeight);
 
       // Calculate initial offset to center the canvas
       const initialOffsetX = (viewportWidth - CANVAS_WIDTH) / 2;
       const initialOffsetY = (viewportHeight - CANVAS_HEIGHT) / 2;
       setOffset({ x: initialOffsetX, y: initialOffsetY });
-      console.log('Initial offset:', initialOffsetX, initialOffsetY);
     }
 
-    // const randomPositions = generateNonOverlappingPositions(
-    //   items.length,
-    //   CANVAS_WIDTH,
-    //   CANVAS_HEIGHT,
-    //   ITEM_WIDTH,
-    //   ITEM_HEIGHT,
-    //   SPACING,
-    //   MAX_DISTANCE_BETWEEN_ITEMS
-    // );
+    const randomPositions = generateNonOverlappingPositions(
+      items.length,
+      CANVAS_WIDTH,
+      CANVAS_HEIGHT,
+      MAX_ITEM_WIDTH + SPACING,
+      MAX_ITEM_HEIGHT + SPACING,
+      SPACING
+    );
 
-    // const newPositions = randomPositions.map((pos, idx) => ({
-    //   ...pos,
-    //   id: items[idx].id,
-    // }));
+    const newPositions = randomPositions.map((pos, idx) => ({
+      ...pos,
+      id: items[idx].id,
+    }));
 
-    // setPositions(newPositions);
-    // console.log('New positions:', newPositions);
-    setPositions(fixedPositions);
+    setPositions(newPositions);
+    console.log('New positions:', newPositions);
+    // setPositions(fixedPositions);
   }, []);
 
   // DRAG handlers
@@ -279,6 +402,67 @@ const Showcase: React.FC = () => {
     setDragging(false);
   };
 
+  // Touch handlers
+  const handleTouchStart = (e: React.TouchEvent) => {
+    if (e.touches.length === 1) {
+      setDragging(true);
+      setLastPos({ x: e.touches[0].clientX, y: e.touches[0].clientY });
+    }
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (!dragging || e.touches.length !== 1) return;
+    const dx = e.touches[0].clientX - lastPos.x;
+    const dy = e.touches[0].clientY - lastPos.y;
+
+    setOffset(prev => {
+      // Proposed new offset
+      let newX = prev.x + dx;
+      let newY = prev.y + dy;
+
+      // Clamp so we don’t drag outside
+      const minX = viewportWidth - CANVAS_WIDTH;
+      const maxX = 0;
+      const minY = viewportHeight - CANVAS_HEIGHT;
+      const maxY = 0;
+
+      if (newX < minX) newX = minX;
+      if (newX > maxX) newX = maxX;
+      if (newY < minY) newY = minY;
+      if (newY > maxY) newY = maxY;
+
+      return { x: newX, y: newY };
+    });
+
+    setLastPos({ x: e.touches[0].clientX, y: e.touches[0].clientY });
+  };
+
+  const handleTouchEnd = () => {
+    setDragging(false);
+  };
+
+  // Scroll handlers
+  const handleWheel = (e: React.WheelEvent) => {
+    setOffset(prev => {
+      // Proposed new offset
+      let newX = prev.x - e.deltaX;
+      let newY = prev.y - e.deltaY;
+
+      // Clamp so we don’t drag outside
+      const minX = viewportWidth - CANVAS_WIDTH;
+      const maxX = 0;
+      const minY = viewportHeight - CANVAS_HEIGHT;
+      const maxY = 0;
+
+      if (newX < minX) newX = minX;
+      if (newX > maxX) newX = maxX;
+      if (newY < minY) newY = minY;
+      if (newY > maxY) newY = maxY;
+
+      return { x: newX, y: newY };
+    });
+  };
+
   return (
     <div
       ref={outerRef}
@@ -294,6 +478,10 @@ const Showcase: React.FC = () => {
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
       onMouseLeave={handleMouseLeave}
+      onWheel={handleWheel}
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
     >
       <div
         style={{
