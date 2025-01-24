@@ -7,7 +7,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/inter-ui/inter.css">
 	<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-	<title>Open call - Global Show Tell</title>
+	<title>open call</title>
 	<meta name="viewport"
 		content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no,viewport-fit=cover">
 	<script>
@@ -29,393 +29,397 @@
 
 
 	<style>
-		* {
-			padding: 0;
-			margin: 0;
-		}
+        * {
+            padding: 0;
+            margin: 0;
+        }
 
-		body {
-			font-family: 'Inter', sans-serif;
-			color: #333;
-		}
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #333;
+        }
 
-		.page-body {
-			width: 100%;
-			/* overflow-x: auto; */
-		}
+        .page-body {
+            width: 100%;
+            /* overflow-x: auto; */
+        }
 
-		.li-box {
-			height: 610px;
-			width: 100%;
-			position: relative;
-			z-index: 1;
-		}
+        .li-box {
+            height: 610px;
+            width: 100%;
+            position: relative;
+            z-index: 1;
+        }
 
-		.zhuti {
-			height: 600px;
-			margin: 0px 0;
-			position: relative;
-			/* padding-bottom: 100px; */
-		}
+        .zhuti {
+            height: 600px;
+            margin: 0px 0;
+            position: relative;
+            /* padding-bottom: 100px; */
+        }
 
-		.shadow-title {
-			position: sticky;
-			z-index: -1;
-			left: 20px;
-			top: 0;
-			color: #000;
-		}
+        .shadow-title {
+            position: sticky;
+            z-index: -1;
+            left: 20px;
+            top: 0;
+            color: #000;
+        }
 
-		.title-text-bg {
-			background: url('/opencall/assets/title-text.png');
-			width: calc(942px /1.8);
-			height: calc(545px /1.8);
-			background-size: 100% 100%;
-		}
+        .title-text-bg {
+            background: url('/opencall/assets/title-text.png');
+            width: calc(942px /2);
+            height: calc(545px /2);
+            background-size: 100% 100%;
+        }
 
-		.center-box {
-			height: 300px;
-			margin-top: -60px;
-			position: relative;
-			z-index: 1;
-		}
+        .center-box {
+            height: 300px;
+            margin-top: -60px;
+            position: relative;
+            z-index: 1;
+        }
 
-		.img-bg {
-			background: url('/opencall/assets/head-bg-all.jpg');
-			height: 310px;
-		}
+        .img-bg {
+            background: url('/opencall/assets/head-bg-all.png') no-repeat;
+            width: 100%;
+            height: 310px;
+			background-size: cover;
+        }
 
-		.on-shadow-title-box {
-			position: absolute;
-			z-index: 3;
-			top: 0;
-			left: 0;
-			width: 100%;
-			height: 600px;
-			pointer-events: none;
+        .on-shadow-title-box {
+            position: absolute;
+            z-index: 3;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 600px;
+            pointer-events: none;
 
-		}
+        }
 
-		.on-shadow-title-bg {
-			position: sticky;
-			z-index: -1;
-			left: 0;
-			top: 0;
-			background: url('/opencall/assets/title-shadow.png');
-			width: calc(971px /1.8);
-			height: calc(531px /1.8);
-			background-size: 100% 100%;
-		}
+        .on-shadow-title-bg {
+            position: sticky;
+            z-index: -1;
+            left: 0;
+            top: 0;
+            background: url('/opencall/assets/title-shadow.png');
+            width: calc(971px /2);
+            height: calc(531px /2);
+            background-size: 100% 100%;
+        }
 
-		.content {
-			position: relative;
-			top: 0;
-			/* opacity: 0; */
-			left: 0;
-			right: 0;
-			margin: 0 auto;
-			margin-bottom: 150px;
-			font-family: 'Inter', sans-serif;
-		}
-
-
-		::-webkit-scrollbar {
-			width: 0px;
-			/*  */
-			/* 纵向滚动条的宽度 */
-			/* height: 10px; */
-			/* 横向滚动条的高度 */
-		}
-
-		.tab-box {
-			padding: 30px 63px;
-			max-width: 1414px;
-			/* min-width: 954px; */
-			margin: 0px auto;
-			display: flex;
-			gap: 20px;
-
-		}
-
-		.tab-item {
-			padding: 0 40px;
-			height: 57px;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			border: 2px solid rgba(0, 0, 0, 1);
-			color: #000;
-			border-radius: 50px;
-			cursor: pointer;
-			white-space: nowrap;
-			flex: 0;
-			font-size: 32px;
-			text-align: center;
-			font-family: 'Inter', sans-serif;
-		}
-
-		.tab-box .active {
-			animation: active 0.75s forwards linear;
-		}
-
-		.tab-box .normal {
-			animation: noActive 0.75s forwards linear;
-		}
-
-		.paragraph-box {
-			padding: 12px 63px;
-			/* min-width: 954px; */
-			max-width: 1414px;
-			display: block;
-			margin: 0 auto;
-			font-size: 20px;
-		}
+        .content {
+            position: relative;
+            top: 0;
+            /* opacity: 0; */
+            left: 0;
+            right: 0;
+            margin: 0 auto;
+            margin-bottom: 150px;
+            font-family: 'Inter', sans-serif;
+        }
 
 
-		.paragraph-box p {
-			margin-bottom: 20px;
-			font-size: 20px;
-			font-family: 'Inter', sans-serif;
-		}
+        ::-webkit-scrollbar {
+            width: 0px;
+            /*  */
+            /* 纵向滚动条的宽度 */
+            /* height: 10px; */
+            /* 横向滚动条的高度 */
+        }
 
-		.group-class {
-			margin-bottom: 20px;
-		}
+        .tab-box {
+            padding: 20px 63px;
+            max-width: 1414px;
+            /* min-width: 954px; */
+            margin: 0px auto;
+            display: flex;
+            gap: 20px;
 
-		.group-class p {
-			margin-bottom: 0;
-			font-family: 'Inter', sans-serif;
-		}
+        }
 
-		.paragraph-box .title {
-			color: rgba(184, 184, 18, 1);
-			font-size: 42px;
-			font-weight: 500;
-			line-height: 89px;
-		}
+        .tab-item {
+            padding: 0 40px;
+            height: 57px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid rgba(0, 0, 0, 1);
+            color: #000;
+            border-radius: 50px;
+            cursor: pointer;
+            white-space: nowrap;
+            flex: 0;
+            font-size: 32px;
+            text-align: center;
+            font-family: 'Inter', sans-serif;
+        }
 
-		.paragraph-box b {
-			font-weight: 700;
-		}
+        .tab-box .active {
+            animation: active 0.75s forwards linear;
+        }
 
-		.paragraph-box li {
-			font-size: 20px;
-		}
+        .tab-box .normal {
+            animation: noActive 0.75s forwards linear;
+        }
 
-		.paragraph-box a {
-			color: #000;
-		}
-
-		@keyframes active {
-
-			/* from表示动画的开始位置，也可以使用0%来表示。 */
-			from {}
-
-			/* to表示动画的结束位置，也可以使用100%来表示。 */
-			to {
-				flex: 1;
-				border: 2px solid rgba(234, 234, 36, 1);
-				background: rgba(234, 234, 36, 1);
-				font-weight: 600;
-			}
-		}
-
-		@keyframes noActive {
-
-			/* from表示动画的开始位置，也可以使用0%来表示。 */
-			from {
-				flex: 1
-			}
-
-			/* to表示动画的结束位置，也可以使用100%来表示。 */
-			to {
-				border: 2px solid rgba(0, 0, 0, 1);
-				background: #ffffff;
-				font-weight: 400;
-			}
-		}
-
-		@keyframes activeforMax1080 {
-
-			/* from表示动画的开始位置，也可以使用0%来表示。 */
-			from {}
-
-			/* to表示动画的结束位置，也可以使用100%来表示。 */
-			to {
-				width: calc(100% - 72px);
-				border: 2px solid rgba(234, 234, 36, 1);
-				background: rgba(234, 234, 36, 1);
-				font-weight: 600;
-			}
-		}
-
-		@keyframes noActiveforMax1080 {
-
-			/* from表示动画的开始位置，也可以使用0%来表示。 */
-			from {
-				width: calc(100% - 72px);
-			}
-
-			/* to表示动画的结束位置，也可以使用100%来表示。 */
-			to {
-				border: 2px solid rgba(0, 0, 0, 1);
-				background: #ffffff;
-				font-weight: 400;
-			}
-		}
+        .paragraph-box {
+            padding: 12px 63px;
+            /* min-width: 954px; */
+            max-width: 1414px;
+            display: block;
+            margin: 0 auto;
+            font-size: 20px;
+        }
 
 
-		@media screen and (max-width:1080px) and (min-width:768px) {
+        .paragraph-box p {
+            margin-bottom: 20px;
+            font-size: 20px;
+            font-family: 'Inter', sans-serif;
+            line-height: 1.3;
+        }
 
-			.tab-box {
-				padding: 0.2rem 0.36rem;
-				max-width: 1414px;
-				/* min-width: 954px; */
-				margin: 0 auto;
-				display: flex;
-				flex-direction: column;
-				gap: 0;
-				font-size: 0;
-			}
+        .group-class {
+            margin-bottom: 20px;
+        }
 
-			.tab-item {
-				padding: 0 40px;
-				height: 57px;
-				line-height: 57px;
-				display: inline-table;
-				align-items: center;
-				justify-content: center;
-				border: 2px solid rgba(0, 0, 0, 1);
-				color: #000;
-				border-radius: 50px;
-				cursor: pointer;
-				white-space: nowrap;
-				flex: 0;
-				font-size: 0.2rem;
-				text-align: center;
-			}
+        .group-class p {
+            margin-bottom: 0;
+            font-family: 'Inter', sans-serif;
+        }
 
-			.tab-box .normal {
-				animation: noActiveforMax1080 0.75s forwards linear;
-				margin-bottom: 10px;
-			}
+        .paragraph-box .title {
+            color: rgba(184, 184, 18, 1);
+            font-size: 42px;
+            font-weight: 500;
+            line-height: 89px;
+        }
 
-			.tab-box .active {
-				animation: activeforMax1080 0.75s forwards linear;
-				margin-bottom: 10px;
-			}
+        .paragraph-box b {
+            font-weight: 700;
+        }
 
-			.paragraph-box {
-				padding: 20px 63px;
-				/* min-width: 954px; */
-				max-width: 1414px;
-				display: block;
-				margin: 0 auto;
-				font-size: 20px;
-			}
-		}
+        .paragraph-box li {
+            font-size: 20px;
+        }
 
-		@media screen and (max-width:640px) {
-			.li-box {
-				height: 14rem;
-			}
+        .paragraph-box a {
+            color: #000;
+        }
 
-			.zhuti {
-				height: 13rem;
-			}
+        @keyframes active {
 
-			.on-shadow-title-box {
-				height: 13rem;
-			}
+            /* from表示动画的开始位置，也可以使用0%来表示。 */
+            from {}
 
-			.center-box {
-				height: 9.6rem;
-				margin-top: -0.6rem;
-			}
+            /* to表示动画的结束位置，也可以使用100%来表示。 */
+            to {
+                flex: 1;
+                border: 2px solid rgba(234, 234, 36, 1);
+                background: rgba(234, 234, 36, 1);
+                font-weight: 600;
+            }
+        }
 
-			.img-bg {
-				height: 9.5rem;
-			}
+        @keyframes noActive {
 
-			.title-text-bg {
-				background: url('/opencall/assets/title-text.png');
-				width: calc(9.42rem /2);
-				height: calc(5.45rem /2);
-				background-size: 100% 100%;
-			}
+            /* from表示动画的开始位置，也可以使用0%来表示。 */
+            from {
+                flex: 1
+            }
 
-			.on-shadow-title-bg {
-				position: sticky;
-				z-index: -1;
-				left: 0;
-				top: 0;
-				background: url('/opencall/assets/title-shadow.png');
-				width: calc(9.71rem /2);
-				height: calc(5.31rem /2);
-				background-size: 100% 100%;
-			}
+            /* to表示动画的结束位置，也可以使用100%来表示。 */
+            to {
+                border: 2px solid rgba(0, 0, 0, 1);
+                background: #ffffff;
+                font-weight: 400;
+            }
+        }
 
-			.tab-box {
-				padding: 0.3rem 0.36rem;
-				max-width: 1414px;
-				/* min-width: 954px; */
-				margin: 0 auto;
-				display: flex;
-				flex-direction: column;
-				font-size: 0;
-				gap: 0
-			}
+        @keyframes activeforMax1080 {
 
-			.tab-item {
-				padding: 0 40px;
-				height: 57px;
-				line-height: 57px;
-				display: inline-table;
-				width: auto;
-				align-items: center;
-				justify-content: center;
-				border: 2px solid rgba(0, 0, 0, 1);
-				color: #000;
-				border-radius: 50px;
-				cursor: pointer;
-				font-size: 0.32rem;
+            /* from表示动画的开始位置，也可以使用0%来表示。 */
+            from {}
 
-				text-align: center;
-			}
+            /* to表示动画的结束位置，也可以使用100%来表示。 */
+            to {
+                width: calc(100% - 72px);
+                border: 2px solid rgba(234, 234, 36, 1);
+                background: rgba(234, 234, 36, 1);
+                font-weight: 600;
+            }
+        }
 
-			.tab-box .normal {
-				animation: noActiveforMax1080 0.75s forwards linear;
-				margin-bottom: 10px;
-			}
+        @keyframes noActiveforMax1080 {
 
-			.tab-box .active {
-				animation: activeforMax1080 0.75s forwards linear;
-				margin-bottom: 10px;
-			}
+            /* from表示动画的开始位置，也可以使用0%来表示。 */
+            from {
+                width: calc(100% - 72px);
+            }
 
-			.paragraph-box {
-				padding: 0.3rem 0.24rem;
-				/* min-width: 954px; */
-				max-width: 1414px;
-				display: block;
-				margin: 0 auto;
-				font-size: 0.2rem;
-			}
+            /* to表示动画的结束位置，也可以使用100%来表示。 */
+            to {
+                border: 2px solid rgba(0, 0, 0, 1);
+                background: #ffffff;
+                font-weight: 400;
+            }
+        }
 
-			.paragraph-box p {
-				margin-bottom: 0.2rem;
-				font-size: 0.3rem;
-			}
 
-			.paragraph-box .title {
-				font-size: 0.42rem;
-				line-height: 0.89rem;
-			}
+        @media screen and (max-width:1080px) and (min-width:768px) {
 
-			.paragraph-box li {
-				font-size: 0.3rem;
-			}
-		}
+            .tab-box {
+                padding: 0.2rem 0.36rem;
+                max-width: 1414px;
+                /* min-width: 954px; */
+                margin: 0 auto;
+                display: flex;
+                flex-direction: column;
+                gap: 0;
+                font-size: 0;
+            }
+
+            .tab-item {
+                padding: 0 40px;
+                height: 57px;
+                line-height: 57px;
+                display: inline-table;
+                align-items: center;
+                justify-content: center;
+                border: 2px solid rgba(0, 0, 0, 1);
+                color: #000;
+                border-radius: 50px;
+                cursor: pointer;
+                white-space: nowrap;
+                flex: 0;
+                font-size: 0.2rem;
+                text-align: center;
+            }
+
+            .tab-box .normal {
+                animation: noActiveforMax1080 0.75s forwards linear;
+                margin-bottom: 10px;
+            }
+
+            .tab-box .active {
+                animation: activeforMax1080 0.75s forwards linear;
+                margin-bottom: 10px;
+            }
+
+            .paragraph-box {
+                padding: 20px 63px;
+                /* min-width: 954px; */
+                max-width: 1414px;
+                display: block;
+                margin: 0 auto;
+                font-size: 20px;
+            }
+        }
+
+        @media screen and (max-width:640px) {
+            .li-box {
+                height: 6.1rem;
+            }
+
+            .zhuti {
+                height: 6rem;
+            }
+
+            .on-shadow-title-box {
+                height: 6rem;
+            }
+
+            .center-box {
+                height: 3rem;
+                margin-top: -0.6rem;
+            }
+
+            .img-bg {
+                height: 3rem;
+            }
+
+            .title-text-bg {
+                background: url('/opencall/assets/title-text.png');
+                width: calc(9.42rem /2);
+                height: calc(5.45rem /2);
+                background-size: 100% 100%;
+            }
+
+            .on-shadow-title-bg {
+                position: sticky;
+                z-index: -1;
+                left: 0;
+                top: 0;
+                background: url('/opencall/assets/title-shadow.png');
+                width: calc(9.71rem /2);
+                height: calc(5.31rem /2);
+                background-size: 100% 100%;
+            }
+
+            .tab-box {
+                padding: 0.2rem 0.36rem;
+                max-width: 1414px;
+                /* min-width: 954px; */
+                margin: 0 auto;
+                display: flex;
+                flex-direction: column;
+                font-size: 0;
+                gap: 0
+            }
+
+            .tab-item {
+                padding: 0 40px;
+                height: 57px;
+                line-height: 57px;
+                display: inline-table;
+                width: auto;
+                align-items: center;
+                justify-content: center;
+                border: 2px solid rgba(0, 0, 0, 1);
+                color: #000;
+                border-radius: 50px;
+                cursor: pointer;
+                font-size: 0.32rem;
+
+                text-align: center;
+            }
+
+            .tab-box .normal {
+                animation: noActiveforMax1080 0.75s forwards linear;
+                margin-bottom: 10px;
+            }
+
+            .tab-box .active {
+                animation: activeforMax1080 0.75s forwards linear;
+                margin-bottom: 10px;
+            }
+
+            .paragraph-box {
+                padding: 0.3rem 0.24rem;
+                /* min-width: 954px; */
+                max-width: 1414px;
+                display: block;
+                margin: 0 auto;
+                font-size: 0.2rem;
+            }
+
+            .paragraph-box p {
+                margin-bottom: 0.2rem;
+                font-size: 0.28rem;
+                line-height: 1.4;
+            }
+
+            .paragraph-box .title {
+                font-size: 0.42rem;
+                line-height: 0.89rem;
+            }
+
+            .paragraph-box li {
+                font-size: 0.3rem;
+            }
+        }
 	</style>
 </head>
 
