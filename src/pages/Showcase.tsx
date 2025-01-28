@@ -1,5 +1,7 @@
 import React, { useLayoutEffect, useRef, useState } from 'react';
 import showcaseSampleCover from '../assets/showcase-sample-cover.png';
+import SearchBox from '../components/SearchBox';
+
 
 interface ShowcaseItem {
   id: number;
@@ -249,6 +251,27 @@ console.log("Final positions:", positions);
 
 
 const Showcase: React.FC = () => {
+
+  // SearchBox
+  const [searchQuery, setSearchQuery] = useState('');
+  const [showResults, setShowResults] = useState(false);
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+  };
+
+  const handleSearchSubmit = () => {
+    setShowResults(true);
+  };
+
+  const handleBackToAll = () => {
+    setSearchQuery('');
+    setShowResults(false);
+  };
+
+
+  // Origin Niki's Code Starts from here
+
   const items: ShowcaseItem[] = [
     { id: 1, title: 'Live Diffusion', authors: 'Author A, Author B', size: { width: 380 } },
     { id: 2, title: 'Title of the work 2', authors: 'Authors' },
@@ -259,6 +282,11 @@ const Showcase: React.FC = () => {
     { id: 7, title: 'Title of the work 7', authors: 'Authors' },
     { id: 8, title: 'Title of the work 8', authors: 'Authors' },
   ];
+
+  const filteredItems = items.filter(item =>
+    item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    item.authors.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   // Canvas = "map" we can drag around.
   const CANVAS_WIDTH = 2800;
@@ -465,7 +493,7 @@ const Showcase: React.FC = () => {
 
   return (
     <div
-      ref={outerRef}
+      //ref={outerRef}
       style={{
         width: '100vw',
         height: '100vh',
@@ -483,6 +511,33 @@ const Showcase: React.FC = () => {
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
     >
+
+      {/* 添加 SearchBox */}
+      <SearchBox 
+        searchQuery={searchQuery} 
+        onSearchChange={handleSearchChange}
+        onSearchSubmit={handleSearchSubmit}
+        />
+      
+      {/* 如果 filteredItems 为空，显示 "No results" */}
+      {filteredItems.length === 0 ? (
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            height: '100%',
+            fontSize: '24px',
+            color: '#888',
+            backgroundColor: '#fff',
+          }}
+        >
+          <p>No results.</p>
+          <p>Please try something else :)</p>
+        </div>
+      ) : (
+
       <div
         style={{
           position: 'absolute',
@@ -492,8 +547,9 @@ const Showcase: React.FC = () => {
           transform: `translate(${offset.x}px, ${offset.y}px)`,
         }}
       >
+        
         {positions.map(pos => {
-          const item = items.find(i => i.id === pos.id);
+          const item = filteredItems.find(i => i.id === pos.id);
           if (!item) return null;
 
           const coverImagePath = `/showcase/${item.id}/cover.jpg`;
@@ -543,7 +599,8 @@ const Showcase: React.FC = () => {
           );
         })}
       </div>
-    </div >
+      )}
+    </div>
   );
 };
 
