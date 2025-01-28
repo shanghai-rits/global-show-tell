@@ -9,103 +9,6 @@ interface ShowcaseItem {
   authors: string;
   size?: { width?: number; height?: number };
 }
-
-// Helper: Check overlap between two items
-// rect1: (x1, y1, w, h), rect2: (x2, y2, w, h)
-// with an additional "spacing" margin so they don’t crowd each other.
-// function isOverlap(
-//   x1: number,
-//   y1: number,
-//   x2: number,
-//   y2: number,
-//   w: number,
-//   h: number,
-//   spacing: number
-// ): boolean {
-//   const noOverlap =
-//     x1 + w + spacing < x2 ||
-//     x2 + w + spacing < x1 ||
-//     y1 + h + spacing < y2 ||
-//     y2 + h + spacing < y1;
-
-//   return !noOverlap;
-// }
-
-// // Generate random positions for items so that they don’t overlap and
-// // each new item is within `maxDistance` of at least one placed item.
-// function generateNonOverlappingPositions(
-//   count: number,
-//   canvasWidth: number,
-//   canvasHeight: number,
-//   itemWidth: number,
-//   itemHeight: number,
-//   spacing: number
-// ): Array<{ x: number; y: number }> {
-//   const positions: Array<{ x: number; y: number }> = [];
-
-//   console.log('Generating positions for', count, 'items');
-
-//   // Center of the canvas
-//   const centerX = canvasWidth / 2;
-//   const centerY = canvasHeight / 2;
-
-//   // Radius increment for each circle layer
-//   const radiusIncrement = itemWidth + spacing;
-
-//   // Place the first item at the center
-//   positions.push({ x: centerX - itemWidth / 2, y: centerY - itemHeight / 2 });
-
-//   let currentRadius = radiusIncrement;
-//   let itemsInCurrentCircle = 3;
-
-//   for (let i = 1; i < count; i++) {
-//     console.log('Placing item', i);
-//     let placed = false;
-//     let tries = 0;
-
-//     while (!placed && tries < 10000) {
-//       tries++;
-//       // Calculate angle and position for the item
-//       const angle = Math.random() * 2 * Math.PI;
-//       const x = centerX + currentRadius * Math.cos(angle) - itemWidth / 2;
-//       const y = centerY + currentRadius * Math.sin(angle) - itemHeight / 2;
-
-//       // Check overlap
-//       let overlapFound = false;
-//       for (const pos of positions) {
-//         if (isOverlap(pos.x, pos.y, x, y, itemWidth, itemHeight, spacing)) {
-//           overlapFound = true;
-//           break;
-//         }
-//       }
-
-//       if (!overlapFound) {
-//         positions.push({ x, y });
-//         console.log('Placed item', i, 'at', x, y);
-//         placed = true;
-//       }
-
-//       tries++;
-//       // console.log('Tries:', tries);
-//     }
-
-//     // if ((i + 1) % itemsInCurrentCircle === 0) {
-//     //   currentRadius += radiusIncrement; // Increase radius more often
-//     // }
-
-//     // Move to the next circle layer if the current one is filled
-//     if (positions.length >= itemsInCurrentCircle) {
-//       currentRadius += radiusIncrement;
-//       itemsInCurrentCircle += 4;
-//       console.log('Moving to next circle layer:', currentRadius, 'Items in current circle:', itemsInCurrentCircle);
-//     }
-
-//     console.log('Current positions:', positions);
-//   }
-
-//   return positions;
-// }
-
 /**
  * Checks if two items (by top-left corner) with the same width/height/spacing overlap.
  * Adjust to fit your actual isOverlap function signature.
@@ -159,7 +62,7 @@ function generateNonOverlappingPositions(
   const centerY = canvasHeight / 2;
 
   // Radius increment for each ring
-  const radiusIncrement = itemWidth + spacing;
+  const radiusIncrement = 350 + spacing;
 
   // Place the first item in the center:
   positions.push({
@@ -175,7 +78,7 @@ function generateNonOverlappingPositions(
 
   // For demonstration, let’s say ring 1 can have 3 items, ring 2 can have 5, ring 3 can have 7, etc.
   // You can make this simpler or more complicated as you see fit.
-  let itemsInThisRing = 6;
+  let itemsInThisRing = 4;
 
   while (placedCount < count) {
     // How many items do we still need to place?
@@ -189,7 +92,7 @@ function generateNonOverlappingPositions(
 
     let placedThisRing = 0;
     let attempt = 0;
-    const maxAttempts = 1000; // Just to avoid infinite loops
+    const maxAttempts = 10000; // Just to avoid infinite loops
 
     // Keep trying angles until we've placed ringSlots or run out of attempts
     while (placedThisRing < ringSlots && attempt < maxAttempts) {
@@ -231,24 +134,6 @@ function generateNonOverlappingPositions(
   return positions;
 }
 
-// Usage Example:
-const CANVAS_WIDTH = 2800;
-const CANVAS_HEIGHT = 2400;
-const MAX_ITEM_WIDTH = 350;
-const MAX_ITEM_HEIGHT = 300;
-const SPACING = 20;
-
-const positions = generateNonOverlappingPositions(
-  8, // number of items
-  CANVAS_WIDTH,
-  CANVAS_HEIGHT,
-  MAX_ITEM_WIDTH,
-  MAX_ITEM_HEIGHT,
-  SPACING
-);
-
-console.log("Final positions:", positions);
-
 
 const Showcase: React.FC = () => {
 
@@ -273,7 +158,7 @@ const Showcase: React.FC = () => {
   // Origin Niki's Code Starts from here
 
   const items: ShowcaseItem[] = [
-    { id: 1, title: 'Live Diffusion', authors: 'Author A, Author B', size: { width: 380 } },
+    { id: 1, title: 'Live Diffusion', authors: 'Author A, Author B', size: { width: 600 } },
     { id: 2, title: 'Title of the work 2', authors: 'Authors' },
     { id: 3, title: 'Title of the work 3', authors: 'Authors' },
     { id: 4, title: 'Title of the work 4', authors: 'Authors' },
@@ -292,14 +177,11 @@ const Showcase: React.FC = () => {
   const CANVAS_WIDTH = 2800;
   const CANVAS_HEIGHT = 2400;
 
-  const MAX_ITEM_WIDTH = 350; // Adjust as needed
-  const MAX_ITEM_HEIGHT = 300; // Adjust as needed
+  const MAX_ITEM_WIDTH = 400; // Adjust as needed
+  const MAX_ITEM_HEIGHT = 400; // Adjust as needed
 
   // Extra gap so items don’t overlap
-  const SPACING = 20;
-
-  // New param: maximum distance to keep items “not too far” from at least one item
-  const MAX_DISTANCE_BETWEEN_ITEMS = 1000; // adjust as needed
+  const SPACING = 40;
 
   // Positions for each item
   const [positions, setPositions] = useState<{ x: number; y: number; id: number }[]>([]);
@@ -493,7 +375,7 @@ const Showcase: React.FC = () => {
 
   return (
     <div
-      //ref={outerRef}
+      ref={outerRef}
       style={{
         width: '100vw',
         height: '100vh',
@@ -513,12 +395,12 @@ const Showcase: React.FC = () => {
     >
 
       {/* 添加 SearchBox */}
-      <SearchBox 
-        searchQuery={searchQuery} 
+      <SearchBox
+        searchQuery={searchQuery}
         onSearchChange={handleSearchChange}
         onSearchSubmit={handleSearchSubmit}
-        />
-      
+      />
+
       {/* 如果 filteredItems 为空，显示 "No results" */}
       {filteredItems.length === 0 ? (
         <div
@@ -538,67 +420,67 @@ const Showcase: React.FC = () => {
         </div>
       ) : (
 
-      <div
-        style={{
-          position: 'absolute',
-          width: CANVAS_WIDTH,
-          height: CANVAS_HEIGHT,
-          backgroundColor: '#fff',
-          transform: `translate(${offset.x}px, ${offset.y}px)`,
-        }}
-      >
-        
-        {positions.map(pos => {
-          const item = filteredItems.find(i => i.id === pos.id);
-          if (!item) return null;
+        <div
+          style={{
+            position: 'absolute',
+            width: CANVAS_WIDTH,
+            height: CANVAS_HEIGHT,
+            backgroundColor: '#fff',
+            transform: `translate(${offset.x}px, ${offset.y}px)`,
+          }}
+        >
 
-          const coverImagePath = `/showcase/${item.id}/cover.jpg`;
+          {positions.map(pos => {
+            const item = filteredItems.find(i => i.id === pos.id);
+            if (!item) return null;
 
-          return (
-            <div
-              key={item.id}
-              style={{
-                position: 'absolute',
-                left: pos.x,
-                top: pos.y,
-                background: 'transparent',
-                // boxShadow: '0px 1px 4px rgba(0,0,0,0.2)',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'flex-start',
-                // alignItems: 'center',
-                borderRadius: 0,
-                overflow: 'hidden',
-                padding: 0,
-                margin: 0,
-              }}
-            >
-              <img
-                src={coverImagePath}
-                alt={`${item.title} cover`}
-                onError={(e) => { e.currentTarget.src = showcaseSampleCover; }}
-                onDragStart={(e) => e.preventDefault()}
+            const coverImagePath = `/showcase/${item.id}/cover.jpg`;
+
+            return (
+              <div
+                key={item.id}
                 style={{
-                  width: '100%',
-                  height: 'auto',
-                  maxWidth: item.size?.width ?? MAX_ITEM_WIDTH,
-                  maxHeight: item.size?.height ?? MAX_ITEM_HEIGHT,
-                  objectFit: 'cover',
-                  margin: 0,
+                  position: 'absolute',
+                  left: pos.x,
+                  top: pos.y,
+                  background: 'transparent',
+                  // boxShadow: '0px 1px 4px rgba(0,0,0,0.2)',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'flex-start',
+                  // alignItems: 'center',
+                  borderRadius: 0,
+                  overflow: 'hidden',
                   padding: 0,
-                  boxShadow: '0px 1px 4px 0px rgba(0,0,0,0.2)',
+                  margin: 0,
                 }}
-              />
-              <div style={{ lineHeight: '1', marginTop: '15px', fontFamily: 'inter', fontSize: '32px', fontWeight: 'unset', color: 'rgba(128, 128, 128, 1)' }}>
-                {item.title}
+              >
+                <img
+                  src={coverImagePath}
+                  alt={`${item.title} cover`}
+                  onError={(e) => { e.currentTarget.src = showcaseSampleCover; }}
+                  onDragStart={(e) => e.preventDefault()}
+                  style={{
+                    width: '100%',
+                    height: 'auto',
+                    maxWidth: item.size?.width ?? MAX_ITEM_WIDTH,
+                    maxHeight: item.size?.height ?? MAX_ITEM_HEIGHT,
+                    objectFit: 'cover',
+                    margin: 0,
+                    padding: 0,
+                    boxShadow: '0px 1px 4px 0px rgba(0,0,0,0.2)',
+                  }}
+                />
+                <div style={{ lineHeight: '1', marginTop: '15px', fontFamily: 'inter', fontSize: '32px', fontWeight: 'unset', color: 'rgba(128, 128, 128, 1)' }}>
+                  {item.title}
+                </div>
+                <div style={{ marginTop: '5px', marginLeft: '2px', color: 'rgba(128, 128, 128, 1)', fontSize: '20px' }}>
+                  {item.authors}
+                </div>
               </div>
-              <div style={{ marginTop: '5px', marginLeft: '2px', color: 'rgba(128, 128, 128, 1)', fontSize: '20px' }}>
-                {item.authors}
-              </div>
-            </div>
-          );
-        })}
-      </div>
+            );
+          })}
+        </div>
       )}
     </div>
   );
