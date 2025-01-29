@@ -1,5 +1,6 @@
 import React, { useLayoutEffect, useRef, useState } from 'react';
 import showcaseSampleCover from '../assets/showcase-sample-cover.png';
+import Navbar from '../components/Navbar/Navbar';
 import SearchBox from '../components/SearchBox';
 
 
@@ -62,7 +63,7 @@ function generateNonOverlappingPositions(
   const centerY = canvasHeight / 2;
 
   // Radius increment for each ring
-  const radiusIncrement = 350 + spacing;
+  const radiusIncrement = 250 + spacing;
 
   // Place the first item in the center:
   positions.push({
@@ -154,11 +155,8 @@ const Showcase: React.FC = () => {
     setShowResults(false);
   };
 
-
-  // Origin Niki's Code Starts from here
-
   const items: ShowcaseItem[] = [
-    { id: 1, title: 'Live Diffusion', authors: 'Author A, Author B', size: { width: 600 } },
+    { id: 1, title: 'Live Diffusion', authors: 'Author A, Author B', size: { width: 420 } },
     { id: 2, title: 'Title of the work 2', authors: 'Authors' },
     { id: 3, title: 'Title of the work 3', authors: 'Authors' },
     { id: 4, title: 'Title of the work 4', authors: 'Authors' },
@@ -374,114 +372,119 @@ const Showcase: React.FC = () => {
   };
 
   return (
-    <div
-      ref={outerRef}
-      style={{
-        width: '100vw',
-        height: '100vh',
-        overflow: 'hidden',
-        position: 'inherit',
-        cursor: dragging ? 'grabbing' : 'grab',
-        userSelect: 'none',
-      }}
-      onMouseDown={handleMouseDown}
-      onMouseMove={handleMouseMove}
-      onMouseUp={handleMouseUp}
-      onMouseLeave={handleMouseLeave}
-      onWheel={handleWheel}
-      onTouchStart={handleTouchStart}
-      onTouchMove={handleTouchMove}
-      onTouchEnd={handleTouchEnd}
-    >
+    <div>
+      <div style={{ position: 'fixed', zIndex: 999 }}>
+        <Navbar />
+      </div>
+      <div
+        ref={outerRef}
+        style={{
+          width: '100vw',
+          height: '100vh',
+          overflow: 'hidden',
+          position: 'inherit',
+          cursor: dragging ? 'grabbing' : 'grab',
+          userSelect: 'none',
+        }}
+        onMouseDown={handleMouseDown}
+        onMouseMove={handleMouseMove}
+        onMouseUp={handleMouseUp}
+        onMouseLeave={handleMouseLeave}
+        onWheel={handleWheel}
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+      >
 
-      {/* 添加 SearchBox */}
-      <SearchBox
-        searchQuery={searchQuery}
-        onSearchChange={handleSearchChange}
-        onSearchSubmit={handleSearchSubmit}
-      />
+        {/* 添加 SearchBox */}
+        <SearchBox
+          searchQuery={searchQuery}
+          onSearchChange={handleSearchChange}
+          onSearchSubmit={handleSearchSubmit}
+        />
 
-      {/* 如果 filteredItems 为空，显示 "No results" */}
-      {filteredItems.length === 0 ? (
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-            height: '100%',
-            fontSize: '24px',
-            color: '#888',
-            backgroundColor: '#fff',
-          }}
-        >
-          <p>No results.</p>
-          <p>Please try something else :)</p>
-        </div>
-      ) : (
+        {/* 如果 filteredItems 为空，显示 "No results" */}
+        {filteredItems.length === 0 ? (
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              height: '100%',
+              fontSize: '24px',
+              color: '#888',
+              backgroundColor: '#fff',
+            }}
+          >
+            <p>No results.</p>
+            <p>Please try something else :)</p>
+          </div>
+        ) : (
 
-        <div
-          style={{
-            position: 'absolute',
-            width: CANVAS_WIDTH,
-            height: CANVAS_HEIGHT,
-            backgroundColor: '#fff',
-            transform: `translate(${offset.x}px, ${offset.y}px)`,
-          }}
-        >
+          <div
+            style={{
+              position: 'absolute',
+              width: CANVAS_WIDTH,
+              height: CANVAS_HEIGHT,
+              backgroundColor: '#fff',
+              transform: `translate(${offset.x}px, ${offset.y}px)`,
+            }}
+          >
 
-          {positions.map(pos => {
-            const item = filteredItems.find(i => i.id === pos.id);
-            if (!item) return null;
+            {positions.map(pos => {
+              const item = filteredItems.find(i => i.id === pos.id);
+              if (!item) return null;
 
-            const coverImagePath = `/showcase/${item.id}/cover.jpg`;
+              const coverImagePath = `/showcase/${item.id}/cover.jpg`;
 
-            return (
-              <div
-                key={item.id}
-                style={{
-                  position: 'absolute',
-                  left: pos.x,
-                  top: pos.y,
-                  background: 'transparent',
-                  // boxShadow: '0px 1px 4px rgba(0,0,0,0.2)',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'flex-start',
-                  // alignItems: 'center',
-                  borderRadius: 0,
-                  overflow: 'hidden',
-                  padding: 0,
-                  margin: 0,
-                }}
-              >
-                <img
-                  src={coverImagePath}
-                  alt={`${item.title} cover`}
-                  onError={(e) => { e.currentTarget.src = showcaseSampleCover; }}
-                  onDragStart={(e) => e.preventDefault()}
+              return (
+                <div
+                  key={item.id}
                   style={{
-                    width: '100%',
-                    height: 'auto',
-                    maxWidth: item.size?.width ?? MAX_ITEM_WIDTH,
-                    maxHeight: item.size?.height ?? MAX_ITEM_HEIGHT,
-                    objectFit: 'cover',
-                    margin: 0,
+                    position: 'absolute',
+                    left: pos.x,
+                    top: pos.y,
+                    background: 'transparent',
+                    // boxShadow: '0px 1px 4px rgba(0,0,0,0.2)',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'flex-start',
+                    // alignItems: 'center',
+                    borderRadius: 0,
+                    overflow: 'hidden',
                     padding: 0,
-                    boxShadow: '0px 1px 4px 0px rgba(0,0,0,0.2)',
+                    margin: 0,
                   }}
-                />
-                <div style={{ lineHeight: '1', marginTop: '15px', fontFamily: 'inter', fontSize: '32px', fontWeight: 'unset', color: 'rgba(128, 128, 128, 1)' }}>
-                  {item.title}
+                >
+                  <img
+                    src={coverImagePath}
+                    alt={`${item.title} cover`}
+                    onError={(e) => { e.currentTarget.src = showcaseSampleCover; }}
+                    onDragStart={(e) => e.preventDefault()}
+                    style={{
+                      width: '100%',
+                      height: 'auto',
+                      maxWidth: item.size?.width ?? MAX_ITEM_WIDTH,
+                      maxHeight: item.size?.height ?? MAX_ITEM_HEIGHT,
+                      objectFit: 'cover',
+                      margin: 0,
+                      padding: 0,
+                      boxShadow: '0px 1px 4px 0px rgba(0,0,0,0.2)',
+                    }}
+                  />
+                  <div style={{ lineHeight: '1', marginTop: '15px', fontFamily: 'inter', fontSize: '32px', fontWeight: 'unset', color: 'rgba(128, 128, 128, 1)' }}>
+                    {item.title}
+                  </div>
+                  <div style={{ marginTop: '5px', marginLeft: '2px', color: 'rgba(128, 128, 128, 1)', fontSize: '20px' }}>
+                    {item.authors}
+                  </div>
                 </div>
-                <div style={{ marginTop: '5px', marginLeft: '2px', color: 'rgba(128, 128, 128, 1)', fontSize: '20px' }}>
-                  {item.authors}
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      )}
+              );
+            })}
+          </div>
+        )}
+      </div>
     </div>
   );
 };
