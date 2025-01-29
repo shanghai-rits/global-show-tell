@@ -141,6 +141,7 @@ const Showcase: React.FC = () => {
   // SearchBox
   const [searchQuery, setSearchQuery] = useState('');
   const [showResults, setShowResults] = useState(false);
+  const [filteredShowcaseItems, setFilteredShowcaseItems] = useState<ShowcaseItem[]>([]);
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
@@ -148,6 +149,12 @@ const Showcase: React.FC = () => {
 
   const handleSearchSubmit = () => {
     setShowResults(true);
+    const filteredItems = items.filter(item =>
+      item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      item.authors.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+    setFilteredShowcaseItems(filteredItems);
+    setSearchQuery('');
   };
 
   const handleBackToAll = () => {
@@ -165,11 +172,6 @@ const Showcase: React.FC = () => {
     { id: 7, title: 'Title of the work 7', authors: 'Authors' },
     { id: 8, title: 'Title of the work 8', authors: 'Authors' },
   ];
-
-  const filteredItems = items.filter(item =>
-    item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    item.authors.toLowerCase().includes(searchQuery.toLowerCase())
-  );
 
   // Canvas = "map" we can drag around.
   const CANVAS_WIDTH = 2800;
@@ -193,51 +195,9 @@ const Showcase: React.FC = () => {
   const outerRef = useRef<HTMLDivElement>(null);
   const [viewportWidth, setViewportWidth] = useState(0);
   const [viewportHeight, setViewportHeight] = useState(0);
-  const fixedPositions = [
-    {
-      "x": 411.2581214840093,
-      "y": 218.01766202246705,
-      "id": 1
-    },
-    {
-      "x": 712.2670939017127,
-      "y": 549.7696963522071,
-      "id": 2
-    },
-    {
-      "x": 629.3493010496919,
-      "y": 296.40964317019785,
-      "id": 3
-    },
-    {
-      "x": 180.07582196936465,
-      "y": 625.9928869502138,
-      "id": 4
-    },
-    {
-      "x": 847.3830424818209,
-      "y": 15.734847024023413,
-      "id": 5
-    },
-    {
-      "x": 465.34384394703443,
-      "y": 736.9221227671995,
-      "id": 6
-    },
-    {
-      "x": 23.741773541528133,
-      "y": 32.98154229677599,
-      "id": 7
-    },
-    {
-      "x": 979.3795868985238,
-      "y": 318.41769726377214,
-      "id": 8
-    }
-  ]
-
 
   useLayoutEffect(() => {
+    setFilteredShowcaseItems(items);
     if (outerRef.current) {
       const viewportWidth = outerRef.current.clientWidth;
       const viewportHeight = outerRef.current.clientHeight;
@@ -376,52 +336,109 @@ const Showcase: React.FC = () => {
       <div style={{ position: 'fixed', zIndex: 999 }}>
         <Navbar />
       </div>
-      <div
-        ref={outerRef}
-        style={{
-          width: '100vw',
-          height: '100vh',
-          overflow: 'hidden',
-          position: 'inherit',
-          cursor: dragging ? 'grabbing' : 'grab',
-          userSelect: 'none',
-        }}
-        onMouseDown={handleMouseDown}
-        onMouseMove={handleMouseMove}
-        onMouseUp={handleMouseUp}
-        onMouseLeave={handleMouseLeave}
-        onWheel={handleWheel}
-        onTouchStart={handleTouchStart}
-        onTouchMove={handleTouchMove}
-        onTouchEnd={handleTouchEnd}
-      >
+      {/* 添加 SearchBox */}
+      <SearchBox
+        searchQuery={searchQuery}
+        onSearchChange={handleSearchChange}
+        onSearchSubmit={handleSearchSubmit}
+      />
+      {showResults && (
+        <button onClick={handleBackToAll}>Show All Works</button>
+      )}
 
-        {/* 添加 SearchBox */}
-        <SearchBox
-          searchQuery={searchQuery}
-          onSearchChange={handleSearchChange}
-          onSearchSubmit={handleSearchSubmit}
-        />
-
-        {/* 如果 filteredItems 为空，显示 "No results" */}
-        {filteredItems.length === 0 ? (
+      {showResults && (
+        filteredShowcaseItems.length === 0 ? (
           <div
             style={{
-              display: 'flex',
+              display: 'flex-start',
               flexDirection: 'column',
               alignItems: 'center',
               justifyContent: 'center',
               height: '100%',
-              fontSize: '24px',
+              fontSize: '32px',
               color: '#888',
               backgroundColor: '#fff',
+              width: '100vw',
             }}
           >
-            <p>No results.</p>
-            <p>Please try something else :)</p>
+            <div>No results.</div>
+            <div>Please try something else :)</div>
           </div>
         ) : (
+          // show the filteredShowcaseItems in a grid layout
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
+              gap: '50px',
+              padding: '20px',
+              backgroundColor: '#fff',
+              margin: '50px',
+              width: '90vw',
+            }}
+          >
+            {filteredShowcaseItems.map(item => (
+              <div
+                key={item.id}
+                style={{
+                  background: 'transparent',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  borderRadius: 0,
+                  padding: 0,
+                  margin: 0,
+                  // height: '100vh',
+                }}
+              >
+                <img
+                  src={`/showcase/${item.id}/cover.jpg`}
+                  alt={`${item.title} cover`}
+                  onError={(e) => { e.currentTarget.src = showcaseSampleCover; }}
+                  onDragStart={(e) => e.preventDefault()}
+                  style={{
+                    width: '100%',
+                    height: 'auto',
+                    maxWidth: item.size?.width ?? MAX_ITEM_WIDTH,
+                    maxHeight: item.size?.height ?? MAX_ITEM_HEIGHT,
+                    objectFit: 'cover',
+                    margin: 0,
+                    padding: 0,
+                    boxShadow: '0px 1px 4px 0px rgba(0,0,0,0.2)',
+                  }}
+                />
+                <div style={{ lineHeight: '1', marginTop: '15px', fontFamily: 'inter', fontSize: '22px', fontWeight: 'unset', color: 'rgba(128, 128, 128, 1)' }}>
+                  {item.title}
+                </div>
+                <div style={{ marginTop: '5px', marginLeft: '2px', color: 'rgba(128, 128, 128, 1)', fontSize: '15px' }}>
+                  {item.authors}
+                </div>
+              </div>
+            ))}
+          </div>
+        )
+      )}
 
+      {/* 如果 filteredItems 为空，显示 "No results" */}
+      {!showResults && (
+        <div
+          ref={outerRef}
+          style={{
+            width: '100vw',
+            height: '100vh',
+            overflow: 'hidden',
+            position: 'inherit',
+            cursor: dragging ? 'grabbing' : 'grab',
+            userSelect: 'none',
+          }}
+          onMouseDown={handleMouseDown}
+          onMouseMove={handleMouseMove}
+          onMouseUp={handleMouseUp}
+          onMouseLeave={handleMouseLeave}
+          onWheel={handleWheel}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+        >
           <div
             style={{
               position: 'absolute',
@@ -431,9 +448,8 @@ const Showcase: React.FC = () => {
               transform: `translate(${offset.x}px, ${offset.y}px)`,
             }}
           >
-
             {positions.map(pos => {
-              const item = filteredItems.find(i => i.id === pos.id);
+              const item = items.find(i => i.id === pos.id);
               if (!item) return null;
 
               const coverImagePath = `/showcase/${item.id}/cover.jpg`;
@@ -446,11 +462,9 @@ const Showcase: React.FC = () => {
                     left: pos.x,
                     top: pos.y,
                     background: 'transparent',
-                    // boxShadow: '0px 1px 4px rgba(0,0,0,0.2)',
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'flex-start',
-                    // alignItems: 'center',
                     borderRadius: 0,
                     overflow: 'hidden',
                     padding: 0,
@@ -483,8 +497,8 @@ const Showcase: React.FC = () => {
               );
             })}
           </div>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 };
