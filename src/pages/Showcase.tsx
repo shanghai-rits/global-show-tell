@@ -341,10 +341,9 @@ const Showcase: React.FC = () => {
         searchQuery={searchQuery}
         onSearchChange={handleSearchChange}
         onSearchSubmit={handleSearchSubmit}
+        showResults={showResults}
+        handleBackToAll={handleBackToAll}
       />
-      {showResults && (
-        <button onClick={handleBackToAll}>Show All Works</button>
-      )}
 
       {showResults && (
         filteredShowcaseItems.length === 0 ? (

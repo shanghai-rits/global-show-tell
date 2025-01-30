@@ -13,6 +13,22 @@
     z-index: 1000; /* 确保在最上层 */
 }
 
+.show-all-works-btn {
+    position: fixed; /* 固定位置 */
+    bottom: 35px; /* 距离底部的距离 */
+    left: 60px; /* 距离左侧的距离 */
+    width: 213px; /* 搜索框宽度 */
+    height: 42px;
+    border-radius: 53px;
+    background-color: #000;
+    color: #EBF4A1;
+    font-size: 22px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    cursor: pointer;
+}
+
 .search-box-input {
     width: 100%;
     height: 40px;
