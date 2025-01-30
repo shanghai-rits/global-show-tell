@@ -20,6 +20,7 @@ const SearchBox: React.FC<SearchBoxProps> = ({ searchQuery, onSearchChange, onSe
           value={searchQuery}
           onChange={onSearchChange}
           className="search-box-input"
+          onKeyDown={e => e.key === 'Enter' && onSearchSubmit()}
         />
         <div className="search-button" onClick={onSearchSubmit}>
           <svg style={{ marginLeft: "5px" }} xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" width="19.6064453125" height="30.31402587890625" viewBox="0 0 19.6064453125 30.31402587890625" fill="none">

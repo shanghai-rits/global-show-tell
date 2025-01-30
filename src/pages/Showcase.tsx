@@ -374,6 +374,9 @@ const Showcase: React.FC = () => {
               backgroundColor: '#fff',
               margin: '50px',
               width: '90vw',
+              height: '100vh',
+              justifyContent: 'start',
+              alignContent: 'start',
             }}
           >
             {filteredShowcaseItems.map(item => (
