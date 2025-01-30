@@ -1,0 +1,18 @@
+.tooltip {
+  position: absolute;
+  background-color: rgba(255, 255, 0, 0.8); /* 黄色背景 */
+  color: black;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 18px;
+  box-shadow: 0 0 10px rgba(255, 255, 0, 0.8); /* 黄色发光特效 */
+  white-space: nowrap;
+  z-index: 1001; /* 确保在最上层 */
+  pointer-events: none; /* 确保不会干扰鼠标事件 */
+  animation: fadeInOut 3s ease-in-out infinite; /* 每3秒钟显示一次 */
+}
+
+@keyframes fadeInOut {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 1; }
+}

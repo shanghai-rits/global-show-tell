@@ -389,7 +389,7 @@ const Showcase: React.FC = () => {
                   borderRadius: 0,
                   padding: 0,
                   margin: 0,
-                  // height: '100vh',
+                  cursor: 'pointer',
                 }}
               >
                 <img
@@ -428,8 +428,8 @@ const Showcase: React.FC = () => {
             width: '100vw',
             height: '100vh',
             overflow: 'hidden',
-            position: 'inherit',
-            cursor: dragging ? 'grabbing' : 'grab',
+            position: 'relative',
+            cursor: 'move',
             userSelect: 'none',
           }}
           onMouseDown={handleMouseDown}
@@ -440,6 +440,7 @@ const Showcase: React.FC = () => {
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
+          title="Press & hold left mouse button and drag"
         >
           <div
             style={{
@@ -471,6 +472,7 @@ const Showcase: React.FC = () => {
                     overflow: 'hidden',
                     padding: 0,
                     margin: 0,
+                    cursor: 'pointer',
                   }}
                 >
                   <img

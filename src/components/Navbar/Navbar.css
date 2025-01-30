@@ -8,6 +8,7 @@
   transition: width 0.2s ease-in-out;
   overflow: hidden;
   line-break: initial;
+  z-index: 1000;
 }
 
 .expanded {
