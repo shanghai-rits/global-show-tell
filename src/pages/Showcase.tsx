@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useRef, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import showcaseSampleCover from '../assets/showcase-sample-cover.png';
 import Navbar from '../components/Navbar/Navbar';
 import SearchBox from '../components/SearchBox';
@@ -225,8 +225,11 @@ const Showcase: React.FC = () => {
     }));
 
     setPositions(newPositions);
-    console.log('New positions:', newPositions);
     // setPositions(fixedPositions);
+  }, []);
+
+  useEffect(() => {
+    document.title = "Showcase - Global Show & Tell";
   }, []);
 
   // DRAG handlers
