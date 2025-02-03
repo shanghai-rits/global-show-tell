@@ -11,23 +11,25 @@
     background-color: #fff;
     box-shadow: 2px 2px 12.9px  rgba(0, 0, 0, 0.25);
     z-index: 1000; /* 确保在最上层 */
+    font-size: 32px;
 }
 
 .show-all-works-btn {
     position: fixed; /* 固定位置 */
     bottom: 35px; /* 距离底部的距离 */
     left: 60px; /* 距离左侧的距离 */
-    width: 213px; /* 搜索框宽度 */
-    height: 42px;
+    width: 233px; /* 搜索框宽度 */
+    height: 46px;
     border-radius: 53px;
     background-color: #000;
     color: #EBF4A1;
-    font-size: 22px;
+    font-size: 28px;
     align-items: center;
     justify-content: center;
     display: flex;
     cursor: pointer;
     z-index: 1000;
+    font-weight: 400;
 }
 
 .search-box-input {
@@ -35,9 +37,9 @@
     height: 40px;
     border: none;
     outline: none;
-    padding: 10px 25px;
+    padding: 10px 38px;
     border-radius: 20px 0 0 20px;
-    font-size: 24px;
+    font-size: 32px;
     color: #888;
     background-color: transparent; /* 确保背景透明 */
 }

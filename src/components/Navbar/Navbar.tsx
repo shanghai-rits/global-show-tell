@@ -21,7 +21,7 @@ const Navbar: React.FC = () => {
       {/* Navbar Content */}
       {isOpen && (
         <nav className="navbar">
-          <div className="title">
+          <div className="nav-title">
             <div>NYU</div>
             <div>Global</div>
             <div>Show & Tell</div>
