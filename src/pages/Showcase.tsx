@@ -2,6 +2,7 @@ import React, { useLayoutEffect, useRef, useState } from 'react';
 import showcaseSampleCover from '../assets/showcase-sample-cover.png';
 import Navbar from '../components/Navbar/Navbar';
 import SearchBox from '../components/SearchBox';
+import { useNavigate } from 'react-router-dom';
 
 
 interface ShowcaseItem {
@@ -137,6 +138,9 @@ function generateNonOverlappingPositions(
 
 
 const Showcase: React.FC = () => {
+
+  // Details Page
+  const navigate = useNavigate();
 
   // SearchBox
   const [searchQuery, setSearchQuery] = useState('');
@@ -331,6 +335,8 @@ const Showcase: React.FC = () => {
     });
   };
 
+
+
   return (
     <div>
       <div style={{ position: 'fixed', zIndex: 999 }}>
@@ -390,6 +396,14 @@ const Showcase: React.FC = () => {
                   padding: 0,
                   margin: 0,
                   cursor: 'pointer',
+                }}
+                
+                // onClick={() => navigate(`/showcase/${item.id}`)}
+
+                onClick={(e) => {
+                  e.stopPropagation(); // 防止事件冒泡（可选）
+                  const fullUrl = `${window.location.origin}/showcase/${item.id}`;
+                  window.open(fullUrl, '_blank', 'noopener,noreferrer');
                 }}
               >
                 <img
@@ -474,6 +488,15 @@ const Showcase: React.FC = () => {
                     margin: 0,
                     cursor: 'pointer',
                   }}
+
+                  // onClick={() => navigate(`/showcase/${item.id}`)}
+
+                  onClick={(e) => {
+                    e.stopPropagation(); // 防止事件冒泡（可选）
+                    const fullUrl = `${window.location.origin}/showcase/${item.id}`;
+                    window.open(fullUrl, '_blank', 'noopener,noreferrer');
+                  }}
+
                 >
                   <img
                     src={coverImagePath}

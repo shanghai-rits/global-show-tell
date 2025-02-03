@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import Showcase from './pages/Showcase.tsx';
+import ShowcaseDetail from './pages/ShowcaseDetail.tsx'; 
 
 function App() {
   return (
@@ -14,6 +15,10 @@ function App() {
         <Route
           path="/showcase"
           element={<Showcase />}
+        />
+        <Route
+          path="/showcase/:id"  
+          element={<ShowcaseDetail />}
         />
       </Routes>
     </Router>
