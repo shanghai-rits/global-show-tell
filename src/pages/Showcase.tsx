@@ -1,8 +1,8 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import showcaseSampleCover from '../assets/showcase-sample-cover.png';
 import Navbar from '../components/Navbar/Navbar';
 import SearchBox from '../components/SearchBox';
-import { useNavigate } from 'react-router-dom';
 
 
 interface ShowcaseItem {
@@ -199,6 +199,17 @@ const Showcase: React.FC = () => {
   const outerRef = useRef<HTMLDivElement>(null);
   const [viewportWidth, setViewportWidth] = useState(0);
   const [viewportHeight, setViewportHeight] = useState(0);
+
+  // 在组件函数中添加：
+  const [scale, setScale] = useState(1);
+
+  const handleZoomIn = () => {
+    setScale(prev => prev + 0.1);
+  };
+
+  const handleZoomOut = () => {
+    setScale(prev => Math.max(0.1, prev - 0.1));
+  };
 
   useLayoutEffect(() => {
     setFilteredShowcaseItems(items);
@@ -400,7 +411,7 @@ const Showcase: React.FC = () => {
                   margin: 0,
                   cursor: 'pointer',
                 }}
-                
+
                 // onClick={() => navigate(`/showcase/${item.id}`)}
 
                 onClick={(e) => {
@@ -465,7 +476,7 @@ const Showcase: React.FC = () => {
               width: CANVAS_WIDTH,
               height: CANVAS_HEIGHT,
               backgroundColor: '#fff',
-              transform: `translate(${offset.x}px, ${offset.y}px)`,
+              transform: `translate(${offset.x}px, ${offset.y}px) scale(${scale})`,
             }}
           >
             {positions.map(pos => {
@@ -526,6 +537,30 @@ const Showcase: React.FC = () => {
                 </div>
               );
             })}
+          </div>
+          <div style={{ position: 'fixed', bottom: 180, left: 65, zIndex: 1001, display: 'flex', flexDirection: 'column', gap: '10px' }}>
+            <div onClick={handleZoomIn} style={{ cursor: 'pointer' }}>
+              <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" width="37.75" height="37.75" viewBox="0 0 37.75 37.75" fill="none">
+                <circle cx="18.25" cy="18.25" r="17.5" stroke="rgba(38, 38, 38, 1)" stroke-width="1.5"   >
+                </circle>
+                <path fill="rgba(38, 38, 38, 1)" d="M34.3358 37.1642L30.3358 33.1642L33.1642 30.3358L37.1642 34.3358L34.3358 37.1642ZM31.75 28.9216L33.1642 30.3358L30.3358 33.1642L28.9216 31.75L31.75 28.9216ZM35.75 37.75C34.6454 37.75 33.75 36.8546 33.75 35.75C33.75 34.6454 34.6454 33.75 35.75 33.75C36.8546 33.75 37.75 34.6454 37.75 35.75C37.75 36.8546 36.8546 37.75 35.75 37.75Z">
+                </path>
+                <path stroke="rgba(38, 38, 38, 1)" stroke-width="2.5" d="M7.25 18.2518L29.36 18.3618">
+                </path>
+                <path stroke="rgba(38, 38, 38, 1)" stroke-width="2.5" d="M18.5 7.25183L18.5 29.3621">
+                </path>
+              </svg>
+            </div>
+            <div onClick={handleZoomOut} style={{ cursor: 'pointer' }}>
+              <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" width="37.75" height="37.75" viewBox="0 0 37.75 37.75" fill="none">
+                <circle cx="18.25" cy="18.25" r="17.5" stroke="rgba(38, 38, 38, 1)" stroke-width="1.5"   >
+                </circle>
+                <path fill="rgba(38, 38, 38, 1)" d="M34.3358 37.1642L30.3358 33.1642L33.1642 30.3358L37.1642 34.3358L34.3358 37.1642ZM31.75 28.9216L33.1642 30.3358L30.3358 33.1642L28.9216 31.75L31.75 28.9216ZM35.75 37.75C34.6454 37.75 33.75 36.8546 33.75 35.75C33.75 34.6454 34.6454 33.75 35.75 33.75C36.8546 33.75 37.75 34.6454 37.75 35.75C37.75 36.8546 36.8546 37.75 35.75 37.75Z">
+                </path>
+                <path stroke="rgba(38, 38, 38, 1)" stroke-width="3" d="M7.25 18.75L29.36 18.86">
+                </path>
+              </svg>
+            </div>
           </div>
         </div>
       )}
