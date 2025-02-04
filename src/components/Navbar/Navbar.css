@@ -1,10 +1,8 @@
 /* Navbar container */
 
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: Inter;
   line-height: 1.5;
-  /* font-weight: 400; */
-
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -17,15 +15,20 @@
   right: 0;
   height: 600px;
   background-color: transparent;
-  transition: width 0.2s ease-in-out;
+  /* transition: width 0.2s ease-in-out; */
   overflow: hidden;
   line-break: initial;
   z-index: 1000;
+  /* transition: opacity 0.2s ease, width 0.2s ease; */
+  /* opacity: 1; */
+  transition: width 0.2s ease-in-out, padding 0.2s ease-in-out, opacity 0.2s ease-in-out;
+  opacity: 1;
 }
 
 .expanded {
   width: 400px;
   padding: 20px;
+  opacity: 1;
 }
 
 .collapsed {
@@ -33,6 +36,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  /* transition: width 0.2s ease-in-out; */
+  opacity: 1;
 }
 
 /* Half-circle toggle button */
@@ -71,7 +76,6 @@
 
 /* Title */
 .nav-title {
-  font-family: Inter;
   font-size: 70px;
   font-weight: 800;
   color: #EAEA24B0;
@@ -102,7 +106,6 @@ button {
   font-family: inherit;
   background-color: #1a1a1a;
   cursor: pointer;
-  transition: border-color 0.25s;
 }
 
 /* Button styling */
@@ -115,7 +118,6 @@ button {
   background-color: white;
   cursor: pointer;
   text-align: center;
-  transition: 0.2s ease-in-out;
   color:black;
 }
 

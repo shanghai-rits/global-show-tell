@@ -46,6 +46,21 @@ button {
   cursor: pointer;
   transition: border-color 0.25s;
 }
+
+@font-face {
+  font-family: 'Inter';
+  src: url('/src/assets/fonts/Inter_24pt-Black.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('/src/assets/fonts/Inte_24pt-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+
 /* button:hover {
   border-color: #646cff;
 } */

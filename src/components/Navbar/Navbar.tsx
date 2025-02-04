@@ -1,7 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Navbar.css";
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsOpen(false);
+    }, 1500); // Collapse after 1 second
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <div className={`navbar-container ${isOpen ? "expanded" : "collapsed"}`}>
