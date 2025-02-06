@@ -21,7 +21,7 @@ const Navbar: React.FC = () => {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      // setIsOpen(false);
+      setIsOpen(false);
     }, 1500); // Collapse after 1 second
     return () => clearTimeout(timer);
   }, []);
@@ -31,7 +31,7 @@ const Navbar: React.FC = () => {
       {/* Toggle Button */}
       {!isOpen && (
         <button className="toggle-button" onClick={() => setIsOpen(!isOpen)}>
-          <div style={{ marginRight: "0px", marginTop: "4px" }}>
+          <div style={{ marginRight: "0px", marginTop: "2px", display: "flex" }}>
             <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" width="15" height="50" viewBox="0 0 19.67950439453125 33.4765625" fill="none">
               <path fill="rgba(0, 0, 0, 1)" stroke="black" stroke-width="1" style={{ mixBlendMode: "normal" }} d="M19.6335 1.51853L2.13352 16.5185L1.48273 15.7593L2.17951 15.042L19.6795 32.042L18.2859 33.4766L0.785941 16.4766L0.831936 15L18.3319 2.07424e-05L19.6335 1.51853ZM0.831936 15L1.48273 15.7593L0.785941 16.4766L2.06232e-05 15.7131L0.831936 15Z">
               </path>
@@ -186,7 +186,7 @@ const Navbar: React.FC = () => {
             </div> */}
 
             <button className="toggle-button-close" onClick={() => setIsOpen(!isOpen)}>
-              <div style={{ marginLeft: "0px", marginTop: "4px" }}>
+              <div style={{ marginLeft: "0px", marginTop: "3px", display: "flex" }}>
                 <svg width="15" height="50" viewBox="0 0 18 34" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M1 1L16 16L1 33" stroke="black" stroke-width="3" />
                 </svg>

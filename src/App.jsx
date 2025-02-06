@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import Showcase from './pages/Showcase.tsx';
-import ShowcaseDetail from './pages/ShowcaseDetail.tsx'; 
+import ShowcaseDetail from './pages/ShowcaseDetail.tsx';
 
 function App() {
   return (
@@ -39,7 +39,7 @@ function Home() {
 
 function RedirectToOpenCall() {
   React.useEffect(() => {
-    window.location.href = '/opencall/index.html';
+    window.location.href = '/src/opencall.html';
   }, []);
   return null;
 }

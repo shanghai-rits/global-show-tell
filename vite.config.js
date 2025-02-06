@@ -9,7 +9,7 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: './index.html', // Main app entry
-        opencall: './public/opencall/index.html', // Additional HTML page
+        opencall: './src/other-pages/opencall/opencall.html', // Additional HTML page
       },
     },
   },
