@@ -1,15 +1,34 @@
-.tooltip {
-  position: absolute;
-  background-color: rgba(255, 255, 0, 0.8); /* 黄色背景 */
-  color: black;
-  padding: 5px 10px;
-  border-radius: 5px;
-  font-size: 18px;
-  box-shadow: 0 0 10px rgba(255, 255, 0, 0.8); /* 黄色发光特效 */
-  white-space: nowrap;
-  z-index: 1001; /* 确保在最上层 */
-  pointer-events: none; /* 确保不会干扰鼠标事件 */
-  animation: fadeInOut 3s ease-in-out infinite; /* 每3秒钟显示一次 */
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 50px;
+  background-color: #fff;
+  width: calc(100vw - 60px); /* 两边各30px */
+  height: calc(100vh - 60px);
+  justify-content: start;
+  align-content: start;
+  margin: 30px;
+}
+
+.zoom-in-out {
+  position: fixed;
+    bottom: 140px;
+    left: 35px;
+    z-index: 1001;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+@media only screen and (max-width: 768px) {
+  .zoom-in-out {
+    transform: scale(0.7);
+    bottom: 90px;
+    left: 20px;
+  }
+  .grid-container {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
 }
 
 @keyframes fadeInOut {

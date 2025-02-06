@@ -3,8 +3,8 @@
     align-items: center;
     justify-content: center;
     position: fixed; /* 固定位置 */
-    bottom: 100px; /* 距离底部的距离 */
-    left: 60px; /* 距离左侧的距离 */
+    bottom: 70px; /* 距离底部的距离 */
+    left: 30px; /* 距离左侧的距离 */
     width: 384px; /* 搜索框宽度 */
     height: 53px;
     border-radius: 49px;
@@ -16,20 +16,33 @@
 
 .show-all-works-btn {
     position: fixed; /* 固定位置 */
-    bottom: 35px; /* 距离底部的距离 */
-    left: 60px; /* 距离左侧的距离 */
-    width: 233px; /* 搜索框宽度 */
-    height: 46px;
+    bottom: 15px; /* 距离底部的距离 */
+    left: 30px; /* 距离左侧的距离 */
+    width: 213px; /* 搜索框宽度 */
+    height: 40px;
     border-radius: 53px;
     background-color: #000;
     color: #EBF4A1;
-    font-size: 28px;
+    font-size: 24px;
     align-items: center;
     justify-content: center;
     display: flex;
     cursor: pointer;
     z-index: 1000;
     font-weight: 400;
+}
+
+@media only screen and (max-width: 768px) {
+    .search-box-container {
+      transform: scale(0.7);
+      bottom: 40px;
+      left: -40px;
+    }
+    .show-all-works-btn {
+        transform: scale(0.7);
+        bottom: 5px;
+        left: -15px;
+    }
 }
 
 .search-box-input {

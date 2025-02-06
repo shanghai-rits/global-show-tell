@@ -2,6 +2,22 @@ import React, { useEffect, useState } from "react";
 import "./Navbar.css";
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(true);
+  const mobileThreshold = 768; // adjust threshold as needed
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < mobileThreshold) {
+        setIsOpen(false);
+      } else {
+        setIsOpen(true);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    handleResize(); // initial check
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -34,11 +50,13 @@ const Navbar: React.FC = () => {
             <div>Show & Tell</div>
           </div>
           <div className="nav-buttons">
-            {["Submit", "Call for Collaboration", "Showcase", "Event Calendar", "About"].map(
+            {["Submit Your Work", "Call for Collaboration", "Showcase", "Program Calendar", "About"].map(
               (text, index) => (
-                <button key={index} className="nav-button">
-                  {text}
-                </button>
+                <div className="nav-button-wrapper">
+                  <button key={index} className="nav-button">
+                    {text}
+                  </button>
+                </div>
               )
             )}
             {/* <div className="svg-container" onClick={() => setIsOpen(!isOpen)}>

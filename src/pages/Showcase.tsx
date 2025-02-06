@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import showcaseSampleCover from '../assets/showcase-sample-cover.png';
 import Navbar from '../components/Navbar/Navbar';
 import SearchBox from '../components/SearchBox';
+import './Showcase.css';
 
 
 interface ShowcaseItem {
@@ -64,7 +65,7 @@ function generateNonOverlappingPositions(
   const centerY = canvasHeight / 2;
 
   // Radius increment for each ring
-  const radiusIncrement = 250 + spacing;
+  const radiusIncrement = 150 + spacing;
 
   // Place the first item in the center:
   positions.push({
@@ -247,6 +248,22 @@ const Showcase: React.FC = () => {
     document.title = "Showcase - Global Show & Tell";
   }, []);
 
+  useEffect(() => {
+    const updateScale = () => {
+      const mobileThreshold = 768; // adjust threshold as needed
+      if (window.innerWidth < mobileThreshold) {
+        setScale(0.5); // use a smaller scale on mobile
+      } else {
+        setScale(1);
+      }
+    };
+
+    window.addEventListener('resize', updateScale);
+    updateScale(); // check initial viewport
+
+    return () => window.removeEventListener('resize', updateScale);
+  }, []);
+
   // DRAG handlers
   const handleMouseDown = (e: React.MouseEvent) => {
     setDragging(true);
@@ -385,20 +402,7 @@ const Showcase: React.FC = () => {
           </div>
         ) : (
           // show the filteredShowcaseItems in a grid layout
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
-              gap: '50px',
-              padding: '20px',
-              backgroundColor: '#fff',
-              margin: '50px',
-              width: '90vw',
-              height: '100vh',
-              justifyContent: 'start',
-              alignContent: 'start',
-            }}
-          >
+          <div className="grid-container">
             {filteredShowcaseItems.map(item => (
               <div
                 key={item.id}
@@ -538,7 +542,7 @@ const Showcase: React.FC = () => {
               );
             })}
           </div>
-          <div style={{ position: 'fixed', bottom: 180, left: 65, zIndex: 1001, display: 'flex', flexDirection: 'column', gap: '10px' }}>
+          <div className='zoom-in-out'>
             <div onClick={handleZoomIn} style={{ cursor: 'pointer' }}>
               <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" width="37.75" height="37.75" viewBox="0 0 37.75 37.75" fill="none">
                 <circle cx="18.25" cy="18.25" r="17.5" stroke="rgba(38, 38, 38, 1)" stroke-width="1.5"   >
