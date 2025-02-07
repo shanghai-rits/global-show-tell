@@ -10,6 +10,7 @@ export default defineConfig({
       input: {
         main: './index.html', // Main app entry
         opencall: './src/opencall.html', // Additional HTML page
+        collaboration: './src/collaboration.html', // Additional HTML page
       },
     },
   },

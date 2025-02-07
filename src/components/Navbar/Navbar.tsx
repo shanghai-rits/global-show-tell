@@ -165,25 +165,31 @@ const Navbar: React.FC = () => {
             </svg>
           </div>
           <div className="nav-buttons">
-            {["Submit Your Work", "Call for Collaboration", "Showcase", "Program Calendar", "About"].map(
-              (text, index) => (
-                <div className="nav-button-wrapper">
-                  <button key={index} className="nav-button">
-                    {text}
-                  </button>
-                </div>
-              )
-            )}
-            {/* <div className="svg-container" onClick={() => setIsOpen(!isOpen)}>
-              <svg className="svg-toggle-button" width="38" height="67" viewBox="0 0 38 77" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M37 38C37 17.8999 20.9722 1.54319 1 1.01325V75.9867C20.9722 75.4568 37 59.1001 37 39V38Z" fill="white" stroke="black" stroke-width="2" />
-              </svg>
-              <svg className="overlay-arrow" width="18" height="34" viewBox="0 0 18 34" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M1 1L16 16L1 33" stroke="black" stroke-width="2" />
-              </svg>
-
-
-            </div> */}
+            <div className="nav-button-wrapper">
+              <button className="nav-button" onClick={() => window.location.href = "/submission"} >
+                Submit Your Work
+              </button>
+            </div>
+            <div className="nav-button-wrapper">
+              <button className="nav-button" onClick={() => window.location.href = "/collaboration"}>
+                Call for Collaboration
+              </button>
+            </div>
+            <div className="nav-button-wrapper">
+              <button className="nav-button" onClick={() => window.location.href = "/showcase"}>
+                Showcase
+              </button>
+            </div>
+            <div className="nav-button-wrapper">
+              <button className="nav-button">
+                Program Calendar
+              </button>
+            </div>
+            <div className="nav-button-wrapper">
+              <button className="nav-button">
+                About
+              </button>
+            </div>
 
             <button className="toggle-button-close" onClick={() => setIsOpen(!isOpen)}>
               <div style={{ marginLeft: "0px", marginTop: "3px", display: "flex" }}>

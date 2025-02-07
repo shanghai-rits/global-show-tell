@@ -7,10 +7,18 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Showcase />} />
         <Route
           path="/opencall"
           element={<RedirectToOpenCall />}
+        />
+        <Route
+          path="/submission"
+          element={<RedirectToOpenCall />}
+        />
+        <Route
+          path="/collaboration"
+          element={<RedirectToCollaboration />}
         />
         <Route
           path="/showcase"
@@ -31,7 +39,7 @@ function Home() {
   return (
     <div>
       <h1>Home</h1>
-      <a href="/opencall">Open Call</a>
+      <a href="/submission">Open Call</a>
       <a href="/showcase">Showcase</a>
     </div>
   )
@@ -40,6 +48,13 @@ function Home() {
 function RedirectToOpenCall() {
   React.useEffect(() => {
     window.location.href = '/src/opencall.html';
+  }, []);
+  return null;
+}
+
+function RedirectToCollaboration() {
+  React.useEffect(() => {
+    window.location.href = '/src/collaboration.html';
   }, []);
   return null;
 }

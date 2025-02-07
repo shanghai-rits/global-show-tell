@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Navbar from '../components/Navbar/Navbar';
 import './ShowcaseDetail.css';
 
@@ -9,11 +9,11 @@ interface ShowcaseItem {
   title: string;
   authors: string;
   description: string;
-  sections: { 
+  sections: {
     [key: string]: string;
   };
   coverImage: string;
-  detailImage: string;
+  detailImages: { src: string, width: number }[];
 }
 
 const ShowcaseDetail: React.FC = () => {
@@ -24,7 +24,7 @@ const ShowcaseDetail: React.FC = () => {
     if (window.history.length > 1) {
       navigate(-1);
     } else {
-      navigate('/showcase'); 
+      navigate('/showcase');
     }
   };
 
@@ -33,24 +33,25 @@ const ShowcaseDetail: React.FC = () => {
     {
       id: 1,
       title: 'Live Diffusion',
-      authors: 'Author A, Author B',
-      description: 'This part is "description". Waiting for submission ~\n A festival curated from the eyes of animation artists, a screening journey to explore poetry and inspiration, with audience together we create a garden for our mind.',
+      authors: 'Chenxuan Wu, Jinran Ye',
+      description: 'A real-time interactive AI-generated image system.',
       sections: {
-        "How I use AI in this project": 
-          `Waiting for submission\n` +
-          `A festival curated from the eyes of animation artists, a screening journey to explore poetry andinspiration, with audience together we create a garden for our mind.\n\n` +
-          `Feinaki Being Animation Week is an animation festival curated by the internationally well connectedChinese animation artists, researchers and curators who freguently travel between animation festivalsacross the world. The festival was established in 2019 and has been held 6 times by 2024.`,
-        "Interactivity": 
-          `Waiting for submission\n` +
-          `A festival curated from the eyes of animation artists, a screening journey to explore poetry andinspiration, with audience together we create a garden for our mind.`,
-        "My global learning story": 
-          `Waiting for submission\n` +
-          `A festival curated from the eyes of animation artists, a screening journey to explore poetry andinspiration, with audience together we create a garden for our mind.`,
-        "Supplementary Information": 
-          `Waiting for submission`
+        "How I use AI in this project":
+          `The Live-Diffusion project focuses on developing a real-time interactive AI-generated image system. By leveraging sensor and camera data, the system dynamically responds to user interactions, enhancing creative expression through AI-generated imagery. Integrating platforms like TouchDesigner and ComfyUI, the project emphasizes real-time interactivity and customizability, aiming to create a more inclusive and intuitive environment for creators. The system's design allows for flexible user inputs and is intended to encourage broader participation in AI-driven creative processes.`,
+        "Interactivity":
+          `To realize real-time interactive AI image generation, the system shall:
+  - Fetch data from user-self-defined hardware
+  - Pass the data and input image to Diffusion models
+  - Fetch the generated images
+  - Display the generated images on the user interface
+`,
+        "My global learning story":
+          `Accessibility and Inclusivity: The complexity and often technical nature of current AI art generation tools can be a barrier to entry for many potential creators. This includes those without a technical background or those who may not have access to advanced computing resources.
+Limited Interactivity in AI Art: Existing AI-generated art systems largely operate on static inputs, such as textual prompts, which restrict the dynamic engagement between the creator and the creation process. This limitation stifles the potential for art that evolves in real-time in response to its environment or the audience's interactions.
+`,
       },
       coverImage: '/showcase/1/cover.jpg',
-      detailImage: '/showcase/1/cover.jpg'
+      detailImages: [{ src: '/showcase/1/detail01.jpg', width: 900 }, { src: '/showcase/1/detail02.jpg', width: 900 }],
     },
   ];
 
@@ -68,8 +69,9 @@ const ShowcaseDetail: React.FC = () => {
   if (!item) return <div>Work not found</div>;
 
   return (
+    <div>
+      <Navbar />
     <div className="detail-container">
-        <Navbar />
       <div className="hero-image-container">
         <img
           src={item.coverImage}
@@ -86,11 +88,11 @@ const ShowcaseDetail: React.FC = () => {
           <p className="authors">{item.authors}</p>
 
           {/* 动态内容部分 */}
-          <Section 
-            title="Description" 
-            content={item.description} 
+          <Section
+            title="Description"
+            content={item.description}
           />
-          
+
           {Object.entries(item.sections).map(([sectionTitle, content]) => (
             <Section
               key={sectionTitle}
@@ -100,15 +102,20 @@ const ShowcaseDetail: React.FC = () => {
           ))}
         </div>
 
+        {/* 详情图片 */}
         <div className="detail-image-container">
-          <img
-            src={item.detailImage}
-            alt="Detail"
-            className="detail-image"
-          />
+          {item.detailImages.map((img, index) => (
+            <img
+              key={index}
+              src={img.src}
+              alt={`Detail ${index + 1}`}
+              className="detail-image"
+              style={{ width: img.width }}
+            />
+          ))}
         </div>
 
-        <button 
+        <button
           className="back-button"
           onClick={handleBack}
         >
@@ -116,6 +123,7 @@ const ShowcaseDetail: React.FC = () => {
         </button>
 
       </div>
+    </div>
     </div>
   );
 };
@@ -126,7 +134,7 @@ const Section: React.FC<{ title: string; content?: string }> = ({ title, content
 
   return (
     <div className="section">
-      <h2 className="section-title">{title}</h2>
+      {title !== "Description" ? <h2 className="section-title">{title}</h2> : null}
       <div className="section-content">
         {content.split('\n').map((line, index) => (
           <p key={index} className="content-paragraph">

@@ -168,7 +168,7 @@ const Showcase: React.FC = () => {
   };
 
   const items: ShowcaseItem[] = [
-    { id: 1, title: 'Live Diffusion', authors: 'Author A, Author B', size: { width: 420 } },
+    { id: 1, title: 'Live Diffusion', authors: 'Chenxuan Wu, Jinran Ye', size: { width: 420 } },
     { id: 2, title: 'Title of the work 2', authors: 'Authors' },
     { id: 3, title: 'Title of the work 3', authors: 'Authors' },
     { id: 4, title: 'Title of the work 4', authors: 'Authors' },
