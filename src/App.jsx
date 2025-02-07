@@ -17,7 +17,7 @@ function App() {
           element={<Showcase />}
         />
         <Route
-          path="/showcase/:id"  
+          path="/showcase/:id"
           element={<ShowcaseDetail />}
         />
       </Routes>
