@@ -10,11 +10,11 @@ function App() {
         <Route path="/" element={<Showcase />} />
         <Route
           path="/opencall"
-          element={<RedirectToOpenCall />}
+          element={<RedirectToSubmission />}
         />
         <Route
           path="/submission"
-          element={<RedirectToOpenCall />}
+          element={<RedirectToSubmission />}
         />
         <Route
           path="/collaboration"
@@ -45,7 +45,7 @@ function Home() {
   )
 }
 
-function RedirectToOpenCall() {
+function RedirectToSubmission() {
   React.useEffect(() => {
     window.location.href = '/src/opencall.html';
   }, []);
