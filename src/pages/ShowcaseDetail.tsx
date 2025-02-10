@@ -69,9 +69,8 @@ Limited Interactivity in AI Art: Existing AI-generated art systems largely opera
   if (!item) return <div>Work not found</div>;
 
   return (
-    <div>
-      <Navbar />
     <div className="detail-container">
+      <Navbar />
       <div className="hero-image-container">
         <img
           src={item.coverImage}
@@ -110,7 +109,6 @@ Limited Interactivity in AI Art: Existing AI-generated art systems largely opera
               src={img.src}
               alt={`Detail ${index + 1}`}
               className="detail-image"
-              style={{ width: img.width }}
             />
           ))}
         </div>
@@ -123,7 +121,6 @@ Limited Interactivity in AI Art: Existing AI-generated art systems largely opera
         </button>
 
       </div>
-    </div>
     </div>
   );
 };
