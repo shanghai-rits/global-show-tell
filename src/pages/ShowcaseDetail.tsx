@@ -48,6 +48,8 @@ const ShowcaseDetail: React.FC = () => {
         "My global learning story":
           `Accessibility and Inclusivity: The complexity and often technical nature of current AI art generation tools can be a barrier to entry for many potential creators. This includes those without a technical background or those who may not have access to advanced computing resources.
 Limited Interactivity in AI Art: Existing AI-generated art systems largely operate on static inputs, such as textual prompts, which restrict the dynamic engagement between the creator and the creation process. This limitation stifles the potential for art that evolves in real-time in response to its environment or the audience's interactions.
+
+We began the Live-Diffusion project in Abu Dhabi with Professor __Mang__, who provided valuable guidance on which AI models to use and how to connect ComfyUI with TouchDesigner. After returning to Shanghai, we worked on DURF, with advice from __Moon__ and __Leon__. We incorporated additional interactive features such as control knobs and sensors. Along the way, we participated in the IMA Gallery, hosted a Halloween Party, and showcased our work at the IMA final show.
 `,
       },
       coverImage: '/showcase/1/cover.jpg',
@@ -129,15 +131,60 @@ Limited Interactivity in AI Art: Existing AI-generated art systems largely opera
 const Section: React.FC<{ title: string; content?: string }> = ({ title, content }) => {
   if (!content) return null;
 
+  const replacements = [
+    {
+      placeholder: '__Mang__',
+      linkText: 'Mang',
+      url: 'https://nyuad.nyu.edu/en/academics/divisions/arts-and-humanities/faculty/michael-ang.html',
+    },
+    {
+      placeholder: '__Moon__',
+      linkText: 'Moon',
+      url: 'https://shanghai.nyu.edu/academics/faculty/directory/jung-hyun-moon',
+    },
+    {
+      placeholder: '__Leon__',
+      linkText: 'Leon',
+      url: 'https://leoneckert.com/',
+    },
+  ];
+
+  // Create a regex to match any of the replacement placeholders
+  const regex = new RegExp(`(${replacements.map(r => r.placeholder).join('|')})`, 'g');
+
+  // Split the content by the placeholders while preserving the placeholders in the resulting array
+  const parts = content.split(regex);
+
+  // Map over parts and replace any placeholder match with corresponding link element.
+  const renderedContent = parts.map((part, index) => {
+    // Check if the current part matches any replacement placeholder
+    const rep = replacements.find(r => r.placeholder === part);
+    if (rep) {
+      return (
+        <a
+          key={`link-${index}`}
+          href={rep.url}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {rep.linkText}
+        </a>
+      );
+    }
+    // Otherwise, split by newlines so they show as separate lines
+    return part.split('\n').map((line, idx, arr) => (
+      <React.Fragment key={`${index}-${idx}`}>
+        {line}
+        {idx < arr.length - 1 && <br />}
+      </React.Fragment>
+    ));
+  });
+
   return (
     <div className="section">
-      {title !== "Description" ? <h2 className="section-title">{title}</h2> : null}
+      {title !== "Description" && <h2 className="section-title">{title}</h2>}
       <div className="section-content">
-        {content.split('\n').map((line, index) => (
-          <p key={index} className="content-paragraph">
-            {line}
-          </p>
-        ))}
+        {renderedContent}
       </div>
     </div>
   );
