@@ -15,6 +15,7 @@ Please change the parent <Route path="${v}"> to <Route path="${v==="/"?"*":`${v}
   - Fetch the generated images
   - Display the generated images on the user interface
 `,"My global learning story":`Accessibility and Inclusivity: The complexity and often technical nature of current AI art generation tools can be a barrier to entry for many potential creators. This includes those without a technical background or those who may not have access to advanced computing resources.
+
 Limited Interactivity in AI Art: Existing AI-generated art systems largely operate on static inputs, such as textual prompts, which restrict the dynamic engagement between the creator and the creation process. This limitation stifles the potential for art that evolves in real-time in response to its environment or the audience's interactions.
 
 We began the Live-Diffusion project in Abu Dhabi with Professor __Mang__, who provided valuable guidance on which AI models to use and how to connect ComfyUI with TouchDesigner. After returning to Shanghai, we worked on DURF, with advice from __Moon__ and __Leon__. We incorporated additional interactive features such as control knobs and sensors. Along the way, we participated in the IMA Gallery, hosted a Halloween Party, and showcased our work at the IMA final show.
