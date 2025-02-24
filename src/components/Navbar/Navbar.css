@@ -62,6 +62,7 @@
   font-weight: 400;
   background: linear-gradient(90deg, #EAEA24 -10.32%, #EBF4A1 33.55%);
   box-shadow: 0px 2px 10px 0px #61891626;
+  color: #000;
 }
 
 .toggle-button-close {
