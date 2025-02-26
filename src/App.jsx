@@ -7,7 +7,7 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Showcase />} />
+        <Route path="/" element={<RedirectToHomePage />} />
         <Route
           path="/opencall"
           element={<RedirectToSubmission />}
@@ -55,6 +55,13 @@ function RedirectToSubmission() {
 function RedirectToCollaboration() {
   React.useEffect(() => {
     window.location.href = '/src/collaboration.html';
+  }, []);
+  return null;
+}
+
+function RedirectToHomePage() {
+  React.useEffect(() => {
+    window.location.href = '/homepage/index.html';
   }, []);
   return null;
 }

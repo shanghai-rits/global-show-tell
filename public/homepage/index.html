@@ -1,0 +1,1484 @@
+                                                                                                                                                                                                                                                                                                                                                                                                                                              <!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<link rel="icon" href="/logo.png" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/inter-ui/inter.css">
+	<link rel="stylesheet" href="https://unpkg.com/element-plus/dist/index.css" />
+	<!-- Import component library -->
+	<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+	<script src="https://unpkg.com/element-plus"></script>
+	<script src="./p5.js"></script>
+<!--	<script src="./p5.sound.min.js"></script>-->
+	<title>NYU Global SHOW & TELL</title>
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no,viewport-fit=cover">
+	<script defer>
+		let screenWidth = window.innerWidth;
+		let screenHeight = window.innerHeight;
+		let sqrtNum = Math.sqrt(screenWidth**2 + screenHeight**2);
+
+		console.log(`屏幕宽度: ${screenWidth}px`);
+		console.log(`屏幕高度: ${screenHeight}px`);
+		console.log(`斜边高度: ${sqrtNum}px`);
+
+		document.documentElement.style.setProperty('--sqrt-line', `${sqrtNum}px`);
+		document.documentElement.style.setProperty('--width-line', `${screenWidth}px`);
+		document.documentElement.style.setProperty('--height-line', `${screenHeight}px`);
+		document.documentElement.style.setProperty('--img-multiple', `${screenWidth / 1540}`);
+
+		function handleResize() {
+			screenWidth = window.innerWidth;
+			screenHeight = window.innerHeight;
+			sqrtNum = Math.sqrt(screenWidth**2 + screenHeight**2);
+
+			console.log(`屏幕宽度: ${screenWidth}px`);
+			console.log(`屏幕高度: ${screenHeight}px`);
+			console.log(`斜边高度: ${sqrtNum}px`);
+
+			document.documentElement.style.setProperty('--sqrt-line', `${sqrtNum}px`);
+			document.documentElement.style.setProperty('--width-line', `${screenWidth}px`);
+			document.documentElement.style.setProperty('--height-line', `${screenHeight}px`);
+			document.documentElement.style.setProperty('--img-multiple', `${screenWidth / 1540}`);
+		}
+
+		window.addEventListener('resize', handleResize);
+
+		//rem自动计算
+		(function (doc, win) {
+
+
+			var docEl = doc.documentElement,
+				resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+				recalc = function () {
+					var clientWidth = docEl.clientWidth;
+					if (!clientWidth) return;
+					docEl.style.fontSize = 100 * (clientWidth / 720) + 'px';
+				};
+
+			if (!doc.addEventListener) return;
+			win.addEventListener(resizeEvt, recalc, false);
+			doc.addEventListener('DOMContentLoaded', recalc, false);
+
+			setup();
+		})(document, window);
+	</script>
+
+	<script src="sketch.js"></script>
+	<style>
+		#draggable {
+			cursor: pointer;
+			transition: all 0.1s;
+		}
+		#draggable2 {
+			cursor: pointer;
+			transition: all 0.1s;
+		}
+
+
+	</style>
+	<style>
+		:root{
+			--sqrt-line:0;
+			--height-line:0;
+			--width-line:0;
+			--img-multiple: 0
+		}
+		::-webkit-scrollbar {
+			width: 0;
+			height: 0;
+			/* 纵向滚动条的宽度 */
+			/* height: 10px; */
+			/* 横向滚动条的高度 */
+		}
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #333;
+        }
+
+        .page-body {
+            width: 100%;
+			height: 100vh;
+			/*background-color: #E9E92C;*/
+			position: relative;
+             overflow-x: auto;
+        }
+		.base-div{
+			background-color: #E9E92C;
+			height: 100vh;
+			position: relative;
+			overflow: hidden;
+		}
+		.first-circle{
+			position: absolute;
+			z-index: 1;
+			overflow: hidden;
+			bottom: 0;
+			animation: circle .4s forwards linear;
+			animation-delay: 0.4s;
+			border-radius: 50%;
+			background: #EFF8DD;
+			left: 0;
+			right: 0;
+			margin:  0 auto;
+		}
+		.second-circle{
+			position: absolute;
+			z-index: 2;
+			overflow: hidden;
+			bottom: 0;
+			animation: circle .4s forwards linear;
+			animation-delay: .8s;
+			border-radius: 50%;
+			background: #6D872A;
+			left: 0;
+			right: 0;
+			margin:  0 auto;
+		}
+
+		@keyframes circle {
+
+			/* from表示动画的开始位置，也可以使用0%来表示。 */
+			from {
+				width: 500px;
+				height: 500px;
+				bottom: -500px;
+			}
+
+			/* to表示动画的结束位置，也可以使用100%来表示。 */
+			to {
+				left:-50vw;
+				right: -50vw;
+				bottom:calc((var(--sqrt-line) - var(--height-line))/-2 );
+				height: var(--sqrt-line);
+				width: var(--sqrt-line);
+			}
+		}
+
+		.last-text{
+			position: absolute;
+			z-index:10;
+			overflow-y: auto;
+			bottom:0;
+			text-align: center;
+			animation: lastText .4s forwards linear;
+			animation-delay: 1.2s;
+			border-radius: 50%;
+			border-bottom-left-radius: 0;
+			border-bottom-right-radius: 0;
+			background: #E9E92C;
+			left: 0;
+			right: 0;
+			margin:  0 auto;
+			display: flex;
+			justify-content: center;
+		}
+
+		@keyframes lastText {
+
+			/* from表示动画的开始位置，也可以使用0%来表示。 */
+			0%{
+				width: 500px;
+				height:500px;
+				bottom: -500px;
+			}
+			/*25%{*/
+			/*	*/
+			/*	width: 40vw;*/
+			/*	height: 40vw;*/
+			/*}*/
+			100%{
+				left:-50vw;
+				right: -50vw;
+				bottom:calc((var(--sqrt-line) - var(--height-line))/-2 );
+				height: var(--sqrt-line);
+				width: var(--sqrt-line);
+			}
+		}
+
+
+		.text-top{
+			text-align: center;
+			position: absolute;
+			width:100%;
+			overflow:hidden;
+			/*background: url("./assets/top-bg.png")no-repeat center;*/
+			background-size: 100% auto ;
+			height: auto;
+			animation: lastTop 1.5s forwards linear;
+			animation-delay: .5s;
+		}
+
+		@keyframes lastTop {
+			from {
+				top:0;
+			}
+			90% {
+				top:calc((var(--sqrt-line) - var(--height-line))/2 - calc(calc((var(--width-line)/1.246)/3.969)*3 + 100px));
+			}
+			100% {
+				top:calc((var(--sqrt-line) - var(--height-line))/2 - calc(calc((var(--width-line)/1.246)/3.969)*3));
+			}
+		}
+		.hidden-text{
+			animation: hiddenText 1.5s forwards linear;
+			animation-delay: .5s;
+			position: relative;
+		}
+		@keyframes hiddenText {
+
+			/* from表示动画的开始位置，也可以使用0%来表示。 */
+			from {
+
+			}
+			/* to表示动画的结束位置，也可以使用100%来表示。 */
+			60% {
+				top:0
+			}
+			100% {
+				top: -200px;
+			}
+		}
+		.above-text{
+			/*animation: aboveText 1.5s forwards linear;*/
+			animation-delay: .5s;
+			position: relative;
+		}
+		@keyframes aboveText {
+
+			/* from表示动画的开始位置，也可以使用0%来表示。 */
+			from {
+				top:0
+			}
+			/* to表示动画的结束位置，也可以使用100%来表示。 */
+			50% {
+				top:calc((var(--width-line)/1.246)/3.969*-1);
+			}
+			100% {
+				top:calc( (var(--sqrt-line) - var(--height-line))/2 );
+			}
+		}
+
+		.below-text{
+			animation: belowText 1.5s forwards linear;
+			animation-delay: .5s;
+			position: relative;
+		}
+
+		@keyframes belowText {
+
+			/* from表示动画的开始位置，也可以使用0%来表示。 */
+			from {
+				top:0
+			}
+			/* to表示动画的结束位置，也可以使用100%来表示。 */
+			50% {
+				top:calc((var(--width-line)/1.246)/3.969*-1);
+			}
+			100% {
+				top:calc(calc((var(--width-line)/1.246)/3.969*-1) + 10px);
+				left:10px
+			}
+		}
+
+		.top-line1{
+			background: url('./assets/tell1-line-bg.png') no-repeat;
+			width:calc(var(--width-line)/1.246);
+			height: calc((var(--width-line)/1.246)/3.969);
+			background-size: 100% 100%;
+			margin: 0 auto;
+			position: relative;
+			z-index: 1;
+		}
+
+		.top-line2{
+			background: url('./assets/tell2-line-bg.png') no-repeat;
+			width:calc(var(--width-line)/1.246);
+			height: calc((var(--width-line)/1.246)/3.969);
+			background-size: 100% 100%;
+			margin: 0 auto;
+			position: relative;
+			z-index: 2;
+			margin-top: 40px;
+		}
+
+		.scrolling-text {
+			position: relative;
+			z-index: 4;
+			top:calc((var(--width-line)/1.246)/3.969*(-1) + 80px);
+			white-space: nowrap; /* 保持文本为单行 */
+			overflow: hidden; /* 隐藏溢出的内容 */
+			width: calc(100%); /* 容器宽度 */
+			height: 40px; /* 容器高度 */
+			font-size: 0;
+			color:#333;
+			/*animation: scrollText 10s linear forwards; !* 动画 *!*/
+			animation: scrollText 16s linear infinite; /* 动画 */
+			display: flex;
+		}
+		.delay{
+			position: relative;
+			z-index: 4;
+			top:calc((var(--width-line)/1.246)/3.969*(-1) + 40px);
+			white-space: nowrap; /* 保持文本为单行 */
+			/*overflow: hidden; !* 隐藏溢出的内容 *!*/
+			/*width:100%; !* 容器宽度 *!*/
+			height: 40px; /* 容器高度 */
+			font-size: 0;
+			color:#333;
+			right:0;
+			text-align: right;
+			margin: 0 auto;
+			transition: all 2s;
+			transition-timing-function:linear;
+			display: flex;
+			justify-content: flex-end;
+			/*animation: scrollText 10s linear forwards; !* 动画 *!*/
+			/*animation: scrollDelay 16s linear infinite; !* 动画 *!*/
+			/*animation-delay: 8s;*/
+		}
+		@keyframes scrollDelay {
+			from { transform: translateX(-100%); }
+			to { transform: translateX(0%); }
+		}
+		.scrolling-text-delay{
+			transform: translateX(-100%);
+			animation-delay: 8s;
+			top:calc((var(--width-line)/1.246)/3.969*(-1) + 40px);
+			z-index: 5;
+			/*animation: none;*/
+		}
+
+		.scrolling-text span ,.delay span{
+			height: 40px;
+			display: inline-flex;
+			align-items: center;
+			line-height: 40px;
+			color:#5C8916;
+			font-size: 26px;
+			padding-left: 60px;
+			padding-right: 60px;
+			background-color: #ffffff; /* 背景色 */
+			position: relative;
+			flex:1;
+		}
+		.delay span{
+			/*padding-left: 0;*/
+		}
+		.scrolling-text span:before ,.delay span:before{
+			content:'';
+			position: absolute;
+			background: #5C8916;
+			width: 15px;
+			height: 15px;
+			left: 10px;
+			top: 12px;
+			border-radius: 50%;
+		}
+		.scrolling-text:hover {
+			/*animation-play-state: paused; !* 暂停动画 *!*/
+		}
+		@keyframes scrollText {
+			from { transform: translateX(-100%); }
+			50% { transform: translateX(0); }
+			100% { transform: translateX(100%); }
+		}
+		.scrolling-text-bg{
+			position: relative;
+			top:calc((var(--width-line)/1.246)/3.969*(-1) );
+			left: 0;
+			height: 40px;
+			background: #ffffff;
+			z-index: 3;
+			/*animation: scrollTextBg 10s linear forwards; !* 动画 *!*/
+		}
+		@keyframes scrollTextBg{
+			from {
+				width: 0;
+			}
+			to {
+				width: 100%;
+			}
+		}
+
+		.btn-box{
+			position: relative;
+			top:calc((var(--width-line)/1.246)/3.969*(-1)  + 20px);
+			font-size: 30px;
+		}
+		.btn-item{
+			height: 53px;
+			display: inline-flex;
+			/*display: flex;*/
+			align-items: center;
+			justify-content: center;
+			border-radius: 50px;
+			padding: 0 80px;
+			color:#6B8829;
+			border:1px solid #475929;
+			background: #ffffff;
+			margin-top: 10px;
+			position: relative;
+			opacity: 0;
+			cursor: pointer;
+		}
+
+		.btn-item a{
+            text-decoration:none
+                     }
+        .btn-item a:link{
+            color:#6B8829;  
+                          }
+        .btn-item a:active{
+            color:#6B8829;
+                          }
+        .btn-item a:visited{
+            color:#6B8829;
+                           }
+        .btn-item a:hover{
+            color:#6B8829;
+                          }
+
+
+		.item1{
+			animation: btnOpacity 1.5s linear forwards; /* 动画 */
+			animation-delay: 1s;
+		}
+		.item2{
+			animation: btnOpacity 1.5s linear forwards; /* 动画 */
+			animation-delay: 1.8s;
+		}
+		.item3{
+			animation: btnOpacity 1.5s linear forwards; /* 动画 */
+			animation-delay: 1.6s;
+		}
+		.item4{
+			animation: btnOpacity 1.5s linear forwards; /* 动画 */
+			animation-delay: 1.4s;
+		}
+		.item5{
+			animation: btnOpacity 1.5s linear forwards; /* 动画 */
+			animation-delay: 1.2s;
+		}
+		@keyframes btnOpacity {
+			from {
+				bottom:-100vh;
+				opacity: 0;
+			}
+			60%{
+				opacity: 0;
+			}
+			to {
+				bottom:0;
+				opacity: 1;
+			}
+		}
+		.arrow{
+			position: relative;
+			top:calc((var(--width-line)/1.246)/3.969*(-1)  + 40px);
+			background: url("./assets/arrow.png") no-repeat;
+			width: 60px;
+			height: 25px;
+			margin: 0 auto;
+			animation: arrow 1.5s linear infinite; /* 动画 */
+			animation-delay: 3s;
+			opacity: 0;
+			cursor: pointer;
+		}
+
+		@keyframes arrow {
+			from {
+				opacity: 0;
+			}
+			50% {
+				opacity: 1;
+			}
+			100% {
+				opacity: 0;
+			}
+		}
+
+		.second-page{
+			position: relative;
+			height: 100vh;
+			overflow: hidden;
+		}
+		.company-info{
+			height: 200px;
+			text-align: center;
+			font-size: 16px;
+			line-height: 122px;
+			color: #475929;
+			display: flex;
+			align-items: flex-end;
+			justify-content: center;
+		}
+
+
+		.center-text {
+			width: calc(100vw - 128px);
+			padding: 60px 64px;
+			text-align: left;
+			margin: 0 auto;
+			background: #ffffff;
+			position: relative;
+		}
+
+		.text-title {
+			font-size: 90px;
+			line-height: 80px;
+			color: #262626;
+			font-weight: 600;
+			position: relative;
+			z-index: 2;
+		}
+
+		.center-text p {
+			margin-top: 40px;
+			font-size: 26px;
+			font-weight: 400;
+			position: relative;
+			z-index: 3;
+		}
+
+		.bg-ellipse1 {
+			position: absolute;
+			left: 100px;
+			top: 100px;
+			background: url("./assets/ellipse1.png") no-repeat;
+			width: calc(1149px / 3);
+			height: calc(1149px / 3);
+			background-size: 100% 100%;
+			z-index: 1;
+			transition: transform 3s;
+		}
+		.bg-ellipse1:hover{
+			transform: scale(1.2);
+		}
+
+		.bg-ellipse2 {
+			position: absolute;
+			left: 60%;
+			top: 60px;
+			background: url("./assets/ellipse2.png") no-repeat;
+			width: calc(663px / 3);
+			height: calc(663px / 3);
+			background-size: 100% 100%;
+			z-index: 1;
+			transition: transform 3s;
+		}
+		.bg-ellipse2:hover{
+			transform: scale(1.3);
+		}
+
+		.carousel-box {
+			width: 100vw;
+			height: 100vh;
+			/*background: #ffffff;*/
+			margin: 0 auto;
+			position: relative;
+			overflow: hidden;
+		}
+
+		.el-carousel__item {
+			text-align: center;
+			display: flex;
+			/*align-items: flex-end;*/
+			justify-content: center;
+		}
+
+		.scroll-box {
+			display: flex;
+			position: absolute;;
+			transition:all 1s linear 0.3s;
+			overflow: hidden;
+		}
+
+		.left-arrow {
+			position: absolute;
+			left: 20px;
+			top: calc(50% - 25px);
+			z-index: 50;
+			background: url("./assets/arrow-icon.png");
+			width: 52px;
+			height: 53px;
+			transform: rotate(180deg);
+			cursor: pointer;
+			color:#ffffff;
+			background-size: 100% 100%;
+		}
+
+		.right-arrow {
+			position: absolute;
+			right: 20px;
+			top: calc(50% - 25px);
+			z-index: 50;
+			background: url("./assets/arrow-icon.png");
+			width: 52px;
+			height: 53px;
+			cursor: pointer;
+			background-size: 100% 100%;
+		}
+
+
+		.left-arrow:hover {
+			position: absolute;
+			left: 20px;
+			top: calc(50% - 25px);
+			z-index: 50;
+			background: url("./assets/arrow-icon-hover.png");
+			width: 52px;
+			height: 53px;
+			transform: rotate(180deg);
+			cursor: pointer;
+			color:#ffffff;
+			background-size: 100% 100%;
+		}
+
+		.right-arrow:hover {
+			position: absolute;
+			right: 20px;
+			top: calc(50% - 25px);
+			z-index: 50;
+			background: url("./assets/arrow-icon-hover.png");
+			width: 52px;
+			height: 53px;
+			cursor: pointer;
+			background-size: 100% 100%;
+		}
+
+		.arrowNone{
+			opacity: 0.5;
+			pointer-events: none;
+		}
+		.imgaAnimation{
+			animation: goLeft 1.5s linear forwards;
+		}
+
+
+		@keyframes goLeft {
+			from {
+				transform: scale(1);
+				border-radius: 20px;
+			}
+			20%{
+				transform: scale(1.1);
+				border-radius: 20px;
+			}
+			50% {
+				transform: scale(1);
+				border-radius: 20px;
+				/*left:0;*/
+
+			}
+			100%{
+				transform: scale(0.9);
+				border-radius: 20px;
+				/*left:-100%;*/
+			}
+		}
+
+		.img-box-scroll {
+			width: 100vw;
+			flex-shrink: 0;
+			display: flex;
+			justify-content: center;
+			background: #ffffff;
+		}
+
+		.scroll-content{
+			width: 100%;
+			/*height: 100vh;*/
+			aspect-ratio: 1540/867;
+		}
+
+
+		.img-box {
+			/*background: url("./assets/carousel-bg2.png") no-repeat;*/
+			background-position: bottom center;
+			width: 100%;
+			/*height: 100vh;*/
+			height: calc(100vw / 1.77);
+			/*height: 700px;*/
+			background-size: 100% auto;
+			position: relative;
+			margin: 0 auto;
+		}
+
+		.img-tool {
+			position: absolute;
+			bottom:71px;
+			left: 66px;
+			line-height: 1;
+			color: white;
+			z-index: 200;
+			text-align: left;
+			font-style: italic;
+		}
+
+		.small-title {
+			font-size: 70px;
+		}
+
+		.big-title {
+			font-size: 40px;
+			height: 60px;
+			line-height: 60px;
+			display: flex;
+			align-items: center;
+			margin-top: 8px;
+		}
+		.big-title-btn{
+			height: 52px;
+			line-height: 52px;
+			background: #ffffff;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			border-radius: 103px;
+			width: 98px;
+			margin-left: 8px;
+			cursor: pointer;
+		}
+		.title-btn-icon{
+			background: url("./assets/btn-icon.png");
+			width: 44px;
+			height: 28px;
+			background-size: 100% 100%;
+		}
+
+		.tool-btn {
+			height: 53px;
+			display: flex;
+			/*display: flex;*/
+			align-items: center;
+			justify-content: center;
+			border-radius: 50px;
+			padding: 0 80px;
+			color: #6B8829;
+			border: 2px solid #475929;
+			background: #ffffff;
+			margin-top: 10px;
+			position: relative;
+			cursor: pointer;
+			font-size: 28px;
+		}
+
+
+		.paragraph-box {
+			padding: 12px 63px;
+			padding-bottom: 0;
+			/* min-width: 954px; */
+			max-width: 1414px;
+			display: block;
+			margin: 0 auto;
+			font-size: 20px;
+			pointer-events: none;
+		}
+
+
+		.paragraph-box p {
+			margin-bottom: 20px;
+			font-size: 20px;
+			font-family: 'Inter', sans-serif;
+			line-height: 1.6;
+		}
+
+		.group-class {
+			margin-bottom: 20px;
+		}
+
+		.group-class p {
+			margin-bottom: 0;
+			font-family: 'Inter', sans-serif;
+		}
+
+		.paragraph-box .title {
+			color: rgba(184, 184, 18, 1);
+			font-size: 42px;
+			font-weight: 500;
+			line-height: 89px;
+		}
+
+		.paragraph-box b {
+			font-weight: 700;
+		}
+
+		.paragraph-box li {
+			font-size: 20px;
+		}
+
+		.paragraph-box a {
+			color: #000;
+		}
+
+		.middle-page{
+			position: relative;
+			height: 100vh;
+			display: flex;
+		}
+		.middle-left{
+			width: 61%;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			padding-left: 5.5vw;
+			padding-right: 4vw;
+			background-image: radial-gradient(ellipse 103.1588646964804% 116.6952117583113% at 0% 30%, rgba(234, 234, 36, 0.4) 0%, rgba(254, 255, 244, 0.4) 33.64%, rgba(231, 249, 153, 0.4) 63.01%, rgba(255, 255, 204, 0) 100%);
+		}
+
+		.middle-left-title{
+			font-size: 120px;
+			color:rgba(176, 176, 18, 1);
+			margin-bottom: 84px;
+			line-height: 1;
+			font-weight: 600;
+			font-style: italic;
+		}
+		.middle-left-content{
+			display: flex;
+			flex-direction: column;
+
+		}
+		.middle-left-content p{
+			font-size: 24px;
+			line-height: 30px;
+			color:#2a2a28;
+			margin-bottom: 40px;
+		}
+
+		.middle-left-btn{
+			margin-top: 100px;
+			color:#000;
+			background: #ffffff;
+			border:2px solid #6B8829;
+			width: 224px;
+			border-radius: 100px;
+			font-size: 28px;
+			height: 50px;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			cursor: pointer;
+		}
+
+		.middle-left-btn:hover{
+			background: rgba(252, 252, 199, 1);
+		}
+
+		.middle-right{
+			flex:1;
+			padding-right: 5vw;
+			display: flex; /* Enable Flexbox */
+			justify-content: center; /* Center horizontally */
+			align-items: center; /* Center vertically */
+		}
+
+		.middle-right-ul{
+			padding: 20px 8px; /* Equal padding top and bottom, no horizontal padding */
+			overflow-y: auto;
+			height: auto; /* Let the height adjust based on content */
+			max-height: 100%; /* Ensure it doesn't exceed the parent's height */
+		}
+		.middle-right-li-title{
+			font-weight: bold;
+			font-size: 20px;
+			color:#BFBF4D;
+			padding-left: 17px;
+			padding-bottom: 12px;
+			border-bottom: #DBDBDB 1px solid;
+			position: relative;
+		}
+
+		.middle-right-li{
+			font-size: 20px;
+			text-decoration: none;
+			padding: 17px;
+			color:#2a2a28;
+			border-bottom: #DBDBDB 1px solid;
+			position: relative;
+			padding-right: 40px;
+			display: block;
+		}
+		.middle-right-li:hover{
+			background: rgb(234, 234, 36,0.25);
+			font-style: italic;
+			cursor: pointer;
+		}
+		.middle-right-li:before{
+			position: absolute;
+			content: '';
+			right: 10px;
+			top: calc(50% - 7.5px);
+			height: 15px;
+			width: 15px;
+			background: #DBDB0F;
+			border-radius: 50%;
+		}
+
+		.middle-right-li:hover:before{
+			position: absolute;
+			content: '';
+			right: 10px;
+			top: calc(50% - 7.5px);
+			height: 13px;
+			width: 13px;
+			background: #ffffff;
+			border:2px solid #828223;
+			border-radius: 50%;
+		}
+		@keyframes moveAni{
+			0%{left:0;}
+			100%{
+				left: -800px;
+			}
+		}
+
+		.three-box{
+			position: relative;
+			height: 200px;
+			/*overflow-y:auto;*/
+		}
+		.three-box-bg{
+			background: url("./assets/last-bg.png") no-repeat;
+			/*width: 1647px;*/
+			height: 647px;
+			background-position-y: bottom;
+			background-size: 100% 647px;
+			position: absolute;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			z-index: -1;
+		}
+
+		@media screen and (max-width: 1080px) and (min-width: 768px) {
+
+
+		}
+		.phone-page-body{
+			display: none;
+		}
+		@media screen and (max-width: 640px) {
+			.page-body{
+				display: none;
+			}
+			.phone-page-body{
+				display: block;
+				overflow: hidden;
+			}
+			.first-page{
+				height: calc(100vh - 0.8rem);
+				width: 100vw;
+				background: url("./assets/phone-first-bg.png");
+				background-size: 100% 100%;
+				padding-top: 0.8rem;
+			}
+			.phone-title{
+				width: 6rem;
+				height: 5.4rem;
+				background: url("./assets/phone-title.png");
+				background-size: 100% 100%;
+				margin: 0 auto;
+			}
+			.scrolling-text{
+				top: 6.4rem;
+				height: 0.6rem;
+				position: absolute;
+				width:720px;
+			}
+			.scrolling-text span{
+				height: 0.6rem;
+				font-size: 0.32rem;
+				padding-left: 0.6rem;
+				padding-right: 0.6rem;
+			}
+			.scrolling-text span:before{
+				content:'';
+				position: absolute;
+				background: #5C8916;
+				width: 0.15rem;
+				height: 0.15rem;
+				left: 0.2rem;
+				top: 0.21rem;
+				border-radius: 50%;
+			}
+
+			.scrolling-text-bg{
+				position: absolute;
+				top: 6.4rem;
+				height: 0.6rem;
+				left: 0;
+				right: 0;
+			}
+			.btn-box{
+				top: 1.2rem;
+				font-size: 0.4rem;
+				padding-left: 0.26rem;
+			}
+			.btn-item{
+				height: 0.8rem;
+				padding: 0 0.8rem;
+				border:2px solid #475929;
+				margin-top: 0.1rem;
+			}
+			.phone-second-page{
+				width: calc(100% - 0.52rem);
+				padding: 0.26rem;
+			}
+			.second-title{
+				color:rgba(176, 176, 18, 1);
+				font-weight: 600;
+				font-size: 0.9rem;
+			}
+			.paragraph-box {
+				padding: 0.3rem 0;
+				/* min-width: 954px; */
+				max-width: 1414px;
+				display: block;
+				margin: 0 auto;
+				font-size: 0.2rem;
+			}
+
+			.paragraph-box p {
+				margin-bottom: 0.4rem;
+				font-size: 0.28rem;
+				line-height: 1.4;
+			}
+
+			.paragraph-box .title {
+				font-size: 0.42rem;
+				line-height: 0.89rem;
+			}
+
+			.paragraph-box li {
+				font-size: 0.3rem;
+			}
+			.middle-left-btn{
+				margin-top:0;
+				color:#000;
+				background: #ffffff;
+				border:2px solid  rgba(176, 176, 18, 1);
+				width: 2.6rem;
+				border-radius: 100px;
+				font-size:0.32rem;
+				height: 0.6rem;
+			}
+			.middle-right-ul{
+				padding: 0;
+			}
+			.middle-right-li{
+				font-size: 0.3rem;
+				padding: 0.2rem 0;
+				padding-right: 0.6rem;
+				padding-bottom: 0.4rem;
+				color:#2a2a28;
+				border-bottom: #DBDBDB 1px solid;
+				position: relative;
+				display: block;
+			}
+			.middle-right-li:before{
+				position: absolute;
+				content: '';
+				right: 0.1rem;
+				top: calc(50% - 0.08rem);
+				height: 0.16rem;
+				width: 0.16rem;
+				background: #DBDB0F;
+				border:2px solid #DBDB0F;
+				border-radius: 50%;
+			}
+
+			.middle-right-li:hover:before{
+				position: absolute;
+				content: '';
+				right: 0.1rem;
+				top: calc(50% - 0.08rem);
+				height: 0.16rem;
+				width: 0.16rem;
+				background: #ffffff;
+				border:2px solid #828223;
+				border-radius: 50%;
+			}
+			.middle-right-li-title{
+				padding-left: 0
+			}
+			.ad-box{
+				width: 100%;
+				aspect-ratio: 430/272;
+			}
+			.ad-box-img{
+				width: 100%;
+				height: 100%;
+				position: relative;
+			}
+			.three-box{
+				position: relative;
+				height: 2rem
+				/*overflow-y:auto;*/
+			}
+			.three-box-bg{
+				background: url("./assets/last-bg.png") no-repeat;
+				/*width: 1647px;*/
+				height: 3rem;
+				background-position-y: bottom;
+				background-size: cover;
+				position: absolute;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				z-index: -1;
+			}
+			.company-info{
+				height: 2rem;
+				text-align: center;
+				font-size: 0.3rem;
+				line-height: 1.2rem;
+				color: #475929;
+				display: flex;
+				align-items: flex-end;
+				justify-content: center;
+			}
+
+		}
+	</style>
+</head>
+
+<body>
+	<div id="app">
+		<div class="page-body">
+			<div class="base-div">
+				<div class="first-circle"></div>
+				<div class="second-circle"></div>
+				<div class="last-text">
+						<div class="text-top">
+							<div class="above-text">
+								<div class="top-line1 hidden-text"></div>
+								<div class="top-line2 hidden-text"></div>
+								<div class="top-line1 hidden-text"></div>
+								<div class="top-line2"></div>
+							</div>
+							<div class="below-text">
+								<div class="top-line1"></div>
+							</div>
+							<div class="scrolling-text">
+								<template v-for="sn in scrollNum">
+									<span v-if="sn % 3 === 1">GLOBAL LEARNING</span>
+									<span v-if="sn % 3 === 2">INTERACTIVITY</span>
+									<span v-if="sn % 3 === 0">AI INTEGRATION</span>
+								</template>
+							</div>
+							<div class="scrolling-text scrolling-text-delay">
+								<template v-for="sn in scrollNum">
+									<span v-if="sn % 3 === 1">GLOBAL LEARNING</span>
+									<span v-if="sn % 3 === 2">INTERACTIVITY</span>
+									<span v-if="sn % 3 === 0">AI INTEGRATION</span>
+								</template>
+							</div>
+							<div class="scrolling-text-bg"></div>
+<!--							<div class="delay" :style="{right:scrollLeft+'px'}">-->
+<!--								<template v-for="item in scrollText" >-->
+<!--									<span>GLOBAL LEARNING</span>-->
+<!--									<span>INTERACTIVITY</span>-->
+<!--									<span>AI INTEGRATION</span>-->
+<!--								</template>-->
+<!--							</div>-->
+
+							<div class="btn-box">
+								<div class="btn-item item1">
+									<a href="https://nyuglobal.show/src/opencall.html" target="_blank">Submitting Your Work</a></div>
+								<br>
+								<div class="btn-item item2">
+									<a href="https://nyuglobal.show/src/opencall.html" target="_blank">Call for Collaboration</a>
+									</div>
+								<br>
+								<div class="btn-item item3">
+									<a href="https://nyuglobal.show/showcase" target="_blank">Showcase</a>
+									</div>
+								<br>
+								<div class="btn-item item4">Program Calendar</div>
+								<br>
+								<div class="btn-item item5">About</div>
+							</div>
+							<div class="arrow" @click="scrollTool"></div>
+						</div>
+					<div style="position: absolute;left: 0;right: 0;top:0;bottom:0;z-index: -1">
+						<main>
+							<canvas></canvas>
+						</main>
+					</div>
+				</div>
+			</div>
+			<div class="middle-page" id="middlePage">
+				<div class="middle-left">
+					<div class="middle-left-title">
+						Global Learning
+						<br>
+						& AI
+					</div>
+					<div class="middle-left-content">
+						<p>
+							NYU Global Show-and-Tell is a festival that celebrates learning and community through a global showcase of student works that emerge within NYU's global network. 
+						</p>
+						<p>
+							In a world where knowledge once spread through ancient wayfarers, we explore how artificial intelligence mediates global learning and creativity through student works that bring together Artificial Intelligence and interactive media.
+						</p>
+						</div>
+					<!-- <div class="middle-left-btn">
+						Learn More
+					</div> -->
+				</div>
+				<div class="middle-right">
+					<div class="middle-right-ul">
+						<div class="middle-right-li-title">
+							Presented to you by
+						</div>
+						<a class="middle-right-li" href="https://itp.nyu.edu/ima/" target="_blank">
+							NYU Tisch Interactive Telecommunications Program / Interactive Media Arts
+						</a>
+						<a class="middle-right-li" href="https://engineering.nyu.edu/academics/departments/technology-culture-and-society/integrated-design-media" target="_blank">
+							NYU Tandon Integrated Design & Media
+						</a>
+						<a class="middle-right-li" href="https://itp.nyu.edu/lowres/" target="_blank">
+							NYU IMA Low Res
+						</a>
+						<a class="middle-right-li" href="https://shanghai.nyu.edu/academics/majors/interactive-media-arts" target="_blank">
+							NYU Shanghai Interactive Media Arts
+						</a>
+						<a class="middle-right-li" href="https://cs.shanghai.nyu.edu/" target="_blank">
+							NYU Shanghai Computer Science, Data Science, and Engineering
+						</a>
+						<a class="middle-right-li" href="https://nyuad.nyu.edu/en/academics/divisions/arts-and-humanities/academic-programs/interactive-media.html" target="_blank">
+							NYU Abu Dhabi Interactive Media
+						</a>
+						<a class="middle-right-li" href="https://library.nyu.edu/" target="_blank">
+							NYU Bobst Library
+						</a>
+						<a class="middle-right-li" href="https://library.shanghai.nyu.edu/" target="_blank">
+							NYU Shanghai Library
+						</a>
+						<a class="middle-right-li" href="https://nyuad.nyu.edu/en/library.html" target="_blank">
+							NYU Abu Dhabi Library
+						</a>
+						<a class="middle-right-li">
+							NYU Shanghai University Communications Events Office
+						</a>
+					</div>
+				</div>
+			</div>
+			<div class="second-page" id="textDiv">
+				<div class="carousel-box">
+					<el-carousel :height="getCarousel" autoplay :interval="4000" :autoplay="false">
+						<el-carousel-item>
+							<div class="img-box">
+								<img style="height: 100%;width: 100%" src="./assets/carousel-bg2.png" alt="">
+								<div class="img-tool">
+									<div class="small-title">Opening project</div>
+									<div class="big-title">
+										<div>Live-Diffusion</div>
+										<div class="big-title-btn">
+											<a class="title-btn-icon" href="https://nyuglobal.show/showcase/1/" target="_blank">
+											</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</el-carousel-item>
+						<el-carousel-item>
+							<div class="img-box">
+								<img style="height: 100%;width: 100%" src="./assets/carousel-bg2.png" alt="">
+								<div class="img-tool">
+									<div class="small-title">Opening project</div>
+									<div class="big-title">
+										<div>Live-Diffusion</div>
+										<div class="big-title-btn">
+											<div class="title-btn-icon"></div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</el-carousel-item>
+						<el-carousel-item>
+							<div class="img-box">
+								<img style="height: 100%;width: 100%" src="./assets/carousel-bg2.png" alt="">
+								<div class="img-tool">
+									<div class="small-title">Opening project</div>
+									<div class="big-title">
+										<div>Live-Diffusion</div>
+										<div class="big-title-btn">
+											<div class="title-btn-icon"></div>
+										</div>
+									</div>
+
+								</div>
+							</div>
+						</el-carousel-item>
+						<el-carousel-item>
+							<div class="img-box">
+								<img  style="height: 100%;width: 100%" src="./assets/carousel-bg1.png" alt="">
+							</div>
+						</el-carousel-item>
+					</el-carousel>
+				</div>
+
+			</div>
+			<div class="three-box">
+				<div class="three-box-bg"></div>
+				<div class="company-info">
+					NYU Global Show & Tell @ 2025
+				</div>
+			</div>
+		</div>
+		<div class="phone-page-body">
+			<div class="first-page">
+				<div class="phone-title"></div>
+				<div class="scrolling-text">
+					<span>GLOBAL LEARNING</span>
+					<span>INTERACTIVITY</span>
+					<span>AI INTEGRATION</span>
+				</div>
+				<div class="scrolling-text scrolling-text-delay">
+					<span>GLOBAL LEARNING</span>
+					<span>INTERACTIVITY</span>
+					<span>AI INTEGRATION</span>
+				</div>
+				<div class="scrolling-text-bg"></div>
+				<div class="btn-box">
+					<div class="btn-item item1">
+						<a href="https://nyuglobal.show/src/opencall.html" target="_blank">Submitting Your Work</a>
+						</div>
+					<br>
+					<div class="btn-item item2">
+						<a href="https://nyuglobal.show/src/opencall.html" target="_blank">Call for Collaboration</a>
+					</div>
+					<br>
+					<div class="btn-item item3">
+						<a href="https://nyuglobal.show/" target="_blank">Showcase</a>
+					</div>
+					<br>
+					<div class="btn-item item4">Program Calendar</div>
+					<br>
+					<div class="btn-item item5">About</div>
+				</div>
+			</div>
+			<div class="phone-second-page">
+				<div class="second-title">
+					Global
+					<br>
+					Learning
+					<br>
+					& AI
+				</div>
+				<div class="paragraph-box">
+					<p>
+						NYU Global Show-and-Tell is a festival that celebrates learning and community through a global showcase of student works that emerge within NYU's global network.
+					</p>
+					<p>
+						In a world where knowledge once spread through ancient wayfarers, we explore how artificial intelligence mediates global learning and creativity through student works that bring together Artificial Intelligence and interactive media.
+				</div>
+<!--				<div class="middle-left-btn">-->
+<!--						Learn More-->
+<!--				</div>-->
+				<div class="middle-right">
+					<div class="middle-right-ul">
+						<div class="middle-right-li-title">
+							Presented to you by
+						</div>
+						<a class="middle-right-li" href="https://tisch.nyu.edu/itp" target="_blank">
+							NYU Tisch Interactive Telecommunications Program / Interactive Media Arts
+						</a>
+						<a class="middle-right-li" href="https://engineering.nyu.edu/academics/departments/technology-culture-and-society/integrated-design-media" target="_blank">
+							NYU Tandon Integrated Design & Media
+						</a>
+						<a class="middle-right-li" href="https://itp.nyu.edu/lowres/" target="_blank">
+							NYU IMA Low Res
+						</a>
+						<a class="middle-right-li" href="https://shanghai.nyu.edu/academics/majors/interactive-media-arts" target="_blank">
+							NYU Shanghai Interactive Media Arts
+						</a>
+						<a class="middle-right-li" href="https://cs.shanghai.nyu.edu/" target="_blank">
+							NYU Shanghai Computer Science, Data Science, and Engineering
+						</a>
+						<a class="middle-right-li" href="https://nyuad.nyu.edu/en/academics/divisions/arts-and-humanities/academic-programs/interactive-media.html" target="_blank">
+							NYU Abu Dhabi Interactive Media
+						</a>
+						<a class="middle-right-li" href="https://library.nyu.edu/" target="_blank">
+							NYU Bobst Library
+						</a>
+						<a class="middle-right-li" href="https://library.shanghai.nyu.edu/" target="_blank">
+							NYU Shanghai Library
+						</a>
+						<a class="middle-right-li" href="https://nyuad.nyu.edu/en/library.html" target="_blank">
+							NYU Abu Dhabi Library
+						</a>
+						<a class="middle-right-li">
+							NYU Shanghai University Communications Events Office
+						</a>
+					</div>
+				</div>
+
+			</div>
+			<div class="ad-box">
+				<img class="ad-box-img" src="./assets/carousel-bg2.png" alt="">
+			</div>
+			<div class="three-box">
+				<div class="three-box-bg"></div>
+				<div class="company-info">
+					NYU Global Show & Tell @ 2025
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		const { createApp, ref, onMounted } = Vue
+
+		createApp({
+
+			setup() {
+				const scrollText = ref([{},{},{},{}]);
+				const scrollLeft = ref(0);
+
+				const scrollNum = ref(0);// 判断页面可以容下几个可以滚动的模块
+
+				const getCarousel = ref('1000px');
+				onMounted(() =>{
+					setInterval(() =>{
+						scrollText.value.unshift({})
+						scrollLeft.value-=100;
+						if(scrollText.value.length>10){
+							scrollText.value.pop()
+						}
+					},2000)
+
+					getCarousel.value = window.innerWidth /1.77 + 'px'
+
+					const screenWidth = window.innerWidth;
+					const screenHeight = window.innerHeight;
+					const sqrtNum = Math.sqrt(screenWidth**2 + screenHeight**2);
+					// 判断页面可以容下几个可以滚动的模块
+					scrollNum.value = Math.floor(sqrtNum / 360);
+
+				})
+
+				// 跳转到指定位置
+				const scrollTool = () => {
+					let element = document.getElementById('middlePage');
+					element.scrollIntoView({behavior: 'smooth'});
+				}
+				return {
+					scrollTool,scrollText,scrollLeft,getCarousel,scrollNum
+				}
+			}
+		}).use(ElementPlus).mount('#app');
+	</script>
+</body>
+
+</html>
