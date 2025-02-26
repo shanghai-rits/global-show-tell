@@ -32,7 +32,7 @@ const ShowcaseDetail: React.FC = () => {
   const items: ShowcaseItem[] = [
     {
       id: 1,
-      title: 'Live Diffusion',
+      title: 'Live-Diffusion',
       authors: 'Chenxuan Wu, Jinran Ye',
       description: 'A real-time interactive AI-generated image system.',
       sections: {
