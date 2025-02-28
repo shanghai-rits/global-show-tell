@@ -158,6 +158,7 @@
   text-decoration-skip-ink: none;
   -webkit-text-stroke: 2px black;
   letter-spacing: -1.5px;
+  cursor: pointer;
 }
 
 .nav-title .default {

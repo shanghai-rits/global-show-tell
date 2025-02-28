@@ -64,7 +64,7 @@ const Navbar: React.FC = () => {
             </div>
           </button>
           <nav className="navbar">
-            <div className="nav-title">
+            <div className="nav-title" onClick={() => window.location.href = "/"}>
               {/* <div>NYU Global</div>
             <div>SHOW & TELL</div> */}
               <svg className="default" width="483" height="164" viewBox="0 0 483 164" fill="none" xmlns="http://www.w3.org/2000/svg">
