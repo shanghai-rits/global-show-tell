@@ -192,7 +192,7 @@ const Navbar: React.FC = () => {
               </div>
               <div className="nav-button-wrapper">
                 <button className="nav-button" onClick={() => window.location.href = "/collaboration"}>
-                  Call for Collaboration
+                  Find Your Collaborator
                 </button>
               </div>
               <div className="nav-button-wrapper">
