@@ -10,7 +10,9 @@ interface ShowcaseItem {
   id: number;
   title: string;
   authors: string;
+  program: string;
   size?: { width?: number; height?: number };
+  real: boolean;
 }
 /**
  * Checks if two items (by top-left corner) with the same width/height/spacing overlap.
@@ -168,14 +170,14 @@ const Showcase: React.FC = () => {
   };
 
   const items: ShowcaseItem[] = [
-    { id: 1, title: 'Live-Diffusion', authors: 'Chenxuan Wu, Jinran Ye', size: { width: 420 } },
-    { id: 2, title: 'Title of the work 2', authors: 'Authors' },
-    { id: 3, title: 'Title of the work 3', authors: 'Authors' },
-    { id: 4, title: 'Title of the work 4', authors: 'Authors' },
-    { id: 5, title: 'Title of the work 5', authors: 'Authors' },
-    { id: 6, title: 'Title of the work 6', authors: 'Authors' },
-    { id: 7, title: 'Title of the work 7', authors: 'Authors' },
-    { id: 8, title: 'Title of the work 8', authors: 'Authors' },
+    { id: 1, title: 'Live-Diffusion', authors: 'Chenxuan Wu, Jinran Ye', program: "IMA Program", size: { width: 420 }, real: true },
+    { id: 2, title: '', authors: '', program: "", real: false },
+    { id: 3, title: '', authors: '', program: "", real: false },
+    { id: 4, title: '', authors: '', program: "", real: false },
+    { id: 5, title: '', authors: '', program: "", real: false },
+    { id: 6, title: '', authors: '', program: "", real: false },
+    { id: 7, title: '', authors: '', program: "", real: false },
+    { id: 8, title: '', authors: '', program: "", real: false },
   ];
 
   // Canvas = "map" we can drag around.
@@ -413,12 +415,13 @@ const Showcase: React.FC = () => {
                   borderRadius: 0,
                   padding: 0,
                   margin: 0,
-                  cursor: 'pointer',
+                  cursor: item.real ? 'pointer' : 'default',
                 }}
 
                 // onClick={() => navigate(`/showcase/${item.id}`)}
 
                 onClick={(e) => {
+                  if (!item.real) return; // Only navigate if the item is real
                   e.stopPropagation(); // 防止事件冒泡（可选）
                   const fullUrl = `${window.location.origin}/showcase/${item.id}`;
                   window.open(fullUrl, '_blank', 'noopener,noreferrer');
@@ -504,12 +507,11 @@ const Showcase: React.FC = () => {
                     overflow: 'hidden',
                     padding: 0,
                     margin: 0,
-                    cursor: 'pointer',
+                    cursor: item.real ? 'pointer' : 'default',
                   }}
 
-                  // onClick={() => navigate(`/showcase/${item.id}`)}
-
                   onClick={(e) => {
+                    if (!item.real) return; // Only navigate if the item is real
                     e.stopPropagation(); // 防止事件冒泡（可选）
                     const fullUrl = `${window.location.origin}/showcase/${item.id}`;
                     window.open(fullUrl, '_blank', 'noopener,noreferrer');
@@ -535,8 +537,11 @@ const Showcase: React.FC = () => {
                   <div style={{ lineHeight: '1', marginTop: '15px', fontFamily: 'inter', fontSize: '32px', fontWeight: 'unset', color: 'rgba(128, 128, 128, 1)' }}>
                     {item.title}
                   </div>
-                  <div style={{ marginTop: '5px', marginLeft: '2px', color: 'rgba(128, 128, 128, 1)', fontSize: '20px' }}>
+                  <div style={{ marginTop: '3px', marginLeft: '2px', color: 'rgba(128, 128, 128, 1)', fontSize: '20px' }}>
                     {item.authors}
+                  </div>
+                  <div style={{ marginTop: '0px', marginLeft: '2px', color: 'rgba(128, 128, 128, 1)', fontSize: '18px' }}>
+                    {item.program}
                   </div>
                 </div>
               );

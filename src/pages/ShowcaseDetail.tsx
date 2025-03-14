@@ -8,6 +8,7 @@ interface ShowcaseItem {
   id: number;
   title: string;
   authors: string;
+  program: string;
   description: string;
   sections: {
     [key: string]: string;
@@ -34,6 +35,7 @@ const ShowcaseDetail: React.FC = () => {
       id: 1,
       title: 'Live-Diffusion',
       authors: 'Chenxuan Wu, Jinran Ye',
+      program: 'IMA Program',
       description: 'A real-time interactive AI-generated image system.',
       sections: {
         "How I use AI in this project":
@@ -87,7 +89,8 @@ We began the Live-Diffusion project in Abu Dhabi with Professor __Mang__, who pr
         <div className="content-wrapper">
           {/* 固定标题部分 */}
           <h1 className="title1">{item.title}</h1>
-          <p className="authors">{item.authors}</p>
+          <div className="authors">{item.authors}</div>
+          <div className="program">{item.program}</div>
 
           {/* 动态内容部分 */}
           <Section

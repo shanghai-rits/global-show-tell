@@ -59,6 +59,10 @@ margin: 0 0 20px;
 font-size: 24px;
 color: #808080;
 margin-top: 0px;
+}
+.program {
+font-size: 24px;
+color: #808080;
 margin-bottom: 55px;
 }
 
@@ -134,6 +138,9 @@ p.content-paragraph {
     }
     .authors {
         font-size: 18px;
+      }
+      .program {
+        font-size: 18px;
         margin-bottom: 20px;
       }
     .section-title {
@@ -146,8 +153,5 @@ p.content-paragraph {
       p.content-paragraph {
         font-size: 18px;
         line-height: 1.4;
-      }
-    .authors {
-        font-size: 18px;
       }
 }
