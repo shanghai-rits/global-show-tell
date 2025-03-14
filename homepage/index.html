@@ -1,11 +1,12 @@
-                                                                                                                                                                                                                                                                                                                                                                                                                                              <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
 	<meta charset="UTF-8" />
 	<link rel="icon" href="/logo.png" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/inter-ui/inter.css">
+<!--	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/inter-ui/inter.css">-->
+	<link rel="stylesheet" href="./font.css">
 	<link rel="stylesheet" href="https://unpkg.com/element-plus/dist/index.css" />
 	<!-- Import component library -->
 	<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
@@ -19,6 +20,10 @@
 		let screenWidth = window.innerWidth;
 		let screenHeight = window.innerHeight;
 		let sqrtNum = Math.sqrt(screenWidth**2 + screenHeight**2);
+		let ultraWideRatio = 1;
+		if(screenWidth/screenHeight > 2){
+			ultraWideRatio = 0.8
+		}
 
 		console.log(`屏幕宽度: ${screenWidth}px`);
 		console.log(`屏幕高度: ${screenHeight}px`);
@@ -28,11 +33,16 @@
 		document.documentElement.style.setProperty('--width-line', `${screenWidth}px`);
 		document.documentElement.style.setProperty('--height-line', `${screenHeight}px`);
 		document.documentElement.style.setProperty('--img-multiple', `${screenWidth / 1540}`);
+		document.documentElement.style.setProperty('--ultra-wide', `${ultraWideRatio}`);
 
 		function handleResize() {
 			screenWidth = window.innerWidth;
 			screenHeight = window.innerHeight;
 			sqrtNum = Math.sqrt(screenWidth**2 + screenHeight**2);
+			let ultraWideRatio = 1;
+			if(screenWidth/screenHeight > 2){
+				ultraWideRatio = 0.8
+			}
 
 			console.log(`屏幕宽度: ${screenWidth}px`);
 			console.log(`屏幕高度: ${screenHeight}px`);
@@ -42,6 +52,7 @@
 			document.documentElement.style.setProperty('--width-line', `${screenWidth}px`);
 			document.documentElement.style.setProperty('--height-line', `${screenHeight}px`);
 			document.documentElement.style.setProperty('--img-multiple', `${screenWidth / 1540}`);
+			document.documentElement.style.setProperty('--ultra-wide', `${ultraWideRatio}`);
 		}
 
 		window.addEventListener('resize', handleResize);
@@ -84,7 +95,8 @@
 			--sqrt-line:0;
 			--height-line:0;
 			--width-line:0;
-			--img-multiple: 0
+			--img-multiple: 0;
+			--ultra-wide: 0
 		}
 		::-webkit-scrollbar {
 			width: 0;
@@ -99,7 +111,7 @@
         }
 
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'NYU', sans-serif;
             color: #333;
         }
 
@@ -110,6 +122,59 @@
 			position: relative;
              overflow-x: auto;
         }
+		.company-top{
+			background: #57068C;
+			height: 73px;
+			width: 100%;
+			position: absolute;
+			top: -73px;
+			left: 0;
+			right: 0;
+			z-index: 999;
+			display: flex;
+			align-items: center;
+			justify-content: flex-end;
+			animation: companyTop 2s forwards linear;
+		}
+
+		@keyframes companyTop {
+
+			/* from表示动画的开始位置，也可以使用0%来表示。 */
+			from {
+				top: -73px;
+			}
+			80%{
+				top: -73px;
+			}
+			/* to表示动画的结束位置，也可以使用100%来表示。 */
+			to {
+				top: 0;
+			}
+		}
+		.company-top-img1{
+			background: url("./assets/abudhabi_white.png.png");
+			width: 140px;
+			height: 35px;
+			background-size: 100% 100%;
+			margin-right: 50px;
+		}
+
+		.company-top-img2{
+			background: url("./assets/NYU_Short_RGB_White.png.png");
+			width: 80px;
+			height: 27px;
+			background-size: 100% 100%;
+			margin-right: 50px;
+		}
+
+		.company-top-img3{
+			background: url("./assets/shanghai_white.png.png");
+			width: 140px;
+			height: 37px;
+			background-size: 100% 100%;
+			margin-right: 50px;
+		}
+
 		.base-div{
 			background-color: #E9E92C;
 			height: 100vh;
@@ -221,10 +286,10 @@
 				top:0;
 			}
 			90% {
-				top:calc((var(--sqrt-line) - var(--height-line))/2 - calc(calc((var(--width-line)/1.246)/3.969)*3 + 100px));
+				top:calc((var(--sqrt-line) - var(--height-line))/2 - calc(calc((var(--width-line)/1.246 * var(--ultra-wide))/3.969)*3 + 100px));
 			}
 			100% {
-				top:calc((var(--sqrt-line) - var(--height-line))/2 - calc(calc((var(--width-line)/1.246)/3.969)*3));
+				top:calc((var(--sqrt-line) - var(--height-line))/2 - calc(calc((var(--width-line)/1.246 * var(--ultra-wide))/3.969)*3));
 			}
 		}
 		.hidden-text{
@@ -259,7 +324,7 @@
 			}
 			/* to表示动画的结束位置，也可以使用100%来表示。 */
 			50% {
-				top:calc((var(--width-line)/1.246)/3.969*-1);
+				top:calc((var(--width-line)/1.246 * var(--ultra-wide))/3.969*-1);
 			}
 			100% {
 				top:calc( (var(--sqrt-line) - var(--height-line))/2 );
@@ -280,18 +345,18 @@
 			}
 			/* to表示动画的结束位置，也可以使用100%来表示。 */
 			50% {
-				top:calc((var(--width-line)/1.246)/3.969*-1);
+				top:calc((var(--width-line)/1.246 * var(--ultra-wide))/3.969*-1);
 			}
 			100% {
-				top:calc(calc((var(--width-line)/1.246)/3.969*-1) + 10px);
+				top:calc(calc((var(--width-line)/1.2 * var(--ultra-wide))/3.969*-1) + 10px);
 				left:10px
 			}
 		}
 
 		.top-line1{
 			background: url('./assets/tell1-line-bg.png') no-repeat;
-			width:calc(var(--width-line)/1.246);
-			height: calc((var(--width-line)/1.246)/3.969);
+			width:calc(var(--width-line)/1.246 * var(--ultra-wide));
+			height: calc((var(--width-line)/1.2 * var(--ultra-wide))/3.969);
 			background-size: 100% 100%;
 			margin: 0 auto;
 			position: relative;
@@ -300,8 +365,8 @@
 
 		.top-line2{
 			background: url('./assets/tell2-line-bg.png') no-repeat;
-			width:calc(var(--width-line)/1.246);
-			height: calc((var(--width-line)/1.246)/3.969);
+			width:calc(var(--width-line)/1.246 * var(--ultra-wide));
+			height: calc((var(--width-line)/1.205 * var(--ultra-wide))/3.969);
 			background-size: 100% 100%;
 			margin: 0 auto;
 			position: relative;
@@ -309,122 +374,23 @@
 			margin-top: 40px;
 		}
 
-		.scrolling-text {
-			position: relative;
-			z-index: 4;
-			top:calc((var(--width-line)/1.246)/3.969*(-1) + 80px);
-			white-space: nowrap; /* 保持文本为单行 */
-			overflow: hidden; /* 隐藏溢出的内容 */
-			width: calc(100%); /* 容器宽度 */
-			height: 40px; /* 容器高度 */
-			font-size: 0;
-			color:#333;
-			/*animation: scrollText 10s linear forwards; !* 动画 *!*/
-			animation: scrollText 16s linear infinite; /* 动画 */
-			display: flex;
-		}
-		.delay{
-			position: relative;
-			z-index: 4;
-			top:calc((var(--width-line)/1.246)/3.969*(-1) + 40px);
-			white-space: nowrap; /* 保持文本为单行 */
-			/*overflow: hidden; !* 隐藏溢出的内容 *!*/
-			/*width:100%; !* 容器宽度 *!*/
-			height: 40px; /* 容器高度 */
-			font-size: 0;
-			color:#333;
-			right:0;
-			text-align: right;
-			margin: 0 auto;
-			transition: all 2s;
-			transition-timing-function:linear;
-			display: flex;
-			justify-content: flex-end;
-			/*animation: scrollText 10s linear forwards; !* 动画 *!*/
-			/*animation: scrollDelay 16s linear infinite; !* 动画 *!*/
-			/*animation-delay: 8s;*/
-		}
-		@keyframes scrollDelay {
-			from { transform: translateX(-100%); }
-			to { transform: translateX(0%); }
-		}
-		.scrolling-text-delay{
-			transform: translateX(-100%);
-			animation-delay: 8s;
-			top:calc((var(--width-line)/1.246)/3.969*(-1) + 40px);
-			z-index: 5;
-			/*animation: none;*/
-		}
-
-		.scrolling-text span ,.delay span{
-			height: 40px;
-			display: inline-flex;
-			align-items: center;
-			line-height: 40px;
-			color:#5C8916;
-			font-size: 26px;
-			padding-left: 60px;
-			padding-right: 60px;
-			background-color: #ffffff; /* 背景色 */
-			position: relative;
-			flex:1;
-		}
-		.delay span{
-			/*padding-left: 0;*/
-		}
-		.scrolling-text span:before ,.delay span:before{
-			content:'';
-			position: absolute;
-			background: #5C8916;
-			width: 15px;
-			height: 15px;
-			left: 10px;
-			top: 12px;
-			border-radius: 50%;
-		}
-		.scrolling-text:hover {
-			/*animation-play-state: paused; !* 暂停动画 *!*/
-		}
-		@keyframes scrollText {
-			from { transform: translateX(-100%); }
-			50% { transform: translateX(0); }
-			100% { transform: translateX(100%); }
-		}
-		.scrolling-text-bg{
-			position: relative;
-			top:calc((var(--width-line)/1.246)/3.969*(-1) );
-			left: 0;
-			height: 40px;
-			background: #ffffff;
-			z-index: 3;
-			/*animation: scrollTextBg 10s linear forwards; !* 动画 *!*/
-		}
-		@keyframes scrollTextBg{
-			from {
-				width: 0;
-			}
-			to {
-				width: 100%;
-			}
-		}
-
 		.btn-box{
 			position: relative;
-			top:calc((var(--width-line)/1.246)/3.969*(-1)  + 20px);
-			font-size: 30px;
+			top:calc((var(--width-line)/1.246 * var(--ultra-wide))/3.969*(-1)  + 20px);
+			font-size: 2.4vh;
 		}
 		.btn-item{
-			height: 53px;
+			height: 5vh;
 			display: inline-flex;
 			/*display: flex;*/
 			align-items: center;
 			justify-content: center;
 			border-radius: 50px;
-			padding: 0 80px;
+			padding: 0 8vh;
 			color:#6B8829;
 			border:1px solid #475929;
 			background: #ffffff;
-			margin-top: 10px;
+			margin-top: 1vh;
 			position: relative;
 			opacity: 0;
 			cursor: pointer;
@@ -482,15 +448,16 @@
 		}
 		.arrow{
 			position: relative;
-			top:calc((var(--width-line)/1.246)/3.969*(-1)  + 40px);
+			top:-40px;
 			background: url("./assets/arrow.png") no-repeat;
 			width: 60px;
 			height: 25px;
 			margin: 0 auto;
+			z-index: 999;
+			opacity: 1;
+			cursor: pointer;
 			animation: arrow 1.5s linear infinite; /* 动画 */
 			animation-delay: 3s;
-			opacity: 0;
-			cursor: pointer;
 		}
 
 		@keyframes arrow {
@@ -510,83 +477,32 @@
 			height: 100vh;
 			overflow: hidden;
 		}
-		.company-info{
-			height: 200px;
-			text-align: center;
-			font-size: 16px;
-			line-height: 122px;
-			color: #475929;
-			display: flex;
-			align-items: flex-end;
-			justify-content: center;
-		}
-
-
-		.center-text {
-			width: calc(100vw - 128px);
-			padding: 60px 64px;
-			text-align: left;
-			margin: 0 auto;
-			background: #ffffff;
-			position: relative;
-		}
-
-		.text-title {
-			font-size: 90px;
-			line-height: 80px;
-			color: #262626;
-			font-weight: 600;
-			position: relative;
-			z-index: 2;
-		}
-
-		.center-text p {
-			margin-top: 40px;
-			font-size: 26px;
-			font-weight: 400;
-			position: relative;
-			z-index: 3;
-		}
-
-		.bg-ellipse1 {
-			position: absolute;
-			left: 100px;
-			top: 100px;
-			background: url("./assets/ellipse1.png") no-repeat;
-			width: calc(1149px / 3);
-			height: calc(1149px / 3);
-			background-size: 100% 100%;
-			z-index: 1;
-			transition: transform 3s;
-		}
-		.bg-ellipse1:hover{
-			transform: scale(1.2);
-		}
-
-		.bg-ellipse2 {
-			position: absolute;
-			left: 60%;
-			top: 60px;
-			background: url("./assets/ellipse2.png") no-repeat;
-			width: calc(663px / 3);
-			height: calc(663px / 3);
-			background-size: 100% 100%;
-			z-index: 1;
-			transition: transform 3s;
-		}
-		.bg-ellipse2:hover{
-			transform: scale(1.3);
-		}
 
 		.carousel-box {
 			width: 100vw;
-			height: 100vh;
+			/*height: 100vh;*/
 			/*background: #ffffff;*/
 			margin: 0 auto;
 			position: relative;
 			overflow: hidden;
 		}
 
+
+		.el-carousel__arrow{
+			background: url("./assets/arrow-icon.png");
+			width: 52px;
+			height: 53px;
+			transform: rotate(180deg);
+			background-size: 100% 100%;
+			top: calc(50% - 25px);
+		}
+		.el-carousel__arrow.el-carousel__arrow--right{
+			background: url("./assets/arrow-icon.png");
+			width: 52px;
+			height: 53px;
+			transform: rotate(0);
+			background-size: 100% 100%;
+		}
 		.el-carousel__item {
 			text-align: center;
 			display: flex;
@@ -654,15 +570,6 @@
 			background-size: 100% 100%;
 		}
 
-		.arrowNone{
-			opacity: 0.5;
-			pointer-events: none;
-		}
-		.imgaAnimation{
-			animation: goLeft 1.5s linear forwards;
-		}
-
-
 		@keyframes goLeft {
 			from {
 				transform: scale(1);
@@ -685,27 +592,12 @@
 			}
 		}
 
-		.img-box-scroll {
-			width: 100vw;
-			flex-shrink: 0;
-			display: flex;
-			justify-content: center;
-			background: #ffffff;
-		}
-
-		.scroll-content{
-			width: 100%;
-			/*height: 100vh;*/
-			aspect-ratio: 1540/867;
-		}
-
-
 		.img-box {
 			/*background: url("./assets/carousel-bg2.png") no-repeat;*/
 			background-position: bottom center;
 			width: 100%;
 			/*height: 100vh;*/
-			height: calc(100vw / 1.77);
+			height: 100vh;
 			/*height: 700px;*/
 			background-size: 100% auto;
 			position: relative;
@@ -754,24 +646,6 @@
 			background-size: 100% 100%;
 		}
 
-		.tool-btn {
-			height: 53px;
-			display: flex;
-			/*display: flex;*/
-			align-items: center;
-			justify-content: center;
-			border-radius: 50px;
-			padding: 0 80px;
-			color: #6B8829;
-			border: 2px solid #475929;
-			background: #ffffff;
-			margin-top: 10px;
-			position: relative;
-			cursor: pointer;
-			font-size: 28px;
-		}
-
-
 		.paragraph-box {
 			padding: 12px 63px;
 			padding-bottom: 0;
@@ -787,17 +661,13 @@
 		.paragraph-box p {
 			margin-bottom: 20px;
 			font-size: 20px;
-			font-family: 'Inter', sans-serif;
+			font-family: 'NYU', sans-serif;
 			line-height: 1.6;
-		}
-
-		.group-class {
-			margin-bottom: 20px;
 		}
 
 		.group-class p {
 			margin-bottom: 0;
-			font-family: 'Inter', sans-serif;
+			font-family: 'NYU', sans-serif;
 		}
 
 		.paragraph-box .title {
@@ -835,12 +705,12 @@
 		}
 
 		.middle-left-title{
-			font-size: 120px;
+			font-size: 10vh;
 			color:rgba(176, 176, 18, 1);
-			margin-bottom: 84px;
+			margin-bottom: 6vh;
 			line-height: 1;
 			font-weight: 600;
-			font-style: italic;
+			/*font-style: italic;*/
 		}
 		.middle-left-content{
 			display: flex;
@@ -851,28 +721,8 @@
 			font-size: 24px;
 			line-height: 30px;
 			color:#2a2a28;
-			margin-bottom: 40px;
+			margin-bottom: 20px;
 		}
-
-		.middle-left-btn{
-			margin-top: 100px;
-			color:#000;
-			background: #ffffff;
-			border:2px solid #6B8829;
-			width: 224px;
-			border-radius: 100px;
-			font-size: 28px;
-			height: 50px;
-			display: inline-flex;
-			align-items: center;
-			justify-content: center;
-			cursor: pointer;
-		}
-
-		.middle-left-btn:hover{
-			background: rgba(252, 252, 199, 1);
-		}
-
 		.middle-right{
 			flex:1;
 			padding-right: 5vw;
@@ -889,18 +739,19 @@
 		}
 		.middle-right-li-title{
 			font-weight: bold;
-			font-size: 20px;
+			font-size: 2vh;
 			color:#BFBF4D;
 			padding-left: 17px;
 			padding-bottom: 12px;
 			border-bottom: #DBDBDB 1px solid;
 			position: relative;
+			margin-top: 10px;
 		}
 
 		.middle-right-li{
-			font-size: 20px;
+			font-size: 2vh;
 			text-decoration: none;
-			padding: 17px;
+			padding: 2vh;
 			color:#2a2a28;
 			border-bottom: #DBDBDB 1px solid;
 			position: relative;
@@ -942,21 +793,19 @@
 		}
 
 		.three-box{
-			position: relative;
-			height: 200px;
+			
+			background: rgba(87, 6, 140, 1);
 			/*overflow-y:auto;*/
+			height: 150px; /* Set a height for the div */
+    		display: flex; /* Enable Flexbox */
+    		align-items: flex-end; /* Align items to the bottom */
+    		justify-content: center; /* Center text horizontally */
 		}
-		.three-box-bg{
-			background: url("./assets/last-bg.png") no-repeat;
-			/*width: 1647px;*/
-			height: 647px;
-			background-position-y: bottom;
-			background-size: 100% 647px;
-			position: absolute;
-			left: 0;
-			right: 0;
-			bottom: 0;
-			z-index: -1;
+
+		.company-info{
+			color: white; /* Text color */
+    		font-size: 16px;
+   			 margin: 20px; /* Remove default margin */
 		}
 
 		@media screen and (max-width: 1080px) and (min-width: 768px) {
@@ -988,36 +837,7 @@
 				background-size: 100% 100%;
 				margin: 0 auto;
 			}
-			.scrolling-text{
-				top: 6.4rem;
-				height: 0.6rem;
-				position: absolute;
-				width:720px;
-			}
-			.scrolling-text span{
-				height: 0.6rem;
-				font-size: 0.32rem;
-				padding-left: 0.6rem;
-				padding-right: 0.6rem;
-			}
-			.scrolling-text span:before{
-				content:'';
-				position: absolute;
-				background: #5C8916;
-				width: 0.15rem;
-				height: 0.15rem;
-				left: 0.2rem;
-				top: 0.21rem;
-				border-radius: 50%;
-			}
 
-			.scrolling-text-bg{
-				position: absolute;
-				top: 6.4rem;
-				height: 0.6rem;
-				left: 0;
-				right: 0;
-			}
 			.btn-box{
 				top: 1.2rem;
 				font-size: 0.4rem;
@@ -1060,16 +880,6 @@
 
 			.paragraph-box li {
 				font-size: 0.3rem;
-			}
-			.middle-left-btn{
-				margin-top:0;
-				color:#000;
-				background: #ffffff;
-				border:2px solid  rgba(176, 176, 18, 1);
-				width: 2.6rem;
-				border-radius: 100px;
-				font-size:0.32rem;
-				height: 0.6rem;
 			}
 			.middle-right-ul{
 				padding: 0;
@@ -1155,6 +965,11 @@
 	<div id="app">
 		<div class="page-body">
 			<div class="base-div">
+				<div class="company-top">
+					<div class="company-top-img2"></div>
+					<div class="company-top-img3"></div>
+					<div class="company-top-img1"></div>
+				</div>
 				<div class="first-circle"></div>
 				<div class="second-circle"></div>
 				<div class="last-text">
@@ -1168,35 +983,12 @@
 							<div class="below-text">
 								<div class="top-line1"></div>
 							</div>
-							<div class="scrolling-text">
-								<template v-for="sn in scrollNum">
-									<span v-if="sn % 3 === 1">GLOBAL LEARNING</span>
-									<span v-if="sn % 3 === 2">INTERACTIVITY</span>
-									<span v-if="sn % 3 === 0">AI INTEGRATION</span>
-								</template>
-							</div>
-							<div class="scrolling-text scrolling-text-delay">
-								<template v-for="sn in scrollNum">
-									<span v-if="sn % 3 === 1">GLOBAL LEARNING</span>
-									<span v-if="sn % 3 === 2">INTERACTIVITY</span>
-									<span v-if="sn % 3 === 0">AI INTEGRATION</span>
-								</template>
-							</div>
-							<div class="scrolling-text-bg"></div>
-<!--							<div class="delay" :style="{right:scrollLeft+'px'}">-->
-<!--								<template v-for="item in scrollText" >-->
-<!--									<span>GLOBAL LEARNING</span>-->
-<!--									<span>INTERACTIVITY</span>-->
-<!--									<span>AI INTEGRATION</span>-->
-<!--								</template>-->
-<!--							</div>-->
-
 							<div class="btn-box">
 								<div class="btn-item item1">
-									<a href="https://nyuglobal.show/src/opencall.html" target="_blank">Submitting Your Work</a></div>
+									<a href="https://nyuglobal.show/src/opencall.html" target="_blank">Submit Your Work</a></div>
 								<br>
 								<div class="btn-item item2">
-									<a href="https://nyuglobal.show/src/collaboration.html" target="_blank">Find Your Collaborator</a>
+									<a href="https://nyuglobal.show/src/opencall.html" target="_blank">Find Your Collaborator</a>
 									</div>
 								<br>
 								<div class="btn-item item3">
@@ -1207,47 +999,52 @@
 								<br>
 								<div class="btn-item item5">About</div>
 							</div>
-							<div class="arrow" @click="scrollTool"></div>
 						</div>
-					<div style="position: absolute;left: 0;right: 0;top:0;bottom:0;z-index: -1">
+					<div style="position: absolute;overflow:hidden;left: 0;right: 0;top:0;bottom:0;z-index: -1">
 						<main>
-							<canvas></canvas>
 						</main>
 					</div>
 				</div>
 			</div>
+			<div style="text-align: center">
+				<div class="arrow" @click="scrollTool"></div>
+			</div>
 			<div class="middle-page" id="middlePage">
 				<div class="middle-left">
 					<div class="middle-left-title">
-						Global Learning
-						<br>
-						& AI
+						Global Learning,<br>
+						Artificial Intelligence,<br>
+						& Interactivity
 					</div>
 					<div class="middle-left-content">
 						<p>
-							NYU Global Show-and-Tell is a festival that celebrates learning and community through a global showcase of student works that emerge within NYU's global network. 
+							NYU Global Show-and-Tell is a festival that celebrates learning and community through a global showcase of student works that emerge within NYU's global network.
 						</p>
 						<p>
-							In a world where knowledge once spread through ancient wayfarers, we explore how artificial intelligence mediates global learning and creativity through student works that bring together Artificial Intelligence and interactive media.
+							In a world where knowledge once spread through ancient wayfarers, we explore how artificial intelligence mediates global education and creativity through student works that bring together Artificial Intelligence and interactive media.</p>
+						<p>
+							The NYU Goddard Impact Group Award from the Office of the Provost supported this initiative.
 						</p>
+
+
 						</div>
-					<!-- <div class="middle-left-btn">
-						Learn More
-					</div> -->
 				</div>
 				<div class="middle-right">
 					<div class="middle-right-ul">
 						<div class="middle-right-li-title">
-							Presented to you by
+							Presented to you by <span style="color:rgba(128, 128, 128, 1);font-weight: 300;font-style: italic">(Alphabetical order)</span>
 						</div>
-						<a class="middle-right-li" href="https://itp.nyu.edu/ima/" target="_blank">
+						<a class="middle-right-li" href="https://tisch.nyu.edu/itp" target="_blank">
 							NYU Tisch Interactive Telecommunications Program / Interactive Media Arts
 						</a>
 						<a class="middle-right-li" href="https://engineering.nyu.edu/academics/departments/technology-culture-and-society/integrated-design-media" target="_blank">
 							NYU Tandon Integrated Design & Media
 						</a>
-						<a class="middle-right-li" href="https://itp.nyu.edu/lowres/" target="_blank">
-							NYU IMA Low Res
+						<a class="middle-right-li">
+							NYU Shanghai University Communications Events Office
+						</a>
+						<a class="middle-right-li" href="https://library.shanghai.nyu.edu/" target="_blank">
+							NYU Shanghai Library
 						</a>
 						<a class="middle-right-li" href="https://shanghai.nyu.edu/academics/majors/interactive-media-arts" target="_blank">
 							NYU Shanghai Interactive Media Arts
@@ -1255,27 +1052,24 @@
 						<a class="middle-right-li" href="https://cs.shanghai.nyu.edu/" target="_blank">
 							NYU Shanghai Computer Science, Data Science, and Engineering
 						</a>
-						<a class="middle-right-li" href="https://nyuad.nyu.edu/en/academics/divisions/arts-and-humanities/academic-programs/interactive-media.html" target="_blank">
-							NYU Abu Dhabi Interactive Media
+						<a class="middle-right-li" href="https://itp.nyu.edu/lowres/" target="_blank">
+							NYU IMA Low Res
 						</a>
 						<a class="middle-right-li" href="https://library.nyu.edu/" target="_blank">
 							NYU Bobst Library
 						</a>
-						<a class="middle-right-li" href="https://library.shanghai.nyu.edu/" target="_blank">
-							NYU Shanghai Library
-						</a>
 						<a class="middle-right-li" href="https://nyuad.nyu.edu/en/library.html" target="_blank">
 							NYU Abu Dhabi Library
 						</a>
-						<a class="middle-right-li">
-							NYU Shanghai University Communications Events Office
+						<a class="middle-right-li" href="https://nyuad.nyu.edu/en/academics/divisions/arts-and-humanities/academic-programs/interactive-media.html" target="_blank">
+							NYU Abu Dhabi Interactive Media
 						</a>
 					</div>
 				</div>
 			</div>
 			<div class="second-page" id="textDiv">
 				<div class="carousel-box">
-					<el-carousel :height="getCarousel" autoplay :interval="4000" :autoplay="false">
+					<el-carousel :height="getCarousel" arrow="always" :interval="6000" autoplay>
 						<el-carousel-item>
 							<div class="img-box">
 								<img style="height: 100%;width: 100%" src="./assets/carousel-bg2.png" alt="">
@@ -1293,16 +1087,7 @@
 						</el-carousel-item>
 						<el-carousel-item>
 							<div class="img-box">
-								<img style="height: 100%;width: 100%" src="./assets/carousel-bg2.png" alt="">
-								<div class="img-tool">
-									<div class="small-title">Opening project</div>
-									<div class="big-title">
-										<div>Live-Diffusion</div>
-										<div class="big-title-btn">
-											<div class="title-btn-icon"></div>
-										</div>
-									</div>
-								</div>
+								<img style="height: 100%;width: 100%" src="./assets/carousel-bg1.png" alt="">
 							</div>
 						</el-carousel-item>
 						<el-carousel-item>
@@ -1313,7 +1098,8 @@
 									<div class="big-title">
 										<div>Live-Diffusion</div>
 										<div class="big-title-btn">
-											<div class="title-btn-icon"></div>
+											<a class="title-btn-icon" href="https://nyuglobal.show/showcase/1/" target="_blank">
+											</a>
 										</div>
 									</div>
 
@@ -1330,7 +1116,6 @@
 
 			</div>
 			<div class="three-box">
-				<div class="three-box-bg"></div>
 				<div class="company-info">
 					NYU Global Show & Tell @ 2025
 				</div>
@@ -1339,24 +1124,13 @@
 		<div class="phone-page-body">
 			<div class="first-page">
 				<div class="phone-title"></div>
-				<div class="scrolling-text">
-					<span>GLOBAL LEARNING</span>
-					<span>INTERACTIVITY</span>
-					<span>AI INTEGRATION</span>
-				</div>
-				<div class="scrolling-text scrolling-text-delay">
-					<span>GLOBAL LEARNING</span>
-					<span>INTERACTIVITY</span>
-					<span>AI INTEGRATION</span>
-				</div>
-				<div class="scrolling-text-bg"></div>
 				<div class="btn-box">
 					<div class="btn-item item1">
-						<a href="https://nyuglobal.show/src/opencall.html" target="_blank">Submitting Your Work</a>
+						<a href="https://nyuglobal.show/src/opencall.html" target="_blank">Submit Your Work</a>
 						</div>
 					<br>
 					<div class="btn-item item2">
-						<a href="https://nyuglobal.show/src/collaboration.html" target="_blank">Find Your Collaborator</a>
+						<a href="https://nyuglobal.show/src/opencall.html" target="_blank">Find Your Collaborator</a>
 					</div>
 					<br>
 					<div class="btn-item item3">
@@ -1370,26 +1144,25 @@
 			</div>
 			<div class="phone-second-page">
 				<div class="second-title">
-					Global
-					<br>
-					Learning
-					<br>
-					& AI
+					Global Learning,<br>
+					Artificial Intelligence,<br>
+					& Interactivity
 				</div>
 				<div class="paragraph-box">
 					<p>
 						NYU Global Show-and-Tell is a festival that celebrates learning and community through a global showcase of student works that emerge within NYU's global network.
 					</p>
 					<p>
-						In a world where knowledge once spread through ancient wayfarers, we explore how artificial intelligence mediates global learning and creativity through student works that bring together Artificial Intelligence and interactive media.
+						In a world where knowledge once spread through ancient wayfarers, we explore how artificial intelligence mediates global education and creativity through student works that bring together Artificial Intelligence and interactive media.
+					</p>
+					<p>
+						The NYU Goddard Impact Group Award from the Office of the Provost supported this initiative.
+					</p>
 				</div>
-<!--				<div class="middle-left-btn">-->
-<!--						Learn More-->
-<!--				</div>-->
 				<div class="middle-right">
 					<div class="middle-right-ul">
 						<div class="middle-right-li-title">
-							Presented to you by
+							Presented to you by<span style="color:rgba(128, 128, 128, 1);font-weight: 300;font-style: italic">(Alphabetical order)</span>
 						</div>
 						<a class="middle-right-li" href="https://tisch.nyu.edu/itp" target="_blank">
 							NYU Tisch Interactive Telecommunications Program / Interactive Media Arts
@@ -1397,8 +1170,11 @@
 						<a class="middle-right-li" href="https://engineering.nyu.edu/academics/departments/technology-culture-and-society/integrated-design-media" target="_blank">
 							NYU Tandon Integrated Design & Media
 						</a>
-						<a class="middle-right-li" href="https://itp.nyu.edu/lowres/" target="_blank">
-							NYU IMA Low Res
+						<a class="middle-right-li">
+							NYU Shanghai University Communications Events Office
+						</a>
+						<a class="middle-right-li" href="https://library.shanghai.nyu.edu/" target="_blank">
+							NYU Shanghai Library
 						</a>
 						<a class="middle-right-li" href="https://shanghai.nyu.edu/academics/majors/interactive-media-arts" target="_blank">
 							NYU Shanghai Interactive Media Arts
@@ -1406,20 +1182,17 @@
 						<a class="middle-right-li" href="https://cs.shanghai.nyu.edu/" target="_blank">
 							NYU Shanghai Computer Science, Data Science, and Engineering
 						</a>
-						<a class="middle-right-li" href="https://nyuad.nyu.edu/en/academics/divisions/arts-and-humanities/academic-programs/interactive-media.html" target="_blank">
-							NYU Abu Dhabi Interactive Media
+						<a class="middle-right-li" href="https://itp.nyu.edu/lowres/" target="_blank">
+							NYU IMA Low Res
 						</a>
 						<a class="middle-right-li" href="https://library.nyu.edu/" target="_blank">
 							NYU Bobst Library
 						</a>
-						<a class="middle-right-li" href="https://library.shanghai.nyu.edu/" target="_blank">
-							NYU Shanghai Library
-						</a>
 						<a class="middle-right-li" href="https://nyuad.nyu.edu/en/library.html" target="_blank">
 							NYU Abu Dhabi Library
 						</a>
-						<a class="middle-right-li">
-							NYU Shanghai University Communications Events Office
+						<a class="middle-right-li" href="https://nyuad.nyu.edu/en/academics/divisions/arts-and-humanities/academic-programs/interactive-media.html" target="_blank">
+							NYU Abu Dhabi Interactive Media
 						</a>
 					</div>
 				</div>
@@ -1458,7 +1231,7 @@
 						}
 					},2000)
 
-					getCarousel.value = window.innerWidth /1.77 + 'px'
+					getCarousel.value = window.innerHeight + 'px'
 
 					const screenWidth = window.innerWidth;
 					const screenHeight = window.innerHeight;
