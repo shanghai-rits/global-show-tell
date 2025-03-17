@@ -64,7 +64,7 @@ const Navbar: React.FC = () => {
             </div>
           </button>
           <nav className="navbar">
-            <div className="nav-title" onClick={() => window.location.href = "/"}>
+            <div className="nav-title" onClick={() => window.open("/", "_blank")}>
               {/* <div>NYU Global</div>
             <div>SHOW & TELL</div> */}
               <svg className="default" width="483" height="164" viewBox="0 0 483 164" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -186,17 +186,17 @@ const Navbar: React.FC = () => {
             </div>
             <div className="nav-buttons">
               <div className="nav-button-wrapper">
-                <button className="nav-button" onClick={() => window.location.href = "/submission"} >
+                <button className="nav-button" onClick={() => window.open("/submission", "_blank")} >
                   Submit Your Work
                 </button>
               </div>
               <div className="nav-button-wrapper">
-                <button className="nav-button" onClick={() => window.location.href = "/collaboration"}>
+                <button className="nav-button" onClick={() => window.open("/collaboration", "_blank")}>
                   Find Your Collaborator
                 </button>
               </div>
               <div className="nav-button-wrapper">
-                <button className="nav-button" onClick={() => window.location.href = "/showcase"}>
+                <button className="nav-button" onClick={() => window.open("/showcase", "_blank")}>
                   Showcase
                 </button>
               </div>
