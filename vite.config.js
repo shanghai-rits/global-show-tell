@@ -11,6 +11,7 @@ export default defineConfig({
         main: './index.html', // Main app entry
         opencall: './src/opencall.html', // Additional HTML page
         collaboration: './src/collaboration.html', // Additional HTML page
+        calendar: './src/calendar.html',
         homepage: './public/homepage/index.html', // Additional HTML page
       },
     },

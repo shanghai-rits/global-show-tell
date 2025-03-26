@@ -21,6 +21,10 @@ function App() {
           element={<RedirectToCollaboration />}
         />
         <Route
+          path="/calendar"
+          element={<RedirectToCalendar />}
+        />
+        <Route
           path="/showcase"
           element={<Showcase />}
         />
@@ -55,6 +59,13 @@ function RedirectToSubmission() {
 function RedirectToCollaboration() {
   React.useEffect(() => {
     window.location.href = '/src/collaboration.html';
+  }, []);
+  return null;
+}
+
+function RedirectToCalendar() {
+  React.useEffect(() => {
+    window.location.href = '/src/calendar.html';
   }, []);
   return null;
 }
