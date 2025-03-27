@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    <head>
-        <meta charset="UTF-8" />
-        <link rel="icon" href="/logo.png" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/inter-ui/inter.css"> -->
-        <link rel="stylesheet" href="/opencall/assets/font.css">
-        <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-        <script src="/opencall/assets/p5.js"></script>
-        <title>Program Calendar - Global Show & Tell</title>
-        <meta name="viewport"
-            content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no,viewport-fit=cover">
-        <script>
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="/logo.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/inter-ui/inter.css"> -->
+    <link rel="stylesheet" href="/opencall/assets/font.css">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="/opencall/assets/p5.js"></script>
+    <title>Program Calendar - Global Show & Tell</title>
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no,viewport-fit=cover">
+    <script>
         //rem自动计算
         (function (doc, win) {
             var docEl = doc.documentElement,
@@ -29,9 +29,28 @@
             setup();
         })(document, window);
     </script>
-        <script src="/opencall/assets/sketch.js"></script>
+    <script src="/opencall/assets/sketch.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const tableBody = document.querySelector('.content table tbody');
+            if (tableBody) {
+                tableBody.addEventListener('mousemove', function (e) {
+                    // Get mouse position relative to the tbody
+                    const rect = tableBody.getBoundingClientRect();
+                    const y = e.clientY - rect.top;
+                    // Set the position of the divider
+                    tableBody.style.setProperty('--divider-y', `${y}px`);
+                });
+            }
+        });
+    </script>
+    <style>
+        .content table tbody::before {
+            top: var(--divider-y, 0);
+        }
+    </style>
 
-        <style>
+    <style>
         * {
             padding: 0;
             margin: 0;
@@ -119,7 +138,6 @@
         .content {
             margin-top: 20px;
             padding: 60px;
-            margin-bottom: 100px;
             display: flex;
             /* Enable flexbox */
             justify-content: center;
@@ -127,13 +145,14 @@
             align-items: center;
             /* Vertically center the table */
             flex-direction: column;
-            font-family: Inter;
+            /* font-family: Inter; */
         }
 
         table {
             width: 1475.96px;
             border-collapse: collapse;
             text-align: left;
+            position: relative;
         }
 
         thead {
@@ -149,6 +168,7 @@
             color: rgba(0, 0, 0, 1);
             margin-bottom: 20px;
             text-align: center;
+            /* font-family: Inter; */
         }
 
         .table-note {
@@ -187,6 +207,37 @@
             vertical-align: top;
             padding: 12px;
             font-size: 22px;
+            /* font-family: Inter; */
+        }
+
+        .content table tbody {
+            position: relative;
+            /* Need this for absolute positioning */
+        }
+
+
+        .content table tbody::before {
+            content: "";
+            position: absolute;
+            height: 18px;
+            background-color: #DEFFBF;
+            width: 105%;
+            /* Match the long-divider width */
+            left: -40px;
+            /* Center it */
+            /* top: 10px; */
+            display: none;
+            /* Initially hidden */
+            z-index: 1;
+            pointer-events: none;
+            /* Allow clicking through the divider */
+            transform: translateY(-50%);
+            /* Center vertically on cursor */
+        }
+
+        .content table tbody:hover::before {
+            display: block;
+            /* Show on hover */
         }
 
         .box-container {
@@ -249,6 +300,19 @@
             z-index: 2;
         }
 
+        .table-box:hover {
+            background: linear-gradient(154.98deg, rgba(222, 255, 191, 1) 0%, #fff 60%) !important;
+            font-style: italic;
+        }
+
+        /* Change table-icon on hover */
+        .table-box:hover .table-icon {
+            border: 1.5px solid rgba(92, 137, 22, 1);
+            background-color: transparent !important;
+            width: 14.5px;
+            height: 14.5px;
+        }
+
         .open-call-yellow {
             background: linear-gradient(to right, #fffbd6, #fff);
         }
@@ -281,41 +345,81 @@
             margin-bottom: 10px;
         }
 
-        .container {
+        .box-details {
             display: flex;
-            border-top: 2px solid #333;
-            padding-top: 20px;
+            padding-top: 40px;
             gap: 30px;
             font-size: 20px;
             width: 1480.45px;
+            height: 832px;
+        }
+
+        .divider {
+            border-top: 2px solid #333;
         }
 
         .left {
-            width: 45%;
-            background: linear-gradient(to right, #fcdcff 0%, #ffffff 20%);
+            width: 750px;
+            height: 100%;
+            display: flex;
+            margin-left: 10px;
+            margin-top: 20px;
+        }
+
+        .left-highlight {
+            width: 60px;
             padding: 20px;
             box-sizing: border-box;
+            height: 100%;
+        }
+
+        .exhibition-highlight {
+            background: linear-gradient(90deg, rgba(255, 179, 236, 1) 0px, rgba(255, 179, 236, 0.3) 50%, #ffffff 100%);
+        }
+
+        .event-highlight {
+            background: linear-gradient(90deg, rgba(221, 247, 92, 1) 0px, rgba(221, 247, 92, 0.3) 50%, #ffffff 100%);
+        }
+
+        .left-content {
+            display: flex;
+            flex-direction: column;
         }
 
         .left h2 {
-            font-size: 24px;
-            font-weight: bold;
+            font-size: 42px;
+            font-weight: 900;
             font-style: italic;
             margin-bottom: 20px;
+            margin-left: 30px;
+            margin-top: 10px;
+            /* font-family: Inter; */
         }
 
         .left .label {
             font-weight: bold;
+            font-size: 26px;
             margin-top: 10px;
+            margin-left: 30px;
+            /* font-family: Inter; */
         }
 
         .left .info {
             font-style: italic;
             margin-bottom: 15px;
+            margin-left: 30px;
+            font-size: 26px;
         }
 
         .right {
             width: 55%;
+            margin-left: 10px;
+            margin-top: 20px;
+        }
+
+        .right-content {
+            margin-top: 30px;
+            font-size: 24px;
         }
 
         .right p {
@@ -324,9 +428,16 @@
         }
 
         .image-wrapper {
-            border: 6px solid #fcdcff;
-            padding: 4px;
-            width: fit-content;
+            margin-top: 40px;
+            width: 779px;
+        }
+
+        .exhibition-image {
+            box-shadow: 10px 10px 0px rgba(255, 179, 236, 1);
+        }
+
+        .event-image {
+            box-shadow: 10px 10px 0px rgba(221, 247, 92, 1);
         }
 
         .image-wrapper img {
@@ -356,6 +467,13 @@
             top: -105px;
             right: -30px;
             z-index: 1;
+        }
+
+        .back-to-top {
+            position: relative;
+            top: -200px;
+            cursor: pointer;
+            margin-left: 85vw;
         }
 
         @keyframes active {
@@ -457,345 +575,472 @@
             }
         }
     </style>
-    </head>
+</head>
 
-    <body>
-        <div id="root"></div>
-        <script type="module" src="/src/myPageEntry.jsx"></script>
-        <div id="app">
-            <div class="page-body" id="allText">
-                <div class="li-box">
-                    <div class="zhuti">
-                        <div class="shadow-title">
-                            <div class="title-text-bg">
-                            </div>
+<body>
+    <div id="root"></div>
+    <script type="module" src="/src/myPageEntry.jsx"></script>
+    <div id="app">
+        <div class="page-body" id="allText">
+            <div class="li-box">
+                <div class="zhuti">
+                    <div class="shadow-title">
+                        <div class="title-text-bg">
                         </div>
-                        <div class="center-box">
-                            <div class="img-bg" id="imgBg">
-                                <div
-                                    style="position: absolute;left: 0;right: 0;top:0;bottom:0;z-index: -2;background:#eaea24">
-
-                                </div>
-                                <div
-                                    style="position: absolute;left: 0;right: 0;top:0;bottom:0;z-index: -1;margin: 0 auto;text-align: center">
-                                    <main>
-
-                                    </main>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="on-shadow-title-box">
-                            <div class="on-shadow-title-bg">
-                                <!-- <div>OPEN </div>
-							<div class="second-line">CALL</div> -->
-                            </div>
-                        </div>
-
                     </div>
+                    <div class="center-box">
+                        <div class="img-bg" id="imgBg">
+                            <div
+                                style="position: absolute;left: 0;right: 0;top:0;bottom:0;z-index: -2;background:#eaea24">
+
+                            </div>
+                            <div
+                                style="position: absolute;left: 0;right: 0;top:0;bottom:0;z-index: -1;margin: 0 auto;text-align: center">
+                                <main>
+
+                                </main>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="on-shadow-title-box">
+                        <div class="on-shadow-title-bg">
+                            <!-- <div>OPEN </div>
+							<div class="second-line">CALL</div> -->
+                        </div>
+                    </div>
+
                 </div>
-                <div class="content">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th class="table-note">Calender <br>(China
-                                    Standard Time)</th>
-                                <th>EXHIBITION</th>
-                                <th>EVENT</th>
-                                <th>OPEN CALL</th>
-                            </tr>
-                        </thead>
+            </div>
+            <div class="content">
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="table-note">Calender <br>(China
+                                Standard Time)</th>
+                            <th>EXHIBITION</th>
+                            <th>EVENT</th>
+                            <th>OPEN CALL</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                         <tr>
                             <td colspan="4" style="height: 10px;"></td>
                             <!-- Spacer row -->
                         </tr>
-                        <tbody>
-                            <tr>
-                                <td class="date">
-                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                        xmlns:xlink="http://www.w3.org/1999/xlink"
-                                        width="112" height="75"
-                                        viewBox="0 0 112 75" fill="none">
-                                        <g>
-                                            <path style="mix-blend-mode:normal"
-                                                fill="#383838"
-                                                d="M4.39773 8.69318L13.2443 8.69318L16.875 23.5227L17.1818 23.5227L25.7216 8.69318L34.5682 8.69318L30.2216 34.875L23.267 34.875L25.7727 19.7386L25.5682 19.7386L17.2841 34.6705L13.0909 34.6705L9.76705 19.6364L9.5625 19.6364L7.00568 34.875L0.0511364 34.875L4.39773 8.69318ZM39.1193 35.1818Q36.3196 35.1818 34.7599 33.7756Q33.2003 32.3693 33.6989 29.4545Q34.0568 27.3068 35.233 25.9901Q36.4091 24.6733 38.1477 24.0213Q39.8864 23.3693 41.9318 23.2159Q44.4247 23.0241 45.5305 22.6726Q46.6364 22.321 46.7898 21.4773L46.7898 21.4261Q46.9048 20.6591 46.3871 20.25Q45.8693 19.8409 44.9489 19.8409Q43.9517 19.8409 43.2294 20.2756Q42.5071 20.7102 42.2386 21.6307L35.7443 21.6307Q36.1534 19.8409 37.4254 18.326Q38.6974 16.8111 40.8132 15.897Q42.929 14.983 45.8693 14.983Q48.6562 14.983 50.5483 15.8395Q52.4403 16.696 53.2969 18.1534Q54.1534 19.6108 53.8466 21.4261L51.5966 34.875L45 34.875L45.4602 32.1136L45.3068 32.1136Q44.1562 33.7628 42.5966 34.4723Q41.0369 35.1818 39.1193 35.1818ZM42.1875 30.733Q43.3764 30.733 44.4567 29.9979Q45.5369 29.2628 45.767 27.9205L46.0227 26.2841Q45.4474 26.5142 44.6996 26.6804Q43.9517 26.8466 43.108 27Q41.8423 27.1918 41.1776 27.7351Q40.5128 28.2784 40.3977 29.0455Q40.2827 29.8509 40.7749 30.2919Q41.267 30.733 42.1875 30.733ZM54.9716 34.875L58.2443 15.2386L65.0966 15.2386L64.483 18.9716L64.6875 18.9716Q65.5696 16.9006 66.8991 15.9418Q68.2287 14.983 69.8011 14.983Q70.2614 14.983 70.6896 15.0533Q71.1179 15.1236 71.5398 15.2386L70.517 21.2727Q70.0185 21.081 69.277 20.9979Q68.5355 20.9148 67.9602 20.9148Q66.4261 20.9148 65.2244 21.9375Q64.0227 22.9602 63.7159 24.6477L62.0284 34.875L54.9716 34.875Z">
-                                            </path>
-                                        </g>
-                                        <g>
-                                            <path style="mix-blend-mode:normal"
-                                                fill="#383838"
-                                                d="M86.2841 39.6932L81.9375 65.875L74.8295 65.875L78.1023 46.2386L77.9489 46.2386L71.6591 49.6648L72.6307 43.6307L79.7386 39.6932L86.2841 39.6932ZM97.8409 66.233Q94.6449 66.233 92.3565 65.1655Q90.0682 64.098 88.9879 62.2188Q87.9077 60.3395 88.3295 57.8977L95.3864 57.8977Q95.169 59.0355 96.0128 59.7706Q96.8565 60.5057 98.25 60.5057Q99.8991 60.5057 101.05 59.5405Q102.2 58.5753 102.392 57.3864Q102.597 56.1719 101.619 55.603Q100.641 55.0341 99.017 55.0341L96.2045 55.0341L97.0227 50.125L99.5284 50.125Q101.165 50.125 102.36 49.2493Q103.555 48.3736 103.773 47.0568Q103.952 46.0341 103.364 45.4205Q102.776 44.8068 101.42 44.8068Q99.9503 44.8068 98.7038 45.5675Q97.4574 46.3281 97.2784 47.517L90.5284 47.517Q90.9247 45.1136 92.5099 43.2727Q94.0952 41.4318 96.505 40.3835Q98.9148 39.3352 101.778 39.3352Q104.77 39.3352 106.866 40.4347Q108.963 41.5341 109.947 43.3494Q110.932 45.1648 110.574 47.3125Q110.19 49.6264 108.49 50.8153Q106.79 52.0043 104.233 52.2216L104.233 52.4261Q107.02 52.7457 108.541 54.4716Q110.062 56.1974 109.653 58.7159Q109.308 60.8636 107.672 62.5639Q106.036 64.2642 103.485 65.2486Q100.935 66.233 97.8409 66.233Z">
-                                            </path>
-                                        </g>
-                                        <path stroke="rgba(0, 0, 0, 1)"
-                                            stroke-width="1" d="M89 18L46 61">
+                        <tr>
+                            <td class="date">
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                    width="112.8182373046875" height="75" viewBox="0 0 112.8182373046875 75"
+                                    fill="none">
+                                    <g>
+                                        <path style="mix-blend-mode:normal" fill="#383838"
+                                            d="M7.67051 34.875L5.54323e-05 34.875L12.9887 8.69318L22.7046 8.69318L27.0001 34.875L19.3296 34.875L18.652 29.8636L10.0228 29.8636L7.67051 34.875ZM12.5157 24.5455L17.9361 24.5455L16.7728 15.9034L16.5682 15.9034L12.5157 24.5455ZM28.3807 42.2386L32.8807 15.2386L39.8864 15.2386L39.3239 18.6648L39.4773 18.6648Q40.2827 17.169 41.8552 16.076Q43.4276 14.983 45.6137 14.983Q47.5569 14.983 49.1357 16.0185Q50.7145 17.054 51.4496 19.2784Q52.1847 21.5028 51.5966 25.0568Q51.0341 28.4574 49.6023 30.6946Q48.1705 32.9318 46.2273 34.0312Q44.2841 35.1307 42.1876 35.1307Q40.1165 35.1307 38.8957 34.1399Q37.6748 33.1491 37.3296 31.6534L37.1762 31.6534L35.4376 42.2386L28.3807 42.2386ZM38.1478 25.0568Q37.8026 27.2045 38.4226 28.4574Q39.0427 29.7102 40.5001 29.7102Q41.9574 29.7102 42.9546 28.4766Q43.9518 27.2429 44.3353 25.0568Q44.6805 22.8707 44.086 21.6371Q43.4915 20.4034 42.0341 20.4034Q40.5768 20.4034 39.5349 21.6371Q38.493 22.8707 38.1478 25.0568ZM52.9262 34.875L56.1989 15.2386L63.0512 15.2386L62.4376 18.9716L62.6421 18.9716Q63.5242 16.9006 64.8537 15.9418Q66.1833 14.983 67.7557 14.983Q68.216 14.983 68.6442 15.0533Q69.0725 15.1236 69.4944 15.2386L68.4716 21.2727Q67.9731 21.081 67.2316 20.9979Q66.4901 20.9148 65.9148 20.9148Q64.3807 20.9148 63.179 21.9375Q61.9773 22.9602 61.6705 24.6477L59.983 34.875L52.9262 34.875Z">
                                         </path>
-                                    </svg>
-
-                                </td>
-                                <td class="box-container">
-                                    <div class="table-box exhibition">
-                                        <span class="box-text">Opening
-                                            Project:<br />
-                                            Live-diffusion</span>
-                                        <div
-                                            class="table-icon purple-icon"></div>
-                                    </div>
-                                </td>
-                                <td class="box-container">
-                                    <div class="table-box event">
-                                        <span class="box-text">Opening
-                                            Ceremony</span>
-                                        <div
-                                            class="table-icon green-icon"></div>
-                                    </div>
-                                    <div class="table-box event">
-                                        <span class="box-text">Workshop</span>
-                                        <div
-                                            class="table-icon green-icon"></div>
-                                    </div>
-                                </td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td class="date">
-                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                        xmlns:xlink="http://www.w3.org/1999/xlink"
-                                        width="111" height="75"
-                                        viewBox="0 0 111 75" fill="none">
-                                        <g>
-                                            <path style="mix-blend-mode:normal"
-                                                fill="#383838"
-                                                d="M4.39773 8.69318L13.2443 8.69318L16.875 23.5227L17.1818 23.5227L25.7216 8.69318L34.5682 8.69318L30.2216 34.875L23.267 34.875L25.7727 19.7386L25.5682 19.7386L17.2841 34.6705L13.0909 34.6705L9.76705 19.6364L9.5625 19.6364L7.00568 34.875L0.0511364 34.875L4.39773 8.69318ZM39.1193 35.1818Q36.3196 35.1818 34.7599 33.7756Q33.2003 32.3693 33.6989 29.4545Q34.0568 27.3068 35.233 25.9901Q36.4091 24.6733 38.1477 24.0213Q39.8864 23.3693 41.9318 23.2159Q44.4247 23.0241 45.5305 22.6726Q46.6364 22.321 46.7898 21.4773L46.7898 21.4261Q46.9048 20.6591 46.3871 20.25Q45.8693 19.8409 44.9489 19.8409Q43.9517 19.8409 43.2294 20.2756Q42.5071 20.7102 42.2386 21.6307L35.7443 21.6307Q36.1534 19.8409 37.4254 18.326Q38.6974 16.8111 40.8132 15.897Q42.929 14.983 45.8693 14.983Q48.6562 14.983 50.5483 15.8395Q52.4403 16.696 53.2969 18.1534Q54.1534 19.6108 53.8466 21.4261L51.5966 34.875L45 34.875L45.4602 32.1136L45.3068 32.1136Q44.1562 33.7628 42.5966 34.4723Q41.0369 35.1818 39.1193 35.1818ZM42.1875 30.733Q43.3764 30.733 44.4567 29.9979Q45.5369 29.2628 45.767 27.9205L46.0227 26.2841Q45.4474 26.5142 44.6996 26.6804Q43.9517 26.8466 43.108 27Q41.8423 27.1918 41.1776 27.7351Q40.5128 28.2784 40.3977 29.0455Q40.2827 29.8509 40.7749 30.2919Q41.267 30.733 42.1875 30.733ZM54.9716 34.875L58.2443 15.2386L65.0966 15.2386L64.483 18.9716L64.6875 18.9716Q65.5696 16.9006 66.8991 15.9418Q68.2287 14.983 69.8011 14.983Q70.2614 14.983 70.6896 15.0533Q71.1179 15.1236 71.5398 15.2386L70.517 21.2727Q70.0185 21.081 69.277 20.9979Q68.5355 20.9148 67.9602 20.9148Q66.4261 20.9148 65.2244 21.9375Q64.0227 22.9602 63.7159 24.6477L62.0284 34.875L54.9716 34.875Z">
-                                            </path>
-                                        </g>
-                                        <g>
-                                            <path style="mix-blend-mode:normal"
-                                                fill="#383838"
-                                                d="M86.2841 39.6932L81.9375 65.875L74.8295 65.875L78.1023 46.2386L77.9489 46.2386L71.6591 49.6648L72.6307 43.6307L79.7386 39.6932L86.2841 39.6932ZM87.3068 65.875L88.1506 60.7614L99.2727 52.6818Q100.935 51.4801 101.932 50.4446Q102.929 49.4091 103.159 48.0284Q103.415 46.5071 102.609 45.657Q101.804 44.8068 100.347 44.8068Q98.8764 44.8068 97.8026 45.6953Q96.7287 46.5838 96.4602 48.233L89.7102 48.233Q90.1705 45.4716 91.7493 43.4773Q93.3281 41.483 95.7635 40.4091Q98.1989 39.3352 101.241 39.3352Q104.386 39.3352 106.534 40.3388Q108.682 41.3423 109.647 43.1577Q110.612 44.973 110.19 47.4148Q109.935 48.9233 109.059 50.4062Q108.183 51.8892 106.259 53.6982Q104.335 55.5071 100.935 58L98.1477 60.0455L98.1222 60.1989L108.349 60.1989L107.403 65.875L87.3068 65.875Z">
-                                            </path>
-                                        </g>
-                                        <path stroke="rgba(0, 0, 0, 1)"
-                                            stroke-width="1" d="M89 18L46 61">
+                                    </g>
+                                    <g>
+                                        <path style="mix-blend-mode:normal" fill="#383838"
+                                            d="M87.1023 39.6932L82.7557 65.875L75.6478 65.875L78.9205 46.2386L78.7671 46.2386L72.4773 49.6648L73.4489 43.6307L80.5569 39.6932L87.1023 39.6932ZM98.6591 66.233Q95.4631 66.233 93.1748 65.1655Q90.8864 64.098 89.8062 62.2188Q88.7259 60.3395 89.1478 57.8977L96.2046 57.8977Q95.9873 59.0355 96.831 59.7706Q97.6748 60.5057 99.0682 60.5057Q100.717 60.5057 101.868 59.5405Q103.019 58.5753 103.21 57.3864Q103.415 56.1719 102.437 55.603Q101.459 55.0341 99.8353 55.0341L97.0228 55.0341L97.841 50.125L100.347 50.125Q101.983 50.125 103.178 49.2493Q104.374 48.3736 104.591 47.0568Q104.77 46.0341 104.182 45.4205Q103.594 44.8068 102.239 44.8068Q100.769 44.8068 99.5221 45.5675Q98.2756 46.3281 98.0966 47.517L91.3466 47.517Q91.743 45.1136 93.3282 43.2727Q94.9134 41.4318 97.3232 40.3835Q99.733 39.3352 102.597 39.3352Q105.588 39.3352 107.685 40.4347Q109.781 41.5341 110.766 43.3494Q111.75 45.1648 111.392 47.3125Q111.009 49.6264 109.308 50.8153Q107.608 52.0043 105.051 52.2216L105.051 52.4261Q107.838 52.7457 109.359 54.4716Q110.881 56.1974 110.472 58.7159Q110.126 60.8636 108.49 62.5639Q106.854 64.2642 104.303 65.2486Q101.753 66.233 98.6591 66.233Z">
                                         </path>
-                                    </svg>
+                                    </g>
+                                    <path stroke="rgba(0, 0, 0, 1)" stroke-width="1" d="M89.8182 18L46.8182 61">
+                                    </path>
+                                </svg>
 
-                                </td>
-                                <td class="box-container">
-                                    <div class="table-box exhibition">
-                                        <span class="box-text">Opening
-                                            Project:<br />
-                                            Live-diffusion</span>
-                                        <div
-                                            class="table-icon purple-icon"></div>
-                                    </div>
-                                </td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td class="date">
-                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                        xmlns:xlink="http://www.w3.org/1999/xlink"
-                                        width="106" height="75"
-                                        viewBox="0 0 106 75" fill="none">
-                                        <g>
-                                            <path style="mix-blend-mode:normal"
-                                                fill="#383838"
-                                                d="M4.39773 8.69318L13.2443 8.69318L16.875 23.5227L17.1818 23.5227L25.7216 8.69318L34.5682 8.69318L30.2216 34.875L23.267 34.875L25.7727 19.7386L25.5682 19.7386L17.2841 34.6705L13.0909 34.6705L9.76705 19.6364L9.5625 19.6364L7.00568 34.875L0.0511364 34.875L4.39773 8.69318ZM39.1193 35.1818Q36.3196 35.1818 34.7599 33.7756Q33.2003 32.3693 33.6989 29.4545Q34.0568 27.3068 35.233 25.9901Q36.4091 24.6733 38.1477 24.0213Q39.8864 23.3693 41.9318 23.2159Q44.4247 23.0241 45.5305 22.6726Q46.6364 22.321 46.7898 21.4773L46.7898 21.4261Q46.9048 20.6591 46.3871 20.25Q45.8693 19.8409 44.9489 19.8409Q43.9517 19.8409 43.2294 20.2756Q42.5071 20.7102 42.2386 21.6307L35.7443 21.6307Q36.1534 19.8409 37.4254 18.326Q38.6974 16.8111 40.8132 15.897Q42.929 14.983 45.8693 14.983Q48.6562 14.983 50.5483 15.8395Q52.4403 16.696 53.2969 18.1534Q54.1534 19.6108 53.8466 21.4261L51.5966 34.875L45 34.875L45.4602 32.1136L45.3068 32.1136Q44.1562 33.7628 42.5966 34.4723Q41.0369 35.1818 39.1193 35.1818ZM42.1875 30.733Q43.3764 30.733 44.4567 29.9979Q45.5369 29.2628 45.767 27.9205L46.0227 26.2841Q45.4474 26.5142 44.6996 26.6804Q43.9517 26.8466 43.108 27Q41.8423 27.1918 41.1776 27.7351Q40.5128 28.2784 40.3977 29.0455Q40.2827 29.8509 40.7749 30.2919Q41.267 30.733 42.1875 30.733ZM54.9716 34.875L58.2443 15.2386L65.0966 15.2386L64.483 18.9716L64.6875 18.9716Q65.5696 16.9006 66.8991 15.9418Q68.2287 14.983 69.8011 14.983Q70.2614 14.983 70.6896 15.0533Q71.1179 15.1236 71.5398 15.2386L70.517 21.2727Q70.0185 21.081 69.277 20.9979Q68.5355 20.9148 67.9602 20.9148Q66.4261 20.9148 65.2244 21.9375Q64.0227 22.9602 63.7159 24.6477L62.0284 34.875L54.9716 34.875Z">
-                                            </path>
-                                        </g>
-                                        <g>
-                                            <path style="mix-blend-mode:normal"
-                                                fill="#383838"
-                                                d="M86.2841 39.6932L81.9375 65.875L74.8295 65.875L78.1023 46.2386L77.9489 46.2386L71.6591 49.6648L72.6307 43.6307L79.7386 39.6932L86.2841 39.6932ZM104.489 39.6932L100.142 65.875L93.0341 65.875L96.3068 46.2386L96.1534 46.2386L89.8636 49.6648L90.8352 43.6307L97.9432 39.6932L104.489 39.6932Z">
-                                            </path>
-                                        </g>
-                                        <path stroke="rgba(0, 0, 0, 1)"
-                                            stroke-width="1" d="M89 18L46 61">
+                            </td>
+                            <td class="box-container">
+                                <div class="table-box exhibition" data-target="opening-project">
+                                    <span class="box-text">Opening
+                                        Project:<br />
+                                        Live-diffusion</span>
+                                    <div class="table-icon purple-icon"></div>
+                                </div>
+                            </td>
+                            <td class="box-container">
+                                <div class="table-box event" data-target="opening-ceremony">
+                                    <span class="box-text">Opening
+                                        Ceremony</span>
+                                    <div class="table-icon green-icon"></div>
+                                </div>
+                                <div class="table-box event" style="height: 150px;" data-target="opening-ceremony">
+                                    <span class="box-text">Campus Tour
+                                        featuring Live-Diffusion on the
+                                        route</span>
+                                    <div class="table-icon green-icon"></div>
+                                </div>
+                                <div class="table-box event" data-target="opening-ceremony">
+                                    <span class="box-text">Workshop</span>
+                                    <div class="table-icon green-icon"></div>
+                                </div>
+                            </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td class="date">
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                    width="111.8182373046875" height="75" viewBox="0 0 111.8182373046875 75"
+                                    fill="none">
+                                    <g>
+                                        <path style="mix-blend-mode:normal" fill="#383838"
+                                            d="M7.67051 34.875L5.54323e-05 34.875L12.9887 8.69318L22.7046 8.69318L27.0001 34.875L19.3296 34.875L18.652 29.8636L10.0228 29.8636L7.67051 34.875ZM12.5157 24.5455L17.9361 24.5455L16.7728 15.9034L16.5682 15.9034L12.5157 24.5455ZM28.3807 42.2386L32.8807 15.2386L39.8864 15.2386L39.3239 18.6648L39.4773 18.6648Q40.2827 17.169 41.8552 16.076Q43.4276 14.983 45.6137 14.983Q47.5569 14.983 49.1357 16.0185Q50.7145 17.054 51.4496 19.2784Q52.1847 21.5028 51.5966 25.0568Q51.0341 28.4574 49.6023 30.6946Q48.1705 32.9318 46.2273 34.0312Q44.2841 35.1307 42.1876 35.1307Q40.1165 35.1307 38.8957 34.1399Q37.6748 33.1491 37.3296 31.6534L37.1762 31.6534L35.4376 42.2386L28.3807 42.2386ZM38.1478 25.0568Q37.8026 27.2045 38.4226 28.4574Q39.0427 29.7102 40.5001 29.7102Q41.9574 29.7102 42.9546 28.4766Q43.9518 27.2429 44.3353 25.0568Q44.6805 22.8707 44.086 21.6371Q43.4915 20.4034 42.0341 20.4034Q40.5768 20.4034 39.5349 21.6371Q38.493 22.8707 38.1478 25.0568ZM52.9262 34.875L56.1989 15.2386L63.0512 15.2386L62.4376 18.9716L62.6421 18.9716Q63.5242 16.9006 64.8537 15.9418Q66.1833 14.983 67.7557 14.983Q68.216 14.983 68.6442 15.0533Q69.0725 15.1236 69.4944 15.2386L68.4716 21.2727Q67.9731 21.081 67.2316 20.9979Q66.4901 20.9148 65.9148 20.9148Q64.3807 20.9148 63.179 21.9375Q61.9773 22.9602 61.6705 24.6477L59.983 34.875L52.9262 34.875Z">
                                         </path>
-                                    </svg>
+                                    </g>
+                                    <g>
+                                        <path style="mix-blend-mode:normal" fill="#383838"
+                                            d="M87.1023 39.6932L82.7557 65.875L75.6478 65.875L78.9205 46.2386L78.7671 46.2386L72.4773 49.6648L73.4489 43.6307L80.5569 39.6932L87.1023 39.6932ZM88.1251 65.875L88.9688 60.7614L100.091 52.6818Q101.753 51.4801 102.75 50.4446Q103.747 49.4091 103.977 48.0284Q104.233 46.5071 103.428 45.657Q102.622 44.8068 101.165 44.8068Q99.6947 44.8068 98.6208 45.6953Q97.5469 46.5838 97.2785 48.233L90.5285 48.233Q90.9887 45.4716 92.5675 43.4773Q94.1464 41.483 96.5817 40.4091Q99.0171 39.3352 102.06 39.3352Q105.205 39.3352 107.352 40.3388Q109.5 41.3423 110.465 43.1577Q111.43 44.973 111.009 47.4148Q110.753 48.9233 109.877 50.4062Q109.001 51.8892 107.077 53.6982Q105.153 55.5071 101.753 58L98.966 60.0455L98.9404 60.1989L109.168 60.1989L108.222 65.875L88.1251 65.875Z">
+                                        </path>
+                                    </g>
+                                    <path stroke="rgba(0, 0, 0, 1)" stroke-width="1" d="M89.8182 18L46.8182 61">
+                                    </path>
+                                </svg>
 
-                                </td>
-                                <td class="box-container">
-                                    <div class="table-box current">
-                                        <span class="box-text">Opening
-                                            Project:<br />
-                                            Live-diffusion</span>
-                                        <div
-                                            class="table-icon current-icon"></div>
-                                    </div>
-                                </td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
+                            </td>
+                            <td class="box-container">
+                                <div class="table-box exhibition" data-target="opening-project">
+                                    <span class="box-text">Opening
+                                        Project:<br />
+                                        Live-diffusion</span>
+                                    <div class="table-icon purple-icon"></div>
+                                </div>
+                            </td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td class="date">
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                    width="106.8182373046875" height="75" viewBox="0 0 106.8182373046875 75"
+                                    fill="none">
+                                    <g>
+                                        <path style="mix-blend-mode:normal" fill="#383838"
+                                            d="M7.67051 34.875L5.54323e-05 34.875L12.9887 8.69318L22.7046 8.69318L27.0001 34.875L19.3296 34.875L18.652 29.8636L10.0228 29.8636L7.67051 34.875ZM12.5157 24.5455L17.9361 24.5455L16.7728 15.9034L16.5682 15.9034L12.5157 24.5455ZM28.3807 42.2386L32.8807 15.2386L39.8864 15.2386L39.3239 18.6648L39.4773 18.6648Q40.2827 17.169 41.8552 16.076Q43.4276 14.983 45.6137 14.983Q47.5569 14.983 49.1357 16.0185Q50.7145 17.054 51.4496 19.2784Q52.1847 21.5028 51.5966 25.0568Q51.0341 28.4574 49.6023 30.6946Q48.1705 32.9318 46.2273 34.0312Q44.2841 35.1307 42.1876 35.1307Q40.1165 35.1307 38.8957 34.1399Q37.6748 33.1491 37.3296 31.6534L37.1762 31.6534L35.4376 42.2386L28.3807 42.2386ZM38.1478 25.0568Q37.8026 27.2045 38.4226 28.4574Q39.0427 29.7102 40.5001 29.7102Q41.9574 29.7102 42.9546 28.4766Q43.9518 27.2429 44.3353 25.0568Q44.6805 22.8707 44.086 21.6371Q43.4915 20.4034 42.0341 20.4034Q40.5768 20.4034 39.5349 21.6371Q38.493 22.8707 38.1478 25.0568ZM52.9262 34.875L56.1989 15.2386L63.0512 15.2386L62.4376 18.9716L62.6421 18.9716Q63.5242 16.9006 64.8537 15.9418Q66.1833 14.983 67.7557 14.983Q68.216 14.983 68.6442 15.0533Q69.0725 15.1236 69.4944 15.2386L68.4716 21.2727Q67.9731 21.081 67.2316 20.9979Q66.4901 20.9148 65.9148 20.9148Q64.3807 20.9148 63.179 21.9375Q61.9773 22.9602 61.6705 24.6477L59.983 34.875L52.9262 34.875Z">
+                                        </path>
+                                    </g>
+                                    <g>
+                                        <path style="mix-blend-mode:normal" fill="#383838"
+                                            d="M87.1023 39.6932L82.7557 65.875L75.6478 65.875L78.9205 46.2386L78.7671 46.2386L72.4773 49.6648L73.4489 43.6307L80.5569 39.6932L87.1023 39.6932ZM105.307 39.6932L100.96 65.875L93.8523 65.875L97.1251 46.2386L96.9716 46.2386L90.6819 49.6648L91.6535 43.6307L98.7614 39.6932L105.307 39.6932Z">
+                                        </path>
+                                    </g>
+                                    <path stroke="rgba(0, 0, 0, 1)" stroke-width="1" d="M89.8182 18L46.8182 61">
+                                    </path>
+                                </svg>
+
+                            </td>
+                            <td class="box-container">
+                                <div class="table-box exhibition" data-target="opening-project">
+                                    <span class="box-text">Opening
+                                        Project:<br />
+                                        Live-diffusion</span>
+                                    <div class="table-icon purple-icon"></div>
+                                </div>
+                            </td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <!-- <tr>
                                 <td colspan="4">
                                     <div class="long-divider"></div>
                                 </td>
-                            </tr>
-                            <tr>
-                                <td class="date">
-                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                        xmlns:xlink="http://www.w3.org/1999/xlink"
-                                        width="114" height="75"
-                                        viewBox="0 0 114 75" fill="none">
-                                        <g>
-                                            <path style="mix-blend-mode:normal"
-                                                fill="#383838"
-                                                d="M4.39773 8.69318L13.2443 8.69318L16.875 23.5227L17.1818 23.5227L25.7216 8.69318L34.5682 8.69318L30.2216 34.875L23.267 34.875L25.7727 19.7386L25.5682 19.7386L17.2841 34.6705L13.0909 34.6705L9.76705 19.6364L9.5625 19.6364L7.00568 34.875L0.0511364 34.875L4.39773 8.69318ZM39.1193 35.1818Q36.3196 35.1818 34.7599 33.7756Q33.2003 32.3693 33.6989 29.4545Q34.0568 27.3068 35.233 25.9901Q36.4091 24.6733 38.1477 24.0213Q39.8864 23.3693 41.9318 23.2159Q44.4247 23.0241 45.5305 22.6726Q46.6364 22.321 46.7898 21.4773L46.7898 21.4261Q46.9048 20.6591 46.3871 20.25Q45.8693 19.8409 44.9489 19.8409Q43.9517 19.8409 43.2294 20.2756Q42.5071 20.7102 42.2386 21.6307L35.7443 21.6307Q36.1534 19.8409 37.4254 18.326Q38.6974 16.8111 40.8132 15.897Q42.929 14.983 45.8693 14.983Q48.6562 14.983 50.5483 15.8395Q52.4403 16.696 53.2969 18.1534Q54.1534 19.6108 53.8466 21.4261L51.5966 34.875L45 34.875L45.4602 32.1136L45.3068 32.1136Q44.1562 33.7628 42.5966 34.4723Q41.0369 35.1818 39.1193 35.1818ZM42.1875 30.733Q43.3764 30.733 44.4567 29.9979Q45.5369 29.2628 45.767 27.9205L46.0227 26.2841Q45.4474 26.5142 44.6996 26.6804Q43.9517 26.8466 43.108 27Q41.8423 27.1918 41.1776 27.7351Q40.5128 28.2784 40.3977 29.0455Q40.2827 29.8509 40.7749 30.2919Q41.267 30.733 42.1875 30.733ZM54.9716 34.875L58.2443 15.2386L65.0966 15.2386L64.483 18.9716L64.6875 18.9716Q65.5696 16.9006 66.8991 15.9418Q68.2287 14.983 69.8011 14.983Q70.2614 14.983 70.6896 15.0533Q71.1179 15.1236 71.5398 15.2386L70.517 21.2727Q70.0185 21.081 69.277 20.9979Q68.5355 20.9148 67.9602 20.9148Q66.4261 20.9148 65.2244 21.9375Q64.0227 22.9602 63.7159 24.6477L62.0284 34.875L54.9716 34.875Z">
-                                            </path>
-                                        </g>
-                                        <g>
-                                            <path style="mix-blend-mode:normal"
-                                                fill="#383838"
-                                                d="M86.2841 39.6932L81.9375 65.875L74.8295 65.875L78.1023 46.2386L77.9489 46.2386L71.6591 49.6648L72.6307 43.6307L79.7386 39.6932L86.2841 39.6932ZM98.608 66.5909Q95.0284 66.5909 92.6889 64.9482Q90.3494 63.3054 89.4545 60.2244Q88.5597 57.1435 89.3011 52.8352Q90.0426 48.5142 91.9538 45.4972Q93.8651 42.4801 96.7095 40.9077Q99.554 39.3352 103.108 39.3352Q108.439 39.3352 110.964 42.8381Q113.489 46.3409 112.415 52.8352Q111.699 57.1562 109.788 60.2372Q107.876 63.3182 105.019 64.9545Q102.162 66.5909 98.608 66.5909ZM99.5795 60.8125Q101.42 60.8125 102.884 58.8885Q104.348 56.9645 105.051 52.8352Q105.741 48.8082 104.885 46.9354Q104.028 45.0625 102.188 45.0625Q100.347 45.0625 98.8445 46.9354Q97.3423 48.8082 96.6648 52.8352Q95.9744 56.9773 96.8565 58.8949Q97.7386 60.8125 99.5795 60.8125Z">
-                                            </path>
-                                        </g>
-                                        <path stroke="rgba(0, 0, 0, 1)"
-                                            stroke-width="1" d="M89 18L46 61">
+                            </tr> -->
+                        <tr>
+                            <td class="date">
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                    width="114.8182373046875" height="75" viewBox="0 0 114.8182373046875 75"
+                                    fill="none">
+                                    <g>
+                                        <path style="mix-blend-mode:normal" fill="#383838"
+                                            d="M7.67051 34.875L5.54323e-05 34.875L12.9887 8.69318L22.7046 8.69318L27.0001 34.875L19.3296 34.875L18.652 29.8636L10.0228 29.8636L7.67051 34.875ZM12.5157 24.5455L17.9361 24.5455L16.7728 15.9034L16.5682 15.9034L12.5157 24.5455ZM28.3807 42.2386L32.8807 15.2386L39.8864 15.2386L39.3239 18.6648L39.4773 18.6648Q40.2827 17.169 41.8552 16.076Q43.4276 14.983 45.6137 14.983Q47.5569 14.983 49.1357 16.0185Q50.7145 17.054 51.4496 19.2784Q52.1847 21.5028 51.5966 25.0568Q51.0341 28.4574 49.6023 30.6946Q48.1705 32.9318 46.2273 34.0312Q44.2841 35.1307 42.1876 35.1307Q40.1165 35.1307 38.8957 34.1399Q37.6748 33.1491 37.3296 31.6534L37.1762 31.6534L35.4376 42.2386L28.3807 42.2386ZM38.1478 25.0568Q37.8026 27.2045 38.4226 28.4574Q39.0427 29.7102 40.5001 29.7102Q41.9574 29.7102 42.9546 28.4766Q43.9518 27.2429 44.3353 25.0568Q44.6805 22.8707 44.086 21.6371Q43.4915 20.4034 42.0341 20.4034Q40.5768 20.4034 39.5349 21.6371Q38.493 22.8707 38.1478 25.0568ZM52.9262 34.875L56.1989 15.2386L63.0512 15.2386L62.4376 18.9716L62.6421 18.9716Q63.5242 16.9006 64.8537 15.9418Q66.1833 14.983 67.7557 14.983Q68.216 14.983 68.6442 15.0533Q69.0725 15.1236 69.4944 15.2386L68.4716 21.2727Q67.9731 21.081 67.2316 20.9979Q66.4901 20.9148 65.9148 20.9148Q64.3807 20.9148 63.179 21.9375Q61.9773 22.9602 61.6705 24.6477L59.983 34.875L52.9262 34.875Z">
                                         </path>
-                                    </svg>
-                                </td>
-                                <td class="box-container">
-                                    <div class="table-box exhibition">
-                                        <span class="box-text">Opening
-                                            Project:<br />
-                                            Live-diffusion</span>
-                                        <div
-                                            class="table-icon purple-icon"></div>
-                                    </div>
-                                </td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td class="date">
-                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                        xmlns:xlink="http://www.w3.org/1999/xlink"
-                                        width="120" height="75"
-                                        viewBox="0 0 120 75" fill="none">
-                                        <g>
-                                            <path style="mix-blend-mode:normal"
-                                                fill="#383838"
-                                                d="M4.39773 8.69318L13.2443 8.69318L16.875 23.5227L17.1818 23.5227L25.7216 8.69318L34.5682 8.69318L30.2216 34.875L23.267 34.875L25.7727 19.7386L25.5682 19.7386L17.2841 34.6705L13.0909 34.6705L9.76705 19.6364L9.5625 19.6364L7.00568 34.875L0.0511364 34.875L4.39773 8.69318ZM39.1193 35.1818Q36.3196 35.1818 34.7599 33.7756Q33.2003 32.3693 33.6989 29.4545Q34.0568 27.3068 35.233 25.9901Q36.4091 24.6733 38.1477 24.0213Q39.8864 23.3693 41.9318 23.2159Q44.4247 23.0241 45.5305 22.6726Q46.6364 22.321 46.7898 21.4773L46.7898 21.4261Q46.9048 20.6591 46.3871 20.25Q45.8693 19.8409 44.9489 19.8409Q43.9517 19.8409 43.2294 20.2756Q42.5071 20.7102 42.2386 21.6307L35.7443 21.6307Q36.1534 19.8409 37.4254 18.326Q38.6974 16.8111 40.8132 15.897Q42.929 14.983 45.8693 14.983Q48.6562 14.983 50.5483 15.8395Q52.4403 16.696 53.2969 18.1534Q54.1534 19.6108 53.8466 21.4261L51.5966 34.875L45 34.875L45.4602 32.1136L45.3068 32.1136Q44.1562 33.7628 42.5966 34.4723Q41.0369 35.1818 39.1193 35.1818ZM42.1875 30.733Q43.3764 30.733 44.4567 29.9979Q45.5369 29.2628 45.767 27.9205L46.0227 26.2841Q45.4474 26.5142 44.6996 26.6804Q43.9517 26.8466 43.108 27Q41.8423 27.1918 41.1776 27.7351Q40.5128 28.2784 40.3977 29.0455Q40.2827 29.8509 40.7749 30.2919Q41.267 30.733 42.1875 30.733ZM54.9716 34.875L58.2443 15.2386L65.0966 15.2386L64.483 18.9716L64.6875 18.9716Q65.5696 16.9006 66.8991 15.9418Q68.2287 14.983 69.8011 14.983Q70.2614 14.983 70.6896 15.0533Q71.1179 15.1236 71.5398 15.2386L70.517 21.2727Q70.0185 21.081 69.277 20.9979Q68.5355 20.9148 67.9602 20.9148Q66.4261 20.9148 65.2244 21.9375Q64.0227 22.9602 63.7159 24.6477L62.0284 34.875L54.9716 34.875Z">
-                                            </path>
-                                        </g>
-                                        <g>
-                                            <path style="mix-blend-mode:normal"
-                                                fill="#383838"
-                                                d="M80.4034 66.5909Q76.8239 66.5909 74.4844 64.9482Q72.1449 63.3054 71.25 60.2244Q70.3551 57.1435 71.0966 52.8352Q71.8381 48.5142 73.7493 45.4972Q75.6605 42.4801 78.505 40.9077Q81.3494 39.3352 84.9034 39.3352Q90.2344 39.3352 92.7592 42.8381Q95.2841 46.3409 94.2102 52.8352Q93.4943 57.1562 91.5831 60.2372Q89.6719 63.3182 86.8146 64.9545Q83.9574 66.5909 80.4034 66.5909ZM81.375 60.8125Q83.2159 60.8125 84.6797 58.8885Q86.1435 56.9645 86.8466 52.8352Q87.5369 48.8082 86.6804 46.9354Q85.8239 45.0625 83.983 45.0625Q82.142 45.0625 80.6399 46.9354Q79.1378 48.8082 78.4602 52.8352Q77.7699 56.9773 78.652 58.8949Q79.5341 60.8125 81.375 60.8125ZM109.756 39.3352Q112.108 39.3352 114.089 40.0895Q116.071 40.8438 117.426 42.4482Q118.781 44.0526 119.28 46.5966Q119.778 49.1406 119.165 52.733Q118.462 56.9517 116.582 59.9751Q114.703 62.9986 111.948 64.6158Q109.193 66.233 105.818 66.233Q102.903 66.233 100.839 65.1335Q98.7741 64.0341 97.7322 62.1676Q96.6903 60.3011 96.8182 58L103.722 58Q103.709 59.2273 104.469 59.7131Q105.23 60.1989 106.278 60.1989Q108.605 60.1989 110.088 58.147Q111.571 56.0952 112.159 52.8352L111.955 53.1932Q110.906 54.9957 108.963 55.9354Q107.02 56.875 104.847 56.875Q102.418 56.875 100.756 55.75Q99.0938 54.625 98.3906 52.6818Q97.6875 50.7386 98.0966 48.2841Q98.5568 45.5739 100.18 43.5604Q101.804 41.5469 104.284 40.4411Q106.764 39.3352 109.756 39.3352ZM109.5 44.7045Q107.8 44.7045 106.457 45.8615Q105.115 47.0185 104.898 48.7443Q104.706 50.2145 105.454 51.1413Q106.202 52.0682 107.71 52.0682Q109.385 52.0682 110.721 50.9112Q112.057 49.7543 112.312 48.0284Q112.53 46.5327 111.756 45.6186Q110.983 44.7045 109.5 44.7045Z">
-                                            </path>
-                                        </g>
-                                        <path stroke="rgba(0, 0, 0, 1)"
-                                            stroke-width="1" d="M89 18L46 61">
+                                    </g>
+                                    <g>
+                                        <path style="mix-blend-mode:normal" fill="#383838"
+                                            d="M87.1023 39.6932L82.7557 65.875L75.6478 65.875L78.9205 46.2386L78.7671 46.2386L72.4773 49.6648L73.4489 43.6307L80.5569 39.6932L87.1023 39.6932ZM99.4262 66.5909Q95.8466 66.5909 93.5072 64.9482Q91.1677 63.3054 90.2728 60.2244Q89.3779 57.1435 90.1194 52.8352Q90.8609 48.5142 92.7721 45.4972Q94.6833 42.4801 97.5278 40.9077Q100.372 39.3352 103.926 39.3352Q109.257 39.3352 111.782 42.8381Q114.307 46.3409 113.233 52.8352Q112.517 57.1562 110.606 60.2372Q108.695 63.3182 105.837 64.9545Q102.98 66.5909 99.4262 66.5909ZM100.398 60.8125Q102.239 60.8125 103.702 58.8885Q105.166 56.9645 105.869 52.8352Q106.56 48.8082 105.703 46.9354Q104.847 45.0625 103.006 45.0625Q101.165 45.0625 99.6627 46.9354Q98.1606 48.8082 97.483 52.8352Q96.7927 56.9773 97.6748 58.8949Q98.5569 60.8125 100.398 60.8125Z">
                                         </path>
-                                    </svg>
-                                </td>
-                                <td class="box-container">
-                                    <div class="table-box exhibition">
-                                        <span class="box-text">Opening
-                                            Project:<br />
-                                            Live-diffusion</span>
-                                        <div
-                                            class="table-icon purple-icon"></div>
-                                    </div>
-                                </td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td class="date">
-                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                        xmlns:xlink="http://www.w3.org/1999/xlink"
-                                        width="114" height="75"
-                                        viewBox="0 0 114 75" fill="none">
-                                        <g>
-                                            <path style="mix-blend-mode:normal"
-                                                fill="#383838"
-                                                d="M0.0511364 34.875L4.39773 8.69318L22.8068 8.69318L21.8352 14.4205L10.5341 14.4205L9.81818 18.9205L19.9943 18.9205L19.0227 24.6477L8.84659 24.6477L7.15909 34.875L0.0511364 34.875ZM30.5284 35.233Q25.8111 35.233 23.5483 32.5483Q21.2855 29.8636 22.0909 25.108Q22.6023 22.0653 24.2067 19.7898Q25.8111 17.5142 28.2592 16.2486Q30.7074 14.983 33.75 14.983Q36.7159 14.983 38.7038 16.2038Q40.6918 17.4247 41.5163 19.6811Q42.3409 21.9375 41.8295 25.0568L41.5739 26.6932L28.8026 26.6932L28.7386 27Q28.5085 28.419 29.218 29.3459Q29.9276 30.2727 31.5 30.2727Q32.5739 30.2727 33.4688 29.8253Q34.3636 29.3778 34.8239 28.5341L41.267 28.5341Q40.2315 31.6023 37.4318 33.4176Q34.6321 35.233 30.5284 35.233ZM29.5312 22.8068L35.6932 22.8068Q35.8849 21.5412 35.1626 20.7422Q34.4403 19.9432 33.1364 19.9432Q31.858 19.9432 30.8416 20.723Q29.8253 21.5028 29.5312 22.8068ZM42.9545 34.875L47.3011 8.69318L54.358 8.69318L52.7216 18.6648L52.8239 18.6648Q53.6293 17.169 55.2017 16.076Q56.7741 14.983 58.9602 14.983Q60.9034 14.983 62.4822 16.0185Q64.0611 17.054 64.7962 19.2784Q65.5312 21.5028 64.9432 25.0568Q64.3807 28.4574 62.9489 30.6946Q61.517 32.9318 59.5739 34.0312Q57.6307 35.1307 55.5341 35.1307Q53.4631 35.1307 52.2422 34.1399Q51.0213 33.1491 50.6761 31.6534L50.4716 31.6534L49.9602 34.875L42.9545 34.875ZM51.4943 25.0568Q51.1491 27.2045 51.7692 28.4574Q52.3892 29.7102 53.8466 29.7102Q55.304 29.7102 56.3203 28.4766Q57.3366 27.2429 57.6818 25.0568Q58.027 22.8707 57.4325 21.6371Q56.8381 20.4034 55.3807 20.4034Q53.9233 20.4034 52.8814 21.6371Q51.8395 22.8707 51.4943 25.0568Z">
-                                            </path>
-                                        </g>
-                                        <g>
-                                            <path style="mix-blend-mode:normal"
-                                                fill="#383838"
-                                                d="M86.2841 39.6932L81.9375 65.875L74.8295 65.875L78.1023 46.2386L77.9489 46.2386L71.6591 49.6648L72.6307 43.6307L79.7386 39.6932L86.2841 39.6932ZM98.608 66.5909Q95.0284 66.5909 92.6889 64.9482Q90.3494 63.3054 89.4545 60.2244Q88.5597 57.1435 89.3011 52.8352Q90.0426 48.5142 91.9538 45.4972Q93.8651 42.4801 96.7095 40.9077Q99.554 39.3352 103.108 39.3352Q108.439 39.3352 110.964 42.8381Q113.489 46.3409 112.415 52.8352Q111.699 57.1562 109.788 60.2372Q107.876 63.3182 105.019 64.9545Q102.162 66.5909 98.608 66.5909ZM99.5795 60.8125Q101.42 60.8125 102.884 58.8885Q104.348 56.9645 105.051 52.8352Q105.741 48.8082 104.885 46.9354Q104.028 45.0625 102.188 45.0625Q100.347 45.0625 98.8445 46.9354Q97.3423 48.8082 96.6648 52.8352Q95.9744 56.9773 96.8565 58.8949Q97.7386 60.8125 99.5795 60.8125Z">
-                                            </path>
-                                        </g>
-                                        <path stroke="rgba(0, 0, 0, 1)"
-                                            stroke-width="1" d="M89 18L46 61">
+                                    </g>
+                                    <path stroke="rgba(0, 0, 0, 1)" stroke-width="1" d="M89.8182 18L46.8182 61">
+                                    </path>
+                                </svg>
+
+                            </td>
+                            <td class="box-container">
+                                <div class="table-box exhibition" data-target="opening-project">
+                                    <span class="box-text">Opening
+                                        Project:<br />
+                                        Live-diffusion</span>
+                                    <div class="table-icon purple-icon"></div>
+                                </div>
+                            </td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td class="date">
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                    width="114.8182373046875" height="75" viewBox="0 0 114.8182373046875 75"
+                                    fill="none">
+                                    <g>
+                                        <path style="mix-blend-mode:normal" fill="#383838"
+                                            d="M7.67051 34.875L5.54323e-05 34.875L12.9887 8.69318L22.7046 8.69318L27.0001 34.875L19.3296 34.875L18.652 29.8636L10.0228 29.8636L7.67051 34.875ZM12.5157 24.5455L17.9361 24.5455L16.7728 15.9034L16.5682 15.9034L12.5157 24.5455ZM28.3807 42.2386L32.8807 15.2386L39.8864 15.2386L39.3239 18.6648L39.4773 18.6648Q40.2827 17.169 41.8552 16.076Q43.4276 14.983 45.6137 14.983Q47.5569 14.983 49.1357 16.0185Q50.7145 17.054 51.4496 19.2784Q52.1847 21.5028 51.5966 25.0568Q51.0341 28.4574 49.6023 30.6946Q48.1705 32.9318 46.2273 34.0312Q44.2841 35.1307 42.1876 35.1307Q40.1165 35.1307 38.8957 34.1399Q37.6748 33.1491 37.3296 31.6534L37.1762 31.6534L35.4376 42.2386L28.3807 42.2386ZM38.1478 25.0568Q37.8026 27.2045 38.4226 28.4574Q39.0427 29.7102 40.5001 29.7102Q41.9574 29.7102 42.9546 28.4766Q43.9518 27.2429 44.3353 25.0568Q44.6805 22.8707 44.086 21.6371Q43.4915 20.4034 42.0341 20.4034Q40.5768 20.4034 39.5349 21.6371Q38.493 22.8707 38.1478 25.0568ZM52.9262 34.875L56.1989 15.2386L63.0512 15.2386L62.4376 18.9716L62.6421 18.9716Q63.5242 16.9006 64.8537 15.9418Q66.1833 14.983 67.7557 14.983Q68.216 14.983 68.6442 15.0533Q69.0725 15.1236 69.4944 15.2386L68.4716 21.2727Q67.9731 21.081 67.2316 20.9979Q66.4901 20.9148 65.9148 20.9148Q64.3807 20.9148 63.179 21.9375Q61.9773 22.9602 61.6705 24.6477L59.983 34.875L52.9262 34.875Z">
                                         </path>
-                                    </svg>
+                                    </g>
+                                    <g>
+                                        <path style="mix-blend-mode:normal" fill="#383838"
+                                            d="M87.1023 39.6932L82.7557 65.875L75.6478 65.875L78.9205 46.2386L78.7671 46.2386L72.4773 49.6648L73.4489 43.6307L80.5569 39.6932L87.1023 39.6932ZM99.4262 66.5909Q95.8466 66.5909 93.5072 64.9482Q91.1677 63.3054 90.2728 60.2244Q89.3779 57.1435 90.1194 52.8352Q90.8609 48.5142 92.7721 45.4972Q94.6833 42.4801 97.5278 40.9077Q100.372 39.3352 103.926 39.3352Q109.257 39.3352 111.782 42.8381Q114.307 46.3409 113.233 52.8352Q112.517 57.1562 110.606 60.2372Q108.695 63.3182 105.837 64.9545Q102.98 66.5909 99.4262 66.5909ZM100.398 60.8125Q102.239 60.8125 103.702 58.8885Q105.166 56.9645 105.869 52.8352Q106.56 48.8082 105.703 46.9354Q104.847 45.0625 103.006 45.0625Q101.165 45.0625 99.6627 46.9354Q98.1606 48.8082 97.483 52.8352Q96.7927 56.9773 97.6748 58.8949Q98.5569 60.8125 100.398 60.8125Z">
+                                        </path>
+                                    </g>
+                                    <path stroke="rgba(0, 0, 0, 1)" stroke-width="1" d="M89.8182 18L46.8182 61">
+                                    </path>
+                                </svg>
 
-                                </td>
+                            </td>
+                            <td class="box-container">
+                                <div class="table-box exhibition" data-target="opening-project">
+                                    <span class="box-text">Opening
+                                        Project:<br />
+                                        Live-diffusion</span>
+                                    <div class="table-icon purple-icon"></div>
+                                </div>
+                            </td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td class="date">
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                    width="114" height="75" viewBox="0 0 114 75" fill="none">
+                                    <g>
+                                        <path style="mix-blend-mode:normal" fill="#383838"
+                                            d="M0.0511364 34.875L4.39773 8.69318L22.8068 8.69318L21.8352 14.4205L10.5341 14.4205L9.81818 18.9205L19.9943 18.9205L19.0227 24.6477L8.84659 24.6477L7.15909 34.875L0.0511364 34.875ZM30.5284 35.233Q25.8111 35.233 23.5483 32.5483Q21.2855 29.8636 22.0909 25.108Q22.6023 22.0653 24.2067 19.7898Q25.8111 17.5142 28.2592 16.2486Q30.7074 14.983 33.75 14.983Q36.7159 14.983 38.7038 16.2038Q40.6918 17.4247 41.5163 19.6811Q42.3409 21.9375 41.8295 25.0568L41.5739 26.6932L28.8026 26.6932L28.7386 27Q28.5085 28.419 29.218 29.3459Q29.9276 30.2727 31.5 30.2727Q32.5739 30.2727 33.4688 29.8253Q34.3636 29.3778 34.8239 28.5341L41.267 28.5341Q40.2315 31.6023 37.4318 33.4176Q34.6321 35.233 30.5284 35.233ZM29.5312 22.8068L35.6932 22.8068Q35.8849 21.5412 35.1626 20.7422Q34.4403 19.9432 33.1364 19.9432Q31.858 19.9432 30.8416 20.723Q29.8253 21.5028 29.5312 22.8068ZM42.9545 34.875L47.3011 8.69318L54.358 8.69318L52.7216 18.6648L52.8239 18.6648Q53.6293 17.169 55.2017 16.076Q56.7741 14.983 58.9602 14.983Q60.9034 14.983 62.4822 16.0185Q64.0611 17.054 64.7962 19.2784Q65.5312 21.5028 64.9432 25.0568Q64.3807 28.4574 62.9489 30.6946Q61.517 32.9318 59.5739 34.0312Q57.6307 35.1307 55.5341 35.1307Q53.4631 35.1307 52.2422 34.1399Q51.0213 33.1491 50.6761 31.6534L50.4716 31.6534L49.9602 34.875L42.9545 34.875ZM51.4943 25.0568Q51.1491 27.2045 51.7692 28.4574Q52.3892 29.7102 53.8466 29.7102Q55.304 29.7102 56.3203 28.4766Q57.3366 27.2429 57.6818 25.0568Q58.027 22.8707 57.4325 21.6371Q56.8381 20.4034 55.3807 20.4034Q53.9233 20.4034 52.8814 21.6371Q51.8395 22.8707 51.4943 25.0568Z">
+                                        </path>
+                                    </g>
+                                    <g>
+                                        <path style="mix-blend-mode:normal" fill="#383838"
+                                            d="M86.2841 39.6932L81.9375 65.875L74.8295 65.875L78.1023 46.2386L77.9489 46.2386L71.6591 49.6648L72.6307 43.6307L79.7386 39.6932L86.2841 39.6932ZM98.608 66.5909Q95.0284 66.5909 92.6889 64.9482Q90.3494 63.3054 89.4545 60.2244Q88.5597 57.1435 89.3011 52.8352Q90.0426 48.5142 91.9538 45.4972Q93.8651 42.4801 96.7095 40.9077Q99.554 39.3352 103.108 39.3352Q108.439 39.3352 110.964 42.8381Q113.489 46.3409 112.415 52.8352Q111.699 57.1562 109.788 60.2372Q107.876 63.3182 105.019 64.9545Q102.162 66.5909 98.608 66.5909ZM99.5795 60.8125Q101.42 60.8125 102.884 58.8885Q104.348 56.9645 105.051 52.8352Q105.741 48.8082 104.885 46.9354Q104.028 45.0625 102.188 45.0625Q100.347 45.0625 98.8445 46.9354Q97.3423 48.8082 96.6648 52.8352Q95.9744 56.9773 96.8565 58.8949Q97.7386 60.8125 99.5795 60.8125Z">
+                                        </path>
+                                    </g>
+                                    <path stroke="rgba(0, 0, 0, 1)" stroke-width="1" d="M89 18L46 61">
+                                    </path>
+                                </svg>
 
-                                <td></td>
-                                <td></td>
-                                <td class="box-container">
-                                    <div class="table-box open-call">
-                                        <span class="box-text">Opening
-                                            Project:<br />
-                                            Live-diffusion</span>
-                                        <div
-                                            class="table-icon yellow-icon"></div>
-                                    </div>
-                                    <div class="table-box open-call">
-                                        <span class="box-text">Opening
-                                            Project:<br />
-                                            Live-diffusion</span>
-                                        <div
-                                            class="table-icon yellow-icon"></div>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                            </td>
 
-                    <div class="section-title">Events & Exhibition Details</div>
+                            <td></td>
+                            <td></td>
+                            <td class="box-container">
+                                <div class="table-box open-call">
+                                    <span class="box-text">Opening
+                                        Project:<br />
+                                        Live-diffusion</span>
+                                    <div class="table-icon yellow-icon"></div>
+                                </div>
+                                <div class="table-box open-call">
+                                    <span class="box-text">Opening
+                                        Project:<br />
+                                        Live-diffusion</span>
+                                    <div class="table-icon yellow-icon"></div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
 
-                    <div class="container">
-                        <div class="left">
-                            <h2>Live Diffusion in NY &<br>SH & AD</h2>
+                <div class="section-title">Events & Exhibition Details</div>
+
+                <div class="box-details divider" style="height: 1340px;" id="opening-project">
+                    <div class="left">
+                        <div class="left-highlight exhibition-highlight"></div>
+                        <div class="left-content">
+                            <h2>Opening Project:<br /> Live-Diffusion</h2>
                             <div class="label">Time:</div>
-                            <div class="info">Mar 15–17, 2025<br>9AM – 5PM</div>
+                            <div class="info">April 9 - April 13, 2025<br>24
+                                Hours</div>
                             <div class="label">Location:</div>
-                            <div class="info">NYU Shanghai Mongolia<br>NYU Abu
-                                Dhabi library</div>
-                        </div>
-
-                        <div class="right">
-                            <p><strong>Place holder text</strong><br>
-                                A festival curated from the eyes of animation
-                                artists, a screening journey to explore poetry
-                                and inspiration, with audience together we
-                                create a garden for our mind.</p>
-
-                            <p>Feinaki Beijing Animation Week is an animation
-                                festival curated by the internationally well
-                                connected Chinese animation artists, researchers
-                                and curators who frequently travel between
-                                animation festivals across the world. The
-                                festival was established in 2019 and has been
-                                held 6 times by 2024.</p>
-
-                            <div class="image-wrapper">
-                                <img src="image.png"
-                                    alt="Live Diffusion Exhibition">
+                            <div class="info">Shanghai: IMA (TBD), Library
+                                Lobby<br />
+                                New York: Lobby of 370 Jay St location at
+                                Brooklyn campus<br />
+                                Abu Dhabi: Library (TBD)
                             </div>
+
+                        </div>
+                    </div>
+
+                    <div class="right">
+                        <div class="right-content">Authors: Chenxuan
+                            Sun, Jinran
+                            Ye<br><br />
+                            Explore the real-time interactive AI-generated
+                            image installation Live-Diffusion. Witness the
+                            networked display connecting three campuses!
+                        </div>
+                        <br />
+                        <a href="https://nyuglobal.show/showcase/1/" target="_blank">Read more</a>
+
+                        <div class="image-wrapper exhibition-image" style="width: 700px;">
+                            <img src="/calendar/assets/opening-project.png" alt="Live Diffusion Exhibition">
                         </div>
                     </div>
                 </div>
 
+                <div class="box-details" style="height: 1290px;" id="opening-ceremony">
+                    <div class="left">
+                        <div class="left-highlight event-highlight"></div>
+                        <div class="left-content">
+                            <h2>Opening Ceremony</h2>
+                            <div class="label">Time:</div>
+                            <div class="info">Apr 13, 2025 <br />13:00 -
+                                16:00</div>
+                            <div class="label">Location:</div>
+                            <div class="info">NYU Shanghai
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="right">
+                        <div class="right-content">
+
+                            <b>1:00 - 2:00 PM | Opening Ceremony</b>
+                            <br />
+                            <span style="text-decoration: underline;">Opening
+                                Remarks</span><br />
+                            Tong Shijun, Chancellor, NYU Shanghai
+                            Jeffrey Lehman, Vice Chancellor, NYU Shanghai
+                            Joanna Waley-Cohen, Provost, NYU Shanghai<br />
+
+                            Interactive Session & Interview with Student
+                            Artists<br />
+                            Jinran Ye (IMA & CS, Class of 2025)<br />
+                            Chenxuan Sun (IMA, Class of 2025)<br />
+                            <br />
+                            <span style="text-decoration: underline;">Panel
+                                Discussion</span><br />
+                            Moderator:<br />
+                            Gene Wen, Visiting Professor of Engineering, NYU
+                            Shanghai<br />
+                            <br />
+                            Panelists:<br />
+                            Marcela Godoy, Area Head of Interactive Media
+                            Arts (IMA), Associate Arts Professor of
+                            Interactive Media Arts (IMA), NYU Shanghai<br />
+                            Yiru Lu, Future Sensory Creator and OR10 Venture
+                            Co-founder<br />
+                            Thays Leach Mitre, Senior, Electrical and
+                            Systems Engineering, NYU Shanghai<br />
+                            Jung Hyun Moon, Interactive Media Arts (IMA)
+                            Foundation Coordinator, Assistant Arts Professor
+                            of Interactive Media Arts (IMA), NYU
+                            Shanghai<br />
+                            Hongyi Wen, Assistant Professor of Computer
+                            Science, NYU Shanghai
+                            <br />
+                            <br />
+                            <b>2:15 - 3:15 PM | Workshop</b>
+                            <br />
+                            Jung Hyun Moon, Interactive Media Arts (IMA)
+                            Foundation Coordinator, Assistant Arts Professor
+                            of Interactive Media Arts (IMA), NYU Shanghai
+                            <br />
+                            <br /><b>Campus Tour</b>
+                            <br />
+                            Discover interactive live AI installations
+                            networked globally across NYU campuses in New
+                            York, Abu Dhabi, and Shanghai.
+
+                        </div>
+
+                        <div class="image-wrapper event-image">
+                        </div>
+                    </div>
+                </div>
             </div>
 
         </div>
 
-        <script>
+        <div class="back-to-top">
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="205.6064453125"
+                height="141.80169677734375" viewBox="0 0 205.6064453125 141.80169677734375" fill="none">
+                <g>
+                    <g filter="url(#filter_139_1266)">
+                        <path fill="#000000"
+                            d="M12.2188 136.256L12.2188 117.347L20.4176 117.347Q22.5781 117.347 24.0508 117.929Q25.5234 118.511 26.2759 119.572Q27.0284 120.634 27.0284 122.074Q27.0284 123.118 26.5714 123.976Q26.1143 124.835 25.2926 125.412Q24.4709 125.989 23.3722 126.211L23.3722 126.396Q24.5909 126.442 25.5881 127.009Q26.5852 127.577 27.1761 128.57Q27.767 129.562 27.767 130.901Q27.767 132.452 26.9592 133.662Q26.1513 134.871 24.6648 135.564Q23.1783 136.256 21.1193 136.256L12.2188 136.256ZM17.3523 132.157L19.7528 132.157Q21.0455 132.157 21.6918 131.672Q22.3381 131.187 22.3381 130.236Q22.3381 129.572 22.0334 129.11Q21.7287 128.648 21.1701 128.408Q20.6115 128.168 19.8267 128.168L17.3523 128.168L17.3523 132.157ZM17.3523 124.992L19.4574 124.992Q20.1314 124.992 20.6484 124.78Q21.1655 124.567 21.4563 124.166Q21.7472 123.764 21.7472 123.182Q21.7472 122.305 21.1193 121.839Q20.4915 121.373 19.5312 121.373L17.3523 121.373L17.3523 124.992ZM34.4886 136.256L28.9489 136.256L35.1903 117.347L42.2074 117.347L48.4489 136.256L42.9091 136.256L38.7727 122.555L38.625 122.555L34.4886 136.256ZM33.4545 128.796L43.8693 128.796L43.8693 132.637L33.4545 132.637L33.4545 128.796ZM67.9119 124.438L62.7045 124.438Q62.6491 123.792 62.4137 123.266Q62.1783 122.739 61.7674 122.356Q61.3565 121.973 60.7749 121.765Q60.1932 121.557 59.4545 121.557Q58.1619 121.557 57.271 122.185Q56.38 122.813 55.9229 123.986Q55.4659 125.158 55.4659 126.802Q55.4659 128.538 55.9322 129.706Q56.3984 130.873 57.2848 131.46Q58.1712 132.046 59.4176 132.046Q60.1286 132.046 60.6918 131.866Q61.255 131.686 61.6705 131.344Q62.0859 131.003 62.3491 130.518Q62.6122 130.033 62.7045 129.424L67.9119 129.461Q67.8196 130.661 67.2379 131.903Q66.6562 133.145 65.5898 134.193Q64.5234 135.241 62.9538 135.878Q61.3842 136.515 59.3068 136.515Q56.7031 136.515 54.6396 135.398Q52.576 134.28 51.3803 132.111Q50.1847 129.941 50.1847 126.802Q50.1847 123.644 51.4034 121.479Q52.6222 119.314 54.6903 118.201Q56.7585 117.089 59.3068 117.089Q61.098 117.089 62.603 117.578Q64.108 118.067 65.2436 119.005Q66.3793 119.942 67.0717 121.308Q67.7642 122.675 67.9119 124.438ZM70.2386 136.256L70.2386 117.347L75.3722 117.347L75.3722 124.992L75.6307 124.992L81.3182 117.347L87.3011 117.347L80.9119 125.768L87.4489 136.256L81.3182 136.256L77.071 129.165L75.3722 131.381L75.3722 136.256L70.2386 136.256ZM94.7348 121.484L94.7348 117.347L111.169 117.347L111.169 121.484L105.482 121.484L105.482 136.256L100.422 136.256L100.422 121.484L94.7348 121.484ZM131.408 126.802Q131.408 129.959 130.18 132.125Q128.952 134.29 126.866 135.402Q124.779 136.515 122.212 136.515Q119.627 136.515 117.545 135.393Q115.463 134.271 114.239 132.106Q113.016 129.941 113.016 126.802Q113.016 123.644 114.239 121.479Q115.463 119.314 117.545 118.201Q119.627 117.089 122.212 117.089Q124.779 117.089 126.866 118.201Q128.952 119.314 130.18 121.479Q131.408 123.644 131.408 126.802ZM126.127 126.802Q126.127 125.103 125.679 123.935Q125.231 122.767 124.359 122.162Q123.486 121.557 122.212 121.557Q120.938 121.557 120.065 122.162Q119.193 122.767 118.745 123.935Q118.297 125.103 118.297 126.802Q118.297 128.501 118.745 129.669Q119.193 130.837 120.065 131.441Q120.938 132.046 122.212 132.046Q123.486 132.046 124.359 131.441Q125.231 130.837 125.679 129.669Q126.127 128.501 126.127 126.802ZM139.691 121.484L139.691 117.347L156.126 117.347L156.126 121.484L150.438 121.484L150.438 136.256L145.379 136.256L145.379 121.484L139.691 121.484ZM176.365 126.802Q176.365 129.959 175.137 132.125Q173.909 134.29 171.822 135.402Q169.735 136.515 167.169 136.515Q164.583 136.515 162.501 135.393Q160.419 134.271 159.196 132.106Q157.972 129.941 157.972 126.802Q157.972 123.644 159.196 121.479Q160.419 119.314 162.501 118.201Q164.583 117.089 167.169 117.089Q169.735 117.089 171.822 118.201Q173.909 119.314 175.137 121.479Q176.365 123.644 176.365 126.802ZM171.083 126.802Q171.083 125.103 170.635 123.935Q170.188 122.767 169.315 122.162Q168.443 121.557 167.169 121.557Q165.894 121.557 165.022 122.162Q164.149 122.767 163.702 123.935Q163.254 125.103 163.254 126.802Q163.254 128.501 163.702 129.669Q164.149 130.837 165.022 131.441Q165.894 132.046 167.169 132.046Q168.443 132.046 169.315 131.441Q170.188 130.837 170.635 129.669Q171.083 128.501 171.083 126.802ZM178.728 136.256L178.728 117.347L186.89 117.347Q188.995 117.347 190.574 118.178Q192.153 119.009 193.03 120.514Q193.907 122.019 193.907 124.032Q193.907 126.063 193.007 127.55Q192.107 129.036 190.486 129.839Q188.866 130.643 186.705 130.643L181.83 130.643L181.83 126.654L185.671 126.654Q186.576 126.654 187.218 126.335Q187.86 126.017 188.206 125.426Q188.552 124.835 188.552 124.032Q188.552 123.219 188.206 122.642Q187.86 122.065 187.218 121.756Q186.576 121.447 185.671 121.447L183.862 121.447L183.862 136.256L178.728 136.256Z">
+                        </path>
+                    </g>
+                </g>
+                <path
+                    d="M60.5161 101.302L145.516 101.302L145.516 75.802L204.016 75.802L102.516 1.302L2.51611 75.802L60.5161 75.802L60.5161 101.302Z"
+                    fill="url(#linear_fill_139_1436)" fill-opacity="1">
+                </path>
+                <path fill-rule="evenodd" fill="#000000"
+                    d="M59.9761 76.302L59.9761 102.802L61.9761 102.802L61.9761 74.302L6.03221 74.302L102.468 2.45761L199.574 74.802L143.63 74.802L143.63 103.302L145.63 103.302L145.63 76.802L205.606 76.802L203.188 75.0001L103.188 0.50008L102.989 0.766229L102.419 7.95126e-05L2.41867 74.5001L-1.5974e-05 76.302L59.9761 76.302Z">
+                </path>
+                <path fill-rule="evenodd" fill="#000000" fill-opacity="0.2"
+                    d="M59.9761 76.302L59.9761 102.802L61.9761 102.802L61.9761 74.302L6.03221 74.302L102.468 2.45761L199.574 74.802L143.63 74.802L143.63 103.302L145.63 103.302L145.63 76.802L205.606 76.802L203.188 75.0001L103.188 0.50008L102.989 0.766229L102.419 7.95126e-05L2.41867 74.5001L-1.5974e-05 76.302L59.9761 76.302Z">
+                </path>
+                <defs>
+                    <filter id="filter_139_1266" x="12.21875" y="117.08868408203125" width="183.6884765625"
+                        height="21.4261474609375" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                        <feflood flood-opacity="0" result="feFloodId_139_1266" />
+                        <fecolormatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+                            result="hardAlpha_139_1266" />
+                        <feoffset dx="2" dy="2" />
+                        <fecomposite in2="hardAlpha_139_1266" operator="out" />
+                        <fecolormatrix type="matrix"
+                            values="0 0 0 0 0.8666666666666667 0 0 0 0 0.9686274509803922 0 0 0 0 0.3607843137254902 0 0 0 1 0" />
+                        <feblend mode="normal" in2="feFloodId_139_1266" result="dropShadow_1_139_1266" />
+                        <feblend mode="normal" in="SourceGraphic" in2="dropShadow_1_139_1266" result="shape_139_1266" />
+                    </filter>
+                    <lineargradient id="linear_fill_139_1436" x1="103.26611328125" y1="101.302001953125"
+                        x2="103.26611328125" y2="2.302001953125" gradientUnits="userSpaceOnUse">
+                        <stop offset="0" stop-color="#FFFFFF" stop-opacity="0" />
+                        <stop offset="1" stop-color="#DDF75C" />
+                    </lineargradient>
+                </defs>
+            </svg>
+        </div>
+    </div>
+
+    <script>
         const { createApp, ref, onMounted } = Vue
 
         createApp({
             setup() {
                 const classActive = ref(true);
+                onMounted(() => {
+                    // Add click event handlers to each table-box
+                    // Add click event handlers to each table-box
+                    const tableBoxes = document.querySelectorAll('.table-box');
+                    tableBoxes.forEach((box, index) => {
+                        box.addEventListener('click', () => {
+                            // Get the target section ID from the data attribute
+                            const targetId = box.getAttribute('data-target');
+                            if (targetId) {
+                                // Find the corresponding detail section using the ID
+                                const detailSection = document.getElementById(targetId);
+                                if (detailSection) {
+                                    // Scroll to this section with smooth animation
+                                    detailSection.scrollIntoView({
+                                        behavior: 'smooth',
+                                        block: 'start'
+                                    });
+                                }
+                            }
+                        });
+                        // Add pointer cursor to indicate clickability
+                        box.style.cursor = 'pointer';
+                    });
+
+                    // Add back-to-top functionality
+                    const backToTopButton = document.querySelector('.back-to-top');
+                    if (backToTopButton) {
+                        backToTopButton.addEventListener('click', () => {
+                            // Scroll to 40vw from the top of the page
+                            window.scrollTo({
+                                top: window.innerHeight * 0.4, // 40vw
+                                behavior: 'smooth'
+                            });
+                        });
+                    }
+                });
 
                 return {
                     classActive
@@ -803,6 +1048,6 @@
             }
         }).mount('#app')
     </script>
-    </body>
+</body>
 
 </html>
