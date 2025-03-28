@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-	<meta charset="UTF-8" />
-	<link rel="icon" href="/logo.png" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<!--	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/inter-ui/inter.css">-->
-	<link rel="stylesheet" href="https://unpkg.com/element-plus/dist/index.css" />
-	<!-- Import component library -->
-	<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-	<script src="https://unpkg.com/element-plus"></script>
-	<script src="./p5.js"></script>
-<!--	<script src="./p5.sound.min.js"></script>-->
-	<title>NYU Global SHOW & TELL</title>
-	<meta name="viewport"
-		content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no,viewport-fit=cover">
-	<script defer>
+	<head>
+		<meta charset="UTF-8" />
+		<link rel="icon" href="/logo.png" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<!--	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/inter-ui/inter.css">-->
+		<link rel="stylesheet" href="https://unpkg.com/element-plus/dist/index.css" />
+		<!-- Import component library -->
+		<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+		<script src="https://unpkg.com/element-plus"></script>
+		<script src="./p5.js"></script>
+		<!--	<script src="./p5.sound.min.js"></script>-->
+		<title>NYU Global SHOW & TELL</title>
+		<meta name="viewport"
+			content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no,viewport-fit=cover">
+		<script defer>
 		let screenWidth = window.innerWidth;
 		let screenHeight = window.innerHeight;
 		let sqrtNum = Math.sqrt(screenWidth**2 + screenHeight**2);
@@ -76,8 +76,8 @@
 		})(document, window);
 	</script>
 
-	<script src="sketch.js"></script>
-	<style>
+		<script src="sketch.js"></script>
+		<style>
 		#draggable {
 			cursor: pointer;
 			transition: all 0.1s;
@@ -89,7 +89,7 @@
 
 
 	</style>
-	<style>
+		<style>
 		:root{
 			--sqrt-line:0;
 			--height-line:0;
@@ -958,21 +958,21 @@
 
 		}
 	</style>
-  <link rel="stylesheet" crossorigin href="/assets/homepage-Bmz7XZin.css">
-</head>
+		<link rel="stylesheet" crossorigin href="/assets/homepage-Bmz7XZin.css">
+	</head>
 
-<body>
-	<div id="app">
-		<div class="page-body">
-			<div class="base-div">
-				<div class="company-top">
-					<div class="company-top-img2"></div>
-					<div class="company-top-img3"></div>
-					<div class="company-top-img1"></div>
-				</div>
-				<div class="first-circle"></div>
-				<div class="second-circle"></div>
-				<div class="last-text">
+	<body>
+		<div id="app">
+			<div class="page-body">
+				<div class="base-div">
+					<div class="company-top">
+						<div class="company-top-img2"></div>
+						<div class="company-top-img3"></div>
+						<div class="company-top-img1"></div>
+					</div>
+					<div class="first-circle"></div>
+					<div class="second-circle"></div>
+					<div class="last-text">
 						<div class="text-top">
 							<div class="above-text">
 								<div class="top-line1 hidden-text"></div>
@@ -985,232 +985,287 @@
 							</div>
 							<div class="btn-box">
 								<div class="btn-item item1">
-									<a href="https://nyuglobal.show/src/opencall.html" target="_blank">Submit Your Work</a></div>
+									<a href="https://nyuglobal.show/src/opencall.html"
+										target="_blank">Submit Your Work</a></div>
 								<br>
 								<div class="btn-item item2">
-									<a href="https://nyuglobal.show/src/opencall.html" target="_blank">Find Your Collaborator</a>
-									</div>
+									<a href="https://nyuglobal.show/src/opencall.html" target="_blank">Find
+										Your Collaborator</a>
+								</div>
 								<br>
 								<div class="btn-item item3">
 									<a href="https://nyuglobal.show/showcase" target="_blank">Showcase</a>
-									</div>
+								</div>
 								<br>
-								<div class="btn-item item4">Program Calendar</div>
+								<div class="btn-item item4"><a href="https://nyuglobal.show/calendar"
+										target="_blank">Program Calendar</a></div>
 								<br>
-								<div class="btn-item item5">About</div>
+								<div class="btn-item item5"><a href="https://nyuglobal.show/about"
+										target="_blank">About</a></div>
 							</div>
 						</div>
-					<div style="position: absolute;overflow:hidden;left: 0;right: 0;top:0;bottom:0;z-index: -1">
-						<main>
-						</main>
+						<div
+							style="position: absolute;overflow:hidden;left: 0;right: 0;top:0;bottom:0;z-index: -1">
+							<main>
+							</main>
+						</div>
+					</div>
+				</div>
+				<div style="text-align: center">
+					<div class="arrow" @click="scrollTool"></div>
+				</div>
+				<div class="middle-page" id="middlePage">
+					<div class="middle-left">
+						<div class="middle-left-title">
+							Global Learning,<br>
+							Artificial Intelligence,<br>
+							& Interactivity
+						</div>
+						<div class="middle-left-content">
+							<p>
+								NYU Global Show-and-Tell is a festival that celebrates learning and
+								community through a global showcase of student works that emerge within
+								NYU's global network.
+							</p>
+							<p>
+								In a world where knowledge once spread through ancient wayfarers, we
+								explore how artificial intelligence mediates global education and
+								creativity through student works that bring together Artificial
+								Intelligence and interactive media.</p>
+							<p>
+								The NYU Goddard Impact Group Award from the Office of the Provost
+								supported this initiative.
+							</p>
+
+						</div>
+					</div>
+					<div class="middle-right">
+						<div class="middle-right-ul">
+							<div class="middle-right-li-title">
+								Presented to you by <span
+									style="color:rgba(128, 128, 128, 1);font-weight: 300;font-style: italic">(Alphabetical
+									order)</span>
+							</div>
+							<a class="middle-right-li" href="https://tisch.nyu.edu/itp"
+								target="_blank">
+								NYU Tisch Interactive Telecommunications Program / Interactive Media
+								Arts
+							</a>
+							<a class="middle-right-li"
+								href="https://engineering.nyu.edu/academics/departments/technology-culture-and-society/integrated-design-media"
+								target="_blank">
+								NYU Tandon Integrated Design & Media
+							</a>
+							<a class="middle-right-li">
+								NYU Shanghai University Communications Events Office
+							</a>
+							<a class="middle-right-li" href="https://library.shanghai.nyu.edu/"
+								target="_blank">
+								NYU Shanghai Library
+							</a>
+							<a class="middle-right-li"
+								href="https://shanghai.nyu.edu/academics/majors/interactive-media-arts"
+								target="_blank">
+								NYU Shanghai Interactive Media Arts
+							</a>
+							<a class="middle-right-li" href="https://cs.shanghai.nyu.edu/"
+								target="_blank">
+								NYU Shanghai Computer Science, Data Science, and Engineering
+							</a>
+							<a class="middle-right-li" href="https://itp.nyu.edu/lowres/"
+								target="_blank">
+								NYU IMA Low Res
+							</a>
+							<a class="middle-right-li" href="https://library.nyu.edu/"
+								target="_blank">
+								NYU Bobst Library
+							</a>
+							<a class="middle-right-li" href="https://nyuad.nyu.edu/en/library.html"
+								target="_blank">
+								NYU Abu Dhabi Library
+							</a>
+							<a class="middle-right-li"
+								href="https://nyuad.nyu.edu/en/academics/divisions/arts-and-humanities/academic-programs/interactive-media.html"
+								target="_blank">
+								NYU Abu Dhabi Interactive Media
+							</a>
+						</div>
+					</div>
+				</div>
+				<div class="second-page" id="textDiv">
+					<div class="carousel-box">
+						<el-carousel :height="getCarousel" arrow="always" :interval="6000"
+							autoplay>
+							<el-carousel-item>
+								<div class="img-box">
+									<img style="height: 100%;width: 100%" src="/assets/carousel-bg2-CmTC0VJL.png"
+										alt>
+									<div class="img-tool">
+										<div class="small-title">Opening project</div>
+										<div class="big-title">
+											<div>Live-Diffusion</div>
+											<div class="big-title-btn">
+												<a class="title-btn-icon" href="https://nyuglobal.show/showcase/1/"
+													target="_blank">
+												</a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</el-carousel-item>
+							<el-carousel-item>
+								<div class="img-box">
+									<img style="height: 100%;width: 100%" src="/assets/carousel-bg1-CsqC4yUq.png"
+										alt>
+								</div>
+							</el-carousel-item>
+							<el-carousel-item>
+								<div class="img-box">
+									<img style="height: 100%;width: 100%" src="/assets/carousel-bg2-CmTC0VJL.png"
+										alt>
+									<div class="img-tool">
+										<div class="small-title">Opening project</div>
+										<div class="big-title">
+											<div>Live-Diffusion</div>
+											<div class="big-title-btn">
+												<a class="title-btn-icon" href="https://nyuglobal.show/showcase/1/"
+													target="_blank">
+												</a>
+											</div>
+										</div>
+
+									</div>
+								</div>
+							</el-carousel-item>
+							<el-carousel-item>
+								<div class="img-box">
+									<img style="height: 100%;width: 100%" src="/assets/carousel-bg1-CsqC4yUq.png"
+										alt>
+								</div>
+							</el-carousel-item>
+						</el-carousel>
+					</div>
+
+				</div>
+				<div class="three-box">
+					<div class="company-info">
+						NYU Global Show & Tell @ 2025
 					</div>
 				</div>
 			</div>
-			<div style="text-align: center">
-				<div class="arrow" @click="scrollTool"></div>
-			</div>
-			<div class="middle-page" id="middlePage">
-				<div class="middle-left">
-					<div class="middle-left-title">
+			<div class="phone-page-body">
+				<div class="first-page">
+					<div class="phone-title"></div>
+					<div class="btn-box">
+						<div class="btn-item item1">
+							<a href="https://nyuglobal.show/src/opencall.html" target="_blank">Submit
+								Your Work</a>
+						</div>
+						<br>
+						<div class="btn-item item2">
+							<a href="https://nyuglobal.show/src/opencall.html" target="_blank">Find
+								Your Collaborator</a>
+						</div>
+						<br>
+						<div class="btn-item item3">
+							<a href="https://nyuglobal.show/" target="_blank">Showcase</a>
+						</div>
+						<br>
+						<div class="btn-item item4">Program Calendar</div>
+						<br>
+						<div class="btn-item item5">About</div>
+					</div>
+				</div>
+				<div class="phone-second-page">
+					<div class="second-title">
 						Global Learning,<br>
 						Artificial Intelligence,<br>
 						& Interactivity
 					</div>
-					<div class="middle-left-content">
+					<div class="paragraph-box">
 						<p>
-							NYU Global Show-and-Tell is a festival that celebrates learning and community through a global showcase of student works that emerge within NYU's global network.
+							NYU Global Show-and-Tell is a festival that celebrates learning and
+							community through a global showcase of student works that emerge within
+							NYU's global network.
 						</p>
 						<p>
-							In a world where knowledge once spread through ancient wayfarers, we explore how artificial intelligence mediates global education and creativity through student works that bring together Artificial Intelligence and interactive media.</p>
-						<p>
-							The NYU Goddard Impact Group Award from the Office of the Provost supported this initiative.
+							In a world where knowledge once spread through ancient wayfarers, we
+							explore how artificial intelligence mediates global education and
+							creativity through student works that bring together Artificial
+							Intelligence and interactive media.
 						</p>
-
-
-						</div>
-				</div>
-				<div class="middle-right">
-					<div class="middle-right-ul">
-						<div class="middle-right-li-title">
-							Presented to you by <span style="color:rgba(128, 128, 128, 1);font-weight: 300;font-style: italic">(Alphabetical order)</span>
-						</div>
-						<a class="middle-right-li" href="https://tisch.nyu.edu/itp" target="_blank">
-							NYU Tisch Interactive Telecommunications Program / Interactive Media Arts
-						</a>
-						<a class="middle-right-li" href="https://engineering.nyu.edu/academics/departments/technology-culture-and-society/integrated-design-media" target="_blank">
-							NYU Tandon Integrated Design & Media
-						</a>
-						<a class="middle-right-li">
-							NYU Shanghai University Communications Events Office
-						</a>
-						<a class="middle-right-li" href="https://library.shanghai.nyu.edu/" target="_blank">
-							NYU Shanghai Library
-						</a>
-						<a class="middle-right-li" href="https://shanghai.nyu.edu/academics/majors/interactive-media-arts" target="_blank">
-							NYU Shanghai Interactive Media Arts
-						</a>
-						<a class="middle-right-li" href="https://cs.shanghai.nyu.edu/" target="_blank">
-							NYU Shanghai Computer Science, Data Science, and Engineering
-						</a>
-						<a class="middle-right-li" href="https://itp.nyu.edu/lowres/" target="_blank">
-							NYU IMA Low Res
-						</a>
-						<a class="middle-right-li" href="https://library.nyu.edu/" target="_blank">
-							NYU Bobst Library
-						</a>
-						<a class="middle-right-li" href="https://nyuad.nyu.edu/en/library.html" target="_blank">
-							NYU Abu Dhabi Library
-						</a>
-						<a class="middle-right-li" href="https://nyuad.nyu.edu/en/academics/divisions/arts-and-humanities/academic-programs/interactive-media.html" target="_blank">
-							NYU Abu Dhabi Interactive Media
-						</a>
+						<p>
+							The NYU Goddard Impact Group Award from the Office of the Provost
+							supported this initiative.
+						</p>
 					</div>
-				</div>
-			</div>
-			<div class="second-page" id="textDiv">
-				<div class="carousel-box">
-					<el-carousel :height="getCarousel" arrow="always" :interval="6000" autoplay>
-						<el-carousel-item>
-							<div class="img-box">
-								<img style="height: 100%;width: 100%" src="/assets/carousel-bg2-CmTC0VJL.png" alt="">
-								<div class="img-tool">
-									<div class="small-title">Opening project</div>
-									<div class="big-title">
-										<div>Live-Diffusion</div>
-										<div class="big-title-btn">
-											<a class="title-btn-icon" href="https://nyuglobal.show/showcase/1/" target="_blank">
-											</a>
-										</div>
-									</div>
-								</div>
+					<div class="middle-right">
+						<div class="middle-right-ul">
+							<div class="middle-right-li-title">
+								Presented to you by<span
+									style="color:rgba(128, 128, 128, 1);font-weight: 300;font-style: italic">(Alphabetical
+									order)</span>
 							</div>
-						</el-carousel-item>
-						<el-carousel-item>
-							<div class="img-box">
-								<img style="height: 100%;width: 100%" src="/assets/carousel-bg1-CsqC4yUq.png" alt="">
-							</div>
-						</el-carousel-item>
-						<el-carousel-item>
-							<div class="img-box">
-								<img style="height: 100%;width: 100%" src="/assets/carousel-bg2-CmTC0VJL.png" alt="">
-								<div class="img-tool">
-									<div class="small-title">Opening project</div>
-									<div class="big-title">
-										<div>Live-Diffusion</div>
-										<div class="big-title-btn">
-											<a class="title-btn-icon" href="https://nyuglobal.show/showcase/1/" target="_blank">
-											</a>
-										</div>
-									</div>
+							<a class="middle-right-li" href="https://tisch.nyu.edu/itp"
+								target="_blank">
+								NYU Tisch Interactive Telecommunications Program / Interactive Media
+								Arts
+							</a>
+							<a class="middle-right-li"
+								href="https://engineering.nyu.edu/academics/departments/technology-culture-and-society/integrated-design-media"
+								target="_blank">
+								NYU Tandon Integrated Design & Media
+							</a>
+							<a class="middle-right-li">
+								NYU Shanghai University Communications Events Office
+							</a>
+							<a class="middle-right-li" href="https://library.shanghai.nyu.edu/"
+								target="_blank">
+								NYU Shanghai Library
+							</a>
+							<a class="middle-right-li"
+								href="https://shanghai.nyu.edu/academics/majors/interactive-media-arts"
+								target="_blank">
+								NYU Shanghai Interactive Media Arts
+							</a>
+							<a class="middle-right-li" href="https://cs.shanghai.nyu.edu/"
+								target="_blank">
+								NYU Shanghai Computer Science, Data Science, and Engineering
+							</a>
+							<a class="middle-right-li" href="https://itp.nyu.edu/lowres/"
+								target="_blank">
+								NYU IMA Low Res
+							</a>
+							<a class="middle-right-li" href="https://library.nyu.edu/"
+								target="_blank">
+								NYU Bobst Library
+							</a>
+							<a class="middle-right-li" href="https://nyuad.nyu.edu/en/library.html"
+								target="_blank">
+								NYU Abu Dhabi Library
+							</a>
+							<a class="middle-right-li"
+								href="https://nyuad.nyu.edu/en/academics/divisions/arts-and-humanities/academic-programs/interactive-media.html"
+								target="_blank">
+								NYU Abu Dhabi Interactive Media
+							</a>
+						</div>
+					</div>
 
-								</div>
-							</div>
-						</el-carousel-item>
-						<el-carousel-item>
-							<div class="img-box">
-								<img  style="height: 100%;width: 100%" src="/assets/carousel-bg1-CsqC4yUq.png" alt="">
-							</div>
-						</el-carousel-item>
-					</el-carousel>
 				</div>
-
-			</div>
-			<div class="three-box">
-				<div class="company-info">
-					NYU Global Show & Tell @ 2025
+				<div class="ad-box">
+					<img class="ad-box-img" src="/assets/carousel-bg2-CmTC0VJL.png" alt>
+				</div>
+				<div class="three-box">
+					<div class="three-box-bg"></div>
+					<div class="company-info">
+						NYU Global Show & Tell @ 2025
+					</div>
 				</div>
 			</div>
 		</div>
-		<div class="phone-page-body">
-			<div class="first-page">
-				<div class="phone-title"></div>
-				<div class="btn-box">
-					<div class="btn-item item1">
-						<a href="https://nyuglobal.show/src/opencall.html" target="_blank">Submit Your Work</a>
-						</div>
-					<br>
-					<div class="btn-item item2">
-						<a href="https://nyuglobal.show/src/opencall.html" target="_blank">Find Your Collaborator</a>
-					</div>
-					<br>
-					<div class="btn-item item3">
-						<a href="https://nyuglobal.show/" target="_blank">Showcase</a>
-					</div>
-					<br>
-					<div class="btn-item item4">Program Calendar</div>
-					<br>
-					<div class="btn-item item5">About</div>
-				</div>
-			</div>
-			<div class="phone-second-page">
-				<div class="second-title">
-					Global Learning,<br>
-					Artificial Intelligence,<br>
-					& Interactivity
-				</div>
-				<div class="paragraph-box">
-					<p>
-						NYU Global Show-and-Tell is a festival that celebrates learning and community through a global showcase of student works that emerge within NYU's global network.
-					</p>
-					<p>
-						In a world where knowledge once spread through ancient wayfarers, we explore how artificial intelligence mediates global education and creativity through student works that bring together Artificial Intelligence and interactive media.
-					</p>
-					<p>
-						The NYU Goddard Impact Group Award from the Office of the Provost supported this initiative.
-					</p>
-				</div>
-				<div class="middle-right">
-					<div class="middle-right-ul">
-						<div class="middle-right-li-title">
-							Presented to you by<span style="color:rgba(128, 128, 128, 1);font-weight: 300;font-style: italic">(Alphabetical order)</span>
-						</div>
-						<a class="middle-right-li" href="https://tisch.nyu.edu/itp" target="_blank">
-							NYU Tisch Interactive Telecommunications Program / Interactive Media Arts
-						</a>
-						<a class="middle-right-li" href="https://engineering.nyu.edu/academics/departments/technology-culture-and-society/integrated-design-media" target="_blank">
-							NYU Tandon Integrated Design & Media
-						</a>
-						<a class="middle-right-li">
-							NYU Shanghai University Communications Events Office
-						</a>
-						<a class="middle-right-li" href="https://library.shanghai.nyu.edu/" target="_blank">
-							NYU Shanghai Library
-						</a>
-						<a class="middle-right-li" href="https://shanghai.nyu.edu/academics/majors/interactive-media-arts" target="_blank">
-							NYU Shanghai Interactive Media Arts
-						</a>
-						<a class="middle-right-li" href="https://cs.shanghai.nyu.edu/" target="_blank">
-							NYU Shanghai Computer Science, Data Science, and Engineering
-						</a>
-						<a class="middle-right-li" href="https://itp.nyu.edu/lowres/" target="_blank">
-							NYU IMA Low Res
-						</a>
-						<a class="middle-right-li" href="https://library.nyu.edu/" target="_blank">
-							NYU Bobst Library
-						</a>
-						<a class="middle-right-li" href="https://nyuad.nyu.edu/en/library.html" target="_blank">
-							NYU Abu Dhabi Library
-						</a>
-						<a class="middle-right-li" href="https://nyuad.nyu.edu/en/academics/divisions/arts-and-humanities/academic-programs/interactive-media.html" target="_blank">
-							NYU Abu Dhabi Interactive Media
-						</a>
-					</div>
-				</div>
 
-			</div>
-			<div class="ad-box">
-				<img class="ad-box-img" src="/assets/carousel-bg2-CmTC0VJL.png" alt="">
-			</div>
-			<div class="three-box">
-				<div class="three-box-bg"></div>
-				<div class="company-info">
-					NYU Global Show & Tell @ 2025
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<script>
+		<script>
 		const { createApp, ref, onMounted } = Vue
 
 		createApp({
@@ -1252,6 +1307,6 @@
 			}
 		}).use(ElementPlus).mount('#app');
 	</script>
-</body>
+	</body>
 
 </html>
