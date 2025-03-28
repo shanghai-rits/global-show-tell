@@ -25,6 +25,10 @@ function App() {
           element={<RedirectToCalendar />}
         />
         <Route
+          path="/about"
+          element={<RedirectToAbout />}
+        />
+        <Route
           path="/showcase"
           element={<Showcase />}
         />
@@ -66,6 +70,13 @@ function RedirectToCollaboration() {
 function RedirectToCalendar() {
   React.useEffect(() => {
     window.location.href = '/src/calendar.html';
+  }, []);
+  return null;
+}
+
+function RedirectToAbout() {
+  React.useEffect(() => {
+    window.location.href = '/src/about.html';
   }, []);
   return null;
 }

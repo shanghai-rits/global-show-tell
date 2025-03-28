@@ -201,12 +201,12 @@ const Navbar: React.FC = () => {
                 </button>
               </div>
               <div className="nav-button-wrapper">
-                <button className="nav-button">
+                <button className="nav-button" onClick={() => window.open("/calendar", "_blank")}>
                   Program Calendar
                 </button>
               </div>
               <div className="nav-button-wrapper">
-                <button className="nav-button">
+                <button className="nav-button" onClick={() => window.open("/about", "_blank")}>
                   About
                 </button>
               </div>
