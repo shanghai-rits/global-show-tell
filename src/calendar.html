@@ -359,7 +359,7 @@
         }
 
         .left {
-            width: 750px;
+            width: 700px;
             height: 100%;
             display: flex;
             margin-left: 10px;
@@ -375,6 +375,10 @@
 
         .exhibition-highlight {
             background: linear-gradient(90deg, rgba(255, 179, 236, 1) 0px, rgba(255, 179, 236, 0.3) 50%, #ffffff 100%);
+        }
+
+        .detail-content {
+            display: flex;
         }
 
         .event-highlight {
@@ -412,7 +416,7 @@
         }
 
         .right {
-            width: 55%;
+            width: 50%;
             margin-left: 10px;
             margin-top: 20px;
         }
@@ -434,6 +438,7 @@
 
         .exhibition-image {
             box-shadow: 10px 10px 0px rgba(255, 179, 236, 1);
+            width:700px;
         }
 
         .event-image {
@@ -475,6 +480,13 @@
             cursor: pointer;
             margin-left: 85vw;
             z-index: 1999;
+        }
+
+        #opening-project {
+        height:1340px;
+        }
+        #opening-ceremony {
+        height: 1390px;
         }
 
         @keyframes active {
@@ -535,17 +547,17 @@
             }
         }
 
-        @media screen and (max-width:640px) {
+        @media screen and (max-width:720px) {
             .li-box {
-                height: 6.1rem;
+                height: 3.1rem;
             }
 
             .zhuti {
-                height: 6rem;
+                height: 3rem;
             }
 
             .on-shadow-title-box {
-                height: 6rem;
+                height: 3rem;
             }
 
             .center-box {
@@ -554,13 +566,13 @@
             }
 
             .img-bg {
-                height: 3rem;
+                height: 2rem;
             }
 
             .title-text-bg {
-                background: url('/opencall/assets/title-text.png');
-                width: calc(9.42rem /2);
-                height: calc(5.45rem /2);
+                background: url('/calendar/assets/title-text.png');
+                width: 642.17px;
+                height: 90.5px;
                 background-size: 100% 100%;
             }
 
@@ -569,12 +581,103 @@
                 z-index: -1;
                 left: 0;
                 top: 0;
-                background: url('/opencall/assets/title-shadow.png');
-                width: calc(9.71rem /2);
-                height: calc(5.31rem /2);
+                background: url('/calendar/assets/title-shadow.png');
+                width: 645.01px;
+                height: 92.92px;
                 background-size: 100% 100%;
             }
+
+            /* New styles for mobile view */
+    .content {
+        width: 98vw;
+        padding: 10px;
+        overflow-x: hidden;
+        margin-top: 0px;
+    }
+    table {
+        width: 100%;
+    }
+    th:not(.table-note) {
+        display: none;
+    }
+    .table-note {
+        font-size: 22px;
+        padding-bottom: 0px;
+        white-space: nowrap;
+        height: 15px;
+        align-self: flex-start;
+    }
+    .table-note br {
+        display: none;
+    }
+     /* Restructure table layout */
+     tr{
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 5px;
+        align-items: center;
+    }
+    tbody {
+        align-items: center;
+    }
+    td.date {
+        width: 30%;
+        box-sizing: border-box;
+        padding: 5px;
+        align-self: flex-start;
+    }
+
+    td {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 0;
+    }
+    .box-container {
+        padding: 0px;
+    }
+
+    .section-title {
+        width: 98vw;
+    }
+
+    .box-details {
+        width:98vw;
+    }
+    .detail-content {
+        width: 80%;
+        display: flex;
+        flex-direction: column;
+    }
+    .left {
+        height: auto;
+        margin-left:-15px;
+        width:90%;
+    }
+    .left-content {
+        margin-bottom: 0px;
+        padding-bottom: 0px;
+    }
+    .right {
+        width:90%;
+    }
+
+    .exhibition-image {
+        width: 500px;
+    }
+
+    #opening-project {
+        height: 1800px;
         }
+
+        #opening-ceremony {
+        height: 2000px;
+        }
+
+        .back-to-top {
+            margin-left: 65vw;
+            top: -100px;
+        }
+    }
     </style>
     </head>
 
@@ -618,8 +721,8 @@
                             <tr>
                                 <th class="table-note">Calender <br>(China
                                     Standard Time)</th>
-                                <th>EXHIBITION</th>
-                                <th>EVENT</th>
+                                <th>EXHIBITIONS</th>
+                                <th>EVENTS</th>
                                 <th>OPEN CALL</th>
                             </tr>
                         </thead>
@@ -667,12 +770,12 @@
                                 <td class="box-container">
                                     <div class="table-box event"
                                         data-target="opening-ceremony">
-                                        <span class="box-text">Opening
-                                            Ceremony</span>
+                                        <span class="box-text">Opening Ceremony
+                                            and Launch Events</span>
                                         <div
                                             class="table-icon green-icon"></div>
                                     </div>
-                                    <div class="table-box event"
+                                    <!-- <div class="table-box event"
                                         data-target="opening-ceremony">
                                         <span class="box-text">Workshop</span>
                                         <div
@@ -685,7 +788,7 @@
                                             featuring Live-Diffusion</span>
                                         <div
                                             class="table-icon green-icon"></div>
-                                    </div>
+                                    </div> -->
                                 </td>
                                 <td></td>
                             </tr>
@@ -815,8 +918,8 @@
                                 <td class="date">
                                     <svg xmlns="http://www.w3.org/2000/svg"
                                         xmlns:xlink="http://www.w3.org/1999/xlink"
-                                        width="114.8182373046875" height="75"
-                                        viewBox="0 0 114.8182373046875 75"
+                                        width="120.8182373046875" height="75"
+                                        viewBox="0 0 120.8182373046875 75"
                                         fill="none">
                                         <g>
                                             <path style="mix-blend-mode:normal"
@@ -827,7 +930,7 @@
                                         <g>
                                             <path style="mix-blend-mode:normal"
                                                 fill="#383838"
-                                                d="M87.1023 39.6932L82.7557 65.875L75.6478 65.875L78.9205 46.2386L78.7671 46.2386L72.4773 49.6648L73.4489 43.6307L80.5569 39.6932L87.1023 39.6932ZM99.4262 66.5909Q95.8466 66.5909 93.5072 64.9482Q91.1677 63.3054 90.2728 60.2244Q89.3779 57.1435 90.1194 52.8352Q90.8609 48.5142 92.7721 45.4972Q94.6833 42.4801 97.5278 40.9077Q100.372 39.3352 103.926 39.3352Q109.257 39.3352 111.782 42.8381Q114.307 46.3409 113.233 52.8352Q112.517 57.1562 110.606 60.2372Q108.695 63.3182 105.837 64.9545Q102.98 66.5909 99.4262 66.5909ZM100.398 60.8125Q102.239 60.8125 103.702 58.8885Q105.166 56.9645 105.869 52.8352Q106.56 48.8082 105.703 46.9354Q104.847 45.0625 103.006 45.0625Q101.165 45.0625 99.6627 46.9354Q98.1606 48.8082 97.483 52.8352Q96.7927 56.9773 97.6748 58.8949Q98.5569 60.8125 100.398 60.8125Z">
+                                                d="M81.2216 66.5909Q77.6421 66.5909 75.3026 64.9482Q72.9631 63.3054 72.0682 60.2244Q71.1733 57.1435 71.9148 52.8352Q72.6563 48.5142 74.5675 45.4972Q76.4788 42.4801 79.3232 40.9077Q82.1677 39.3352 85.7216 39.3352Q91.0526 39.3352 93.5775 42.8381Q96.1023 46.3409 95.0285 52.8352Q94.3126 57.1562 92.4013 60.2372Q90.4901 63.3182 87.6329 64.9545Q84.7756 66.5909 81.2216 66.5909ZM82.1932 60.8125Q84.0341 60.8125 85.4979 58.8885Q86.9617 56.9645 87.6648 52.8352Q88.3552 48.8082 87.4986 46.9354Q86.6421 45.0625 84.8012 45.0625Q82.9603 45.0625 81.4582 46.9354Q79.956 48.8082 79.2785 52.8352Q78.5881 56.9773 79.4702 58.8949Q80.3523 60.8125 82.1932 60.8125ZM110.574 39.3352Q112.926 39.3352 114.908 40.0895Q116.889 40.8438 118.244 42.4482Q119.599 44.0526 120.098 46.5966Q120.597 49.1406 119.983 52.733Q119.28 56.9517 117.401 59.9751Q115.521 62.9986 112.766 64.6158Q110.011 66.233 106.636 66.233Q103.722 66.233 101.657 65.1335Q99.5924 64.0341 98.5505 62.1676Q97.5086 60.3011 97.6364 58L104.54 58Q104.527 59.2273 105.288 59.7131Q106.048 60.1989 107.097 60.1989Q109.423 60.1989 110.906 58.147Q112.389 56.0952 112.977 52.8352L112.773 53.1932Q111.724 54.9957 109.781 55.9354Q107.838 56.875 105.665 56.875Q103.236 56.875 101.574 55.75Q99.912 54.625 99.2089 52.6818Q98.5057 50.7386 98.9148 48.2841Q99.3751 45.5739 100.999 43.5604Q102.622 41.5469 105.102 40.4411Q107.582 39.3352 110.574 39.3352ZM110.318 44.7045Q108.618 44.7045 107.276 45.8615Q105.933 47.0185 105.716 48.7443Q105.524 50.2145 106.272 51.1413Q107.02 52.0682 108.528 52.0682Q110.203 52.0682 111.539 50.9112Q112.875 49.7543 113.131 48.0284Q113.348 46.5327 112.575 45.6186Q111.801 44.7045 110.318 44.7045Z">
                                             </path>
                                         </g>
                                         <path stroke="rgba(0, 0, 0, 1)"
@@ -883,6 +986,12 @@
                                         <div
                                             class="table-icon yellow-icon"></div>
                                     </div>
+                                    <div class="table-box open-call">
+                                        <span class="box-text">Find Your
+                                            Collaborator</span>
+                                        <div
+                                            class="table-icon yellow-icon"></div>
+                                    </div>
                                 </td>
                             </tr>
                         </tbody>
@@ -890,117 +999,149 @@
 
                     <div class="section-title">Events & Exhibition Details</div>
 
-                    <div class="box-details divider" style="height: 1340px;"
+                    <div class="box-details divider"
                         id="opening-project">
-                        <div class="left">
-                            <div
-                                class="left-highlight exhibition-highlight"></div>
-                            <div class="left-content">
-                                <h2>Opening Project:<br /> Live-Diffusion</h2>
-                                <div class="label">Time:</div>
-                                <div class="info">April 9 - April 13, 2025<br>24
-                                    Hours</div>
-                                <div class="label">Location:</div>
-                                <div class="info">Shanghai: IMA (TBD), Library
-                                    Lobby<br />
-                                    New York: Lobby of 370 Jay St location at
-                                    Brooklyn campus<br />
-                                    Abu Dhabi: Library (TBD)
+                        <div
+                            class="left-highlight exhibition-highlight"></div>
+                        <div class="detail-content">
+                            <div class="left">
+
+                                <div class="left-content">
+                                    <h2>Opening Project:<br />
+                                        Live-Diffusion</h2>
+                                    <div class="label">Time:</div>
+                                    <div class="info">April 9 - April 13,
+                                        2025<br>24
+                                        Hours</div>
+                                    <div class="label">Location:</div>
+                                    <div class="info">Shanghai: IMA (TBD),
+                                        Library
+                                        Lobby<br />
+                                        New York: Lobby of 370 Jay St location
+                                        at
+                                        Brooklyn campus<br />
+                                        Abu Dhabi: Library (TBD)
+                                    </div>
+
                                 </div>
-
                             </div>
-                        </div>
 
-                        <div class="right">
-                            <div class="right-content">Authors: Chenxuan
-                                Sun, Jinran
-                                Ye<br><br />
-                                Explore the real-time interactive AI-generated
-                                image installation Live-Diffusion. Witness the
-                                networked display connecting three campuses!
-                            </div>
-                            <br />
-                            <a href="https://nyuglobal.show/showcase/1/"
-                                target="_blank">Read more</a>
+                            <div class="right">
+                                <div class="right-content">Authors: Chenxuan
+                                    Sun, Jinran
+                                    Ye<br><br />
+                                    Explore the real-time interactive
+                                    AI-generated
+                                    image installation Live-Diffusion. Witness
+                                    the
+                                    networked display connecting three campuses!
+                                </div>
+                                <br />
+                                <a href="https://nyuglobal.show/showcase/1/"
+                                    target="_blank">Read more</a>
 
-                            <div class="image-wrapper exhibition-image"
-                                style="width: 700px;">
-                                <img src="/calendar/assets/opening-project.png"
-                                    alt="Live Diffusion Exhibition">
+                                <div class="image-wrapper exhibition-image">
+                                    <img
+                                        src="/calendar/assets/opening-project.png"
+                                        alt="Live Diffusion Exhibition">
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="box-details" style="height: 1290px;"
-                        id="opening-ceremony">
-                        <div class="left">
-                            <div class="left-highlight event-highlight"></div>
-                            <div class="left-content">
-                                <h2>Opening Ceremony</h2>
-                                <div class="label">Time:</div>
-                                <div class="info">Apr 13, 2025 <br />13:00 -
-                                    16:00</div>
-                                <div class="label">Location:</div>
-                                <div class="info">NYU Shanghai
+                    <div class="box-details" id="opening-ceremony">
+                        <div class="left-highlight event-highlight"></div>
+                        <div class="detail-content">
+                            <div class="left">
+
+                                <div class="left-content">
+                                    <h2>Opening Ceremony and Launch Events</h2>
+                                    <div class="label">Time:</div>
+                                    <div class="info">Apr 13, 2025 <br />13:00 -
+                                        16:00</div>
+                                    <div class="label">Location:</div>
+                                    <div class="info">NYU Shanghai Qiantan
+                                        Campus
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="right">
+                                <div class="right-content">
+
+                                    <b>1:00 - 2:00 PM | Opening Ceremony</b>
+                                    <br />
+                                    <span
+                                        style="text-decoration: underline;">Opening
+                                        Remarks</span><br />
+                                    Tong Shijun, Chancellor, NYU Shanghai<br />
+                                    Jeffrey Lehman, Vice Chancellor, NYU
+                                    Shanghai<br />
+                                    Joanna Waley-Cohen, Provost, NYU
+                                    Shanghai<br />
+
+                                    <br />
+                                    <span
+                                        style="text-decoration: underline;">Interactive
+                                        Session & Interview with Student
+                                        Artists</span><br />
+                                    Jinran Ye (IMA & CS, Class of 2025)<br />
+                                    Chenxuan Sun (IMA, Class of 2025)<br />
+                                    <br />
+                                    <span
+                                        style="text-decoration: underline;">Panel
+                                        Discussion</span><br />
+                                    Moderator:<br />
+                                    Gene Wen, Visiting Professor of Engineering,
+                                    NYU
+                                    Shanghai<br />
+                                    <br />
+                                    Panelists:<br />
+                                    Marcela Godoy, Area Head of Interactive
+                                    Media
+                                    Arts (IMA), Associate Arts Professor of
+                                    Interactive Media Arts (IMA), NYU
+                                    Shanghai<br />
+                                    Yiru Lu, Future Sensory Creator and OR10
+                                    Venture
+                                    Co-founder<br />
+                                    Thays Leach Mitre, Senior, Electrical and
+                                    Systems Engineering, NYU Shanghai<br />
+                                    Jung Hyun Moon, Interactive Media Arts (IMA)
+                                    Foundation Coordinator, Assistant Arts
+                                    Professor
+                                    of Interactive Media Arts (IMA), NYU
+                                    Shanghai<br />
+                                    Hongyi Wen, Assistant Professor of Computer
+                                    Science, NYU Shanghai
+                                    <br />
+                                    <br />
+                                    <b>2:15 - 3:15 PM | Workshop</b>
+                                    <br />
+                                    Jung Hyun Moon, Interactive Media Arts (IMA)
+                                    Foundation Coordinator, Assistant Arts
+                                    Professor
+                                    of Interactive Media Arts (IMA), NYU
+                                    Shanghai
+                                    <br />
+                                    <br /><b>Campus Tour</b>
+                                    <br />
+                                    Discover interactive live AI installations
+                                    networked globally across NYU campuses in
+                                    New
+                                    York, Abu Dhabi, and Shanghai.
+                                    <br />
+                                    <br />
+
+                                    More information <a
+                                        href="https://events.shanghai.nyu.edu/#!view/event/event_id/6476"
+                                        target="_blank">here</a>.
+
                                 </div>
 
-                            </div>
-                        </div>
-
-                        <div class="right">
-                            <div class="right-content">
-
-                                <b>1:00 - 2:00 PM | Opening Ceremony</b>
-                                <br />
-                                <span
-                                    style="text-decoration: underline;">Opening
-                                    Remarks</span><br />
-                                Tong Shijun, Chancellor, NYU Shanghai
-                                Jeffrey Lehman, Vice Chancellor, NYU Shanghai
-                                Joanna Waley-Cohen, Provost, NYU Shanghai<br />
-
-                                Interactive Session & Interview with Student
-                                Artists<br />
-                                Jinran Ye (IMA & CS, Class of 2025)<br />
-                                Chenxuan Sun (IMA, Class of 2025)<br />
-                                <br />
-                                <span style="text-decoration: underline;">Panel
-                                    Discussion</span><br />
-                                Moderator:<br />
-                                Gene Wen, Visiting Professor of Engineering, NYU
-                                Shanghai<br />
-                                <br />
-                                Panelists:<br />
-                                Marcela Godoy, Area Head of Interactive Media
-                                Arts (IMA), Associate Arts Professor of
-                                Interactive Media Arts (IMA), NYU Shanghai<br />
-                                Yiru Lu, Future Sensory Creator and OR10 Venture
-                                Co-founder<br />
-                                Thays Leach Mitre, Senior, Electrical and
-                                Systems Engineering, NYU Shanghai<br />
-                                Jung Hyun Moon, Interactive Media Arts (IMA)
-                                Foundation Coordinator, Assistant Arts Professor
-                                of Interactive Media Arts (IMA), NYU
-                                Shanghai<br />
-                                Hongyi Wen, Assistant Professor of Computer
-                                Science, NYU Shanghai
-                                <br />
-                                <br />
-                                <b>2:15 - 3:15 PM | Workshop</b>
-                                <br />
-                                Jung Hyun Moon, Interactive Media Arts (IMA)
-                                Foundation Coordinator, Assistant Arts Professor
-                                of Interactive Media Arts (IMA), NYU Shanghai
-                                <br />
-                                <br /><b>Campus Tour</b>
-                                <br />
-                                Discover interactive live AI installations
-                                networked globally across NYU campuses in New
-                                York, Abu Dhabi, and Shanghai.
-
-                            </div>
-
-                            <div class="image-wrapper event-image">
+                                <div class="image-wrapper event-image">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -1078,6 +1219,16 @@
                     const tableBoxes = document.querySelectorAll('.table-box');
                     tableBoxes.forEach((box, index) => {
                         box.addEventListener('click', () => {
+                            // Check if this is the Find Your Collaborator box
+                            const boxText = box.querySelector('.box-text');
+                            if (boxText && boxText.textContent.trim() === 'Find Your Collaborator') {
+                                window.open('/src/collaboration.html', '_blank');
+                                return;
+                            }
+                            if (boxText && boxText.textContent.trim() === 'Open Call') {
+                                window.open('/src/opencall.html', '_blank');
+                                return;
+                            }
                             // Get the target section ID from the data attribute
                             const targetId = box.getAttribute('data-target');
                             if (targetId) {
