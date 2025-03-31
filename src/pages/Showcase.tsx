@@ -170,7 +170,7 @@ const Showcase: React.FC = () => {
   };
 
   const items: ShowcaseItem[] = [
-    { id: 1, title: 'Live-Diffusion', authors: 'Chenxuan Wu, Jinran Ye', program: "NYU Shanghai IMA ", size: { width: 420 }, real: true },
+    { id: 1, title: 'Live-Diffusion', authors: 'Chenxuan Sun, Jinran Ye', program: "NYU Shanghai IMA ", size: { width: 420 }, real: true },
     { id: 2, title: '', authors: '', program: "", real: false },
     { id: 3, title: '', authors: '', program: "", real: false },
     { id: 4, title: '', authors: '', program: "", real: false },

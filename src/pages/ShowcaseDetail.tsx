@@ -34,7 +34,7 @@ const ShowcaseDetail: React.FC = () => {
     {
       id: 1,
       title: 'Live-Diffusion',
-      authors: 'Chenxuan Wu, Jinran Ye',
+      authors: 'Chenxuan Sun, Jinran Ye',
       program: 'NYU Shanghai IMA',
       description: 'A real-time interactive AI-generated image system.',
       sections: {
