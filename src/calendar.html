@@ -38,8 +38,9 @@
                     // Get mouse position relative to the tbody
                     const rect = tableBody.getBoundingClientRect();
                     const y = e.clientY - rect.top;
+                    const adjustedY = y / 0.8;
                     // Set the position of the divider
-                    tableBody.style.setProperty('--divider-y', `${y}px`);
+                    tableBody.style.setProperty('--divider-y', `${adjustedY}px`);
                 });
             }
         });
@@ -462,20 +463,6 @@
             margin-top: 60px;
             font-size: 22px;
             width: 1470.45px;
-        }
-
-        .long-divider {
-            height: 18px;
-            background-color: #DEFFBF;
-            padding: 0;
-            margin: 0;
-            position: relative;
-            width: 108%;
-            left: -60px;
-            right: auto;
-            top: -105px;
-            right: -30px;
-            z-index: 1;
         }
 
         .back-to-top {
@@ -976,11 +963,6 @@
                                 <td></td>
                                 <td></td>
                             </tr>
-                            <!-- <tr>
-                                <td colspan="4">
-                                    <div class="long-divider"></div>
-                                </td>
-                            </tr> -->
                             <tr>
                                 <td class="date">
                                     <svg xmlns="http://www.w3.org/2000/svg"
