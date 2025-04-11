@@ -93,7 +93,8 @@ The first time I showed this project was on 2023 Fall IMA show, I bought two cus
         { src: '/showcase/2/5.JPG', width: 800 },
         { src: '/showcase/2/6.JPG', width: 800 },
       ],
-      detailVideos: [{ src: '/showcase/2/video1.mov', width: 900 }],
+      // detailVideos: [{ src: '/showcase/2/video1.mov', width: 900 }],
+      detailVideos: [{ src: 'https://drive.google.com/file/d/1ELMm-PiHdMDVzpshKGiNY1iqiG-yq6vT/preview', width: 300 }],
     },
     {
       id: 3,
@@ -129,7 +130,10 @@ We believe that AI is not something that artists and creatives should fear, but 
         { src: '/showcase/3/3.png', width: 800 },
         { src: '/showcase/3/4.png', width: 800 },
       ],
-      detailVideos: [{ src: '/showcase/3/video1.mov', width: 550 }, { src: '/showcase/3/video2.mov', width: 550 }],
+      detailVideos: [{ src: 'https://drive.google.com/file/d/1uCJM3Ju77UzJ0GKaZzCpTPC5KrwqAVeM/preview', width: 550 },
+      { src: 'https://drive.google.com/file/d/1D_VjeJqzvhTC71_6rgm5vD6bW_W4aZMY/preview', width: 550 },
+      { src: 'https://drive.google.com/file/d/1w4rRfpiNhycOEa1B-2SMoeK15248HS0a/preview', width: 550 },
+      ],
     },
     {
       id: 4,
@@ -207,11 +211,11 @@ In this installation, my partner Chenyi and I aim to capture the dynamic changes
         { src: '/showcase/6/1.png', width: 800 },
       ],
       detailVideos: [
-        { src: '/showcase/6/video1.mp4', width: 900 },
-        { src: '/showcase/6/video2.mp4', width: 900 },
-        { src: '/showcase/6/video3.mp4', width: 900 },
-        { src: '/showcase/6/video4.mp4', width: 900 },
-        { src: '/showcase/6/video5.mp4', width: 900 },
+        { src: 'https://drive.google.com/file/d/1t4xe5KkzITTareNoHefE4ntKVDroqS0E/preview', width: 900 },
+        { src: 'https://drive.google.com/file/d/1ymz2HHzEDNMbWaPwlzqs30Unr8AHD8FJ/preview', width: 900 },
+        { src: 'https://drive.google.com/file/d/1HkhAmM_0wSE5DDnlkt49uH3wCw-eOZFz/preview', width: 900 },
+        { src: 'https://drive.google.com/file/d/1-zRsmUhN7u9pN2ztLmKCrKBb9nT0KU2o/preview', width: 900 },
+        { src: 'https://drive.google.com/file/d/1mWq4HQbWMrcD-Ytbu-yR7LXqx2BNHdab/preview', width: 900 },
       ],
     },
     {
@@ -507,18 +511,33 @@ https://docs.google.com/document/d/1MNkP3lbcBaWSuZSA8K-SDMucPkkoVoyyk0FtYGc9J6U/
         {/* Video section - add this before the image section */}
         {item.detailVideos && item.detailVideos.length > 0 && (
           <div className="detail-video-container">
-            {item.detailVideos.map((video, index) => (
-              <video
-                key={index}
-                src={video.src}
-                controls
-                width={video.width}
-                className="detail-video"
-                playsInline
-              >
-                Your browser does not support the video tag.
-              </video>
-            ))}
+            {item.detailVideos.map((video, index) => {
+              // Check if the source is a Google Drive link
+              const isGoogleDriveLink = video.src.includes('drive.google.com');
+
+              return isGoogleDriveLink ? (
+                <iframe
+                  key={index}
+                  src={video.src}
+                  width={video.width}
+                  className="detail-video"
+                  allow="autoplay; encrypted-media"
+                  allowFullScreen
+                  title={`Video ${index + 1}`}
+                ></iframe>
+              ) : (
+                <video
+                  key={index}
+                  src={video.src}
+                  controls
+                  width={video.width}
+                  className="detail-video"
+                  playsInline
+                >
+                  Your browser does not support the video tag.
+                </video>
+              );
+            })}
           </div>
         )}
 

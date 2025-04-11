@@ -136,6 +136,14 @@ p.content-paragraph {
     font-size: 26px;
 }
 
+.detail-video-container iframe.detail-video {
+  width: 100%;
+  aspect-ratio: 16/9;  /* Maintains 16:9 ratio for videos */
+  min-height: 500px;   /* Minimum height to ensure visibility */
+  border: none;        /* Removes default iframe border */
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
 @media only screen and (max-width: 768px) {
     .title {
         font-size: 32px;
@@ -163,4 +171,7 @@ p.content-paragraph {
         font-size: 18px;
         line-height: 1.4;
       }
+      .detail-video-container iframe.detail-video {
+        min-height: 300px;  /* Smaller minimum height on mobile */
+    }
 }
