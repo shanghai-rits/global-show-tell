@@ -1,0 +1,127 @@
+@font-face {
+    font-family: "NYU";
+    font-style: normal;
+    font-weight: 100;
+    font-display: swap;
+    src: url("font/NYUPerstare-Thin.otf") format("opentype");
+  }
+  @font-face {
+    font-family: "NYU";
+    font-style: italic;
+    font-weight: 100;
+    font-display: swap;
+    src: url("font/NYUPerstare-ThinItalic.otf") format("opentype");
+  }
+  /* @font-face {
+    font-family: "NYU";
+    font-style: normal;
+    font-weight: 200;
+    font-display: swap;
+    src: url("font/Inter-ExtraLight.woff2?v=4.0") format("woff2");
+  }
+  @font-face {
+    font-family: "NYU";
+    font-style: italic;
+    font-weight: 200;
+    font-display: swap;
+    src: url("font/Inter-ExtraLightItalic.woff2?v=4.0") format("woff2");
+  } */
+  @font-face {
+    font-family: "NYU";
+    font-style: normal;
+    font-weight: 300;
+    font-display: swap;
+    src: url("font/NYUPerstare-Light.otf") format("opentype");
+  }
+  @font-face {
+    font-family: "NYU";
+    font-style: italic;
+    font-weight: 300;
+    font-display: swap;
+    src: url("font/NYUPerstare-LightItalic.otf") format("opentype");
+  }
+  @font-face {
+    font-family: "NYU";
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url("font/NYUPerstare-Regular.otf") format("opentype");
+  }
+  @font-face {
+    font-family: "NYU";
+    font-style: italic;
+    font-weight: 400;
+    font-display: swap;
+    src: url("font/NYUPerstare-Italic.otf") format("opentype");
+  }
+  @font-face {
+    font-family: "NYU";
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url("font/NYUPerstare-Medium.otf") format("opentype");
+  }
+  @font-face {
+    font-family: "NYU";
+    font-style: italic;
+    font-weight: 500;
+    font-display: swap;
+    src: url("font/NYUPerstare-MediumItalic.otf") format("opentype");
+  }
+  /* @font-face {
+    font-family: "NYU";
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src: url("font/Inter-SemiBold.woff2?v=4.0") format("woff2");
+  }
+  @font-face {
+    font-family: "NYU";
+    font-style: italic;
+    font-weight: 600;
+    font-display: swap;
+    src: url("font/Inter-SemiBoldItalic.woff2?v=4.0") format("woff2");
+  } */
+  @font-face {
+    font-family: "NYU";
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url("font/NYUPerstare-Bold.otf") format("opentype");
+  }
+  @font-face {
+    font-family: "NYU";
+    font-style: italic;
+    font-weight: 700;
+    font-display: swap;
+    src: url("font/NYUPerstare-BoldItalic.otf") format("opentype");
+  }
+  @font-face {
+    font-family: "NYU";
+    font-style: normal;
+    font-weight: 800;
+    font-display: swap;
+    src: url("font/NYUPerstare-Black.otf") format("opentype");
+  }
+  @font-face {
+    font-family: "NYU";
+    font-style: italic;
+    font-weight: 800;
+    font-display: swap;
+    src: url("font/NYUPerstare-BlackItalic.otf") format("opentype");
+  }
+  @font-face {
+    font-family: "NYU";
+    font-style: normal;
+    font-weight: 900;
+    font-display: swap;
+    src: url("font/NYUPerstare-Ultra.otf") format("opentype");
+  }
+  @font-face {
+    font-family: "NYU";
+    font-style: italic;
+    font-weight: 900;
+    font-display: swap;
+    src: url("font/NYUPerstare-UltraItalic.otf") format("opentype");
+  }
+  

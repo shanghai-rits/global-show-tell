@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8" />
+		<link rel="icon" href="/logo.png" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/inter-ui/inter.css"> -->
+		<link rel="stylesheet" href="/about/assets/font.css">
+		<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+		<script src="/about/assets/p5.js"></script>
+		<title>About - Global Show & Tell</title>
+		<meta name="viewport"
+			content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no,viewport-fit=cover">
+		<script>
+		//rem自动计算
+		(function (doc, win) {
+			var docEl = doc.documentElement,
+				resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+				recalc = function () {
+					var clientWidth = docEl.clientWidth;
+					if (!clientWidth) return;
+					docEl.style.fontSize = 100 * (clientWidth / 720) + 'px';
+				};
+
+			if (!doc.addEventListener) return;
+			win.addEventListener(resizeEvt, recalc, false);
+			doc.addEventListener('DOMContentLoaded', recalc, false);
+			setup();
+		})(document, window);
+	</script>
+		<script src="/about/assets/sketch.js"></script>
+
+		<style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        body {
+            font-family: 'NYU', sans-serif;
+            color: #333;
+        }
+
+        .page-body {
+            width: 100%;
+            /* overflow-x: auto; */
+        }
+
+        .li-box {
+            height: 600px;
+            width: 100%;
+            position: relative;
+            z-index: 1;
+        }
+
+        .zhuti {
+            height: 600px;
+			margin-top: 20px;
+            position: relative;
+            /* padding-bottom: 100px; */
+        }
+
+        .shadow-title {
+            position: sticky;
+            z-index: -1;
+            left: 20px;
+            top: 0;
+            color: #000;
+        }
+
+        .title-text-bg {
+            background: url('/about/assets/title-text.png');
+            width: calc(1970px /2);
+            height: calc(410px /2);
+            background-size: 100% 100%;
+			/*margin-top: 30px;*/
+        }
+
+        .center-box {
+            height: 300px;
+            margin-top: -90px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .img-bg {
+            /*background: url('/opencall/assets/head-bg-all.png') no-repeat;*/
+            width: 100%;
+            height: 350px;
+			background-size: cover;
+			position: relative;
+			overflow: hidden;
+			/*background: #eaea24;*/
+        }
+        .on-shadow-title-box {
+            position: absolute;
+            z-index: 3;
+            top: 0;
+            width: 100%;
+            height: 600px;
+            pointer-events: none;
+        }
+
+        .on-shadow-title-bg {
+            position: sticky;
+            z-index: -1;
+            left: 0;
+            top: 0;
+            background: url('/about/assets/title-shadow.png');
+            width: calc(1954px /2);
+            height: calc(410px /2);
+            background-size: 100% 100%;
+        }
+
+        .content {
+            position: relative;
+            top: 100px;
+            /* opacity: 0; */
+            left: 0;
+            right: 0;
+            margin: 0 auto;
+            margin-bottom: 150px;
+            font-family: 'NYU', sans-serif;
+			max-width: 1404px;
+			padding: 0 66px;
+        }
+
+
+        ::-webkit-scrollbar {
+            width: 0px;
+            /*  */
+            /* 纵向滚动条的宽度 */
+            /* height: 10px; */
+            /* 横向滚动条的高度 */
+        }
+
+		.chapter-title{
+			font-size: 42px;
+			font-weight: 600;
+			color:#B8B812;
+			font-style: italic;
+			margin-bottom: 22px;
+		}
+
+		.photo-box{
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: flex-start;
+			width: 200px;
+    		height: 200px;
+
+		}
+		.photo-item{
+			width: calc(((100% - 76px) / 3));
+			aspect-ratio: 464/218;
+			font-size: 0;
+			margin-bottom: 68px;
+			margin-right: 38px;
+
+		}
+		.photo-item:nth-child(3n){
+			margin-right: 200px;
+		}
+		
+		.photo-item img{
+			width: 100%;
+			height: 100%;
+		}
+
+		.people-box{
+			display: flex;
+			justify-content: space-between;
+			align-items: flex-start;
+		}
+		.people-item{
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			flex-direction: column;
+			margin: 30px;
+		}
+
+		.head-img{
+			width: 238px;
+			height: 238px;
+			position: relative;
+			background: url("/about/assets/Ellipse3.png");
+			background-size: 100% 100%;
+			margin-bottom: 30px;
+			padding-left:10px;
+		}
+		.head-img img{
+			position: absolute;
+			bottom: 0;
+		}
+		.name {
+			font-size: 50px;
+			color: rgba(117, 117, 96, 1);
+			padding-right: 20px;  /* 左边增加 20px 的内边距 */
+			font-style: italic;   /* 字体变成斜体 */
+			font-weight: 400;
+		}
+
+		.info{
+			font-size: 24px;
+			color:rgba(38, 38, 38, 1);
+			margin-top: 15px;
+			font-weight: 380;
+			font-style: italic;
+		}
+		.people-bottom-info{
+			font-size: 24px;
+			color:rgba(38, 38, 38, 1);
+			margin-top: 70px;
+		}
+
+		.bottom-box{
+			margin-top: 600px;
+		}
+
+		.bottom-box-title{
+			color:rgba(184, 184, 18, 1);
+			padding-bottom: 14px;
+			font-size: 24px;
+			font-style: italic;
+			border-bottom: 1px solid rgba(166, 166, 166, 1);
+		}
+		.bottom-box-info{
+			margin-top: 14px;
+			color:rgba(38, 38, 38, 1);
+			font-size: 20px;
+			line-height: 30px;
+			width: 200px;
+			height: 200px;
+		}
+        @media screen and (max-width:640px) {
+            .li-box {
+                height: 6.1rem;
+            }
+
+            .zhuti {
+                height: 5.2rem;
+            }
+
+            .on-shadow-title-box {
+                height: 5.2rem;
+            }
+
+            .center-box {
+                height: 3rem;
+                margin-top: -0.6rem;
+            }
+
+            .img-bg {
+                height: 3rem;
+            }
+
+            .title-text-bg {
+                background: url('/about/assets/title-text.png');
+				width: calc(19.7rem/3);
+				height: calc(4.1rem /3);
+                background-size: 100% 100%;
+            }
+
+            .on-shadow-title-bg {
+                position: sticky;
+                z-index: -1;
+                left: 0;
+                top: 0;
+                background: url('/about/assets/title-shadow.png');
+				width: calc(19.54rem/3);
+				height: calc(4.1rem /3);
+                background-size: 100% 100%;
+            }
+			.content {
+				position: relative;
+				top: 100px;
+				/* opacity: 0; */
+				left: 0;
+				right: 0;
+				margin: 0 auto;
+				font-family: 'NYU', sans-serif;
+				max-width: 1404px;
+				padding: 0 0.22rem;
+			}
+
+
+			.chapter-title{
+				font-size: 0.42rem;
+				font-weight: 600;
+				color:#B8B812;
+				font-style: italic;
+				margin-bottom: 22px;
+			}
+
+			.photo-box{
+				display: flex;
+				flex-wrap: wrap;
+				justify-content: flex-start;
+			}
+			.photo-item{
+				width: calc(((100% - 0.07rem) / 2));
+				height: 1.54rem;
+				font-size: 0;
+				margin-bottom: 0.13rem;
+				margin-right: 0.07rem;
+
+			}
+			.photo-item:nth-child(2n){
+				margin-right: 0;
+			}
+			.photo-item:nth-child(3n){
+				margin-right: 0.07rem;
+			}
+
+			.photo-item img{
+				width: 100%;
+				height: 100%;
+			}
+
+			.people-box{
+				display: flex;
+				justify-content: space-between;
+				flex-wrap: wrap;
+			}
+			.people-item{
+				display: flex;
+				width: 100%;
+				justify-content: center;
+				align-items: center;
+				flex-direction: column;
+			}
+
+			.head-img{
+				width: 2.42rem;
+				height: 2.42rem;
+				position: relative;
+				background: url("/about/assets/Ellipse3.png");
+				background-size: 100% 100%;
+				margin-bottom: 20px;
+			}
+			.head-img img{
+				position: absolute;
+				bottom: 0;
+				width: 1.88rem;
+				height: 1.82rem;
+			}
+
+			.name{
+				font-size: 0.5rem;
+				color:rgba(38, 38, 38, 1);
+			}
+
+			.info{
+				font-size: 0.24rem;
+				color:rgba(38, 38, 38, 1);
+				margin-top:0.26rem;
+			}
+			.people-bottom-info{
+				font-size: 0.24rem;
+				color:rgba(38, 38, 38, 1);
+				margin-top: 0.6rem;
+			}
+
+			.bottom-box{
+				margin-top: 1.55rem;
+				margin-bottom: 3rem;
+			}
+
+			.bottom-box-title{
+				color:rgba(184, 184, 18, 1);
+				padding-bottom: 0.14rem;
+				font-size: 0.24rem;
+				font-style: italic;
+				border-bottom: 1px solid rgba(166, 166, 166, 1);
+			}
+			.bottom-box-info{
+				margin-top: 0.14rem;
+				color:rgba(38, 38, 38, 1);
+				font-size: 0.2rem;
+				line-height: 0.3rem;
+		
+			}
+
+        }
+	</style>
+		<script type="module" crossorigin src="/assets/Navbar-Bchr76sf.js"></script>
+		<script type="module" crossorigin src="/assets/myPageEntry-C8KBUsWp.js"></script>
+		<link rel="stylesheet" crossorigin href="/assets/Navbar-DUVpDIUv.css">
+		<link rel="stylesheet" crossorigin href="/assets/myPageEntry-D67GmawQ.css">
+	</head>
+
+	<body>
+		<div id="root"></div>
+		<div id="app">
+			<div class="page-body" id="allText">
+				<div class="li-box">
+					<div class="zhuti">
+						<div class="shadow-title">
+							<div class="title-text-bg">
+								<!-- <div>OPEN </div>
+                            <div class="second-line">CALL</div> -->
+							</div>
+						</div>
+						<div class="on-shadow-title-box">
+							<div class="on-shadow-title-bg">
+								<!-- <div>OPEN </div>
+                            <div class="second-line">CALL</div> -->
+							</div>
+						</div>
+						<div class="center-box">
+							<div class="img-bg" id="imgBg">
+								<div
+									style="position: absolute;left: 0;right: 0;top:0;bottom:0;z-index: -2;background:#eaea24">
+
+								</div>
+								<div
+									style="position: absolute;left: 0;right: 0;top:0;bottom:0;z-index: -1;margin: 0 auto;text-align: center">
+									<main>
+
+									</main>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="content" id="content">
+					<div class="chapter-title">Highlights</div>
+					<div class="photo-box">
+
+					</div>
+					<div class="chapter-title" style="margin-top: 100px">Reviewers of
+						submissions</div>
+					<div class="people-box">
+						<div class="people-item">
+							<div class="head-img">
+								<img src="/about/assets/head1.png" alt>
+							</div>
+							<div class="name">Jung Hyun Moon</div>
+							<div class="info">Interactive Media Arts (IMA) Foundation Coordinator,
+								Assistant Arts Professor of Interactive Media Arts (IMA), NYU
+								Shanghai</div>
+						</div>
+						<div class="people-item">
+							<div class="head-img">
+								<img src="/about/assets/head2.png" alt>
+							</div>
+							<div class="name">Aidan Nelson</div>
+							<div class="info">Visiting Assistant Arts Professor, Interactive
+								Telecommunications Program / Interactive Media Arts, NYU Tisch School of
+								the Arts</div>
+						</div>
+					</div>
+					<div class="people-bottom-info">
+						Professor Nelson and Professor Moon will review the submissions from the
+						open call and recommend exhibits for the spaces at three campuses. The
+						spaces will then assess feasibility and scheduling or make independent
+						decisions as they see fit.
+					</div>
+
+					<div style="height: 0.85rem;"></div>
+
+					<!-- <div class="bottom-box">
+					<div class="bottom-box-title">Acknowledgement</div>
+					<div class="bottom-box-info">
+					
+					</div>
+				</div> -->
+
+				</div>
+
+			</div>
+
+		</div>
+
+		<script>
+		const { createApp, ref, onMounted } = Vue
+
+		createApp({
+			setup() {
+				const classActive = ref(true);
+
+				return {
+					classActive
+				}
+			}
+		}).mount('#app')
+	</script>
+	</body>
+
+</html>
