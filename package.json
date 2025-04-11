@@ -1,0 +1,46 @@
+{
+  "name": "web-ui",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "homepage": "https://nyuglobal.show",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint .",
+    "postbuild": "echo 'nyuglobal.show' > dist/CNAME  & cp dist/index.html dist/404.html",
+    "preview": "vite preview",
+    "compress-mp4": "find public/showcase -name '*.mp4' -exec ffmpeg -i {} -vcodec h264 -crf 28 {}.compressed.mp4 \\; -exec mv {}.compressed.mp4 {} \\;",
+    "compress-mov": "find public/showcase -name '*.mov' -exec ffmpeg -i {} -vcodec h264 -crf 26 {}.compressed.mp4 \\; -exec mv {}.compressed.mp4 {} \\;",
+    "compress-videos": "npm run compress-mp4 && npm run compress-mov",
+    "compress-jpg": "find public/showcase -name '*.jpg' -o -name '*.JPG' -exec jpegoptim --max=80 {} \\;",
+"compress-png": "find public/showcase -name '*.png' -exec optipng -o5 {} \\;",
+"compress-images": "npm run compress-jpg && npm run compress-png",
+"compress-all": "npm run compress-videos && npm run compress-images",
+    "predeploy": "npm run compress-videos && npm run build",
+    "deploy": "gh-pages -d dist",
+    "deploy-no-videos": "mkdir -p .video-backup && find public -name \"*.mp4\" -o -name \"*.mov\" -exec mv {} .video-backup/ \\; && npm run build && gh-pages -d dist && find .video-backup -type f -exec mv {} public/ \\; && rm -rf .video-backup"
+  },
+  "dependencies": {
+    "@types/styled-components": "^5.1.34",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-helmet": "^6.1.0",
+    "react-helmet-async": "^2.0.5",
+    "react-router-dom": "^7.1.2",
+    "styled-components": "^6.1.14"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.17.0",
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
+    "@vitejs/plugin-react": "^4.3.4",
+    "eslint": "^9.17.0",
+    "eslint-plugin-react": "^7.37.2",
+    "eslint-plugin-react-hooks": "^5.0.0",
+    "eslint-plugin-react-refresh": "^0.4.16",
+    "gh-pages": "^6.3.0",
+    "globals": "^15.14.0",
+    "vite": "^6.0.5"
+  }
+}

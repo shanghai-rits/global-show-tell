@@ -1,0 +1,1413 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="icon" href="/logo.png" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/inter-ui/inter.css"> -->
+        <link rel="stylesheet" href="/opencall/assets/font.css">
+        <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+        <script src="/opencall/assets/p5.js"></script>
+        <title>Program Calendar - Global Show & Tell</title>
+        <meta name="viewport"
+            content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no,viewport-fit=cover">
+        <script>
+        //rem自动计算
+        (function (doc, win) {
+            var docEl = doc.documentElement,
+                resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+                recalc = function () {
+                    var clientWidth = docEl.clientWidth;
+                    if (!clientWidth) return;
+                    docEl.style.fontSize = 100 * (clientWidth / 720) + 'px';
+                };
+
+            if (!doc.addEventListener) return;
+            win.addEventListener(resizeEvt, recalc, false);
+            doc.addEventListener('DOMContentLoaded', recalc, false);
+            setup();
+        })(document, window);
+    </script>
+        <script src="/opencall/assets/sketch.js"></script>
+        <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const tableBody = document.querySelector('.content table tbody');
+            if (tableBody) {
+                tableBody.addEventListener('mousemove', function (e) {
+                    // Get mouse position relative to the tbody
+                    const rect = tableBody.getBoundingClientRect();
+                    const y = e.clientY - rect.top;
+                    const adjustedY = y / 0.8;
+                    // Set the position of the divider
+                    tableBody.style.setProperty('--divider-y', `${adjustedY}px`);
+                });
+            }
+        });
+    </script>
+        <style>
+        .content table tbody::before {
+            top: var(--divider-y, 0);
+        }
+    </style>
+
+        <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        body {
+            font-family: 'NYU', sans-serif;
+            color: #333;
+        }
+
+        .page-body {
+            width: 100%;
+            height:100vh;
+            /* overflow-x: auto; */
+        }
+
+        .li-box {
+            height: 510px;
+            width: 100%;
+            position: relative;
+            z-index: 1;
+        }
+
+        .zhuti {
+            height: 500px;
+            margin: 0px 0;
+            position: relative;
+            /* padding-bottom: 100px; */
+        }
+
+        .shadow-title {
+            position: sticky;
+            z-index: -1;
+            left: 20px;
+            top: 0;
+            color: #000;
+        }
+
+        .title-text-bg {
+            background: url('/calendar/assets/title-text.png');
+            width: 72%;
+            height: 10vw;
+            background-size: 100% 100%;
+            margin-top: 53px;
+        }
+
+        .center-box {
+            height: 300px;
+            margin-top: -80px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .img-bg {
+            /*background: url('/opencall/assets/head-bg-all.png') no-repeat;*/
+            width: 100%;
+            height: 310px;
+            background-size: cover;
+            position: relative;
+            overflow: hidden;
+            /*background: #eaea24;*/
+        }
+
+        .on-shadow-title-box {
+            position: absolute;
+            z-index: 3;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 500px;
+            pointer-events: none;
+
+        }
+
+        .on-shadow-title-bg {
+            position: sticky;
+            z-index: -1;
+            left: 0;
+            top: 0;
+            background: url('/calendar/assets/title-shadow.png');
+            width: 73%;
+            height: 10vw;
+            background-size: 100% 100%;
+        }
+
+        .content {
+            margin-top: 15px;
+            padding: 60px;
+            display: flex;
+            /* Enable flexbox */
+            justify-content: center;
+            /* Horizontally center the table */
+            align-items: center;
+            /* Vertically center the table */
+            flex-direction: column;
+            /* font-family: Inter; */
+            transform: scale(0.8);
+            transform-origin: top center;
+            padding-bottom: 100px;
+        }
+
+        table {
+            width: 1475.96px;
+            border-collapse: collapse;
+            text-align: left;
+            position: relative;
+        }
+
+        thead {
+            border-bottom: 2px solid #000;
+        }
+
+        th {
+            /** 文本1 */
+            font-size: 30px;
+            font-weight: 900;
+            letter-spacing: 0px;
+            line-height: 30px;
+            color: rgba(0, 0, 0, 1);
+            margin-bottom: 20px;
+            text-align: center;
+            /* font-family: Inter; */
+        }
+
+        .table-note {
+            left: 66px;
+            top: 467px;
+            width: 282px;
+            height: 54px;
+            opacity: 1;
+            /** 文本1 */
+            font-size: 22px;
+            font-weight: 400;
+            letter-spacing: 0px;
+            line-height: 26.63px;
+            color: rgba(56, 56, 56, 1);
+            text-align: left;
+            vertical-align: top;
+            font-style: italic;
+            padding-bottom: 7px;
+        }
+
+        .date {
+            display: flex;
+            justify-content: center;
+            margin-left: 40px;
+            flex-direction: column;
+            z-index: 2;
+            position: relative;
+        }
+
+        .highlight {
+            font-weight: bold;
+            font-style: italic;
+        }
+
+        td {
+            vertical-align: top;
+            padding: 12px;
+            font-size: 22px;
+            /* font-family: Inter; */
+        }
+
+        .content table tbody {
+            position: relative;
+            /* Need this for absolute positioning */
+        }
+
+
+        .content table tbody::before {
+            content: "";
+            position: absolute;
+            height: 18px;
+            background-color: #DEFFBF;
+            width: 105%;
+            /* Match the long-divider width */
+            left: -40px;
+            /* Center it */
+            /* top: 10px; */
+            display: none;
+            /* Initially hidden */
+            z-index: 1;
+            pointer-events: none;
+            /* Allow clicking through the divider */
+            transform: translateY(-50%);
+            /* Center vertically on cursor */
+        }
+
+        .content table tbody:hover::before {
+            display: block;
+            /* Show on hover */
+        }
+
+        .box-container {
+            padding: 0 0 25px 0;
+            width: 345px;
+        }
+
+        .table-box {
+            left: 324px;
+            top: 664px;
+            width: 346px;
+            height: 100px;
+            opacity: 1;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 10px 15px 10px 35px;
+            display: flex;
+        }
+
+        .exhibition {
+            background: linear-gradient(154.98deg, rgba(255, 179, 236, 0.7) 0%, #fff 60%);
+        }
+
+        .current {
+            background: linear-gradient(154.98deg, rgba(222, 255, 191, 1) 0%, #fff 60%);
+            font-style: italic;
+        }
+
+        .event {
+            background: linear-gradient(154.98deg, rgba(221, 247, 92, 1) 0%, #fff 60%);
+        }
+
+        .open-call {
+            background: linear-gradient(154.98deg, rgba(234, 234, 36, 0.9) 0%, #fff 60%);
+        }
+
+
+        .box-text {
+            width: 268px;
+            opacity: 1;
+            /* display: flex; */
+            font-size: 24px;
+            font-weight: 600;
+            letter-spacing: 0px;
+            line-height: 29.05px;
+            color: rgba(0, 0, 0, 1);
+            vertical-align: middle;
+            z-index: 2;
+        }
+
+        .end-icon {
+            margin-top: 3px;
+width: 50px;
+height: 30px;
+opacity: 1;
+border-radius: 95px;
+
+border: 1.2px solid rgba(0, 0, 0, 1);
+
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+padding: 0px 12px 3px 12px;
+font-size: 20px;
+font-weight: 400;
+        }
+
+
+        .start-icon {
+margin-top: 3px;
+width: 70px;
+height: 30px;
+opacity: 1;
+border-radius: 95px;
+
+border: 1.2px solid rgba(0, 0, 0, 1);
+
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+padding: 0px 12px 3px 12px;
+font-size: 20px;
+font-weight: 400;
+        }
+
+        .table-icon {
+            position: relative;
+            left: 36px;
+            top: 0;
+            width: 15px;
+            height: 15px;
+            opacity: 1;
+            display: flex;
+            z-index: 2;
+        }
+
+        .table-box:hover {
+            background: linear-gradient(154.98deg, rgba(222, 255, 191, 1) 0%, #fff 60%) !important;
+            font-style: italic;
+        }
+
+        /* Change table-icon on hover */
+        .table-box:hover .table-icon {
+            border: 1.5px solid rgba(92, 137, 22, 1);
+            background-color: transparent !important;
+            width: 14.5px;
+            height: 14.5px;
+        }
+
+        .open-call-yellow {
+            background: linear-gradient(to right, #fffbd6, #fff);
+        }
+
+        .light-blue {
+            background-color: #d8fdff;
+        }
+
+        .purple-icon {
+            background-color: #bb86fc;
+        }
+
+        .current-icon {
+            border: 1.5px solid rgba(92, 137, 22, 1);
+            display: flex;
+            width: 14.5px;
+            height: 14.5px;
+        }
+
+        .green-icon {
+            background-color: #A8D611;
+        }
+
+        .yellow-icon {
+            background-color: #FCE303;
+        }
+
+        .border {
+            border-top: 2px solid black;
+            margin-bottom: 10px;
+        }
+
+        .box-details {
+            display: flex;
+            padding-top: 40px;
+            gap: 30px;
+            font-size: 20px;
+            width: 1480.45px;
+            height: 832px;
+        }
+
+        .divider {
+            border-top: 2px solid #333;
+        }
+
+        .left {
+            width: 700px;
+            height: 100%;
+            display: flex;
+            margin-left: 10px;
+            margin-top: 20px;
+        }
+
+        .left-highlight {
+            width: 60px;
+            padding: 20px;
+            box-sizing: border-box;
+            height: 100%;
+        }
+
+        .exhibition-highlight {
+            background: linear-gradient(90deg, rgba(255, 179, 236, 1) 0px, rgba(255, 179, 236, 0.3) 50%, #ffffff 100%);
+        }
+
+        .detail-content {
+            display: flex;
+        }
+
+        .event-highlight {
+            background: linear-gradient(90deg, rgba(221, 247, 92, 1) 0px, rgba(221, 247, 92, 0.3) 50%, #ffffff 100%);
+        }
+
+        .left-content {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .left h2 {
+            font-size: 42px;
+            font-weight: 900;
+            font-style: italic;
+            margin-bottom: 20px;
+            margin-left: 30px;
+            margin-top: 10px;
+            /* font-family: Inter; */
+        }
+
+        .left .label {
+            font-weight: bold;
+            font-size: 26px;
+            margin-top: 10px;
+            margin-left: 30px;
+            /* font-family: Inter; */
+        }
+
+        .left .info {
+            font-style: italic;
+            margin-bottom: 15px;
+            margin-left: 30px;
+            font-size: 26px;
+        }
+
+        .right {
+            width: 50%;
+            margin-left: 10px;
+            margin-top: 20px;
+        }
+
+        .right-content {
+            margin-top: 30px;
+            font-size: 24px;
+        }
+
+        .right p {
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .image-wrapper {
+            margin-top: 40px;
+            width: 779px;
+        }
+
+        .exhibition-image {
+            box-shadow: 10px 10px 0px rgba(255, 179, 236, 1);
+            width:700px;
+        }
+
+        .event-image {
+            box-shadow: 10px 10px 0px rgba(221, 247, 92, 1);
+        }
+
+        .image-wrapper img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .section-title {
+            font-style: italic;
+            color: #555;
+            margin-bottom: 5px;
+            margin-top: 60px;
+            font-size: 22px;
+            width: 1470.45px;
+        }
+
+        .back-to-top {
+            position: relative;
+            top: -50px;
+            cursor: pointer;
+            margin-left: 75vw;
+            z-index: 1999;
+        }
+
+        #opening-project {
+        height:1340px;
+        }
+        #opening-ceremony {
+        height: 1390px;
+        }
+
+        .links {
+            color:#000;
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        @keyframes active {
+
+            /* from表示动画的开始位置，也可以使用0%来表示。 */
+            from {}
+
+            /* to表示动画的结束位置，也可以使用100%来表示。 */
+            to {
+                flex: 1;
+                border: 2px solid rgba(234, 234, 36, 1);
+                background: rgba(234, 234, 36, 1);
+                font-weight: 600;
+            }
+        }
+
+        @keyframes noActive {
+
+            /* from表示动画的开始位置，也可以使用0%来表示。 */
+            from {
+                flex: 1
+            }
+
+            /* to表示动画的结束位置，也可以使用100%来表示。 */
+            to {
+                border: 2px solid rgba(0, 0, 0, 1);
+                background: #ffffff;
+                font-weight: 400;
+            }
+        }
+
+        @keyframes activeforMax1080 {
+
+            /* from表示动画的开始位置，也可以使用0%来表示。 */
+            from {}
+
+            /* to表示动画的结束位置，也可以使用100%来表示。 */
+            to {
+                width: calc(100% - 72px);
+                border: 2px solid rgba(234, 234, 36, 1);
+                background: rgba(234, 234, 36, 1);
+                font-weight: 600;
+            }
+        }
+
+        @keyframes noActiveforMax1080 {
+
+            /* from表示动画的开始位置，也可以使用0%来表示。 */
+            from {
+                width: calc(100% - 72px);
+            }
+
+            /* to表示动画的结束位置，也可以使用100%来表示。 */
+            to {
+                border: 2px solid rgba(0, 0, 0, 1);
+                background: #ffffff;
+                font-weight: 400;
+            }
+        }
+
+        @media screen and (max-width:1320px) {
+            .zhuti {
+                height: 2.8rem;
+            }
+            .on-shadow-title-box {
+                height: 2.8rem;
+            }
+            .li-box {
+                height: 2.8rem;
+            }
+            .content {
+        width: 98vw;
+        padding: 10px;
+        /* overflow-x: hidden; */
+        margin-top: 0px;
+    }
+    table {
+        width: 55%;
+    }
+    th:not(.table-note) {
+        display: none;
+    }
+    .table-note br {
+        display: none;
+    }
+    .table-note {
+        font-size: 22px;
+        padding-bottom: 0px;
+        white-space: nowrap;
+        height: 15px;
+        align-self: flex-start;
+    }
+
+     /* Restructure table layout */
+     tr{
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 5px;
+        align-items: center;
+    }
+    tbody {
+        align-items: center;
+    }
+    td.date {
+        width: 30%;
+        box-sizing: border-box;
+        padding: 5px;
+        align-self: flex-start;
+    }
+
+    td {
+        width: 50%;
+        box-sizing: border-box;
+        padding: 0;
+    }
+
+    .section-title {
+        width: 98vw;
+    }
+
+    .box-details {
+        width:98vw;
+    }
+    .detail-content {
+        width: 80%;
+        display: flex;
+        flex-direction: column;
+    }
+    .left {
+        height: auto;
+        margin-left:-15px;
+        width:90%;
+    }
+    .left-content {
+        margin-bottom: 0px;
+        padding-bottom: 0px;
+    }
+    .right {
+        width:90%;
+    }
+
+    .exhibition-image {
+        width: 70%;
+    }
+
+    #opening-project {
+        height: 1850px;
+        }
+
+        #opening-ceremony {
+        height: 1900px;
+        }
+
+        .back-to-top {
+            margin-left: 65vw;
+            top: -50px;
+        }
+        }
+
+        @media screen and (max-width:720px) {
+            .li-box {
+                height: 2.5rem;
+            }
+
+            .zhuti {
+                height: 2.5rem;
+            }
+
+            .on-shadow-title-box {
+                height: 2.5rem;
+            }
+
+            .center-box {
+                height: 3rem;
+                margin-top: -0.3rem;
+            }
+
+            .img-bg {
+                height: 1.5rem;
+            }
+
+            /* .title-text-bg {
+                background: url('/calendar/assets/title-text.png');
+                width: 72%;
+                height: 11vw;
+                background-size: 100% 100%;
+            } */
+
+            /* .on-shadow-title-bg {
+                position: sticky;
+                z-index: -1;
+                left: 0;
+                top: 0;
+                background: url('/calendar/assets/title-shadow.png');
+                width: 645.01px;
+                height: 92.92px;
+                background-size: 100% 100%;
+            } */
+
+            /* New styles for mobile view */
+    .content {
+        width: 98vw;
+        padding: 10px;
+        overflow-x: hidden;
+        margin-top: 0px;
+    }
+    table {
+        width: 100%;
+    }
+    th:not(.table-note) {
+        display: none;
+    }
+    .table-note {
+        font-size: 22px;
+        padding-bottom: 0px;
+        white-space: nowrap;
+        height: 15px;
+        align-self: flex-start;
+    }
+    .table-note br {
+        display: none;
+    }
+     /* Restructure table layout */
+     tr{
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 5px;
+        align-items: center;
+    }
+    tbody {
+        align-items: center;
+    }
+    td.date {
+        width: 30%;
+        box-sizing: border-box;
+        padding: 5px;
+        align-self: flex-start;
+    }
+
+    td {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 0;
+    }
+    .box-container {
+        padding: 0px;
+    }
+
+    .section-title {
+        width: 98vw;
+    }
+
+    .box-details {
+        width:98vw;
+    }
+    .detail-content {
+        width: 80%;
+        display: flex;
+        flex-direction: column;
+    }
+    .left {
+        height: auto;
+        margin-left:-15px;
+        width:90%;
+    }
+    .left-content {
+        margin-bottom: 0px;
+        padding-bottom: 0px;
+    }
+    .right {
+        width:90%;
+    }
+
+    .exhibition-image {
+        width: 80%;
+    }
+
+    #opening-project {
+        height: 1650px;
+        }
+
+        #opening-ceremony {
+        height: 2900px;
+        }
+
+        .back-to-top {
+            margin-left: 65vw;
+            top: -50px;
+        }
+    }
+    @media screen and (max-width:500px) {
+        .li-box {
+                height: 2.1rem;
+            }
+
+            .zhuti {
+                height: 2rem;
+            }
+
+            .on-shadow-title-box {
+                height: 2rem;
+            }
+
+            .center-box {
+                height: 2rem;
+                margin-top: -0.3rem;
+            }
+
+            .img-bg {
+                height: 1rem;
+            }
+
+            .back-to-top {
+            /* margin-left: 65vw; */
+            top: 100px;
+            }
+
+    }
+    @media screen and (max-width:400px) {
+        .li-box {
+                height: 2.1rem;
+            }
+
+            .zhuti {
+                height: 2rem;
+            }
+
+            .on-shadow-title-box {
+                height: 2rem;
+            }
+
+            .center-box {
+                height: 2rem;
+                margin-top: -0.3rem;
+            }
+
+            .img-bg {
+                height: 1rem;
+            }
+
+            .title-text-bg {
+                background: url('/calendar/assets/title-text.png');
+                width: 322.17px;
+                height: 45.5px;
+                background-size: 100% 100%;
+            }
+
+            .on-shadow-title-bg {
+                position: sticky;
+                z-index: -1;
+                left: 0;
+                top: 0;
+                background: url('/calendar/assets/title-shadow.png');
+                width: 325.01px;
+                height: 46.92px;
+                background-size: 100% 100%;
+            }
+            #opening-project {
+        height: 1750px;
+        }
+        .left-content h2 {
+            font-size: 35px;
+        }
+            #opening-ceremony {
+        height: 3200px;
+        }
+            .back-to-top {
+            /* margin-left: 65vw; */
+            top: 50px;
+        }
+
+    }
+    </style>
+    </head>
+
+    <body>
+        <div id="root"></div>
+        <script type="module" src="/src/myPageEntry.jsx"></script>
+        <div id="app">
+            <div class="page-body" id="allText">
+                <div class="li-box">
+                    <div class="zhuti">
+                        <div class="shadow-title">
+                            <div class="title-text-bg">
+                            </div>
+                        </div>
+                        <div class="center-box">
+                            <div class="img-bg" id="imgBg">
+                                <div
+                                    style="position: absolute;left: 0;right: 0;top:0;bottom:0;z-index: -2;background:#eaea24">
+
+                                </div>
+                                <div
+                                    style="position: absolute;left: 0;right: 0;top:0;bottom:0;z-index: -1;margin: 0 auto;text-align: center">
+                                    <main>
+
+                                    </main>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="on-shadow-title-box">
+                            <div class="on-shadow-title-bg">
+                                <!-- <div>OPEN </div>
+							<div class="second-line">CALL</div> -->
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="content">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th class="table-note">Calender <br>(China
+                                    Standard Time)</th>
+                                <th>EXHIBITIONS</th>
+                                <th>EVENTS</th>
+                                <th>OPEN CALL</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="4" style="height: 10px;"></td>
+                                <!-- Spacer row -->
+                            </tr>
+                            <tr>
+                                <td class="date">
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                        xmlns:xlink="http://www.w3.org/1999/xlink"
+                                        width="113.8182373046875" height="75"
+                                        viewBox="0 0 113.8182373046875 75"
+                                        fill="none">
+                                        <g>
+                                            <path style="mix-blend-mode:normal"
+                                                fill="#383838"
+                                                d="M7.67051 34.875L5.54323e-05 34.875L12.9887 8.69318L22.7046 8.69318L27.0001 34.875L19.3296 34.875L18.652 29.8636L10.0228 29.8636L7.67051 34.875ZM12.5157 24.5455L17.9361 24.5455L16.7728 15.9034L16.5682 15.9034L12.5157 24.5455ZM28.3807 42.2386L32.8807 15.2386L39.8864 15.2386L39.3239 18.6648L39.4773 18.6648Q40.2827 17.169 41.8552 16.076Q43.4276 14.983 45.6137 14.983Q47.5569 14.983 49.1357 16.0185Q50.7145 17.054 51.4496 19.2784Q52.1847 21.5028 51.5966 25.0568Q51.0341 28.4574 49.6023 30.6946Q48.1705 32.9318 46.2273 34.0312Q44.2841 35.1307 42.1876 35.1307Q40.1165 35.1307 38.8957 34.1399Q37.6748 33.1491 37.3296 31.6534L37.1762 31.6534L35.4376 42.2386L28.3807 42.2386ZM38.1478 25.0568Q37.8026 27.2045 38.4226 28.4574Q39.0427 29.7102 40.5001 29.7102Q41.9574 29.7102 42.9546 28.4766Q43.9518 27.2429 44.3353 25.0568Q44.6805 22.8707 44.086 21.6371Q43.4915 20.4034 42.0341 20.4034Q40.5768 20.4034 39.5349 21.6371Q38.493 22.8707 38.1478 25.0568ZM52.9262 34.875L56.1989 15.2386L63.0512 15.2386L62.4376 18.9716L62.6421 18.9716Q63.5242 16.9006 64.8537 15.9418Q66.1833 14.983 67.7557 14.983Q68.216 14.983 68.6442 15.0533Q69.0725 15.1236 69.4944 15.2386L68.4716 21.2727Q67.9731 21.081 67.2316 20.9979Q66.4901 20.9148 65.9148 20.9148Q64.3807 20.9148 63.179 21.9375Q61.9773 22.9602 61.6705 24.6477L59.983 34.875L52.9262 34.875Z">
+                                            </path>
+                                        </g>
+                                        <g>
+                                            <path style="mix-blend-mode:normal"
+                                                fill="#383838"
+                                                d="M87.1023 39.6932L82.7557 65.875L75.6478 65.875L78.9205 46.2386L78.7671 46.2386L72.4773 49.6648L73.4489 43.6307L80.5569 39.6932L87.1023 39.6932ZM98.7103 66.233Q95.5526 66.233 93.2195 65.255Q90.8864 64.277 89.7359 62.5831Q88.5853 60.8892 88.9432 58.767Q89.2245 57.1562 90.2664 55.8139Q91.3083 54.4716 92.8424 53.5767Q94.3765 52.6818 96.1023 52.4261L96.1023 52.2216Q93.9802 51.8381 92.7976 50.2273Q91.6151 48.6165 91.9603 46.4432Q92.2927 44.3849 93.8587 42.7805Q95.4248 41.1761 97.8474 40.2557Q100.27 39.3352 103.159 39.3352Q106.048 39.3352 108.158 40.2621Q110.267 41.1889 111.303 42.7933Q112.338 44.3977 112.006 46.4432Q111.648 48.642 109.947 50.2401Q108.247 51.8381 105.921 52.2216L105.921 52.4261Q107.57 52.6818 108.803 53.5703Q110.037 54.4588 110.625 55.8011Q111.213 57.1435 110.932 58.767Q110.574 60.8764 108.874 62.5703Q107.173 64.2642 104.533 65.2486Q101.894 66.233 98.7103 66.233ZM99.5285 61.3239Q101.037 61.3239 102.162 60.4162Q103.287 59.5085 103.517 58.1534Q103.747 56.7855 102.91 55.9098Q102.072 55.0341 100.551 55.0341Q99.0427 55.0341 97.9177 55.9162Q96.7927 56.7983 96.5626 58.1534Q96.3324 59.5213 97.189 60.4226Q98.0455 61.3239 99.5285 61.3239ZM101.369 50.125Q102.712 50.125 103.702 49.3004Q104.693 48.4759 104.898 47.2614Q105.115 46.0213 104.393 45.2351Q103.671 44.4489 102.341 44.4489Q101.024 44.4489 100.001 45.2415Q98.9787 46.0341 98.7614 47.2614Q98.5569 48.4886 99.292 49.3068Q100.027 50.125 101.369 50.125Z">
+                                            </path>
+                                        </g>
+                                        <path stroke="rgba(0, 0, 0, 1)"
+                                            stroke-width="1"
+                                            d="M89.8182 18L46.8182 61">
+                                        </path>
+                                    </svg>
+
+                                </td>
+                                <td></td>
+                                <td class="box-container">
+                                    <div class="table-box event"
+                                        style="height: 110px;"
+                                        data-target="nyu-opening">
+                                        <span class="box-text">NYU Brooklyn
+                                            Campus Opening Event</span>
+                                        <div
+                                            class="table-icon green-icon"></div>
+                                    </div>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td class="date">
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                        xmlns:xlink="http://www.w3.org/1999/xlink"
+                                        width="112.8182373046875" height="75"
+                                        viewBox="0 0 112.8182373046875 75"
+                                        fill="none">
+                                        <g>
+                                            <path style="mix-blend-mode:normal"
+                                                fill="#383838"
+                                                d="M7.67051 34.875L5.54323e-05 34.875L12.9887 8.69318L22.7046 8.69318L27.0001 34.875L19.3296 34.875L18.652 29.8636L10.0228 29.8636L7.67051 34.875ZM12.5157 24.5455L17.9361 24.5455L16.7728 15.9034L16.5682 15.9034L12.5157 24.5455ZM28.3807 42.2386L32.8807 15.2386L39.8864 15.2386L39.3239 18.6648L39.4773 18.6648Q40.2827 17.169 41.8552 16.076Q43.4276 14.983 45.6137 14.983Q47.5569 14.983 49.1357 16.0185Q50.7145 17.054 51.4496 19.2784Q52.1847 21.5028 51.5966 25.0568Q51.0341 28.4574 49.6023 30.6946Q48.1705 32.9318 46.2273 34.0312Q44.2841 35.1307 42.1876 35.1307Q40.1165 35.1307 38.8957 34.1399Q37.6748 33.1491 37.3296 31.6534L37.1762 31.6534L35.4376 42.2386L28.3807 42.2386ZM38.1478 25.0568Q37.8026 27.2045 38.4226 28.4574Q39.0427 29.7102 40.5001 29.7102Q41.9574 29.7102 42.9546 28.4766Q43.9518 27.2429 44.3353 25.0568Q44.6805 22.8707 44.086 21.6371Q43.4915 20.4034 42.0341 20.4034Q40.5768 20.4034 39.5349 21.6371Q38.493 22.8707 38.1478 25.0568ZM52.9262 34.875L56.1989 15.2386L63.0512 15.2386L62.4376 18.9716L62.6421 18.9716Q63.5242 16.9006 64.8537 15.9418Q66.1833 14.983 67.7557 14.983Q68.216 14.983 68.6442 15.0533Q69.0725 15.1236 69.4944 15.2386L68.4716 21.2727Q67.9731 21.081 67.2316 20.9979Q66.4901 20.9148 65.9148 20.9148Q64.3807 20.9148 63.179 21.9375Q61.9773 22.9602 61.6705 24.6477L59.983 34.875L52.9262 34.875Z">
+                                            </path>
+                                        </g>
+                                        <g>
+                                            <path style="mix-blend-mode:normal"
+                                                fill="#383838"
+                                                d="M87.1023 39.6932L82.7557 65.875L75.6478 65.875L78.9205 46.2386L78.7671 46.2386L72.4773 49.6648L73.4489 43.6307L80.5569 39.6932L87.1023 39.6932ZM98.6591 66.233Q95.4631 66.233 93.1748 65.1655Q90.8864 64.098 89.8062 62.2188Q88.7259 60.3395 89.1478 57.8977L96.2046 57.8977Q95.9873 59.0355 96.831 59.7706Q97.6748 60.5057 99.0682 60.5057Q100.717 60.5057 101.868 59.5405Q103.019 58.5753 103.21 57.3864Q103.415 56.1719 102.437 55.603Q101.459 55.0341 99.8353 55.0341L97.0228 55.0341L97.841 50.125L100.347 50.125Q101.983 50.125 103.178 49.2493Q104.374 48.3736 104.591 47.0568Q104.77 46.0341 104.182 45.4205Q103.594 44.8068 102.239 44.8068Q100.769 44.8068 99.5221 45.5675Q98.2756 46.3281 98.0966 47.517L91.3466 47.517Q91.743 45.1136 93.3282 43.2727Q94.9134 41.4318 97.3232 40.3835Q99.733 39.3352 102.597 39.3352Q105.588 39.3352 107.685 40.4347Q109.781 41.5341 110.766 43.3494Q111.75 45.1648 111.392 47.3125Q111.009 49.6264 109.308 50.8153Q107.608 52.0043 105.051 52.2216L105.051 52.4261Q107.838 52.7457 109.359 54.4716Q110.881 56.1974 110.472 58.7159Q110.126 60.8636 108.49 62.5639Q106.854 64.2642 104.303 65.2486Q101.753 66.233 98.6591 66.233Z">
+                                            </path>
+                                        </g>
+                                        <path stroke="rgba(0, 0, 0, 1)"
+                                            stroke-width="1"
+                                            d="M89.8182 18L46.8182 61">
+                                        </path>
+                                    </svg>
+
+                                </td>
+                                <td class="box-container">
+                                    <div class="table-box exhibition"
+                                        data-target="opening-project">
+                                        <span class="box-text">Opening
+                                            Project:<br />
+                                            Live-diffusion<br />
+                                            <spans class="end-icon">Ends</spans>
+
+                                        </span>
+                                        <div
+                                            class="table-icon purple-icon"></div>
+                                    </div>
+                                </td>
+                                <td class="box-container">
+                                    <div class="table-box event"
+                                        data-target="opening-ceremony">
+                                        <span class="box-text">Opening Ceremony
+                                            (Shanghai)</span>
+                                        <div
+                                            class="table-icon green-icon"></div>
+                                    </div>
+                                    <div class="table-box event"
+                                        data-target="opening-ceremony">
+                                        <span class="box-text">Workshop</span>
+                                        <div
+                                            class="table-icon green-icon"></div>
+                                    </div>
+                                </td>
+                                <td></td>
+                            </tr>
+
+                            <tr>
+                                <td class="date">
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                        xmlns:xlink="http://www.w3.org/1999/xlink"
+                                        width="120.8182373046875" height="75"
+                                        viewBox="0 0 120.8182373046875 75"
+                                        fill="none">
+                                        <g>
+                                            <path style="mix-blend-mode:normal"
+                                                fill="#383838"
+                                                d="M7.67051 34.875L5.54323e-05 34.875L12.9887 8.69318L22.7046 8.69318L27.0001 34.875L19.3296 34.875L18.652 29.8636L10.0228 29.8636L7.67051 34.875ZM12.5157 24.5455L17.9361 24.5455L16.7728 15.9034L16.5682 15.9034L12.5157 24.5455ZM28.3807 42.2386L32.8807 15.2386L39.8864 15.2386L39.3239 18.6648L39.4773 18.6648Q40.2827 17.169 41.8552 16.076Q43.4276 14.983 45.6137 14.983Q47.5569 14.983 49.1357 16.0185Q50.7145 17.054 51.4496 19.2784Q52.1847 21.5028 51.5966 25.0568Q51.0341 28.4574 49.6023 30.6946Q48.1705 32.9318 46.2273 34.0312Q44.2841 35.1307 42.1876 35.1307Q40.1165 35.1307 38.8957 34.1399Q37.6748 33.1491 37.3296 31.6534L37.1762 31.6534L35.4376 42.2386L28.3807 42.2386ZM38.1478 25.0568Q37.8026 27.2045 38.4226 28.4574Q39.0427 29.7102 40.5001 29.7102Q41.9574 29.7102 42.9546 28.4766Q43.9518 27.2429 44.3353 25.0568Q44.6805 22.8707 44.086 21.6371Q43.4915 20.4034 42.0341 20.4034Q40.5768 20.4034 39.5349 21.6371Q38.493 22.8707 38.1478 25.0568ZM52.9262 34.875L56.1989 15.2386L63.0512 15.2386L62.4376 18.9716L62.6421 18.9716Q63.5242 16.9006 64.8537 15.9418Q66.1833 14.983 67.7557 14.983Q68.216 14.983 68.6442 15.0533Q69.0725 15.1236 69.4944 15.2386L68.4716 21.2727Q67.9731 21.081 67.2316 20.9979Q66.4901 20.9148 65.9148 20.9148Q64.3807 20.9148 63.179 21.9375Q61.9773 22.9602 61.6705 24.6477L59.983 34.875L52.9262 34.875Z">
+                                            </path>
+                                        </g>
+                                        <g>
+                                            <path style="mix-blend-mode:normal"
+                                                fill="#383838"
+                                                d="M81.2216 66.5909Q77.6421 66.5909 75.3026 64.9482Q72.9631 63.3054 72.0682 60.2244Q71.1733 57.1435 71.9148 52.8352Q72.6563 48.5142 74.5675 45.4972Q76.4788 42.4801 79.3232 40.9077Q82.1677 39.3352 85.7216 39.3352Q91.0526 39.3352 93.5775 42.8381Q96.1023 46.3409 95.0285 52.8352Q94.3126 57.1562 92.4013 60.2372Q90.4901 63.3182 87.6329 64.9545Q84.7756 66.5909 81.2216 66.5909ZM82.1932 60.8125Q84.0341 60.8125 85.4979 58.8885Q86.9617 56.9645 87.6648 52.8352Q88.3552 48.8082 87.4986 46.9354Q86.6421 45.0625 84.8012 45.0625Q82.9603 45.0625 81.4582 46.9354Q79.956 48.8082 79.2785 52.8352Q78.5881 56.9773 79.4702 58.8949Q80.3523 60.8125 82.1932 60.8125ZM110.574 39.3352Q112.926 39.3352 114.908 40.0895Q116.889 40.8438 118.244 42.4482Q119.599 44.0526 120.098 46.5966Q120.597 49.1406 119.983 52.733Q119.28 56.9517 117.401 59.9751Q115.521 62.9986 112.766 64.6158Q110.011 66.233 106.636 66.233Q103.722 66.233 101.657 65.1335Q99.5924 64.0341 98.5505 62.1676Q97.5086 60.3011 97.6364 58L104.54 58Q104.527 59.2273 105.288 59.7131Q106.048 60.1989 107.097 60.1989Q109.423 60.1989 110.906 58.147Q112.389 56.0952 112.977 52.8352L112.773 53.1932Q111.724 54.9957 109.781 55.9354Q107.838 56.875 105.665 56.875Q103.236 56.875 101.574 55.75Q99.912 54.625 99.2089 52.6818Q98.5057 50.7386 98.9148 48.2841Q99.3751 45.5739 100.999 43.5604Q102.622 41.5469 105.102 40.4411Q107.582 39.3352 110.574 39.3352ZM110.318 44.7045Q108.618 44.7045 107.276 45.8615Q105.933 47.0185 105.716 48.7443Q105.524 50.2145 106.272 51.1413Q107.02 52.0682 108.528 52.0682Q110.203 52.0682 111.539 50.9112Q112.875 49.7543 113.131 48.0284Q113.348 46.5327 112.575 45.6186Q111.801 44.7045 110.318 44.7045Z">
+                                            </path>
+                                        </g>
+                                        <path stroke="rgba(0, 0, 0, 1)"
+                                            stroke-width="1"
+                                            d="M89.8182 18L46.8182 61">
+                                        </path>
+                                    </svg>
+
+                                </td>
+                                <td class="box-container">
+                                    <div class="table-box exhibition"
+                                        data-target="opening-project">
+                                        <span class="box-text">Opening
+                                            Project:<br />
+                                            Live-diffusion<br />
+                                            <spans
+                                                class="start-icon">Starts</spans></span>
+                                        <div
+                                            class="table-icon purple-icon"></div>
+                                    </div>
+                                </td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td class="date">
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                        xmlns:xlink="http://www.w3.org/1999/xlink"
+                                        width="114" height="75"
+                                        viewBox="0 0 114 75" fill="none">
+                                        <g>
+                                            <path style="mix-blend-mode:normal"
+                                                fill="#383838"
+                                                d="M0.0511364 34.875L4.39773 8.69318L22.8068 8.69318L21.8352 14.4205L10.5341 14.4205L9.81818 18.9205L19.9943 18.9205L19.0227 24.6477L8.84659 24.6477L7.15909 34.875L0.0511364 34.875ZM30.5284 35.233Q25.8111 35.233 23.5483 32.5483Q21.2855 29.8636 22.0909 25.108Q22.6023 22.0653 24.2067 19.7898Q25.8111 17.5142 28.2592 16.2486Q30.7074 14.983 33.75 14.983Q36.7159 14.983 38.7038 16.2038Q40.6918 17.4247 41.5163 19.6811Q42.3409 21.9375 41.8295 25.0568L41.5739 26.6932L28.8026 26.6932L28.7386 27Q28.5085 28.419 29.218 29.3459Q29.9276 30.2727 31.5 30.2727Q32.5739 30.2727 33.4688 29.8253Q34.3636 29.3778 34.8239 28.5341L41.267 28.5341Q40.2315 31.6023 37.4318 33.4176Q34.6321 35.233 30.5284 35.233ZM29.5312 22.8068L35.6932 22.8068Q35.8849 21.5412 35.1626 20.7422Q34.4403 19.9432 33.1364 19.9432Q31.858 19.9432 30.8416 20.723Q29.8253 21.5028 29.5312 22.8068ZM42.9545 34.875L47.3011 8.69318L54.358 8.69318L52.7216 18.6648L52.8239 18.6648Q53.6293 17.169 55.2017 16.076Q56.7741 14.983 58.9602 14.983Q60.9034 14.983 62.4822 16.0185Q64.0611 17.054 64.7962 19.2784Q65.5312 21.5028 64.9432 25.0568Q64.3807 28.4574 62.9489 30.6946Q61.517 32.9318 59.5739 34.0312Q57.6307 35.1307 55.5341 35.1307Q53.4631 35.1307 52.2422 34.1399Q51.0213 33.1491 50.6761 31.6534L50.4716 31.6534L49.9602 34.875L42.9545 34.875ZM51.4943 25.0568Q51.1491 27.2045 51.7692 28.4574Q52.3892 29.7102 53.8466 29.7102Q55.304 29.7102 56.3203 28.4766Q57.3366 27.2429 57.6818 25.0568Q58.027 22.8707 57.4325 21.6371Q56.8381 20.4034 55.3807 20.4034Q53.9233 20.4034 52.8814 21.6371Q51.8395 22.8707 51.4943 25.0568Z">
+                                            </path>
+                                        </g>
+                                        <g>
+                                            <path style="mix-blend-mode:normal"
+                                                fill="#383838"
+                                                d="M80.4034 66.5909Q76.8239 66.5909 74.4844 64.9482Q72.1449 63.3054 71.25 60.2244Q70.3551 57.1435 71.0966 52.8352Q71.8381 48.5142 73.7493 45.4972Q75.6605 42.4801 78.505 40.9077Q81.3494 39.3352 84.9034 39.3352Q90.2344 39.3352 92.7592 42.8381Q95.2841 46.3409 94.2102 52.8352Q93.4943 57.1562 91.5831 60.2372Q89.6719 63.3182 86.8146 64.9545Q83.9574 66.5909 80.4034 66.5909ZM81.375 60.8125Q83.2159 60.8125 84.6797 58.8885Q86.1435 56.9645 86.8466 52.8352Q87.5369 48.8082 86.6804 46.9354Q85.8239 45.0625 83.983 45.0625Q82.142 45.0625 80.6399 46.9354Q79.1378 48.8082 78.4602 52.8352Q77.7699 56.9773 78.652 58.8949Q79.5341 60.8125 81.375 60.8125ZM112.568 39.6932L108.222 65.875L101.114 65.875L104.386 46.2386L104.233 46.2386L97.9432 49.6648L98.9148 43.6307L106.023 39.6932L112.568 39.6932Z">
+                                            </path>
+                                        </g>
+                                        <path stroke="rgba(0, 0, 0, 1)"
+                                            stroke-width="1" d="M89 18L46 61">
+                                        </path>
+                                    </svg>
+
+                                </td>
+
+                                <td></td>
+                                <td></td>
+                                <td class="box-container">
+                                    <div class="table-box open-call">
+                                        <span class="box-text">Open call 1st
+                                            Round<br />
+                                            <spans
+                                                class="start-icon">Starts</spans></span>
+                                        <div
+                                            class="table-icon yellow-icon"></div>
+                                    </div>
+                                    <div class="table-box open-call">
+                                        <span class="box-text">Call for
+                                            collaboration<br />
+                                            <spans
+                                                class="start-icon">Starts</spans></span>
+                                        <div
+                                            class="table-icon yellow-icon"></div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="section-title">Events & Exhibition Details</div>
+
+                    <div class="box-details divider"
+                        id="opening-project">
+                        <div
+                            class="left-highlight exhibition-highlight"></div>
+                        <div class="detail-content">
+                            <div class="left">
+
+                                <div class="left-content">
+                                    <h2>Opening Project:<br />
+                                        Live-Diffusion</h2>
+                                    <div class="label">Time:</div>
+                                    <div class="info">April 9 - April 13,
+                                        2025<br>24
+                                        Hours<br> (China Standard Time)</div>
+                                    <div class="label">Location:</div>
+                                    <div class="info">Shanghai: IMA (TBD),
+                                        Library
+                                        Lobby<br />
+                                        New York: Lobby of 370 Jay St location
+                                        at
+                                        Brooklyn campus<br />
+                                        Abu Dhabi: Library (TBD)
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="right">
+                                <div class="right-content">Authors: Chenxuan
+                                    Sun, Jinran
+                                    Ye<br><br />
+                                    Explore the real-time interactive
+                                    AI-generated
+                                    image installation Live-Diffusion. Witness
+                                    the
+                                    networked display connecting three campuses!
+                                </div>
+                                <br />
+                                <a class="links"
+                                    href="https://nyuglobal.show/showcase/1/"
+                                    target="_blank">Read more</a>
+
+                                <div class="image-wrapper exhibition-image">
+                                    <img
+                                        src="/calendar/assets/poster-opening-project_0411updated.png"
+                                        alt="Live Diffusion Exhibition">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="box-details" id="opening-ceremony">
+                        <div class="left-highlight event-highlight"></div>
+                        <div class="detail-content">
+                            <div class="left">
+
+                                <div class="left-content">
+                                    <h2>Opening Ceremony and Launch Events</h2>
+                                    <div class="label">Time:</div>
+                                    <div class="info">Apr 13, 2025 <br />1:00 -
+                                        4:00 PM<br> (China Standard Time)</div>
+                                    <div class="label">Location:</div>
+                                    <div class="info">NYU Shanghai Qiantan
+                                        Campus
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="right">
+                                <div class="right-content">
+
+                                    <b>1:00 - 2:00 PM | Opening Ceremony</b>
+                                    <br />
+                                    <span
+                                        style="text-decoration: underline;">Opening
+                                        Remarks</span><br />
+                                    Tong Shijun, Chancellor, NYU Shanghai<br />
+                                    Jeffrey Lehman, Vice Chancellor, NYU
+                                    Shanghai<br />
+                                    Joanna Waley-Cohen, Provost, NYU
+                                    Shanghai<br />
+
+                                    <br />
+                                    <span
+                                        style="text-decoration: underline;">Interactive
+                                        Session & Interview with Student
+                                        Artists</span><br />
+                                    Jinran Ye (IMA & CS, Class of 2025)<br />
+                                    Chenxuan Sun (IMA, Class of 2025)<br />
+                                    <br />
+                                    <span
+                                        style="text-decoration: underline;">Panel
+                                        Discussion</span><br />
+                                    Moderator:<br />
+                                    Gene Wen, Visiting Professor of Engineering,
+                                    NYU
+                                    Shanghai<br />
+                                    <br />
+                                    Panelists:<br />
+                                    Marcela Godoy, Area Head of Interactive
+                                    Media
+                                    Arts (IMA), Associate Arts Professor of
+                                    Interactive Media Arts (IMA), NYU
+                                    Shanghai<br />
+                                    Yiru Lu, Future Sensory Creator and OR10
+                                    Venture
+                                    Co-founder<br />
+                                    Thays Leach Mitre, Senior, Electrical and
+                                    Systems Engineering, NYU Shanghai<br />
+                                    Jung Hyun Moon, Interactive Media Arts (IMA)
+                                    Foundation Coordinator, Assistant Arts
+                                    Professor
+                                    of Interactive Media Arts (IMA), NYU
+                                    Shanghai<br />
+                                    Hongyi Wen, Assistant Professor of Computer
+                                    Science, NYU Shanghai
+                                    <br />
+                                    <br />
+                                    <b>2:15 - 3:15 PM | Workshop</b>
+                                    <br />
+                                    Jung Hyun Moon, Interactive Media Arts (IMA)
+                                    Foundation Coordinator, Assistant Arts
+                                    Professor
+                                    of Interactive Media Arts (IMA), NYU
+                                    Shanghai
+                                    <br />
+                                    <br /><b>Campus Tour</b>
+                                    <br />
+                                    Discover interactive live AI installations
+                                    networked globally across NYU campuses in
+                                    New
+                                    York, Abu Dhabi, and Shanghai.
+                                    <br />
+                                    <br />
+
+                                    More information <a class="links"
+                                        href="https://events.shanghai.nyu.edu/#!view/event/event_id/6476"
+                                        target="_blank">here</a>.
+
+                                </div>
+
+                                <div class="image-wrapper event-image">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="back-to-top">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            xmlns:xlink="http://www.w3.org/1999/xlink"
+                            width="205.6064453125"
+                            height="141.80169677734375"
+                            viewBox="0 0 205.6064453125 141.80169677734375"
+                            fill="none">
+                            <g>
+                                <g filter="url(#filter_139_1266)">
+                                    <path fill="#000000"
+                                        d="M12.2188 136.256L12.2188 117.347L20.4176 117.347Q22.5781 117.347 24.0508 117.929Q25.5234 118.511 26.2759 119.572Q27.0284 120.634 27.0284 122.074Q27.0284 123.118 26.5714 123.976Q26.1143 124.835 25.2926 125.412Q24.4709 125.989 23.3722 126.211L23.3722 126.396Q24.5909 126.442 25.5881 127.009Q26.5852 127.577 27.1761 128.57Q27.767 129.562 27.767 130.901Q27.767 132.452 26.9592 133.662Q26.1513 134.871 24.6648 135.564Q23.1783 136.256 21.1193 136.256L12.2188 136.256ZM17.3523 132.157L19.7528 132.157Q21.0455 132.157 21.6918 131.672Q22.3381 131.187 22.3381 130.236Q22.3381 129.572 22.0334 129.11Q21.7287 128.648 21.1701 128.408Q20.6115 128.168 19.8267 128.168L17.3523 128.168L17.3523 132.157ZM17.3523 124.992L19.4574 124.992Q20.1314 124.992 20.6484 124.78Q21.1655 124.567 21.4563 124.166Q21.7472 123.764 21.7472 123.182Q21.7472 122.305 21.1193 121.839Q20.4915 121.373 19.5312 121.373L17.3523 121.373L17.3523 124.992ZM34.4886 136.256L28.9489 136.256L35.1903 117.347L42.2074 117.347L48.4489 136.256L42.9091 136.256L38.7727 122.555L38.625 122.555L34.4886 136.256ZM33.4545 128.796L43.8693 128.796L43.8693 132.637L33.4545 132.637L33.4545 128.796ZM67.9119 124.438L62.7045 124.438Q62.6491 123.792 62.4137 123.266Q62.1783 122.739 61.7674 122.356Q61.3565 121.973 60.7749 121.765Q60.1932 121.557 59.4545 121.557Q58.1619 121.557 57.271 122.185Q56.38 122.813 55.9229 123.986Q55.4659 125.158 55.4659 126.802Q55.4659 128.538 55.9322 129.706Q56.3984 130.873 57.2848 131.46Q58.1712 132.046 59.4176 132.046Q60.1286 132.046 60.6918 131.866Q61.255 131.686 61.6705 131.344Q62.0859 131.003 62.3491 130.518Q62.6122 130.033 62.7045 129.424L67.9119 129.461Q67.8196 130.661 67.2379 131.903Q66.6562 133.145 65.5898 134.193Q64.5234 135.241 62.9538 135.878Q61.3842 136.515 59.3068 136.515Q56.7031 136.515 54.6396 135.398Q52.576 134.28 51.3803 132.111Q50.1847 129.941 50.1847 126.802Q50.1847 123.644 51.4034 121.479Q52.6222 119.314 54.6903 118.201Q56.7585 117.089 59.3068 117.089Q61.098 117.089 62.603 117.578Q64.108 118.067 65.2436 119.005Q66.3793 119.942 67.0717 121.308Q67.7642 122.675 67.9119 124.438ZM70.2386 136.256L70.2386 117.347L75.3722 117.347L75.3722 124.992L75.6307 124.992L81.3182 117.347L87.3011 117.347L80.9119 125.768L87.4489 136.256L81.3182 136.256L77.071 129.165L75.3722 131.381L75.3722 136.256L70.2386 136.256ZM94.7348 121.484L94.7348 117.347L111.169 117.347L111.169 121.484L105.482 121.484L105.482 136.256L100.422 136.256L100.422 121.484L94.7348 121.484ZM131.408 126.802Q131.408 129.959 130.18 132.125Q128.952 134.29 126.866 135.402Q124.779 136.515 122.212 136.515Q119.627 136.515 117.545 135.393Q115.463 134.271 114.239 132.106Q113.016 129.941 113.016 126.802Q113.016 123.644 114.239 121.479Q115.463 119.314 117.545 118.201Q119.627 117.089 122.212 117.089Q124.779 117.089 126.866 118.201Q128.952 119.314 130.18 121.479Q131.408 123.644 131.408 126.802ZM126.127 126.802Q126.127 125.103 125.679 123.935Q125.231 122.767 124.359 122.162Q123.486 121.557 122.212 121.557Q120.938 121.557 120.065 122.162Q119.193 122.767 118.745 123.935Q118.297 125.103 118.297 126.802Q118.297 128.501 118.745 129.669Q119.193 130.837 120.065 131.441Q120.938 132.046 122.212 132.046Q123.486 132.046 124.359 131.441Q125.231 130.837 125.679 129.669Q126.127 128.501 126.127 126.802ZM139.691 121.484L139.691 117.347L156.126 117.347L156.126 121.484L150.438 121.484L150.438 136.256L145.379 136.256L145.379 121.484L139.691 121.484ZM176.365 126.802Q176.365 129.959 175.137 132.125Q173.909 134.29 171.822 135.402Q169.735 136.515 167.169 136.515Q164.583 136.515 162.501 135.393Q160.419 134.271 159.196 132.106Q157.972 129.941 157.972 126.802Q157.972 123.644 159.196 121.479Q160.419 119.314 162.501 118.201Q164.583 117.089 167.169 117.089Q169.735 117.089 171.822 118.201Q173.909 119.314 175.137 121.479Q176.365 123.644 176.365 126.802ZM171.083 126.802Q171.083 125.103 170.635 123.935Q170.188 122.767 169.315 122.162Q168.443 121.557 167.169 121.557Q165.894 121.557 165.022 122.162Q164.149 122.767 163.702 123.935Q163.254 125.103 163.254 126.802Q163.254 128.501 163.702 129.669Q164.149 130.837 165.022 131.441Q165.894 132.046 167.169 132.046Q168.443 132.046 169.315 131.441Q170.188 130.837 170.635 129.669Q171.083 128.501 171.083 126.802ZM178.728 136.256L178.728 117.347L186.89 117.347Q188.995 117.347 190.574 118.178Q192.153 119.009 193.03 120.514Q193.907 122.019 193.907 124.032Q193.907 126.063 193.007 127.55Q192.107 129.036 190.486 129.839Q188.866 130.643 186.705 130.643L181.83 130.643L181.83 126.654L185.671 126.654Q186.576 126.654 187.218 126.335Q187.86 126.017 188.206 125.426Q188.552 124.835 188.552 124.032Q188.552 123.219 188.206 122.642Q187.86 122.065 187.218 121.756Q186.576 121.447 185.671 121.447L183.862 121.447L183.862 136.256L178.728 136.256Z">
+                                    </path>
+                                </g>
+                            </g>
+                            <path
+                                d="M60.5161 101.302L145.516 101.302L145.516 75.802L204.016 75.802L102.516 1.302L2.51611 75.802L60.5161 75.802L60.5161 101.302Z"
+                                fill="url(#linear_fill_139_1436)"
+                                fill-opacity="1">
+                            </path>
+                            <path fill-rule="evenodd" fill="#000000"
+                                d="M59.9761 76.302L59.9761 102.802L61.9761 102.802L61.9761 74.302L6.03221 74.302L102.468 2.45761L199.574 74.802L143.63 74.802L143.63 103.302L145.63 103.302L145.63 76.802L205.606 76.802L203.188 75.0001L103.188 0.50008L102.989 0.766229L102.419 7.95126e-05L2.41867 74.5001L-1.5974e-05 76.302L59.9761 76.302Z">
+                            </path>
+                            <path fill-rule="evenodd" fill="#000000"
+                                fill-opacity="0.2"
+                                d="M59.9761 76.302L59.9761 102.802L61.9761 102.802L61.9761 74.302L6.03221 74.302L102.468 2.45761L199.574 74.802L143.63 74.802L143.63 103.302L145.63 103.302L145.63 76.802L205.606 76.802L203.188 75.0001L103.188 0.50008L102.989 0.766229L102.419 7.95126e-05L2.41867 74.5001L-1.5974e-05 76.302L59.9761 76.302Z">
+                            </path>
+                            <defs>
+                                <filter id="filter_139_1266" x="12.21875"
+                                    y="117.08868408203125"
+                                    width="183.6884765625"
+                                    height="21.4261474609375"
+                                    filterUnits="userSpaceOnUse"
+                                    color-interpolation-filters="sRGB">
+                                    <feflood flood-opacity="0"
+                                        result="feFloodId_139_1266" />
+                                    <fecolormatrix in="SourceAlpha"
+                                        type="matrix"
+                                        values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+                                        result="hardAlpha_139_1266" />
+                                    <feoffset dx="2" dy="2" />
+                                    <fecomposite in2="hardAlpha_139_1266"
+                                        operator="out" />
+                                    <fecolormatrix type="matrix"
+                                        values="0 0 0 0 0.8666666666666667 0 0 0 0 0.9686274509803922 0 0 0 0 0.3607843137254902 0 0 0 1 0" />
+                                    <feblend mode="normal"
+                                        in2="feFloodId_139_1266"
+                                        result="dropShadow_1_139_1266" />
+                                    <feblend mode="normal" in="SourceGraphic"
+                                        in2="dropShadow_1_139_1266"
+                                        result="shape_139_1266" />
+                                </filter>
+                                <lineargradient id="linear_fill_139_1436"
+                                    x1="103.26611328125" y1="101.302001953125"
+                                    x2="103.26611328125" y2="2.302001953125"
+                                    gradientUnits="userSpaceOnUse">
+                                    <stop offset="0" stop-color="#FFFFFF"
+                                        stop-opacity="0" />
+                                    <stop offset="1" stop-color="#DDF75C" />
+                                </lineargradient>
+                            </defs>
+                        </svg>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <script>
+        const { createApp, ref, onMounted } = Vue
+
+        createApp({
+            setup() {
+                const classActive = ref(true);
+                onMounted(() => {
+                    // Add click event handlers to each table-box
+                    // Add click event handlers to each table-box
+                    const tableBoxes = document.querySelectorAll('.table-box');
+                    tableBoxes.forEach((box, index) => {
+                        box.addEventListener('click', () => {
+                            // Check if this is the Find Your Collaborator box
+                            const boxText = box.querySelector('.box-text');
+                            if (boxText && boxText.textContent.trim() === 'Find Your Collaborator') {
+                                window.open('/src/collaboration.html', '_blank');
+                                return;
+                            }
+                            if (boxText && boxText.textContent.trim() === 'Open Call') {
+                                window.open('/src/opencall.html', '_blank');
+                                return;
+                            }
+                            // Get the target section ID from the data attribute
+                            const targetId = box.getAttribute('data-target');
+                            if (targetId) {
+                                // Find the corresponding detail section using the ID
+                                const detailSection = document.getElementById(targetId);
+                                if (detailSection) {
+                                    // Scroll to this section with smooth animation
+                                    detailSection.scrollIntoView({
+                                        behavior: 'smooth',
+                                        block: 'start'
+                                    });
+                                }
+                            }
+                        });
+                        // Add pointer cursor to indicate clickability
+                        box.style.cursor = 'pointer';
+                    });
+
+                    // Add back-to-top functionality
+                    const backToTopButton = document.querySelector('.back-to-top');
+                    if (backToTopButton) {
+                        backToTopButton.addEventListener('click', () => {
+                            // Scroll to 40vw from the top of the page
+                            window.scrollTo({
+                                top: window.innerHeight * 0.5, // 40vw
+                                behavior: 'smooth'
+                            });
+                        });
+                    }
+                });
+
+                return {
+                    classActive
+                }
+            }
+        }).mount('#app')
+    </script>
+    </body>
+
+</html>

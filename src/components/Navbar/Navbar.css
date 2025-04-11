@@ -1,0 +1,267 @@
+/* Navbar container */
+@import url('/homepage/font.css');
+
+:root {
+  font-family: "NYU";
+  line-height: 1.5;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@media only screen and (max-width: 768px) {
+  .navbar-container {
+    transform: scale(0.7);
+    transform-origin: top right; /* Adjust as needed */
+  }
+  .expanded {
+    padding-top: 20px;
+  }
+}
+
+.navbar-container {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 750px;
+  background-color: transparent;
+  transition: width 0.2s ease-in-out;
+  overflow: hidden;
+  line-break: initial;
+  z-index: 1000;
+}
+
+.expanded {
+  width: 500px;
+  padding: 35px 20px 0 0;
+}
+
+.collapsed {
+  width: 160px; /* Just enough to show the half-circle */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+
+/* Half-circle toggle button */
+.toggle-button {
+  position: absolute;
+  top: 60px;
+  right: 0px;
+  width: 155px;
+  height: 60px;
+  border: 2px solid black;
+  border-radius: 30px 0 0 30px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  font-weight: 400;
+  background: linear-gradient(90deg, #EAEA24 -10.32%, #EBF4A1 33.55%);
+  box-shadow: 0px 2px 10px 0px #61891626;
+  color: #000;
+}
+
+.toggle-button-close {
+  position: absolute;
+  top: 60px;
+  right: 0px;
+  width: 69px;
+  height: 60px;
+  border: 2px solid black;
+  border-radius: 30px 0 0 30px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  font-weight: 400;
+  background: linear-gradient(90deg, #EAEA24 -10.32%, #EBF4A1 33.55%);
+  box-shadow: 0px 2px 10px 0px #61891626;
+}
+
+/* All SVGs occupy the same space */
+.toggle-button svg {
+  position: absolute;
+  top: 10px;
+  left: 120px;
+  /* transition: ease-out 0.1s; */
+}
+
+@keyframes menuMarginChange {
+  0% {
+    margin-left: 8px;
+  }
+  33.33% { /* ≈0.2s */
+    margin-left: 22px;
+  }
+  66.66% { /* ≈0.4s */
+    margin-left: 12px;
+  }
+  100% { /* ≈0.6s */
+    margin-left: 8px;
+  }
+}
+
+.toggle-button:hover .menu-text {
+  animation: menuMarginChange 0.8s ease-in-out infinite;
+}
+
+
+/* Initial state - only vector-1 is visible */
+.toggle-button .vector-1 { opacity: 1; }
+.toggle-button .vector-2,
+.toggle-button .vector-3,
+.toggle-button .vector-4 { opacity: 0; }
+
+/* Keyframes for sequential fade animation */
+@keyframes sequence {
+  0%, 25% { opacity: 1; }   /* Visible for 25% of the cycle */
+  27%, 100% { opacity: 0; } /* Hidden for the remaining 75% */
+}
+
+/* Animation settings for each vector */
+.toggle-button:hover .vector-1 {
+  animation: sequence 0.8s ease-in infinite;
+}
+.toggle-button:hover .vector-2 {
+  left: 130px;
+  animation: sequence 0.8s ease-out infinite 0.2s; /* 25% offset */
+}
+.toggle-button:hover .vector-3 {
+  left: 125px;
+  animation: sequence 0.8s ease-out infinite 0.4s; /* 50% offset */
+}
+.toggle-button:hover .vector-4 {
+  left: 118px;
+  animation: sequence 0.8s ease-out infinite 0.6s; /* 75% offset */
+}
+
+
+.navbar {
+  position: absolute;
+  top: 115px;
+  right: 20px;
+}
+
+/* Title */
+.nav-title {
+  font-size: 70px;
+  font-weight: 1000;
+  font-style: italic;
+  line-height: 66.5px;
+  text-align: right;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+  -webkit-text-stroke: 2px black;
+  letter-spacing: -1.5px;
+  cursor: pointer;
+}
+
+.nav-title .default {
+  z-index: 0;
+  opacity: 1;
+  /* transition: opacity 50ms ease-out; */
+}
+
+.nav-title:hover .default {
+  opacity: 0;
+  transition-delay: 70ms;
+}
+
+.stage {
+  opacity: 0;
+  /* transition: opacity 150ms ease-in; */
+  position: absolute;
+  right: 0px;
+}
+
+/* Each new stage sits above the last */
+.stage-1 { z-index: 1; }
+.stage-2 { z-index: 2; }
+.stage-3 { z-index: 3; }
+.stage-4 { z-index: 4; }
+
+/* Show them in sequence (with delays so they appear one after another) */
+.nav-title:hover .stage-1 {
+  opacity: 1;
+  transition-delay: 90ms;
+}
+.nav-title:hover .stage-2 {
+  opacity: 1;
+  transition-delay: 180ms;
+}
+.nav-title:hover .stage-3 {
+  opacity: 1;
+  transition-delay: 250ms;
+}
+.nav-title:hover .stage-4 {
+  opacity: 1;
+  transition-delay: 350ms;
+}
+
+/* Buttons container */
+.nav-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: flex-end;
+}
+
+button {
+  /* border-radius: 8px; */
+  /* border: 1px solid transparent; */
+  padding: 0em 1em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+}
+
+/* Button styling */
+.nav-button {
+  font-size: 28px;
+  font-weight: 400;
+  padding: 8px 50px;
+  border: 2px solid black;
+  border-radius: 30px;
+  background-color: white;
+  cursor: pointer;
+  text-align: center;
+  color:black;
+}
+
+.nav-button-wrapper:hover .nav-button {
+  animation: bounce 0.3s forwards;
+  box-shadow:
+    6px 6px 0px 0px rgba(235, 244, 161, 0.8),
+    10px 10px 0px 0px rgba(234, 234, 36, 1);
+}
+
+@keyframes bounce {
+  0% {
+    transform: translate(0, 0);
+  }
+  30% {
+    transform: translate(-6px, -6px);
+  }
+  60% {
+    transform: translate(-2px, -2px);
+  }
+  100% {
+    transform: translate(-4px, -4px);
+  }
+}
+
+.svg-container {
+  position: relative; /* This makes sure the children can be positioned absolutely */
+  width: 38px;
+  height: 77px;
+  cursor: pointer;
+}
+
