@@ -8,6 +8,11 @@
 		<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/inter-ui/inter.css"> -->
 		<link rel="stylesheet" href="/about/assets/font.css">
 		<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+		<link rel="stylesheet" href="https://unpkg.com/element-plus/dist/index.css" />
+		<!-- Import component library -->
+		<script src="https://unpkg.com/element-plus"></script>
+
 		<script src="/about/assets/p5.js"></script>
 		<title>About - Global Show & Tell</title>
 		<meta name="viewport"
@@ -140,27 +145,25 @@
 			font-weight: 600;
 			color:#B8B812;
 			font-style: italic;
-			margin-bottom: 22px;
+			margin-bottom: 30px;
 		}
 
 		.photo-box{
-			display: flex;
-			flex-wrap: wrap;
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			gap: 2px;
 			justify-content: flex-start;
-			width: 200px;
-    		height: 200px;
+			/* width: 200px; */
+    		/* height: 200px; */
 
 		}
 		.photo-item{
-			width: calc(((100% - 76px) / 3));
-			aspect-ratio: 464/218;
+			/* width: calc(((100% - 76px) / 3)); */
+			aspect-ratio: 1272/715;
 			font-size: 0;
-			margin-bottom: 68px;
-			margin-right: 38px;
+			margin-bottom: 50px;
+			margin-right: 20px;
 
-		}
-		.photo-item:nth-child(3n){
-			margin-right: 200px;
 		}
 		
 		.photo-item img{
@@ -216,7 +219,8 @@
 		}
 
 		.bottom-box{
-			margin-top: 600px;
+			margin-top: 50px;
+			padding-bottom: 100px;
 		}
 
 		.bottom-box-title{
@@ -226,14 +230,23 @@
 			font-style: italic;
 			border-bottom: 1px solid rgba(166, 166, 166, 1);
 		}
+		.bottom-box-title-span{
+			color:#808080;
+			font-style: italic;
+			font-weight: 250;
+			/* font-size: 20px; */
+			margin-left: 10px;
+		}
 		.bottom-box-info{
-			margin-top: 14px;
+			margin-top: 17px;
 			color:rgba(38, 38, 38, 1);
 			font-size: 20px;
 			line-height: 30px;
-			width: 200px;
-			height: 200px;
+			margin-bottom: 80px;
+			/* width: 200px;
+			height: 200px; */
 		}
+
         @media screen and (max-width:640px) {
             .li-box {
                 height: 6.1rem;
@@ -295,24 +308,20 @@
 			}
 
 			.photo-box{
-				display: flex;
-				flex-wrap: wrap;
+				display: grid;
+				grid-template-columns: repeat(2, 1fr);
+				gap: 20px;
 				justify-content: flex-start;
 			}
 			.photo-item{
-				width: calc(((100% - 0.07rem) / 2));
+				/* width: calc(((100% - 0.07rem) / 2)); */
 				height: 1.54rem;
 				font-size: 0;
 				margin-bottom: 0.13rem;
 				margin-right: 0.07rem;
 
 			}
-			.photo-item:nth-child(2n){
-				margin-right: 0;
-			}
-			.photo-item:nth-child(3n){
-				margin-right: 0.07rem;
-			}
+
 
 			.photo-item img{
 				width: 100%;
@@ -375,15 +384,21 @@
 				font-style: italic;
 				border-bottom: 1px solid rgba(166, 166, 166, 1);
 			}
+			
 			.bottom-box-info{
 				margin-top: 0.14rem;
 				color:rgba(38, 38, 38, 1);
 				font-size: 0.2rem;
 				line-height: 0.3rem;
-		
+				margin-bottom: 0.5rem;
 			}
 
         }
+		.el-image-viewer__canvas{
+			img{
+				object-fit: contain;
+			}
+		}
 	</style>
 		<script type="module" crossorigin src="/assets/Navbar-Bchr76sf.js"></script>
 		<script type="module" crossorigin src="/assets/myPageEntry-C8KBUsWp.js"></script>
@@ -428,7 +443,14 @@
 				<div class="content" id="content">
 					<div class="chapter-title">Highlights</div>
 					<div class="photo-box">
-
+						<div v-for="(img, index) in imageList" :key="index">
+							<el-image
+									class="photo-item"
+									:src="img.src"
+									:preview-src-list="previewList"
+									:initial-index="index"
+									:fit="contain" />
+					</div>
 					</div>
 					<div class="chapter-title" style="margin-top: 100px">Reviewers of
 						submissions</div>
@@ -459,34 +481,58 @@
 						decisions as they see fit.
 					</div>
 
-					<div style="height: 0.85rem;"></div>
+					<div style="height: 0.65rem;"></div>
 
-					<!-- <div class="bottom-box">
-					<div class="bottom-box-title">Acknowledgement</div>
-					<div class="bottom-box-info">
-					
+					<div class="bottom-box">
+						<div class="bottom-box-title">Team members<span
+								class="bottom-box-title-span">(Alphabetical by Last Name)</span></div>
+						<div class="bottom-box-info">
+							Yun Dai, Shawn Van Every, Scott Fitzgerald, Marcela Godoy, Grace
+							Oluwaseyi Itiola, Amani Magid, Nasir Memon, Jung Hyun Moon, Aidan Nelson,
+							Ke Ning, Roxane Pickens, Craig Protzel, Zi Qiao, Tracy Chenxuan Sun, Rona
+							Xia, Andy Jinran Ye, Jesse Jiaxing Yu, Xinyi Zhu, Yaoyao Zhuang, Mia Zhuo
+						</div>
+						<div class="bottom-box-title">Acknowledgement<span
+								class="bottom-box-title-span">(Alphabetical by Last Name)</span></div>
+						<div class="bottom-box-info">
+							Vickie Chen, Erchao Gu, Wenling He, Fan Luo, Harry Meng, NYU Shanghai
+							Information Technology Service, NYU Shanghai Undergraduate Admissions
+							Office, Ashley Yue Shi, Clay Shirky, Shawnta D Smith-Cruz, Utku Ege
+							Tuluk, Angela Xiaoxu Wang, Xiao You, Qinghua Xu, Ye Zhai, Lizhi Zhang,
+							Henry Ruijun Zhang
+						</div>
+
 					</div>
-				</div> -->
-
 				</div>
 
-			</div>
-
-		</div>
-
-		<script>
+				<script>
 		const { createApp, ref, onMounted } = Vue
 
 		createApp({
 			setup() {
 				const classActive = ref(true);
+				const imageList = ref([
+					{ src: '/about/images/01.png' },
+					{ src: '/about/images/02.jpg' },
+					{ src: '/about/images/03.jpg' },
+					{ src: '/about/images/04.jpg' },
+					{ src: '/about/images/05.jpg' },
+					{ src: '/about/images/06.jpg' },
+					{ src: '/about/images/07.png' },
+					{ src: '/about/images/08.jpg' },
+					{ src: '/about/images/09.jpg' }
+				]);
+
+				const previewList = ref(imageList.value.map(img => img.src));
 
 				return {
-					classActive
+					classActive,
+					imageList,
+					previewList
 				}
 			}
-		}).mount('#app')
+		}).use(ElementPlus).mount('#app')
 	</script>
-	</body>
+			</body>
 
-</html>
+		</html>
