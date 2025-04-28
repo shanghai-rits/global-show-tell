@@ -460,7 +460,7 @@ const Showcase: React.FC = () => {
                     boxShadow: '0px 1px 4px 0px rgba(0,0,0,0.2)',
                   }}
                 />
-                <div style={{ lineHeight: '1', marginTop: '15px', fontFamily: 'inter', fontSize: '22px', fontWeight: 'unset', color: 'rgba(128, 128, 128, 1)' }}>
+                <div style={{ lineHeight: '1', marginTop: '15px', fontFamily: 'NYU', fontSize: '22px', fontWeight: 'unset', color: 'rgba(128, 128, 128, 1)' }}>
                   {item.title}
                 </div>
                 <div style={{ marginTop: '5px', marginLeft: '2px', color: 'rgba(128, 128, 128, 1)', fontSize: '15px' }}>
@@ -556,7 +556,7 @@ const Showcase: React.FC = () => {
                       boxShadow: '0px 1px 4px 0px rgba(0,0,0,0.2)',
                     }}
                   />
-                  <div style={{ lineHeight: '1', marginTop: '15px', fontFamily: 'inter', fontSize: '32px', fontWeight: 'unset', color: 'rgba(128, 128, 128, 1)' }}>
+                  <div style={{ lineHeight: '1', marginTop: '15px', fontFamily: 'NYU', fontSize: '32px', fontWeight: 'unset', color: 'rgba(128, 128, 128, 1)' }}>
                     {item.title}
                   </div>
                   <div style={{ marginTop: '3px', marginLeft: '2px', color: 'rgba(128, 128, 128, 1)', fontSize: '20px' }}>
