@@ -49,6 +49,104 @@ function isOverlap(
  * @param spacing Additional space to pad around items (prevents collisions)
  * @returns Array of (x,y) coordinates for each item’s top-left corner
  */
+// function generateNonOverlappingPositions(
+//   count: number,
+//   canvasWidth: number,
+//   canvasHeight: number,
+//   itemWidth: number,
+//   itemHeight: number,
+//   spacing: number
+// ): Array<{ x: number; y: number }> {
+//   const positions: Array<{ x: number; y: number }> = [];
+//   if (count <= 0) {
+//     return positions;
+//   }
+
+//   const indices = Array.from({ length: count }, (_, i) => i);
+//   for (let i = indices.length - 1; i > 0; i--) {
+//     const j = Math.floor(Math.random() * (i + 1));
+//     [indices[i], indices[j]] = [indices[j], indices[i]];
+//   }
+
+//   // Center of the canvas
+//   const centerX = canvasWidth / 2;
+//   const centerY = canvasHeight / 2;
+
+//   // Radius increment for each ring
+//   const radiusIncrement = 150 + spacing;
+
+//   // Place the first item in the center:
+//   positions[indices[0]] = {
+//     x: centerX - itemWidth / 2,
+//     y: centerY - itemHeight / 2,
+//   };
+
+//   // How many items have we successfully placed so far?
+//   let placedCount = 1;
+
+//   // Start from ring #1 outward
+//   let ringNumber = 1;
+
+//   // For demonstration, let’s say ring 1 can have 3 items, ring 2 can have 5, ring 3 can have 7, etc.
+//   // You can make this simpler or more complicated as you see fit.
+//   let itemsInThisRing = 4;
+
+//   while (placedCount < count) {
+//     // How many items do we still need to place?
+//     const itemsRemaining = count - placedCount;
+
+//     // For this ring, we only try to place as many as we still need:
+//     const ringSlots = Math.min(itemsInThisRing, itemsRemaining);
+
+//     // Current ring radius
+//     const ringRadius = ringNumber * radiusIncrement;
+
+//     let placedThisRing = 0;
+//     let attempt = 0;
+//     const maxAttempts = 10000; // Just to avoid infinite loops
+
+//     // Keep trying angles until we've placed ringSlots or run out of attempts
+//     while (placedThisRing < ringSlots && attempt < maxAttempts) {
+//       attempt++;
+
+//       // Pick a random angle for the item in this ring
+//       const angle = Math.random() * 2 * Math.PI;
+
+//       // Convert polar -> cartesian (with item offset for top-left)
+//       const x = centerX + ringRadius * Math.cos(angle) - itemWidth / 2;
+//       const y = centerY + ringRadius * Math.sin(angle) - itemHeight / 2;
+
+//       // Check overlap with already-placed positions
+//       let overlapFound = false;
+//       for (const pos of positions) {
+//         if (isOverlap(pos.x, pos.y, x, y, itemWidth, itemHeight, spacing)) {
+//           overlapFound = true;
+//           break;
+//         }
+//       }
+
+//       // If there's no collision, we can place it
+//       if (!overlapFound) {
+//         const idx = indices[placedCount];
+//         positions[idx] = { x, y };
+//         placedCount++;
+//         placedThisRing++;
+//       }
+//     }
+
+//     // Move on to the next ring
+//     ringNumber++;
+
+//     // If you want each ring to hold 3 more items than the previous ring, do:
+//     // itemsInThisRing += 3;
+//     // Or if you want a different pattern, just change it here:
+//     itemsInThisRing += 2; // Example: ring 1 has 3, ring 2 has 5, ring 3 has 7, etc.
+//   }
+
+//   return positions;
+// }
+
+// ...existing code...
 function generateNonOverlappingPositions(
   count: number,
   canvasWidth: number,
@@ -62,6 +160,13 @@ function generateNonOverlappingPositions(
     return positions;
   }
 
+  // Shuffle item indices so any item can be at the center
+  const indices = Array.from({ length: count }, (_, i) => i);
+  for (let i = indices.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [indices[i], indices[j]] = [indices[j], indices[i]];
+  }
+
   // Center of the canvas
   const centerX = canvasWidth / 2;
   const centerY = canvasHeight / 2;
@@ -69,76 +174,55 @@ function generateNonOverlappingPositions(
   // Radius increment for each ring
   const radiusIncrement = 150 + spacing;
 
-  // Place the first item in the center:
-  positions.push({
+  // Place the first (random) item in the center:
+  positions[indices[0]] = {
     x: centerX - itemWidth / 2,
     y: centerY - itemHeight / 2,
-  });
+  };
 
-  // How many items have we successfully placed so far?
   let placedCount = 1;
-
-  // Start from ring #1 outward
   let ringNumber = 1;
-
-  // For demonstration, let’s say ring 1 can have 3 items, ring 2 can have 5, ring 3 can have 7, etc.
-  // You can make this simpler or more complicated as you see fit.
   let itemsInThisRing = 4;
 
   while (placedCount < count) {
-    // How many items do we still need to place?
     const itemsRemaining = count - placedCount;
-
-    // For this ring, we only try to place as many as we still need:
     const ringSlots = Math.min(itemsInThisRing, itemsRemaining);
-
-    // Current ring radius
     const ringRadius = ringNumber * radiusIncrement;
 
     let placedThisRing = 0;
     let attempt = 0;
-    const maxAttempts = 10000; // Just to avoid infinite loops
+    const maxAttempts = 10000;
 
-    // Keep trying angles until we've placed ringSlots or run out of attempts
     while (placedThisRing < ringSlots && attempt < maxAttempts) {
       attempt++;
-
-      // Pick a random angle for the item in this ring
       const angle = Math.random() * 2 * Math.PI;
-
-      // Convert polar -> cartesian (with item offset for top-left)
       const x = centerX + ringRadius * Math.cos(angle) - itemWidth / 2;
       const y = centerY + ringRadius * Math.sin(angle) - itemHeight / 2;
 
-      // Check overlap with already-placed positions
       let overlapFound = false;
       for (const pos of positions) {
-        if (isOverlap(pos.x, pos.y, x, y, itemWidth, itemHeight, spacing)) {
+        if (pos && isOverlap(pos.x, pos.y, x, y, itemWidth, itemHeight, spacing)) {
           overlapFound = true;
           break;
         }
       }
 
-      // If there's no collision, we can place it
       if (!overlapFound) {
-        positions.push({ x, y });
+        // Find the next available index in the shuffled array
+        const idx = indices[placedCount];
+        positions[idx] = { x, y };
         placedCount++;
         placedThisRing++;
       }
     }
-
-    // Move on to the next ring
     ringNumber++;
-
-    // If you want each ring to hold 3 more items than the previous ring, do:
-    // itemsInThisRing += 3;
-    // Or if you want a different pattern, just change it here:
-    itemsInThisRing += 2; // Example: ring 1 has 3, ring 2 has 5, ring 3 has 7, etc.
+    itemsInThisRing += 2;
   }
 
+  // Return positions in the shuffled order
   return positions;
 }
-
+// ...existing code...
 
 const Showcase: React.FC = () => {
 
