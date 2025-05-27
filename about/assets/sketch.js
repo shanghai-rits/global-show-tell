@@ -282,6 +282,8 @@ let bubbleCount = 7; // Number of bubbles
 
 function setup() {
     createCanvas(windowWidth, 450);
+    // TODO: responsive canvas
+    // TODO: set canvas to full width and fixed height
     frameRate(12)
 
     colorPalette_1 = [
