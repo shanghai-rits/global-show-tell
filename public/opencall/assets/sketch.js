@@ -281,7 +281,7 @@ let bubbles = [];
 let bubbleCount = 7; // Number of bubbles
 
 function setup() {
-    createCanvas(1920, 1080);
+    createCanvas(windowWidth, 450);
     frameRate(12)
 
     colorPalette_1 = [

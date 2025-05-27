@@ -65,6 +65,58 @@
   object-fit: cover;
 }
 
+.tooltip-with-blur {
+  position: relative;
+}
+
+.tooltip-with-blur::before {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  right: -4px;
+  bottom: -4px;
+  border-radius: 24px;
+  filter: blur(4px);
+  z-index: -1;
+}
+
+.tooltip-with-blur::after {
+  content: '';
+  position: absolute;
+  top: -12px;
+  left: -12px;
+  right: -12px;
+  bottom: -12px;
+  background: rgba(234, 234, 36, 0.3);
+  border-radius: 32px;
+  filter: blur(12px);
+  z-index: -2;
+  animation: pulse-glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes pulse-glow {
+  0% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes fadeInTooltip {
+  0% { 
+    opacity: 0; 
+    transform: translateY(-10px);
+  }
+  100% { 
+    opacity: 1; 
+    transform: translateY(0);
+  }
+}
+
 @media only screen and (max-width: 768px) {
   .zoom-in-out {
     transform: scale(0.7);

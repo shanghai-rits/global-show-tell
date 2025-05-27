@@ -234,6 +234,42 @@ const Showcase: React.FC = () => {
   const [showResults, setShowResults] = useState(false);
   const [filteredShowcaseItems, setFilteredShowcaseItems] = useState<ShowcaseItem[]>([]);
 
+  // Add state for the tooltip
+  const [showTooltip, setShowTooltip] = useState(false);
+  const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
+  const tooltipTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+
+  // Add mouse move handler for tooltip
+  const handleTooltipMouseMove = (e: React.MouseEvent) => {
+    if (!showTooltip) {
+      setShowTooltip(true);
+      setTooltipPosition({ x: e.clientX, y: e.clientY });
+
+      // Clear existing timeout
+      if (tooltipTimeoutRef.current) {
+        clearTimeout(tooltipTimeoutRef.current);
+      }
+
+      // Hide tooltip after 5 seconds
+      tooltipTimeoutRef.current = setTimeout(() => {
+        setShowTooltip(false);
+      }, 2500);
+    } else {
+      // Update position while tooltip is visible
+      setTooltipPosition({ x: e.clientX, y: e.clientY });
+    }
+  };
+
+  // Clean up timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (tooltipTimeoutRef.current) {
+        clearTimeout(tooltipTimeoutRef.current);
+      }
+    };
+  }, []);
+
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
   };
@@ -574,14 +610,17 @@ const Showcase: React.FC = () => {
             userSelect: 'none',
           }}
           onMouseDown={handleMouseDown}
-          onMouseMove={handleMouseMove}
+          onMouseMove={(e) => {
+            handleMouseMove(e);
+            handleTooltipMouseMove(e);
+          }}
           onMouseUp={handleMouseUp}
           onMouseLeave={handleMouseLeave}
           onWheel={handleWheel}
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
-          title="Press & hold left mouse button and drag"
+        // title="Press & hold left mouse button and drag"
         >
           <div
             style={{
@@ -687,6 +726,37 @@ const Showcase: React.FC = () => {
               </svg>
             </div>
           </div>
+          {/* Tooltip */}
+          {showTooltip && (
+            <div
+              className="tooltip-with-blur"
+              style={{
+                position: 'fixed',
+                left: tooltipPosition.x + 10,
+                top: tooltipPosition.y + 20,
+                backgroundColor: 'rgba(234, 234, 36, 0.95)',
+                color: '#000',
+                padding: '8px 16px',
+                borderRadius: '20px',
+                fontSize: '14px',
+                fontWeight: '500',
+                pointerEvents: 'none',
+                zIndex: 9999,
+                border: '1px solid rgba(255, 255, 255, 0.2)',
+                backdropFilter: 'blur(10px)',
+                whiteSpace: 'nowrap',
+                animation: 'fadeInTooltip 0.3s ease-out',
+                boxShadow: `
+                  0 0 20px rgba(234, 234, 36, 0.8),
+                  0 0 40px rgba(234, 234, 36, 0.6),
+                  0 0 60px rgba(234, 234, 36, 0.4),
+                  0 2px 8px rgba(0, 0, 0, 0.15)
+                `,
+              }}
+            >
+              Press and hold to drag
+            </div>
+          )}
         </div>
       )}
     </div>
