@@ -234,10 +234,35 @@ const Showcase: React.FC = () => {
   const [showResults, setShowResults] = useState(false);
   const [filteredShowcaseItems, setFilteredShowcaseItems] = useState<ShowcaseItem[]>([]);
 
+  // Add state for mobile view mode
+  const [isMobile, setIsMobile] = useState(false);
+  const [viewMode, setViewMode] = useState<'grid' | 'gallery'>('grid');
+
   // Add state for the tooltip
   const [showTooltip, setShowTooltip] = useState(false);
   const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
   const tooltipTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Check if it's mobile and set default view mode
+  useEffect(() => {
+    const checkMobile = () => {
+      const mobileThreshold = 768;
+      const isMobileNow = window.innerWidth < mobileThreshold;
+      setIsMobile(isMobileNow);
+      if (isMobileNow) {
+        setViewMode('grid'); // Default to grid on mobile
+      }
+    };
+
+    window.addEventListener('resize', checkMobile);
+    checkMobile(); // Check initial viewport
+
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  const handleToggleView = () => {
+    setViewMode(prev => prev === 'grid' ? 'gallery' : 'grid');
+  };
 
 
   // Add mouse move handler for tooltip
@@ -521,8 +546,33 @@ const Showcase: React.FC = () => {
         handleBackToAll={handleBackToAll}
       />
 
-      {showResults && (
-        filteredShowcaseItems.length === 0 ? (
+      {/* Mobile view mode toggle button */}
+      {isMobile && (
+        <div
+          onClick={handleToggleView}
+          style={{
+            position: 'fixed',
+            bottom: '5px',
+            left: '15px',
+            height: '20px',
+            backgroundColor: '#000',
+            color: '#EBF4A1',
+            padding: '7px 20px 10px 20px',
+            borderRadius: '25px',
+            fontSize: '16px',
+            fontWeight: '500',
+            cursor: 'pointer',
+            zIndex: 1000,
+            border: 'none',
+            fontFamily: 'NYU',
+          }}
+        >
+          {viewMode === 'grid' ? 'Gallery View' : 'Grid View'}
+        </div>
+      )}
+
+      {(showResults || (isMobile && viewMode === 'grid')) ? (
+        filteredShowcaseItems.length === 0 && showResults ? (
           <div
             style={{
               display: 'flex-start',
@@ -541,7 +591,11 @@ const Showcase: React.FC = () => {
           </div>
         ) : (
           // show the filteredShowcaseItems in a grid layout
-          <div className="grid-container">
+          <div className="grid-container"
+            style={{
+              paddingBottom: isMobile ? '80px' : '110px', // Add extra bottom padding on mobile
+            }}
+          >
             {filteredShowcaseItems.map(item => (
               <div
                 key={item.id}
@@ -595,10 +649,8 @@ const Showcase: React.FC = () => {
             ))}
           </div>
         )
-      )}
-
-      {/* 如果 filteredItems 为空，显示 "No results" */}
-      {!showResults && (
+      ) : (
+        // Gallery view (draggable canvas)
         <div
           ref={outerRef}
           style={{
