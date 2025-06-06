@@ -31,17 +31,20 @@
     </script>
         <script src="/about/assets/sketch.js"></script>
         <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const tableBody = document.querySelector('.content table tbody');
-            if (tableBody) {
-                tableBody.addEventListener('mousemove', function (e) {
-                    // Get mouse position relative to the tbody
-                    const rect = tableBody.getBoundingClientRect();
-                    const y = e.clientY - rect.top;
-                    const adjustedY = y / 0.8;
-                    // Set the position of the divider
-                    tableBody.style.setProperty('--divider-y', `${adjustedY}px`);
-                });
+             document.addEventListener('DOMContentLoaded', function () {
+            // Only enable table hover divider on larger screens
+            if (window.innerWidth > 1350) {
+                const tableBody = document.querySelector('.content table tbody');
+                if (tableBody) {
+                    tableBody.addEventListener('mousemove', function (e) {
+                        // Get mouse position relative to the tbody
+                        const rect = tableBody.getBoundingClientRect();
+                        const y = e.clientY - rect.top;
+                        const adjustedY = y / 0.8;
+                        // Set the position of the divider
+                        tableBody.style.setProperty('--divider-y', `${adjustedY}px`);
+                    });
+                }
             }
         });
     </script>
@@ -663,16 +666,46 @@
            ========================================================================== */
         /* Tablet */
         @media screen and (max-width: 1320px) {
+
+            .content table tbody::before {
+                display: none !important;
+            }
+            
+            .content table tbody:hover::before {
+                display: none !important;
+            }
             .zhuti,
             .on-shadow-title-box,
             .li-box {
-                height: 2.8rem;
+                height: 2.1rem;
+            }
+             .on-shadow-title-box {
+                height: 2.1rem;
+            }
+
+            .img-bg {
+                height: 1.5rem;
             }
 
             .content {
                 width: 98vw;
                 padding: 10px;
                 margin-top: 0px;
+            }
+
+            .timezone-dropdown {
+                margin-top: 0px;
+                margin-bottom: 0.2rem;
+                text-align: nowrap;
+                width: 1.8rem;
+                height: 0.41rem;
+                font-size: 0.14rem;
+                white-space: nowrap;
+                padding-right: 0.3rem;
+                padding-top: 0.04rem;
+                padding-bottom: 0.04rem;
+                background-size: 0.36rem;
+                background-position: right 0.1rem center;
             }
 
             table {
@@ -687,7 +720,7 @@
                 font-size: 22px;
                 padding-bottom: 0px;
                 white-space: nowrap;
-                height: 15px;
+                height: 0.4rem;
                 align-self: flex-start;
             }
 
@@ -750,11 +783,11 @@
             }
 
             #opening-project {
-                height: 1850px;
+                height: 1800px;
             }
 
             #opening-ceremony {
-                height: 2900px;
+                height: 2500px;
             }
 
             .back-to-top {
@@ -762,21 +795,38 @@
                 top: -50px;
             }
 
-            .timezone-dropdown {
+            /* .timezone-dropdown {
                 font-size: 18px;
                 white-space: nowrap;
+            } */
+
+            .back-to-top {
+                margin-left: 65vw;
+                top: -0.5rem;
+            }
+
+            .back-to-top svg {
+                width: 2.06rem;
+                height: 1.42rem;
             }
         }
 
         /* Mobile Large */
         @media screen and (max-width: 720px) {
+            .content table tbody::before {
+                display: none !important;
+            }
+            
+            .content table tbody:hover::before {
+                display: none !important;
+            }
             .li-box {
-                height: 2.5rem;
+                height: 2.3rem;
             }
 
             .zhuti,
             .on-shadow-title-box {
-                height: 2.5rem;
+                height: 2.3rem;
             }
 
             .center-box {
@@ -791,10 +841,26 @@
             .content {
                 width: 98vw;
                 padding: 10px;
-                overflow-x: hidden;
+                /* overflow-x: hidden; */
                 margin-top: 0px;
+                transform: scale(0.95);
             }
 
+
+            .timezone-dropdown {
+                margin-top: 0px;
+                margin-bottom: 0.2rem;
+                text-align: nowrap;
+                width: 1.86rem;
+                height: 0.51rem;
+                font-size: 0.14rem;
+                white-space: nowrap;
+                padding-right: 0.25rem;
+                padding-top: 0.03rem;
+                padding-bottom: 0.03rem;
+                background-size: 0.3rem;
+                background-position: right 0.08rem center;
+            }
             table {
                 width: 100%;
             }
@@ -806,7 +872,7 @@
             .table-note {
                 padding-bottom: 0px;
                 white-space: nowrap;
-                height: 15px;
+                height: 0.3rem;
                 align-self: flex-start;
             }
 
@@ -828,7 +894,7 @@
             td.date {
                 width: 30%;
                 box-sizing: border-box;
-                padding: 5px;
+                padding: 0.05rem;
                 align-self: flex-start;
             }
 
@@ -837,9 +903,46 @@
                 box-sizing: border-box;
                 padding: 0;
             }
+             td.date svg {
+                width: 1.14rem;
+                height: 0.75rem;
+            }
 
             .box-container {
                 padding: 0px;
+                width: 3rem;
+            }
+              .table-box {
+                width: 3.46rem;
+                height: 1rem;
+                padding: 0.1rem 0.15rem 0.1rem 0.35rem;
+                font-size: 0.2rem;
+            }
+
+            .box-text {
+                width: 2.68rem;
+                font-size: 0.24rem;
+                line-height: 0.29rem;
+            }
+
+            .table-icon {
+                width: 0.15rem;
+                height: 0.15rem;
+                left: 0.36rem;
+            }
+
+            .start-icon, .end-icon {
+                font-size: 0.16rem;
+                height: 0.24rem;
+                padding: 0px 0.1rem 0.03rem 0.1rem;
+            }
+
+            .start-icon {
+                width: 0.56rem;
+            }
+
+            .end-icon {
+                width: 0.4rem;
             }
 
             .section-title,
@@ -865,16 +968,16 @@
             }
 
             .left h2 {
-                font-size: 0.42rem;
+                font-size: 0.38rem;
                 line-height: normal;
             }
 
             .left .label {
-                font-size: 0.28rem;
+                font-size: 0.24rem;
             }
 
             .left .info {
-                font-size: 0.26rem;
+                font-size: 0.24rem;
                 line-height: 180%;
             }
 
@@ -883,7 +986,7 @@
             }
 
             .right-content {
-                font-size: 0.26rem;
+                font-size: 0.24rem;
                 line-height: 180%;
             }
 
@@ -892,21 +995,30 @@
             }
 
             #opening-project {
-                height: 1650px;
+                height: 18rem;
             }
 
             #opening-ceremony {
-                height: 2900px;
+                height: 28rem;
             }
 
-            .back-to-top {
+             .back-to-top {
                 margin-left: 65vw;
-                top: -50px;
+                top: -0.5rem;
             }
+
+            .back-to-top svg {
+                width: 1.8rem;
+                height: 1.2rem;
+            }
+            .links {
+            font-size: 0.26rem;
+            font-weight: 700;
+        }
         }
 
         /* Mobile Small */
-        @media screen and (max-width: 500px) {
+        /* @media screen and (max-width: 500px) {
             .li-box {
                 height: 2.1rem;
             }
@@ -928,10 +1040,10 @@
             .back-to-top {
                 top: 100px;
             }
-        }
+        } */
 
         /* Mobile Extra Small */
-        @media screen and (max-width: 400px) {
+        /* @media screen and (max-width: 400px) {
             .li-box {
                 height: 2.1rem;
             }
@@ -983,7 +1095,7 @@
             .back-to-top {
                 top: 50px;
             }
-        }
+        } */
     </style>
     </head>
 
