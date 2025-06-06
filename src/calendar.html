@@ -31,17 +31,20 @@
     </script>
         <script src="/about/assets/sketch.js"></script>
         <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const tableBody = document.querySelector('.content table tbody');
-            if (tableBody) {
-                tableBody.addEventListener('mousemove', function (e) {
-                    // Get mouse position relative to the tbody
-                    const rect = tableBody.getBoundingClientRect();
-                    const y = e.clientY - rect.top;
-                    const adjustedY = y / 0.8;
-                    // Set the position of the divider
-                    tableBody.style.setProperty('--divider-y', `${adjustedY}px`);
-                });
+             document.addEventListener('DOMContentLoaded', function () {
+            // Only enable table hover divider on larger screens
+            if (window.innerWidth > 1350) {
+                const tableBody = document.querySelector('.content table tbody');
+                if (tableBody) {
+                    tableBody.addEventListener('mousemove', function (e) {
+                        // Get mouse position relative to the tbody
+                        const rect = tableBody.getBoundingClientRect();
+                        const y = e.clientY - rect.top;
+                        const adjustedY = y / 0.8;
+                        // Set the position of the divider
+                        tableBody.style.setProperty('--divider-y', `${adjustedY}px`);
+                    });
+                }
             }
         });
     </script>
@@ -52,6 +55,9 @@
     </style>
 
         <style>
+         /* ==========================================================================
+           RESET & BASE STYLES
+           ========================================================================== */
         * {
             padding: 0;
             margin: 0;
@@ -61,11 +67,12 @@
             font-family: 'NYU', sans-serif;
             color: #333;
         }
-
+         /* ==========================================================================
+           LAYOUT COMPONENTS
+          ========================================================================== */
         .page-body {
             width: 100%;
-            height:100vh;
-            /* overflow-x: auto; */
+            height: 100vh;
         }
 
         .li-box {
@@ -79,7 +86,6 @@
             height: 500px;
             margin: 0px 0;
             position: relative;
-            /* padding-bottom: 100px; */
         }
 
         .shadow-title {
@@ -91,7 +97,7 @@
         }
 
         .title-text-bg {
-            background: url('/calendar/assets/title-text.png');
+            background: url('/calendar/assets/program-fill.svg');
             width: 72%;
             height: 10vw;
             background-size: 100% 100%;
@@ -106,13 +112,11 @@
         }
 
         .img-bg {
-            /*background: url('/opencall/assets/head-bg-all.png') no-repeat;*/
             width: 100%;
             height: 310px;
             background-size: cover;
             position: relative;
             overflow: hidden;
-            /*background: #eaea24;*/
         }
 
         .on-shadow-title-box {
@@ -123,7 +127,6 @@
             width: 100%;
             height: 500px;
             pointer-events: none;
-
         }
 
         .on-shadow-title-bg {
@@ -131,23 +134,22 @@
             z-index: -1;
             left: 0;
             top: 0;
-            background: url('/calendar/assets/title-shadow.png');
+            background: url('/calendar/assets/program-line.svg');
             width: 73%;
             height: 10vw;
             background-size: 100% 100%;
         }
 
+        /* ==========================================================================
+           CONTENT AREA & TABLE STYLES
+           ========================================================================== */
         .content {
             margin-top: 15px;
             padding: 60px;
             display: flex;
-            /* Enable flexbox */
             justify-content: center;
-            /* Horizontally center the table */
             align-items: center;
-            /* Vertically center the table */
             flex-direction: column;
-            /* font-family: Inter; */
             transform: scale(0.8);
             transform-origin: top center;
             padding-bottom: 100px;
@@ -165,7 +167,6 @@
         }
 
         th {
-            /** 文本1 */
             font-size: 30px;
             font-weight: 900;
             letter-spacing: 0px;
@@ -173,7 +174,6 @@
             color: rgba(0, 0, 0, 1);
             margin-bottom: 20px;
             text-align: center;
-            /* font-family: Inter; */
         }
 
         .table-note {
@@ -182,7 +182,6 @@
             width: 282px;
             height: 54px;
             opacity: 1;
-            /** 文本1 */
             font-size: 22px;
             font-weight: 400;
             letter-spacing: 0px;
@@ -194,6 +193,12 @@
             padding-bottom: 7px;
         }
 
+        td {
+            vertical-align: top;
+            padding: 12px;
+            font-size: 22px;
+        }
+
         .date {
             display: flex;
             justify-content: center;
@@ -203,21 +208,27 @@
             position: relative;
         }
 
-        .highlight {
-            font-weight: bold;
-            font-style: italic;
-        }
-
-        td {
-            vertical-align: top;
-            padding: 12px;
-            font-size: 22px;
-            /* font-family: Inter; */
-        }
-
+        /* Table hover effects */
         .content table tbody {
             position: relative;
-            /* Need this for absolute positioning */
+        }
+
+        .content table tbody::before {
+            content: "";
+            position: absolute;
+            height: 18px;
+            background-color: #DEFFBF;
+            width: 105%;
+            left: -40px;
+            top: var(--divider-y, 0);
+            display: none;
+            z-index: 1;
+            pointer-events: none;
+            transform: translateY(-50%);
+        }
+
+        .content table tbody:hover::before {
+            display: block;
         }
 
 
@@ -245,6 +256,9 @@
             /* Show on hover */
         }
 
+         /* ==========================================================================
+           BOX COMPONENTS
+           ========================================================================== */
         .box-container {
             padding: 0 0 25px 0;
             width: 345px;
@@ -260,9 +274,22 @@
             justify-content: flex-start;
             align-items: center;
             padding: 10px 15px 10px 35px;
-            display: flex;
+            cursor: pointer;
         }
 
+        .table-box:hover {
+            background: linear-gradient(154.98deg, rgba(222, 255, 191, 1) 0%, #fff 60%) !important;
+            font-style: italic;
+        }
+
+        .table-box:hover .table-icon {
+            border: 1.5px solid rgba(92, 137, 22, 1);
+            background-color: transparent !important;
+            width: 14.5px;
+            height: 14.5px;
+        }
+
+        /* Box variations */
         .exhibition {
             background: linear-gradient(154.98deg, rgba(255, 179, 236, 0.7) 0%, #fff 60%);
         }
@@ -280,11 +307,9 @@
             background: linear-gradient(154.98deg, rgba(234, 234, 36, 0.9) 0%, #fff 60%);
         }
 
-
         .box-text {
             width: 268px;
             opacity: 1;
-            /* display: flex; */
             font-size: 24px;
             font-weight: 600;
             letter-spacing: 0px;
@@ -294,41 +319,45 @@
             z-index: 2;
         }
 
+        /* ==========================================================================
+           ICONS & BUTTONS
+        ========================================================================== */
+
         .end-icon {
             margin-top: 3px;
-width: 50px;
-height: 30px;
-opacity: 1;
-border-radius: 95px;
+            width: 50px;
+            height: 30px;
+            opacity: 1;
+            border-radius: 95px;
 
-border: 1.2px solid rgba(0, 0, 0, 1);
+            border: 1.2px solid rgba(0, 0, 0, 1);
 
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-padding: 0px 12px 3px 12px;
-font-size: 20px;
-font-weight: 400;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 0px 12px 3px 12px;
+            font-size: 20px;
+            font-weight: 400;
         }
 
 
         .start-icon {
-margin-top: 3px;
-width: 70px;
-height: 30px;
-opacity: 1;
-border-radius: 95px;
+            margin-top: 3px;
+            width: 70px;
+            height: 30px;
+            opacity: 1;
+            border-radius: 95px;
 
-border: 1.2px solid rgba(0, 0, 0, 1);
+            border: 1.2px solid rgba(0, 0, 0, 1);
 
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-padding: 0px 12px 3px 12px;
-font-size: 20px;
-font-weight: 400;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 0px 12px 3px 12px;
+            font-size: 20px;
+            font-weight: 400;
         }
 
         .table-icon {
@@ -523,6 +552,56 @@ font-weight: 400;
             font-weight: 700;
         }
 
+          .timezone-dropdown {
+            background: rgba(247, 247, 69, 0.5);
+            border: 1px solid rgba(234, 234, 36, 1);
+            width: 246px;
+            height: 61px;
+            border-radius: 620px;
+            box-shadow: 0px 2px 4px  rgba(168, 214, 17, 0.5);
+            border: none;
+            font-size: 22px;
+            font-weight: 400;
+            letter-spacing: 0px;
+            line-height: 26.63px;
+            color: rgba(56, 56, 56, 1);
+            font-style: italic;
+            padding: 0;
+            font-family: 'NYU', sans-serif;
+            cursor: pointer;
+            outline: none;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            background-size: 36px;
+            padding-right: 30px;
+            padding-top: 4px;
+            padding-bottom: 4px;
+            margin-top: 25px;
+            margin-right: 0px;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .timezone-dropdown:hover {
+            color: rgba(0, 0, 0, 1);
+        }
+
+        .timezone-dropdown option {
+            background: white;
+            color: black;
+            padding: 8px;
+        }
+
+
+        /* ==========================================================================
+           ANIMATIONS
+           ========================================================================== */
         @keyframes active {
 
             /* from表示动画的开始位置，也可以使用0%来表示。 */
@@ -581,116 +660,173 @@ font-weight: 400;
             }
         }
 
-        @media screen and (max-width:1320px) {
-            .zhuti {
-                height: 2.8rem;
+
+        /* ==========================================================================
+           RESPONSIVE DESIGN
+           ========================================================================== */
+        /* Tablet */
+        @media screen and (max-width: 1320px) {
+
+            .content table tbody::before {
+                display: none !important;
             }
-            .on-shadow-title-box {
-                height: 2.8rem;
+            
+            .content table tbody:hover::before {
+                display: none !important;
             }
+            .zhuti,
+            .on-shadow-title-box,
             .li-box {
-                height: 2.8rem;
+                height: 2.1rem;
             }
+             .on-shadow-title-box {
+                height: 2.1rem;
+            }
+
+            .img-bg {
+                height: 1.5rem;
+            }
+
             .content {
-        width: 98vw;
-        padding: 10px;
-        /* overflow-x: hidden; */
-        margin-top: 0px;
-    }
-    table {
-        width: 55%;
-    }
-    th:not(.table-note) {
-        display: none;
-    }
-    .table-note br {
-        display: none;
-    }
-    .table-note {
-        font-size: 22px;
-        padding-bottom: 0px;
-        white-space: nowrap;
-        height: 15px;
-        align-self: flex-start;
-    }
+                width: 98vw;
+                padding: 10px;
+                margin-top: 0px;
+            }
 
-     /* Restructure table layout */
-     tr{
-        display: flex;
-        flex-direction: column;
-        margin-bottom: 5px;
-        align-items: center;
-    }
-    tbody {
-        align-items: center;
-    }
-    td.date {
-        width: 30%;
-        box-sizing: border-box;
-        padding: 5px;
-        align-self: flex-start;
-    }
+            .timezone-dropdown {
+                margin-top: 0px;
+                margin-bottom: 0.2rem;
+                text-align: nowrap;
+                width: 1.8rem;
+                height: 0.41rem;
+                font-size: 0.14rem;
+                white-space: nowrap;
+                padding-right: 0.3rem;
+                padding-top: 0.04rem;
+                padding-bottom: 0.04rem;
+                background-size: 0.36rem;
+                background-position: right 0.1rem center;
+            }
 
-    td {
-        width: 50%;
-        box-sizing: border-box;
-        padding: 0;
-    }
+            table {
+                width: 55%;
+            }
 
-    .section-title {
-        width: 98vw;
-    }
+            th:not(.table-note) {
+                display: none;
+            }
 
-    .box-details {
-        width:98vw;
-    }
-    .detail-content {
-        width: 80%;
-        display: flex;
-        flex-direction: column;
-    }
-    .left {
-        height: auto;
-        margin-left:-15px;
-        width:90%;
-    }
-    .left-content {
-        margin-bottom: 0px;
-        padding-bottom: 0px;
-    }
-    .right {
-        width:90%;
-    }
+            .table-note {
+                font-size: 22px;
+                padding-bottom: 0px;
+                white-space: nowrap;
+                height: 0.4rem;
+                align-self: flex-start;
+            }
 
-    .exhibition-image {
-        width: 70%;
-    }
+            .table-note br {
+                display: none;
+            }
 
-    #opening-project {
-        height: 1850px;
+            tr {
+                display: flex;
+                flex-direction: column;
+                margin-bottom: 5px;
+                align-items: center;
+            }
+
+            tbody {
+                align-items: center;
+            }
+
+            td.date {
+                width: 30%;
+                box-sizing: border-box;
+                padding: 5px;
+                align-self: flex-start;
+            }
+
+            td {
+                width: 50%;
+                box-sizing: border-box;
+                padding: 0;
+            }
+
+            .section-title,
+            .box-details {
+                width: 98vw;
+            }
+
+            .detail-content {
+                width: 80%;
+                display: flex;
+                flex-direction: column;
+            }
+
+            .left {
+                height: auto;
+                margin-left: -15px;
+                width: 90%;
+            }
+
+            .left-content {
+                margin-bottom: 0px;
+                padding-bottom: 0px;
+            }
+
+            .right {
+                width: 90%;
+            }
+
+            .exhibition-image {
+                width: 70%;
+            }
+
+            #opening-project {
+                height: 1800px;
+            }
+
+            #opening-ceremony {
+                height: 2500px;
+            }
+
+            .back-to-top {
+                margin-left: 65vw;
+                top: -50px;
+            }
+
+            /* .timezone-dropdown {
+                font-size: 18px;
+                white-space: nowrap;
+            } */
+
+            .back-to-top {
+                margin-left: 65vw;
+                top: -0.5rem;
+            }
+
+            .back-to-top svg {
+                width: 2.06rem;
+                height: 1.42rem;
+            }
         }
 
-        #opening-ceremony {
-        height: 1900px;
-        }
-
-        .back-to-top {
-            margin-left: 65vw;
-            top: -50px;
-        }
-        }
-
-        @media screen and (max-width:720px) {
+        /* Mobile Large */
+        @media screen and (max-width: 720px) {
+            .content table tbody::before {
+                display: none !important;
+            }
+            
+            .content table tbody:hover::before {
+                display: none !important;
+            }
             .li-box {
-                height: 2.5rem;
+                height: 2.3rem;
             }
 
-            .zhuti {
-                height: 2.5rem;
-            }
-
+            .zhuti,
             .on-shadow-title-box {
-                height: 2.5rem;
+                height: 2.3rem;
             }
 
             .center-box {
@@ -702,177 +838,192 @@ font-weight: 400;
                 height: 1.5rem;
             }
 
-            /* .title-text-bg {
-                background: url('/calendar/assets/title-text.png');
-                width: 72%;
-                height: 11vw;
-                background-size: 100% 100%;
-            } */
-
-            /* .on-shadow-title-bg {
-                position: sticky;
-                z-index: -1;
-                left: 0;
-                top: 0;
-                background: url('/calendar/assets/title-shadow.png');
-                width: 645.01px;
-                height: 92.92px;
-                background-size: 100% 100%;
-            } */
-
-            /* New styles for mobile view */
-    .content {
-        width: 98vw;
-        padding: 10px;
-        overflow-x: hidden;
-        margin-top: 0px;
-    }
-    table {
-        width: 100%;
-    }
-    th:not(.table-note) {
-        display: none;
-    }
-    .table-note {
-        font-size: 22px;
-        padding-bottom: 0px;
-        white-space: nowrap;
-        height: 15px;
-        align-self: flex-start;
-    }
-    .table-note br {
-        display: none;
-    }
-     /* Restructure table layout */
-     tr{
-        display: flex;
-        flex-direction: column;
-        margin-bottom: 5px;
-        align-items: center;
-    }
-    tbody {
-        align-items: center;
-    }
-    td.date {
-        width: 30%;
-        box-sizing: border-box;
-        padding: 5px;
-        align-self: flex-start;
-    }
-
-    td {
-        width: 100%;
-        box-sizing: border-box;
-        padding: 0;
-    }
-    .box-container {
-        padding: 0px;
-    }
-
-    .section-title {
-        width: 98vw;
-    }
-
-    .box-details {
-        width:98vw;
-    }
-    .detail-content {
-        width: 80%;
-        display: flex;
-        flex-direction: column;
-    }
-    .left {
-        height: auto;
-        margin-left:-15px;
-        width:90%;
-    }
-    .left-content {
-        margin-bottom: 0px;
-        padding-bottom: 0px;
-    }
-    .right {
-        width:90%;
-    }
-
-    .exhibition-image {
-        width: 80%;
-    }
-
-    #opening-project {
-        height: 1650px;
-        }
-
-        #opening-ceremony {
-        height: 2900px;
-        }
-
-        .back-to-top {
-            margin-left: 65vw;
-            top: -50px;
-        }
-    }
-
-    .timezone-dropdown {
-            background: rgba(247, 247, 69, 0.5);
-            border: 1px solid rgba(234, 234, 36, 1);
-            width: 246px;
-            height: 61px;
-            border-radius: 620px;
-            box-shadow: 0px 2px 4px  rgba(168, 214, 17, 0.5);
-            border: none;
-            font-size: 22px;
-            font-weight: 400;
-            letter-spacing: 0px;
-            line-height: 26.63px;
-            color: rgba(56, 56, 56, 1);
-            font-style: italic;
-            padding: 0;
-            font-family: 'NYU', sans-serif;
-            cursor: pointer;
-            outline: none;
-            appearance: none;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
-            background-repeat: no-repeat;
-            background-position: right 10px center;
-            background-size: 36px;
-            padding-right: 30px;
-            padding-top: 4px;
-            padding-bottom: 4px;
-            margin-top: 25px;
-            margin-right: 0px;
-             text-align: left;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-        }
-
-        .timezone-dropdown:hover {
-            color: rgba(0, 0, 0, 1);
-        }
-
-        .timezone-dropdown option {
-            background: white;
-            color: black;
-            padding: 8px;
-        }
-
-        @media screen and (max-width:1320px) {
-            .timezone-dropdown {
-                font-size: 18px;
-                white-space: nowrap;
+            .content {
+                width: 98vw;
+                padding: 10px;
+                /* overflow-x: hidden; */
+                margin-top: 0px;
+                transform: scale(0.95);
             }
+
+
+            .timezone-dropdown {
+                margin-top: 0px;
+                margin-bottom: 0.2rem;
+                text-align: nowrap;
+                width: 1.86rem;
+                height: 0.51rem;
+                font-size: 0.14rem;
+                white-space: nowrap;
+                padding-right: 0.25rem;
+                padding-top: 0.03rem;
+                padding-bottom: 0.03rem;
+                background-size: 0.3rem;
+                background-position: right 0.08rem center;
+            }
+            table {
+                width: 100%;
+            }
+
+            th:not(.table-note) {
+                display: none;
+            }
+
+            .table-note {
+                padding-bottom: 0px;
+                white-space: nowrap;
+                height: 0.3rem;
+                align-self: flex-start;
+            }
+
+            .table-note br {
+                display: none;
+            }
+
+            tr {
+                display: flex;
+                flex-direction: column;
+                margin-bottom: 5px;
+                align-items: center;
+            }
+
+            tbody {
+                align-items: center;
+            }
+
+            td.date {
+                width: 30%;
+                box-sizing: border-box;
+                padding: 0.05rem;
+                align-self: flex-start;
+            }
+
+            td {
+                width: 100%;
+                box-sizing: border-box;
+                padding: 0;
+            }
+             td.date svg {
+                width: 1.14rem;
+                height: 0.75rem;
+            }
+
+            .box-container {
+                padding: 0px;
+                width: 3rem;
+            }
+              .table-box {
+                width: 3.46rem;
+                height: 1rem;
+                padding: 0.1rem 0.15rem 0.1rem 0.35rem;
+                font-size: 0.2rem;
+            }
+
+            .box-text {
+                width: 2.68rem;
+                font-size: 0.24rem;
+                line-height: 0.29rem;
+            }
+
+            .table-icon {
+                width: 0.15rem;
+                height: 0.15rem;
+                left: 0.36rem;
+            }
+
+            .start-icon, .end-icon {
+                font-size: 0.16rem;
+                height: 0.24rem;
+                padding: 0px 0.1rem 0.03rem 0.1rem;
+            }
+
+            .start-icon {
+                width: 0.56rem;
+            }
+
+            .end-icon {
+                width: 0.4rem;
+            }
+
+            .section-title,
+            .box-details {
+                width: 98vw;
+            }
+
+            .detail-content {
+                width: 80%;
+                display: flex;
+                flex-direction: column;
+            }
+
+            .left {
+                height: auto;
+                margin-left: -15px;
+                width: 90%;
+            }
+
+            .left-content {
+                margin-bottom: 0px;
+                padding-bottom: 0px;
+            }
+
+            .left h2 {
+                font-size: 0.38rem;
+                line-height: normal;
+            }
+
+            .left .label {
+                font-size: 0.24rem;
+            }
+
+            .left .info {
+                font-size: 0.24rem;
+                line-height: 180%;
+            }
+
+            .right {
+                width: 90%;
+            }
+
+            .right-content {
+                font-size: 0.24rem;
+                line-height: 180%;
+            }
+
+            .exhibition-image {
+                width: 80%;
+            }
+
+            #opening-project {
+                height: 18rem;
+            }
+
+            #opening-ceremony {
+                height: 28rem;
+            }
+
+             .back-to-top {
+                margin-left: 65vw;
+                top: -0.5rem;
+            }
+
+            .back-to-top svg {
+                width: 1.8rem;
+                height: 1.2rem;
+            }
+            .links {
+            font-size: 0.26rem;
+            font-weight: 700;
         }
-    @media screen and (max-width:500px) {
-        .li-box {
+        }
+
+        /* Mobile Small */
+        /* @media screen and (max-width: 500px) {
+            .li-box {
                 height: 2.1rem;
             }
 
-            .zhuti {
-                height: 2rem;
-            }
-
+            .zhuti,
             .on-shadow-title-box {
                 height: 2rem;
             }
@@ -887,20 +1038,17 @@ font-weight: 400;
             }
 
             .back-to-top {
-            /* margin-left: 65vw; */
-            top: 100px;
+                top: 100px;
             }
+        } */
 
-    }
-    @media screen and (max-width:400px) {
-        .li-box {
+        /* Mobile Extra Small */
+        /* @media screen and (max-width: 400px) {
+            .li-box {
                 height: 2.1rem;
             }
 
-            .zhuti {
-                height: 2rem;
-            }
-
+            .zhuti,
             .on-shadow-title-box {
                 height: 2rem;
             }
@@ -915,7 +1063,7 @@ font-weight: 400;
             }
 
             .title-text-bg {
-                background: url('/calendar/assets/title-text.png');
+                background: url('/calendar/assets/program-fill.svg');
                 width: 322.17px;
                 height: 45.5px;
                 background-size: 100% 100%;
@@ -926,26 +1074,28 @@ font-weight: 400;
                 z-index: -1;
                 left: 0;
                 top: 0;
-                background: url('/calendar/assets/title-shadow.png');
+                background: url('/calendar/assets/program-line.svg');
                 width: 325.01px;
                 height: 46.92px;
                 background-size: 100% 100%;
             }
-            #opening-project {
-        height: 1750px;
-        }
-        .left-content h2 {
-            font-size: 35px;
-        }
-            #opening-ceremony {
-        height: 3200px;
-        }
-            .back-to-top {
-            /* margin-left: 65vw; */
-            top: 50px;
-        }
 
-    }
+            #opening-project {
+                height: 1750px;
+            }
+
+            .left-content h2 {
+                font-size: 35px;
+            }
+
+            #opening-ceremony {
+                height: 3200px;
+            }
+
+            .back-to-top {
+                top: 50px;
+            }
+        } */
     </style>
       <script type="module" crossorigin src="/assets/Navbar-Bchr76sf.js"></script>
       <script type="module" crossorigin src="/assets/myPageEntry-C8KBUsWp.js"></script>
