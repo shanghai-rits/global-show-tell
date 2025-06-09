@@ -440,7 +440,8 @@
         }
 
         .left-highlight {
-            width: 60px;
+            max-width:60px;
+            width: 1rem;
             padding: 20px;
             box-sizing: border-box;
             height: 100%;
@@ -791,6 +792,9 @@
                 display: flex;
                 flex-direction: column;
             }
+            .box-details {
+                gap:0.1rem;
+            }
 
             .left {
                 height: auto;
@@ -940,6 +944,10 @@
                 height: 1rem;
                 padding: 0.1rem 0.15rem 0.1rem 0.35rem;
                 font-size: 0.2rem;
+            }
+
+            .left-highlight {
+                width: 0.7rem;
             }
 
             .box-text {
@@ -1627,6 +1635,21 @@
             { value: 'abudhabi', label: 'Abu Dhabi Time<br>(UTC+4)' }
         ];
 
+        function applyResponsiveArrowStyle(element) {
+    const isMobile = window.innerWidth <= 720;
+    
+    element.style.backgroundImage = "url(\"data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e\")";
+    element.style.backgroundRepeat = "no-repeat";
+    
+    if (isMobile) {
+        element.style.backgroundSize = "0.3rem";
+        element.style.backgroundPosition = "right 0.08rem center";
+    } else {
+        element.style.backgroundSize = "36px";
+        element.style.backgroundPosition = "right 10px center";
+    }
+}
+
         options.forEach(option => {
             const optionElement = document.createElement('div');
             optionElement.className = 'timezone-option';
@@ -1655,13 +1678,7 @@
                 timezoneSelector.value = option.value;
                 optionsContainer.style.display = 'none';
                 timezoneDisplay.style.borderRadius = '620px';
-
-
-    // Re-apply the dropdown arrow background image
-    timezoneDisplay.style.backgroundImage = "url(\"data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e\")";
-    timezoneDisplay.style.backgroundRepeat = "no-repeat";
-    timezoneDisplay.style.backgroundPosition = "right 10px center";
-    timezoneDisplay.style.backgroundSize = "36px";
+                applyResponsiveArrowStyle(timezoneDisplay);
 
                 // Trigger change event for any existing timezone logic
                 timezoneSelector.dispatchEvent(new Event('change'));
@@ -1696,11 +1713,7 @@
             optionsContainer.style.display = 'none';
             timezoneDisplay.style.borderRadius = '620px';
 
-            // Re-apply the dropdown arrow background image when closing
-            timezoneDisplay.style.backgroundImage = "url(\"data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e\")";
-            timezoneDisplay.style.backgroundRepeat = "no-repeat";
-            timezoneDisplay.style.backgroundPosition = "right 10px center";
-            timezoneDisplay.style.backgroundSize = "36px";
+            applyResponsiveArrowStyle(timezoneDisplay);
         }
     });
                     // Add click event handlers to each table-box
