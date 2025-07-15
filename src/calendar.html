@@ -33,14 +33,25 @@
         <script>
              document.addEventListener('DOMContentLoaded', function () {
             // Only enable table hover divider on larger screens
-            if (window.innerWidth > 1350) {
+            if (window.innerWidth > 1320) {
+                const table = document.querySelector('.content table');
                 const tableBody = document.querySelector('.content table tbody');
-                if (tableBody) {
+                const tableHead = document.querySelector('.content table thead');
+
+                if (tableBody && table && tableHead) {
+                    // Detect Safari browser
+                    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
                     tableBody.addEventListener('mousemove', function (e) {
-                        // Get mouse position relative to the tbody
-                        const rect = tableBody.getBoundingClientRect();
-                        const y = e.clientY - rect.top;
-                        const adjustedY = y / 0.8;
+                        // Get mouse position relative to the tbody directly
+                        const tbodyRect = tableBody.getBoundingClientRect();
+                        const y = e.clientY - tbodyRect.top;
+
+                        // Account for cell padding (9.6px top padding) and center the divider
+                        let adjustedY = y; // Add cell padding, subtract half divider height
+                        // Apply Safari-specific offset adjustment
+                        if (isSafari) {
+                            adjustedY = adjustedY + 88; // Move the divider down by 50px for Safari
+                        }
                         // Set the position of the divider
                         tableBody.style.setProperty('--divider-y', `${adjustedY}px`);
                     });
@@ -147,18 +158,16 @@
            ========================================================================== */
         .content {
             margin-top: 15px;
-            padding: 60px;
+            padding: 48px;
             display: flex;
             justify-content: center;
             align-items: center;
             flex-direction: column;
-            transform: scale(0.8);
-            transform-origin: top center;
-            padding-bottom: 100px;
+            padding-bottom: 80px;
         }
 
         table {
-            width: 1475.96px;
+            width: 1180.77px;
             border-collapse: collapse;
             text-align: left;
             position: relative;
@@ -169,36 +178,36 @@
         }
 
         th {
-            font-size: 30px;
+            font-size: 24px;
             font-weight: 900;
             letter-spacing: 0px;
-            line-height: 30px;
+            line-height: 24px;
             color: rgba(0, 0, 0, 1);
-            margin-bottom: 20px;
+            margin-bottom: 16px;
             text-align: center;
         }
 
         .table-note {
-            left: 66px;
-            top: 467px;
-            width: 282px;
-            height: 54px;
+            left: 52.8px;
+            top: 373.6px;
+            width: 225.6px;
+            height: 43.2px;
             opacity: 1;
-            font-size: 22px;
+            font-size: 17.6px;
             font-weight: 400;
             letter-spacing: 0px;
-            line-height: 26.63px;
+            line-height: 21.3px;
             color: rgba(56, 56, 56, 1);
             text-align: left;
             vertical-align: top;
             font-style: italic;
-            padding-bottom: 7px;
+            padding-bottom: 5.6px;
         }
 
         td {
             vertical-align: top;
-            padding: 12px;
-            font-size: 22px;
+            padding: 9.6px;
+            font-size: 17.6px;
         }
 
         .date {
@@ -226,7 +235,6 @@
             display: none;
             z-index: 1;
             pointer-events: none;
-            transform: translateY(-50%);
         }
 
         .content table tbody:hover::before {
@@ -234,48 +242,25 @@
         }
 
 
-        .content table tbody::before {
-            content: "";
-            position: absolute;
-            height: 18px;
-            background-color: #DEFFBF;
-            width: 105%;
-            /* Match the long-divider width */
-            left: -40px;
-            /* Center it */
-            /* top: 10px; */
-            display: none;
-            /* Initially hidden */
-            z-index: 1;
-            pointer-events: none;
-            /* Allow clicking through the divider */
-            transform: translateY(-50%);
-            /* Center vertically on cursor */
-        }
-
-        .content table tbody:hover::before {
-            display: block;
-            /* Show on hover */
-        }
 
          /* ==========================================================================
            BOX COMPONENTS
            ========================================================================== */
         .box-container {
-            padding: 0 0 25px 0;
-            width: 345px;
+            padding: 0 0 20px 0;
+            width: 276px;
         }
 
         .table-box {
-            left: 324px;
-            top: 664px;
-            width: 346px;
-            height: 100px;
+            left: 259.2px;
+            top: 531.2px;
+            width: 276.8px;
+            height: 80px;
             opacity: 1;
             display: flex;
             justify-content: flex-start;
             align-items: center;
-            padding: 10px 15px 10px 35px;
+            padding: 8px 12px 8px 28px;
             cursor: pointer;
         }
 
@@ -310,12 +295,12 @@
         }
 
         .box-text {
-            width: 268px;
+            width: 214.4px;
             opacity: 1;
-            font-size: 24px;
+            font-size: 19.2px;
             font-weight: 600;
             letter-spacing: 0px;
-            line-height: 29.05px;
+            line-height: 23.24px;
             color: rgba(0, 0, 0, 1);
             vertical-align: middle;
             z-index: 2;
@@ -420,11 +405,11 @@
 
         .box-details {
             display: flex;
-            padding-top: 40px;
-            gap: 30px;
-            font-size: 20px;
-            width: 1480.45px;
-            height: 832px;
+            padding-top: 32px;
+            gap: 24px;
+            font-size: 16px;
+            width: 1184.36px;
+            height: 665.6px;
         }
 
         .divider {
@@ -432,11 +417,11 @@
         }
 
         .left {
-            width: 700px;
+            width: 560px;
             height: 100%;
             display: flex;
-            margin-left: 10px;
-            margin-top: 20px;
+            margin-left: 8px;
+            margin-top: 16px;
         }
 
         .left-highlight {
@@ -465,28 +450,28 @@
         }
 
         .left h2 {
-            font-size: 42px;
+            font-size: 33.6px;
             font-weight: 900;
             font-style: italic;
-            margin-bottom: 20px;
-            margin-left: 30px;
-            margin-top: 10px;
+            margin-bottom: 16px;
+            margin-left: 24px;
+            margin-top: 8px;
             /* font-family: Inter; */
         }
 
         .left .label {
             font-weight: bold;
-            font-size: 26px;
-            margin-top: 10px;
-            margin-left: 30px;
+            font-size: 20.8px;
+            margin-top: 8px;
+            margin-left: 24px;
             /* font-family: Inter; */
         }
 
         .left .info {
             font-style: italic;
-            margin-bottom: 15px;
-            margin-left: 30px;
-            font-size: 26px;
+            margin-bottom: 12px;
+            margin-left: 24px;
+            font-size: 20.8px;
             line-height: 1.8;
         }
 
@@ -497,8 +482,8 @@
         }
 
         .right-content {
-            margin-top: 30px;
-            font-size: 24px;
+            margin-top: 24px;
+            font-size: 19.2px;
         }
 
         .right p {
@@ -507,17 +492,17 @@
         }
 
         .image-wrapper {
-            margin-top: 40px;
-            width: 779px;
+            margin-top: 32px;
+            width: 623.2px;
         }
 
         .exhibition-image {
-            box-shadow: 10px 10px 0px rgba(255, 179, 236, 1);
-            width:700px;
+            box-shadow: 8px 8px 0px rgba(255, 179, 236, 1);
+            width: 560px;
         }
 
         .event-image {
-            box-shadow: 10px 10px 0px rgba(221, 247, 92, 1);
+            box-shadow: 8px 8px 0px rgba(221, 247, 92, 1);
         }
 
         .image-wrapper img {
@@ -529,10 +514,10 @@
         .section-title {
             font-style: italic;
             color: #555;
-            margin-bottom: 5px;
-            margin-top: 60px;
-            font-size: 22px;
-            width: 1470.45px;
+            margin-bottom: 4px;
+            margin-top: 48px;
+            font-size: 17.6px;
+            width: 1176.36px;
         }
 
         .back-to-top {
@@ -552,7 +537,7 @@
 
         .links {
             color:#000;
-            font-size: 24px;
+            font-size: 19.2px;
             font-weight: 700;
         }
 
@@ -876,7 +861,6 @@
                 padding: 10px;
                 /* overflow-x: hidden; */
                 margin-top: 0px;
-                transform: scale(0.95);
             }
 
 
