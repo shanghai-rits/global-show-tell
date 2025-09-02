@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-	<meta charset="UTF-8" />
-	<link rel="icon" href="/logo.png" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/inter-ui/inter.css"> -->
-    <link rel="stylesheet" href="/opencall/assets/font.css">
-	<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-	<script src="/opencall/assets/p5.js"></script>
-	<title>Open call - Global Show & Tell</title>
-	<meta name="viewport"
-		content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no,viewport-fit=cover">
-	<script>
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="icon" href="/logo.png" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/inter-ui/inter.css"> -->
+        <link rel="stylesheet" href="/opencall/assets/font.css">
+        <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+        <script src="/opencall/assets/p5.js"></script>
+        <title>Open call - Global Show & Tell</title>
+        <meta name="viewport"
+            content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no,viewport-fit=cover">
+        <script>
 		//rem自动计算
 		(function (doc, win) {
 			var docEl = doc.documentElement,
@@ -29,9 +29,9 @@
 			setup();
 		})(document, window);
 	</script>
-	<script src="/opencall/assets/sketch.js"></script>
+        <script src="/opencall/assets/sketch.js"></script>
 
-	<style>
+        <style>
         * {
             padding: 0;
             margin: 0;
@@ -70,11 +70,11 @@
         }
 
         .title-text-bg {
-            background: url('/opencall/assets/title-text.png');
-            width: calc(942px /2);
-            height: calc(545px /2);
+            background: url('/opencall/assets/opencall-fill.svg');
+             width: 68%;
+            height: calc(410px /2);
             background-size: 100% 100%;
-        }o
+        }
 
         .center-box {
             height: 300px;
@@ -108,9 +108,9 @@
             z-index: -1;
             left: 0;
             top: 0;
-            background: url('/opencall/assets/title-shadow.png');
-            width: calc(971px /2);
-            height: calc(531px /2);
+            background: url('/opencall/assets/opencall-line.svg');
+            width: 70%;
+            height: calc(410px /2);
             background-size: 100% 100%;
         }
 
@@ -338,7 +338,7 @@
             }
 
             .title-text-bg {
-                background: url('/opencall/assets/title-text.png');
+                background: url('/opencall/assets/opencall-fill.svg');
                 width: calc(9.42rem /2);
                 height: calc(5.45rem /2);
                 background-size: 100% 100%;
@@ -349,7 +349,7 @@
                 z-index: -1;
                 left: 0;
                 top: 0;
-                background: url('/opencall/assets/title-shadow.png');
+                background: url('/opencall/assets/opencall-line.svg');
                 width: calc(9.71rem /2);
                 height: calc(5.31rem /2);
                 background-size: 100% 100%;
@@ -418,159 +418,212 @@
             }
         }
 	</style>
-</head>
+    </head>
 
-<body>
-    <div id="root"></div>
-    <script type="module" src="/src/myPageEntry.jsx"></script>
-	<div id="app">
-		<div class="page-body" id="allText">
-			<div class="li-box">
-				<div class="zhuti">
-					<div class="shadow-title">
-						<div class="title-text-bg">
-							<!-- <div>OPEN </div>
+    <body>
+        <div id="root"></div>
+        <script type="module" src="/src/myPageEntry.jsx"></script>
+        <div id="app">
+            <div class="page-body" id="allText">
+                <div class="li-box">
+                    <div class="zhuti">
+                        <div class="shadow-title">
+                            <div class="title-text-bg">
+                                <!-- <div>OPEN </div>
 							<div class="second-line">CALL</div> -->
-						</div>
-					</div>
-					<div class="center-box">
-						<div class="img-bg" id="imgBg">
-							<div style="position: absolute;left: 0;right: 0;top:0;bottom:0;z-index: -2;background:#eaea24">
+                            </div>
+                        </div>
+                        <div class="center-box">
+                            <div class="img-bg" id="imgBg">
+                                <div
+                                    style="position: absolute;left: 0;right: 0;top:0;bottom:0;z-index: -2;background:#eaea24">
 
-							</div>
-							<div style="position: absolute;left: 0;right: 0;top:0;bottom:0;z-index: -1;margin: 0 auto;text-align: center">
-								<main>
+                                </div>
+                                <div
+                                    style="position: absolute;left: 0;right: 0;top:0;bottom:0;z-index: -1;margin: 0 auto;text-align: center">
+                                    <main>
 
-								</main>
-							</div>
-						</div>
-					</div>
-					<div class="on-shadow-title-box">
-						<div class="on-shadow-title-bg">
-							<!-- <div>OPEN </div>
+                                    </main>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="on-shadow-title-box">
+                            <div class="on-shadow-title-bg">
+                                <!-- <div>OPEN </div>
 							<div class="second-line">CALL</div> -->
-						</div>
-					</div>
+                            </div>
+                        </div>
 
-				</div>
-			</div>
-			<div class="content" id="content">
-				<div class="tab-box">
-					<div class="tab-item" @click="classActive = true"
-						:class="{active : classActive,normal:!classActive }">
-						Submission Guidelines</div>
-					<div class="tab-item" @click="classActive = false"
-						:class="{active : !classActive ,normal:classActive }">Find Your Collaborator</div>
-				</div>
-				<template v-if="classActive">
-					<div class="paragraph-box">
-						<p>Join us for NYU's first global showcase of student works that bring together Artificial
-							Intelligence
-							(AI) and interactive media!</p>
-						<p>This is your chance to share your creativity through projects that highlight three core
-							elements:
-							<b>AI integration, interactivity</b>, and <b>global learning</b>. Connect with others, spark
-							conversations, and collaborate to build a vibrant community of innovators. Your ideas and
-							contributions will inspire others and drive innovation forward.
-						</p>
-						<p>We can't wait to see what you create!</p>
-					</div>
-					<div class="paragraph-box">
-						<div class="title">Eligibility</div>
-						<p>We welcome submissions of student projects that tackle all the following aspects. </p>
-						<p><b>I. Global Learning.</b> For your learning, who supported you while you built this project
-							in
-							NYU's
-							global
-							network? This could be a mentor, a seminar, or an office hour. Beyond classrooms, what
-							inspired
-							you
-							during your project journey? This could be a story, a conversation, or a collaboration. </p>
-						<p><b>II. AI Integration.</b> Your project should incorporate AI in some meaningful way. </p>
-						<p><b>III. Interactivity.</b> Your project should be interactive. Here are some keywords for
-							your
-							inspiration:
-							generative, autonomous, responsive, participatory, kinetic, spatial, algorithmic, systemic,
-							multisensory, augmented, live processing, networked, procedural, embodied, real-time, and
-							hybrid.
-						</p>
-						<p>The possibilities are endless, so be creative!</p>
-					</div>
-					<div class="paragraph-box">
-						<div class="title">How your work will be displayed</div>
-						<p>You'll have the opportunity to share your work with audiences worldwide through these
-							channels.
-						</p>
-						<p><b>I. Online Space</b>
-							<br>
-							When your work demonstrates all three core elements (AI integration,
-							interactivity,
-							and global learning), your work will be showcased on the event website.
-						</p>
-						<p><b>II. Physical Space</b>
-							<br />Want to exhibit your work at a physical location?
-						</p>
-						<p>You could exhibit your work at your home campus or even have it travel across our global
-							locations.
-							(Subject to technical requirements and space availability.)</p>
-						<p> - IMA space, Library lobby, XR Space, Interdisciplinary Digital Research Lab, The Hub, Magnolia House at NYU Shanghai campus
-                            <br/> - Lobby of 370 Jay St location at NYU New York’s Brooklyn Campus
-                            <br/> - More locations at three campuses to be added
-                        </p>
-						<p>In Fall 2025, you may see your work displayed in prestigious public exhibition spaces during Shanghai International Arts Festival season. More details to be announced in Spring.</p>
-						<p><b>III. Networked display at three campuses</b><br>
-							One project will be selected and showcased through a networked setup at three campuses. </p>
-						<p>Networked projects will be managing your own networking (i.e. running a backend server that facilitates communication between locations, etc.). 
-						</p>
-					</div>
-					<div class="paragraph-box">
-						<div class="title">How to submit your work</div>
-						<p>Fill in the <b><a target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLSe38JDSQrawukkE_iaPIl7ht5cLzc24lO6kcThk4Fn89UNXnA/viewform?usp=dialog">Google Form</a></b> to submit your work (Google sign-in required). You can submit
-							multiple works.
-							We will follow up with you once we receive your submission. </p>
-						<p>Submission will be received on a rolling basis until March 31, 2025. </p>
-					</div>
-					<div class="paragraph-box">
-						<div class="title">Contact</div>
-						<p>For updates, please check <a target="_blank" href="https://nyuglobal.show/"><b>our website</b></a> regularly.<br />
-							For inquiries, please contact <b>global.show@nyu.edu</b>.
-						</p>
-					</div>
+                    </div>
+                </div>
+                <div class="content" id="content">
+                    <div class="tab-box">
+                        <div class="tab-item" @click="classActive = true"
+                            :class="{active : classActive,normal:!classActive }">
+                            Submission Guidelines</div>
+                        <div class="tab-item" @click="classActive = false"
+                            :class="{active : !classActive ,normal:classActive }">Find
+                            Your Collaborator</div>
+                    </div>
+                    <template v-if="classActive">
+                        <div class="paragraph-box">
+                            <p>Join us for NYU's first global showcase of
+                                student works that bring together Artificial
+                                Intelligence
+                                (AI) and interactive media!</p>
+                            <p>This is your chance to share your creativity
+                                through projects that highlight three core
+                                elements:
+                                <b>AI integration, interactivity</b>, and
+                                <b>global learning</b>. Connect with others,
+                                spark
+                                conversations, and collaborate to build a
+                                vibrant community of innovators. Your ideas and
+                                contributions will inspire others and drive
+                                innovation forward.
+                            </p>
+                            <p>We can't wait to see what you create!</p>
+                        </div>
+                        <div class="paragraph-box">
+                            <div class="title">Eligibility</div>
+                            <p>We welcome submissions of student projects that
+                                tackle all the following aspects. </p>
+                            <p><b>I. Global Learning.</b> For your learning, who
+                                supported you while you built this project
+                                in
+                                NYU's
+                                global
+                                network? This could be a mentor, a seminar, or
+                                an office hour. Beyond classrooms, what
+                                inspired
+                                you
+                                during your project journey? This could be a
+                                story, a conversation, or a collaboration. </p>
+                            <p><b>II. AI Integration.</b> Your project should
+                                incorporate AI in some meaningful way. </p>
+                            <p><b>III. Interactivity.</b> Your project should be
+                                interactive. Here are some keywords for
+                                your
+                                inspiration:
+                                generative, autonomous, responsive,
+                                participatory, kinetic, spatial, algorithmic,
+                                systemic,
+                                multisensory, augmented, live processing,
+                                networked, procedural, embodied, real-time, and
+                                hybrid.
+                            </p>
+                            <p>The possibilities are endless, so be
+                                creative!</p>
+                        </div>
+                        <div class="paragraph-box">
+                            <div class="title">How your work will be
+                                displayed</div>
+                            <p>You'll have the opportunity to share your work
+                                with audiences worldwide through these
+                                channels.
+                            </p>
+                            <p><b>I. Online Space</b>
+                                <br>
+                                When your work demonstrates all three core
+                                elements (AI integration,
+                                interactivity,
+                                and global learning), your work will be
+                                showcased on the event website.
+                            </p>
+                            <p><b>II. Physical Space</b>
+                                <br />Want to exhibit your work at a physical
+                                location?
+                            </p>
+                            <p>You could exhibit your work at your home campus
+                                or even have it travel across our global
+                                locations.
+                                (Subject to technical requirements and space
+                                availability.)</p>
+                            <p> - IMA space, Library lobby, XR Space,
+                                Interdisciplinary Digital Research Lab, The Hub,
+                                Magnolia House at NYU Shanghai campus
+                                <br /> - Lobby of 370 Jay St location at NYU New
+                                York’s Brooklyn Campus
+                                <br /> - FutureLab Art and Design Innovation
+                                Expo at West Bund Art Center, Shanghai (public
+                                venue)
+                            </p>
+                            <p><b>III. Networked display at three
+                                    campuses</b><br>
+                                One project will be selected and showcased
+                                through a networked setup at three campuses.
+                            </p>
+                            <p>Networked projects will be managing your own
+                                networking (i.e. running a backend server that
+                                facilitates communication between locations,
+                                etc.).
+                            </p>
+                        </div>
+                        <div class="paragraph-box">
+                            <div class="title">How to submit your work</div>
+                            <p>Fill in the <b><a target="_blank"
+                                        href="https://docs.google.com/forms/d/e/1FAIpQLSe38JDSQrawukkE_iaPIl7ht5cLzc24lO6kcThk4Fn89UNXnA/viewform?usp=dialog">Google
+                                        Form</a></b> to submit your work (Google
+                                sign-in required). You can submit
+                                multiple works.
+                                We will follow up with you once we receive your
+                                submission. </p>
+                            <p>Submission will be received on a rolling basis
+                                until March 31, 2025. </p>
+                        </div>
+                        <div class="paragraph-box">
+                            <div class="title">Contact</div>
+                            <p>For updates, please check <a target="_blank"
+                                    href="https://nyuglobal.show/"><b>our
+                                        website</b></a> regularly.<br />
+                                For inquiries, please contact
+                                <b>global.show@nyu.edu</b>.
+                            </p>
+                        </div>
 
-				</template>
-				<template v-else>
-					<div class="paragraph-box">
-						<div class="title">How to find collaborators</div>
-						<p>If you are looking for collaborations, we provide multiple opportunities.
-						</p>
-						<p>
-						         -  Complete the <b><a target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLSe38JDSQrawukkE_iaPIl7ht5cLzc24lO6kcThk4Fn89UNXnA/viewform?usp=dialog">Google Form</a></b> 
-								to describe your interest. Select "Looking for
-								collaboration." Your information will be added to a shared spreadsheet along with other
-								participants'. Once we receive your request, we will share the spreadsheet with you to
-								help
-								you find a collaborator.
-                        </p>
-                        <p>
-                                 -  Keep an eye on the upcoming speed dating sessions to present your ideas, proposals, and
-								works, and to find collaborators.
-						</p>
-					</div>
-					<div class="paragraph-box">
-						<div class="title">Contact</div>
-						<p>For updates, please check <a target="_blank" href="https://nyuglobal.show/"><b>our website</b></a> regularly.<br />
-							For inquiries, please contact <b>global.show@nyu.edu</b>.
-						</p>
-					</div>
-				</template>
+                    </template>
+                    <template v-else>
+                        <div class="paragraph-box">
+                            <div class="title">How to find collaborators</div>
+                            <p>If you are looking for collaborations, we provide
+                                multiple opportunities.
+                            </p>
+                            <p>
+                                - Complete the <b><a target="_blank"
+                                        href="https://docs.google.com/forms/d/e/1FAIpQLSe38JDSQrawukkE_iaPIl7ht5cLzc24lO6kcThk4Fn89UNXnA/viewform?usp=dialog">Google
+                                        Form</a></b>
+                                to describe your interest. Select "Looking for
+                                collaboration." Your information will be added
+                                to a shared spreadsheet along with other
+                                participants'. Once we receive your request, we
+                                will share the spreadsheet with you to
+                                help
+                                you find a collaborator.
+                            </p>
+                            <p>
+                                - Keep an eye on the upcoming speed dating
+                                sessions to present your ideas, proposals, and
+                                works, and to find collaborators.
+                            </p>
+                        </div>
+                        <div class="paragraph-box">
+                            <div class="title">Contact</div>
+                            <p>For updates, please check <a target="_blank"
+                                    href="https://nyuglobal.show/"><b>our
+                                        website</b></a> regularly.<br />
+                                For inquiries, please contact
+                                <b>global.show@nyu.edu</b>.
+                            </p>
+                        </div>
+                    </template>
 
-			</div>
+                </div>
 
-		</div>
+            </div>
 
-	</div>
+        </div>
 
-	<script>
+        <script>
 		const { createApp, ref, onMounted } = Vue
 
 		createApp({
@@ -583,6 +636,6 @@
 			}
 		}).mount('#app')
 	</script>
-</body>
+    </body>
 
 </html>
