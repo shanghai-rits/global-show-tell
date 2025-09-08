@@ -246,8 +246,7 @@ In this installation, my partner Chenyi and I aim to capture the dynamic changes
     {
       id: 8,
       title: 'Poespin - Wherever your body reach, there is a poetry',
-      authors: `
-Cory Yihua Li - Director,AI Writting System,CGI
+      authors: `Cory Yihua Li - Director,AI Writting System,CGI
 Baiyuan Xin - Photo&Video Documentation (NYU ITP)
 Cardin An Chung (USC Thornton) - Music & Sound Design
 Wendy Li - Poet on the pole, Choreographer
