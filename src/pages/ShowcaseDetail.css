@@ -34,6 +34,12 @@ object-position: center;
 min-width: 100%;
 }
 
+.hero-image-wide {
+object-fit: contain !important;
+height: 125% !important;
+max-width: 120% !important;
+}
+
 /* 内容区域 */
 .content-container {
 max-width: 1200px;
