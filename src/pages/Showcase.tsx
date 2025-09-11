@@ -335,7 +335,7 @@ const Showcase: React.FC = () => {
     { id: 11, title: 'Lingo Bud', authors: 'Jiahui(Georgia) Chen, Chenxu (Cathy) Li, Will Park', program: "NYU Tisch ITP/IMA", real: true },
     { id: 12, title: 'The Theater', authors: 'John Luo', program: "NYU Tisch ITP/IMA", real: true },
     { id: 13, title: 'Memourn', authors: 'Jiachen Zhou', program: "NYU Tisch ITP/IMA", real: true },
-    // { id: 14, title: '', authors: '', program: "", real: false },
+    { id: 14, title: 'Forgiveness 荒村别墅', authors: 'Liyanbing He', program: "NYU IMA Low Res", real: true },
     // { id: 15, title: '', authors: '', program: "", real: false },
     // { id: 16, title: '', authors: '', program: "", real: false },
     // { id: 17, title: '', authors: '', program: "", real: false },
@@ -444,10 +444,12 @@ const Showcase: React.FC = () => {
       let newX = prev.x + dx;
       let newY = prev.y + dy;
 
-      // Clamp so we don’t drag outside
-      const minX = viewportWidth - CANVAS_WIDTH;
+      // Clamp so we don't drag outside - account for scale
+      const scaledCanvasWidth = CANVAS_WIDTH * scale;
+      const scaledCanvasHeight = CANVAS_HEIGHT * scale;
+      const minX = viewportWidth - scaledCanvasWidth;
       const maxX = 0;
-      const minY = viewportHeight - CANVAS_HEIGHT;
+      const minY = viewportHeight - scaledCanvasHeight;
       const maxY = 0;
 
       if (newX < minX) newX = minX;
@@ -487,10 +489,12 @@ const Showcase: React.FC = () => {
       let newX = prev.x + dx;
       let newY = prev.y + dy;
 
-      // Clamp so we don’t drag outside
-      const minX = viewportWidth - CANVAS_WIDTH;
+      // Clamp so we don't drag outside - account for scale
+      const scaledCanvasWidth = CANVAS_WIDTH * scale;
+      const scaledCanvasHeight = CANVAS_HEIGHT * scale;
+      const minX = viewportWidth - scaledCanvasWidth;
       const maxX = 0;
-      const minY = viewportHeight - CANVAS_HEIGHT;
+      const minY = viewportHeight - scaledCanvasHeight;
       const maxY = 0;
 
       if (newX < minX) newX = minX;
@@ -515,10 +519,12 @@ const Showcase: React.FC = () => {
       let newX = prev.x - e.deltaX;
       let newY = prev.y - e.deltaY;
 
-      // Clamp so we don’t drag outside
-      const minX = viewportWidth - CANVAS_WIDTH;
+      // Clamp so we don't drag outside - account for scale
+      const scaledCanvasWidth = CANVAS_WIDTH * scale;
+      const scaledCanvasHeight = CANVAS_HEIGHT * scale;
+      const minX = viewportWidth - scaledCanvasWidth;
       const maxX = 0;
-      const minY = viewportHeight - CANVAS_HEIGHT;
+      const minY = viewportHeight - scaledCanvasHeight;
       const maxY = 0;
 
       if (newX < minX) newX = minX;
@@ -619,6 +625,7 @@ const Showcase: React.FC = () => {
                 }}
               >
                 <img
+                  className="grid-item-image"
                   src={`/showcase/${item.id}/cover.jpg`}
                   alt={`${item.title} cover`}
                   onError={(e) => { e.currentTarget.src = showcaseSampleCover; }}
@@ -634,10 +641,10 @@ const Showcase: React.FC = () => {
                     boxShadow: '0px 1px 4px 0px rgba(0,0,0,0.2)',
                   }}
                 />
-                <div style={{ lineHeight: '1', marginTop: '15px', fontFamily: 'NYU', fontSize: '22px', fontWeight: 'unset', color: 'rgba(128, 128, 128, 1)' }}>
+                <div className="grid-item-title" style={{ lineHeight: '1', marginTop: '15px', fontFamily: 'NYU', fontSize: '22px', fontWeight: 'unset', color: 'rgba(128, 128, 128, 1)' }}>
                   {item.title}
                 </div>
-                <div style={{ marginTop: '5px', marginLeft: '2px', color: 'rgba(128, 128, 128, 1)', fontSize: '15px' }}>
+                <div className="grid-item-authors" style={{ marginTop: '5px', marginLeft: '2px', color: 'rgba(128, 128, 128, 1)', fontSize: '15px' }}>
                   {item.authors.split('<br/>').map((part, i, arr) => (
                     <React.Fragment key={i}>
                       {part}
@@ -677,12 +684,18 @@ const Showcase: React.FC = () => {
           <div
             style={{
               position: 'absolute',
-              width: CANVAS_WIDTH,
-              height: CANVAS_HEIGHT,
-              backgroundColor: '#fff',
-              transform: `translate(${offset.x}px, ${offset.y}px) scale(${scale})`,
+              transform: `translate(${offset.x}px, ${offset.y}px)`,
             }}
           >
+            <div
+              style={{
+                width: CANVAS_WIDTH,
+                height: CANVAS_HEIGHT,
+                backgroundColor: '#fff',
+                transform: `scale(${scale})`,
+                transformOrigin: '0 0',
+              }}
+            >
             {positions.map(pos => {
               const item = items.find(i => i.id === pos.id);
               if (!item) return null;
@@ -753,6 +766,7 @@ const Showcase: React.FC = () => {
                 </div>
               );
             })}
+            </div>
           </div>
           <div className='zoom-in-out'>
             <div onClick={handleZoomIn} style={{ cursor: 'pointer' }}>

@@ -474,8 +474,8 @@ https://vimeo.com/1070886878`,
     {
       id: 14,
       title: 'Forgiveness 荒村别墅',
-      authors: `Jiachen Zhou`,
-      program: 'NYU Tisch ITP/IMA',
+      authors: `Liyanbing He`,
+      program: 'NYU IMA Low Res',
       description: `Forgiveness is an interactive narrative project that blends elements of film, gaming, and mockumentary. It tells the story of a long-buried incident from ten years ago.
 https://itp.nyu.edu/lowres/thesisarchive2024/?liyanbing-he`,
       sections: {
@@ -673,14 +673,14 @@ const Section: React.FC<{ title: string; content?: string }> = ({ title, content
               );
             }
           }
-          
+
           // Handle Vimeo links
           if (text.includes('vimeo.com')) {
             const vimeoMatch = text.match(/vimeo\.com\/(\d+)/);
             if (vimeoMatch) {
               const videoId = vimeoMatch[1];
               const embedUrl = `https://player.vimeo.com/video/${videoId}`;
-              
+
               return (
                 <div style={{ marginTop: '10px' }}>
                   <iframe
