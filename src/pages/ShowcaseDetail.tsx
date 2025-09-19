@@ -305,7 +305,7 @@ This project is actively looking for potential funding for support the artist wh
       },
       coverImage: '/showcase/8/cover.jpg',
       detailImages: [
-        { src: '/showcase/8/1.png', width: 800 },
+        { src: '/showcase/8/1.jpg', width: 800 },
         { src: '/showcase/8/2.png', width: 800 },
         { src: '/showcase/8/3.png', width: 800 },
         { src: '/showcase/8/4.png', width: 800 },
