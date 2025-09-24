@@ -205,6 +205,52 @@
         .paragraph-box a {
             color: #000;
         }
+.people-box{
+			display: flex;
+			justify-content: space-between;
+			align-items: flex-start;
+		}
+		.people-item{
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			flex-direction: column;
+			margin: 30px;
+		}
+
+		.head-img{
+			width: 238px;
+			height: 238px;
+			position: relative;
+			background: url("/about/assets/Ellipse3.png");
+			background-size: 100% 100%;
+			margin-bottom: 30px;
+			padding-left:10px;
+		}
+		.head-img img{
+			position: absolute;
+			bottom: 0;
+		}
+		.name {
+			font-size: 50px;
+			color: rgba(117, 117, 96, 1);
+			padding-right: 20px;  /* 左边增加 20px 的内边距 */
+			font-style: italic;   /* 字体变成斜体 */
+			font-weight: 400;
+		}
+
+		.info{
+			font-size: 24px;
+			color:rgba(38, 38, 38, 1);
+			margin-top: 15px;
+			font-weight: 380;
+			font-style: italic;
+		}
+		.people-bottom-info{
+			font-size: 24px;
+			color:rgba(38, 38, 38, 1);
+			margin-top: 70px;
+		}
 
         @keyframes active {
 
@@ -416,6 +462,50 @@
             .paragraph-box li {
                 font-size: 0.3rem;
             }
+
+            .people-box{
+				display: flex;
+				justify-content: space-between;
+				flex-wrap: wrap;
+			}
+			.people-item{
+				display: flex;
+				width: 100%;
+				justify-content: center;
+				align-items: center;
+				flex-direction: column;
+			}
+
+			.head-img{
+				width: 2.42rem;
+				height: 2.42rem;
+				position: relative;
+				background: url("/about/assets/Ellipse3.png");
+				background-size: 100% 100%;
+				margin-bottom: 20px;
+			}
+			.head-img img{
+				position: absolute;
+				bottom: 0;
+				width: 1.88rem;
+				height: 1.82rem;
+			}
+
+			.name{
+				font-size: 0.5rem;
+				color:rgba(38, 38, 38, 1);
+			}
+
+			.info{
+				font-size: 0.24rem;
+				color:rgba(38, 38, 38, 1);
+				margin-top:0.26rem;
+			}
+			.people-bottom-info{
+				font-size: 0.24rem;
+				color:rgba(38, 38, 38, 1);
+				margin-top: 0.6rem;
+			}
         }
 	</style>
       <script type="module" crossorigin src="/assets/Navbar-Bchr76sf.js"></script>
@@ -573,6 +663,43 @@
                                 submission. </p>
                             <p>Submission will be received on a rolling basis
                                 until March 31, 2025. </p>
+                        </div>
+                        <div class="paragraph-box">
+                            <div class="title">Reviewers of
+                                submissions</div>
+                            <div class="people-box">
+                                <div class="people-item">
+                                    <div class="head-img">
+                                        <img src="/about/assets/head1.png" alt>
+                                    </div>
+                                    <div class="name">Jung Hyun Moon</div>
+                                    <div class="info">Interactive Media Arts
+                                        (IMA)
+                                        Foundation Coordinator,
+                                        Assistant Arts Professor of Interactive
+                                        Media Arts (IMA), NYU
+                                        Shanghai</div>
+                                </div>
+                                <div class="people-item">
+                                    <div class="head-img">
+                                        <img src="/about/assets/head2.png" alt>
+                                    </div>
+                                    <div class="name">Aidan Nelson</div>
+                                    <div class="info">Visiting Assistant Arts
+                                        Professor, Interactive
+                                        Telecommunications Program / Interactive
+                                        Media Arts, NYU Tisch School of
+                                        the Arts</div>
+                                </div>
+                            </div>
+                            <div class="people-bottom-info">
+                                Professor Nelson and Professor Moon will review
+                                the
+                                submissions from the
+                                open call and recommend exhibits for the spaces
+                                at
+                                three campuses.
+                            </div>
                         </div>
                         <div class="paragraph-box">
                             <div class="title">Contact</div>
