@@ -331,15 +331,16 @@ const Showcase: React.FC = () => {
       real: true
     },
     { id: 9, title: 'Arrival', authors: 'Jiaqi Yi', program: "NYU Tisch ITP/IMA", real: true },
-    { id: 10, title: 'GeneLight', authors: 'Tatsan Chen', program: "NYU Tandon ID&M", real: true },
+    { id: 10, title: 'GenLight', authors: 'Tatsan Chen', program: "NYU Tandon ID&M", real: true },
     { id: 11, title: 'Lingo Bud', authors: 'Jiahui(Georgia) Chen, Chenxu (Cathy) Li, Will Park', program: "NYU Tisch ITP/IMA", real: true },
     { id: 12, title: 'The Theater', authors: 'John Luo', program: "NYU Tisch ITP/IMA", real: true },
     { id: 13, title: 'Memourn', authors: 'Jiachen Zhou', program: "NYU Tisch ITP/IMA", real: true },
     { id: 14, title: 'Forgiveness 荒村别墅', authors: 'Liyanbing He', program: "NYU IMA Low Res", real: true },
-    // { id: 15, title: '', authors: '', program: "", real: false },
-    // { id: 16, title: '', authors: '', program: "", real: false },
-    // { id: 17, title: '', authors: '', program: "", real: false },
-    // { id: 18, title: '', authors: '', program: "", real: false },
+    { id: 15, title: 'The Red Line', authors: 'Jasmine Nackash', program: "NYU Tisch ITP/IMA", real: true },
+    { id: 16, title: 'BABEL 巴别塔', authors: 'Ken Zhixing Zhang', program: "NYU Shanghai IMA", real: true },
+    { id: 17, title: 'Unheld', authors: 'Yuzhuo Sun (Zora)', program: "NYU Shanghai IMA", real: true },
+    { id: 18, title: "It's Okay to Let Go", authors: 'Wanyu Chen', program: "NYU Shanghai IMA", real: true },
+    { id: 19, title: 'Faces in Motion', authors: 'Jingchen Gao', program: "NYU Shanghai IMA", real: true },
   ];
 
   // Canvas = "map" we can drag around.
@@ -696,76 +697,76 @@ const Showcase: React.FC = () => {
                 transformOrigin: '0 0',
               }}
             >
-            {positions.map(pos => {
-              const item = items.find(i => i.id === pos.id);
-              if (!item) return null;
+              {positions.map(pos => {
+                const item = items.find(i => i.id === pos.id);
+                if (!item) return null;
 
-              const coverImagePath = `/showcase/${item.id}/cover.jpg`;
+                const coverImagePath = `/showcase/${item.id}/cover.jpg`;
 
-              return (
-                <div
-                  key={item.id}
-                  style={{
-                    position: 'absolute',
-                    left: pos.x,
-                    top: pos.y,
-                    background: 'transparent',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'flex-start',
-                    borderRadius: 0,
-                    overflow: 'hidden',
-                    padding: 0,
-                    margin: 0,
-                    cursor: item.real ? 'pointer' : 'default',
-                  }}
-
-                  onClick={(e) => {
-                    if (!item.real) return; // Only navigate if the item is real
-                    e.stopPropagation(); // 防止事件冒泡（可选）
-                    const fullUrl = `${window.location.origin}/showcase/${item.id}`;
-                    window.open(fullUrl, '_blank', 'noopener,noreferrer');
-                  }}
-
-                >
-                  <img
-                    src={coverImagePath}
-                    alt={`${item.title} cover`}
-                    onError={(e) => { e.currentTarget.src = showcaseSampleCover; }}
-                    onDragStart={(e) => e.preventDefault()}
+                return (
+                  <div
+                    key={item.id}
                     style={{
-                      width: '100%',
-                      height: 'auto',
-                      maxWidth: item.size?.width ?? MAX_ITEM_WIDTH,
-                      maxHeight: item.size?.height ?? MAX_ITEM_HEIGHT,
-                      objectFit: 'cover',
-                      margin: 0,
+                      position: 'absolute',
+                      left: pos.x,
+                      top: pos.y,
+                      background: 'transparent',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      justifyContent: 'flex-start',
+                      borderRadius: 0,
+                      overflow: 'hidden',
                       padding: 0,
-                      boxShadow: '0px 1px 4px 0px rgba(0,0,0,0.2)',
+                      margin: 0,
+                      cursor: item.real ? 'pointer' : 'default',
                     }}
-                  />
-                  <div style={{ lineHeight: '1', marginTop: '15px', fontFamily: 'NYU', fontSize: '32px', fontWeight: 'unset', color: 'rgba(128, 128, 128, 1)' }}>
-                    {item.title}
+
+                    onClick={(e) => {
+                      if (!item.real) return; // Only navigate if the item is real
+                      e.stopPropagation(); // 防止事件冒泡（可选）
+                      const fullUrl = `${window.location.origin}/showcase/${item.id}`;
+                      window.open(fullUrl, '_blank', 'noopener,noreferrer');
+                    }}
+
+                  >
+                    <img
+                      src={coverImagePath}
+                      alt={`${item.title} cover`}
+                      onError={(e) => { e.currentTarget.src = showcaseSampleCover; }}
+                      onDragStart={(e) => e.preventDefault()}
+                      style={{
+                        width: '100%',
+                        height: 'auto',
+                        maxWidth: item.size?.width ?? MAX_ITEM_WIDTH,
+                        maxHeight: item.size?.height ?? MAX_ITEM_HEIGHT,
+                        objectFit: 'cover',
+                        margin: 0,
+                        padding: 0,
+                        boxShadow: '0px 1px 4px 0px rgba(0,0,0,0.2)',
+                      }}
+                    />
+                    <div style={{ lineHeight: '1', marginTop: '15px', fontFamily: 'NYU', fontSize: '32px', fontWeight: 'unset', color: 'rgba(128, 128, 128, 1)' }}>
+                      {item.title}
+                    </div>
+                    <div style={{ marginTop: '3px', marginLeft: '2px', color: 'rgba(128, 128, 128, 1)', fontSize: '20px' }}>
+                      {item.authors.split('<br/>').map((part, i, arr) => (
+                        <React.Fragment key={i}>
+                          {part}
+                          {i < arr.length - 1 && <br />}
+                        </React.Fragment>
+                      ))}
+                    </div>
+                    <div style={{ marginTop: '0px', marginLeft: '2px', color: 'rgba(128, 128, 128, 1)', fontSize: '18px' }}>
+                      {item.program.split('<br/>').map((part, i, arr) => (
+                        <React.Fragment key={i}>
+                          {part}
+                          {i < arr.length - 1 && <br />}
+                        </React.Fragment>
+                      ))}
+                    </div>
                   </div>
-                  <div style={{ marginTop: '3px', marginLeft: '2px', color: 'rgba(128, 128, 128, 1)', fontSize: '20px' }}>
-                    {item.authors.split('<br/>').map((part, i, arr) => (
-                      <React.Fragment key={i}>
-                        {part}
-                        {i < arr.length - 1 && <br />}
-                      </React.Fragment>
-                    ))}
-                  </div>
-                  <div style={{ marginTop: '0px', marginLeft: '2px', color: 'rgba(128, 128, 128, 1)', fontSize: '18px' }}>
-                    {item.program.split('<br/>').map((part, i, arr) => (
-                      <React.Fragment key={i}>
-                        {part}
-                        {i < arr.length - 1 && <br />}
-                      </React.Fragment>
-                    ))}
-                  </div>
-                </div>
-              );
-            })}
+                );
+              })}
             </div>
           </div>
           <div className='zoom-in-out'>
