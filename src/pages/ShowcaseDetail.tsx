@@ -684,7 +684,7 @@ https://github.com/emybayar/inputoutput`,
         "The Global Learning Story": `The idea for Input/Output was born at the end of Spring 2024, in Tiri Kananuruk’s IRL/URL Performing Hybrid Systems class, a unique collaboration between NYU IMA Tisch, Collaborative Arts, and CultureHub at La MaMa. The class inspired me to explore hybrid performances and experiment with blending virtual and physical elements. Throughout the following year, Professors Leon Eckert and Bogna Konior supported me from ideation to final execution, guiding my research into algorithmic performances and helping develop my capstone thesis, Algorithmic Theater: Symbiotic Creation with Artificial Intelligence. I am especially grateful to Professor Eckert for his technical mentorship and being patient with me as I tested many different implementation paths. I also received many support from Professors Jung Hyun Moon and Gottfried Haider: Professor Moon helped me rethink the project as a performance and explore ways to integrate physical along with the digital elements, while Professor Haider provided guidance on working with large language models, which was essential to realizing the project.`,
         "Video Documentation": `"https://www.youtube.com/watch?v=9tDQ8y9wETI`,
       },
-      coverImage: '/showcase/21/cover.png',
+      coverImage: '/showcase/21/cover.jpg',
       detailImages: [
         { src: '/showcase/21/1.png', width: 800 },
         { src: '/showcase/21/2.jpeg', width: 800 },
