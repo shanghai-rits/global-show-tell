@@ -341,6 +341,8 @@ const Showcase: React.FC = () => {
     { id: 17, title: 'Unheld', authors: 'Yuzhuo Sun (Zora)', program: "NYU Shanghai IMA", real: true },
     { id: 18, title: "It's Okay to Let Go", authors: 'Wanyu Chen', program: "NYU Shanghai IMA", real: true },
     { id: 19, title: 'Faces in Motion', authors: 'Jingchen Gao', program: "NYU Shanghai IMA", real: true },
+    { id: 20, title: 'Sentimental Galaxy', authors: 'Cara Cai', program: "NYU Tisch ITP/IMA", real: true },
+    { id: 21, title: 'Input/Output: An Algorithmic Performance', authors: 'Emy Sainbayar', program: "NYU Shanghai IMA", real: true },
   ];
 
   // Canvas = "map" we can drag around.

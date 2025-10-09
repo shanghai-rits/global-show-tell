@@ -609,12 +609,13 @@ So, If the people think in different languages, what gets lost - not just the se
       title: "It's Okay to Let Go",
       authors: `Wanyu Chen`,
       program: 'NYU Shanghai IMA',
-      description: `This project explores the theme of letting go through interactive visuals and sound. It invites users to reflect on their own experiences of release and transformation.In this project, I created a visual juxtaposition of arms and hands that explores the theme of “imperfection”. Using ml.js, I implemented interaction of grabbing and releasing, which symbolize the overwhelming pursuit of everything versus the acceptance of imperfection and the act of letting go.`,
+      description: `It's Okay to Let Go is an interactive ml.js project that presents a juxtaposed visual of arms and hands and explores the theme of imperfection. Using hand-tracking interactions of grabbing and releasing, which respectively symbolize the pursuit of everything versus the imperfect act of letting go, the work aims to evoke a feeling that is both peculiar and healing.`,
       sections: {
         "How AI Is Used in This Project":
           `I used ml.js to realize hand-tracking interactions of grabbing and releasing.`,
         "Interactivity": `The project interacts with a user's hand gestures through a camera-based ml.js hand-tracking programme. The justaposition features the arms animation on the left and real-time camera capturing of audience's hands on the right. When the user's make a grabbing gesture, the arms would transform into sea anemone-like structures, creating a “swallowing” sensation to convey greed and tension. Particles would converge chaotically toward the user’s palms. When the audience make a releasing gesture, the arms would start  throw particles away like fireworks. The particles would radiate outwards from the user's palm, and butterflies are generated and fly away from their fingertips. When there is no hands detected, the scene would return to calm with arms swaying gently.`,
         "The Global Learning Story": `I would like to express my sincere gratitude to Professor Jung Hyun Moon at NYU Shanghai. Throughout the Nature of Code course and this project, he provided unwavering support and encouragement. As a beginner in coding, I could never have imagined using ml.js to create an interactive project like this without his guidance.`,
+        "Video Documentation": `https://www.youtube.com/watch?v=VwsndrzA24Y`,
       },
       coverImage: '/showcase/18/cover.jpg',
       detailImages: [
@@ -643,6 +644,54 @@ So, If the people think in different languages, what gets lost - not just the se
         { src: '/showcase/19/1.jpg', width: 800 },
         { src: '/showcase/19/2.png', width: 800 },
         { src: '/showcase/19/3.png', width: 800 },
+      ],
+    },
+    {
+      id: 20,
+      title: 'Sentimental Galaxy',
+      authors: `Cara Cai`,
+      program: 'NYU Tisch ITP/IMA',
+      description: `Sentimental Galaxy is a web-based interactive system that transforms human emotions into a living cosmos. Through facial expression recognition, it generates a 3D galaxy that mirrors your mood: fading blue and losing spirals in sadness, or glowing brighter and expanding in joy.
+
+Every person carries an inner universe shaped by thoughts, emotions, and experiences. This world is uniquely their own, intimate, invisible, and often unnoticed. Sentimental Galaxy gives this hidden universe a visible form. The galaxy becomes a fragment of your inner world, no longer distant or untouchable, but responsive and alive. By reacting to expressions of happiness, sadness, or neutrality it reveals how even subtle shifts on the surface reflect the deeper movements within.`,
+      sections: {
+        "How AI Is Used in This Project":
+          `This project integrates AI through ml5.js facial recognition, which detects the viewer’s emotional state—happiness, neutrality, or sadness—based on their facial expressions. The detected emotion drives changes in the galaxy’s appearance, such as its color palette and starry dynamics, creating a responsive and immersive environment.`,
+        "Interactivity": `Sentimental Galaxy interacts with the viewer’s emotions using a webcam, detected through facial recognition. The galaxy visually responds by transforming its celestial colors and ambiance in real time, reflecting happiness with bright, warm hues, neutrality with balanced tones, and sadness with cool, subdued shades. Users can also engage with the 3D galaxy by zooming, dragging, and exploring the starry expanse.`,
+        "The Global Learning Story": `I developed this project during my first year in the Interactive Telecommunications Program (ITP) at NYU, in the classes Intro to Computational Media with Ellen Nickles and Canvas for Coders with Joohyun Park. Feedback from my peers at ITP helped shape early versions, and NYU’s collaborative environment supported its growth.`,
+        "Video Documentation": `https://www.youtube.com/watch?v=-mWkNPrG1XY`,
+      },
+      coverImage: '/showcase/20/cover.jpg',
+      detailImages: [
+        { src: '/showcase/20/1.png', width: 800 },
+        { src: '/showcase/20/2.png', width: 800 },
+        { src: '/showcase/20/3.png', width: 800 },
+        { src: '/showcase/20/4.png', width: 800 },
+        { src: '/showcase/20/5.png', width: 800 },
+        { src: '/showcase/20/6.png', width: 800 },
+      ],
+    },
+    {
+      id: 21,
+      title: 'Input/Output',
+      authors: `Emy Sainbayar`,
+      program: 'NYU Shanghai IMA',
+      description: `Input/Output is an algorithmic performance-installation that stages a collective conversation between participants and a language model, exploring what happens when human thought is algorithmically redistributed. By blending and fragmenting dialogue across users, the project reimagines data training, digital identities, and the origins of thought in the age of AI.
+https://github.com/emybayar/inputoutput`,
+      sections: {
+        "How AI Is Used in This Project": `Input/Output positions Large Language Models (LLMs) as active participants in the performance. Two participants engage in separate dialogues across screens while their text inputs are processed through a multi-layer algorithm. The model first analyzes their behavior by examining vocabulary usage, sentence patterns, and discussion content. With this data, each new message to participants has a chance of being "mixed" or blended between users. Eventually, the system creates an agent representing both participants, culminating in the performance's finale where these agents debate each other.`,
+        "Interactivity": `Input/Output, as a site-specific algorithmic performance, engages participants through keyboard, mouse, and camera inputs, responding in real time. Participants see only each other’s feedback on their screens, while an overhead display shows all inputs and how the algorithm evolves. Audience members can freely move through the space and observe the interaction as it unfolds.`,
+        "The Global Learning Story": `The idea for Input/Output was born at the end of Spring 2024, in Tiri Kananuruk’s IRL/URL Performing Hybrid Systems class, a unique collaboration between NYU IMA Tisch, Collaborative Arts, and CultureHub at La MaMa. The class inspired me to explore hybrid performances and experiment with blending virtual and physical elements. Throughout the following year, Professors Leon Eckert and Bogna Konior supported me from ideation to final execution, guiding my research into algorithmic performances and helping develop my capstone thesis, Algorithmic Theater: Symbiotic Creation with Artificial Intelligence. I am especially grateful to Professor Eckert for his technical mentorship and being patient with me as I tested many different implementation paths. I also received many support from Professors Jung Hyun Moon and Gottfried Haider: Professor Moon helped me rethink the project as a performance and explore ways to integrate physical along with the digital elements, while Professor Haider provided guidance on working with large language models, which was essential to realizing the project.`,
+        "Video Documentation": `"https://www.youtube.com/watch?v=9tDQ8y9wETI`,
+      },
+      coverImage: '/showcase/21/cover.png',
+      detailImages: [
+        { src: '/showcase/21/1.png', width: 800 },
+        { src: '/showcase/21/2.jpeg', width: 800 },
+        { src: '/showcase/21/3.jpeg', width: 800 },
+        { src: '/showcase/21/4.png', width: 800 },
+        { src: '/showcase/21/5.jpg', width: 800 },
+        { src: '/showcase/21/6.JPG', width: 800 },
       ],
     },
   ];
