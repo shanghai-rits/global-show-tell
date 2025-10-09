@@ -694,6 +694,23 @@ https://github.com/emybayar/inputoutput`,
         { src: '/showcase/21/6.JPG', width: 800 },
       ],
     },
+    {
+      id: 22,
+      title: 'Interactive Neural Networks',
+      authors: `Xiaozao Wang`,
+      program: 'NYU Shanghai IMA',
+      description: `Interactive Neural Networks is an educational multimedia project designed to make the inner workings of machine learning more accessible. By blending interactive graphics with real-time simulations, it transforms abstract concepts into an engaging, hands-on learning experience for learners of all age.`,
+      sections: {
+        "How AI Is Used in This Project": `At the heart of the project is a toy neural network model, built in JavaScript and running directly in the browser. Rather than remaining a “black box,” the model is made open and interactive. Users can adjust parameters such as weights, biases, number of nodes, or activation functions, and instantly observe how these changes influence the training process and predictions.`,
+        "Interactivity": `The project interacts directly with its users by responding in real time to their input. In the web part, sliders, buttons, and graphs allow learners to experiment freely, while the system visualizes the effects of their choices. Instead of passively consuming information, users actively shape the neural network’s behavior. The physical installation part encourages users to place tangible wooden blocks that represent features like size and color, showing how the neural network classifies them into different groups, engaging the users in a hands-on experience.`,
+        "The Global Learning Story": `I’m really grateful to Professor Daniel Shiffman from NYU ITP, Professor J.H. Moon, Professor Gottfried Haider, and Professor Leon Eckert from NYU Shanghai IMA, as well as the amazing ml5.js team, for all their help and support. During the ml5.js Studio at ITP in Spring 2024, I built the first version of Interactive Neural Networks with p5.js. I continued working on later versions as a student researcher with the ml5.js team, and I learned so much from being part of such a creative, enthusiastic, and friendly community.`,
+      },
+      coverImage: '/showcase/22/cover.jpg',
+      detailImages: [
+        { src: '/showcase/22/1.png', width: 800 },
+        { src: '/showcase/22/2.png', width: 800 },
+      ],
+    },
   ];
 
   const item = items.find(i => i.id === Number(id));
