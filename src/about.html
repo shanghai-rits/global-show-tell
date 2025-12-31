@@ -1,177 +1,161 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-	<meta charset="UTF-8" />
-	<link rel="icon" href="/logo.png" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/inter-ui/inter.css"> -->
-	<link rel="stylesheet" href="/about/assets/font.css">
-	<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+	<head>
+		<meta charset="UTF-8" />
+		<link rel="icon" href="/logo.png" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="/about/assets/font.css">
+		<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 
-	<link rel="stylesheet" href="https://unpkg.com/element-plus/dist/index.css" />
-	<!-- Import component library -->
-	<script src="https://unpkg.com/element-plus"></script>
+		<link rel="stylesheet" href="https://unpkg.com/element-plus/dist/index.css" />
+		<script src="https://unpkg.com/element-plus"></script>
 
-	<script src="/about/assets/p5.js"></script>
-	<title>About - Global Show & Tell</title>
-	<meta name="viewport"
-		content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no,viewport-fit=cover">
-	<script>
-		//rem自动计算
-		(function (doc, win) {
-			var docEl = doc.documentElement,
-				resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
-				recalc = function () {
-					var clientWidth = docEl.clientWidth;
-					if (!clientWidth) return;
-					docEl.style.fontSize = 100 * (clientWidth / 720) + 'px';
-				};
+		<script src="/about/assets/p5.js"></script>
+		<title>About - Global Show & Tell</title>
+		<meta name="viewport"
+			content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no,viewport-fit=cover">
+		<script>
+        (function (doc, win) {
+            var docEl = doc.documentElement,
+                resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+                recalc = function () {
+                    var clientWidth = docEl.clientWidth;
+                    if (!clientWidth) return;
+                    docEl.style.fontSize = 100 * (clientWidth / 720) + 'px';
+                };
+            if (!doc.addEventListener) return;
+            win.addEventListener(resizeEvt, recalc, false);
+            doc.addEventListener('DOMContentLoaded', recalc, false);
+            setup();
+        })(document, window);
+    </script>
+		<script src="/about/assets/sketch.js"></script>
 
-			if (!doc.addEventListener) return;
-			win.addEventListener(resizeEvt, recalc, false);
-			doc.addEventListener('DOMContentLoaded', recalc, false);
-			setup();
-		})(document, window);
-	</script>
-	<script src="/about/assets/sketch.js"></script>
+		<style>
+        * { padding: 0; margin: 0; }
+        body { font-family: 'NYU', sans-serif; color: #333; }
+        .page-body { width: 100%; }
+        .li-box { height: 500px; width: 100%; position: relative; z-index: 1; }
+        .zhuti { height: 600px; margin-top: 20px; position: relative; }
+        .shadow-title { position: sticky; z-index: -1; left: 20px; top: 0; color: #000; }
+        .title-text-bg { background: url('/about/assets/about-fill.svg'); width: 73%; height: calc(410px /2); background-size: 100% 100%; }
+        .center-box { height: 300px; margin-top: -90px; position: relative; z-index: 1; }
+        .img-bg { width: 100%; height: 350px; background-size: cover; position: relative; overflow: hidden; }
+        .on-shadow-title-box { position: absolute; z-index: 3; top: 0; width: 100%; height: 600px; pointer-events: none; }
+        .on-shadow-title-bg { position: sticky; z-index: -1; left: 0; top: 0; background: url('/about/assets/about-line.svg'); width: 75%; height: calc(410px /2); background-size: 100% 100%; }
+        
+        .content {
+            position: relative;
+            top: 100px;
+            margin: 0 auto 150px;
+            font-family: 'NYU', sans-serif;
+            max-width: 1404px;
+            padding: 0 66px;
+        }
 
-	<style>
-		* {
-			padding: 0;
-			margin: 0;
-		}
+        .chapter-title {
+            font-size: 42px;
+            font-weight: 600;
+            color: #B8B812;
+            font-style: italic;
+            padding-bottom: 10px;
+        }
 
-		body {
-			font-family: 'NYU', sans-serif;
-			color: #333;
-		}
-
-		.page-body {
+        /* 照片网格布局 */
+        .photo-box {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 38px 18px;
+            justify-content: flex-start;
 			width: 100%;
-			/* overflow-x: auto; */
-		}
+        }
 
-		.li-box {
-			height: 600px;
+        /* 修改后的照片容器样式 */
+        .photo-item.photo-wrapper {
+            position: relative; 
+            overflow: hidden;   
+            aspect-ratio: 1272/715;
 			width: 100%;
-			position: relative;
-			z-index: 1;
+        }
+
+		.photo-image {
+    		position: absolute; /* 脱离文档流，不撑开父盒子 */
+    		top: 0;
+    		left: 0;
+    		width: 100%;
+    		height: 100%;
 		}
 
-		.zhuti {
-			height: 600px;
-			margin-top: 20px;
-			position: relative;
-			/* padding-bottom: 100px; */
-		}
-
-		.shadow-title {
-			position: sticky;
-			z-index: -1;
-			left: 20px;
-			top: 0;
-			color: #000;
-		}
-
-		.title-text-bg {
-			background: url('/about/assets/about-fill.svg');
-			width: 73%;
-			height: calc(410px /2);
-			background-size: 100% 100%;
-		}
-
-		.center-box {
-			height: 300px;
-			margin-top: -90px;
-			position: relative;
-			z-index: 1;
-		}
-
-		.img-bg {
-			width: 100%;
-			height: 350px;
-			background-size: cover;
-			position: relative;
-			overflow: hidden;
-			/*background: #eaea24;*/
-		}
-
-		.on-shadow-title-box {
-			position: absolute;
-			z-index: 3;
-			top: 0;
-			width: 100%;
-			height: 600px;
-			pointer-events: none;
-		}
-
-		.on-shadow-title-bg {
-			position: sticky;
-			z-index: -1;
-			left: 0;
-			top: 0;
-			background: url('/about/assets/about-line.svg');
-			width: 75%;
-			height: calc(410px /2);
-			background-size: 100% 100%;
-		}
-
-		.content {
-			position: relative;
-			top: 100px;
-			/* opacity: 0; */
-			left: 0;
-			right: 0;
-			margin: 0 auto;
-			margin-bottom: 150px;
-			font-family: 'NYU', sans-serif;
-			max-width: 1404px;
-			padding: 0 66px;
+		/* 关键：确保 el-image 内部的 img 标签也占满 100% */
+			:deep(.el-image__inner) {
+    			width: 100%;
+    			height: 100%;
 		}
 
 
-		::-webkit-scrollbar {
-			width: 0px;
-			/*  */
-			/* 纵向滚动条的宽度 */
-			/* height: 10px; */
-			/* 横向滚动条的高度 */
+        .photo-item img {
+            width: 100%;
+            height: 100%;
+			object-fit: cover; /* 保证不变形 */
+            display: block;
+        }
+
+        /* 修改后的悬浮标题样式 */
+        .photo-title {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0) 1%,rgb(221, 222, 183, 0.3) 25%, rgba(242, 247, 77, 1) 85%); /* 黄色半透明背景增强文字可读性 */
+            color: rgba(71, 71, 60, 1); /* 修改为黑色文字 */
+            padding:155px 20px 15px 20px;
+			text-align: left;
+            font-size: 3 rem;
+            text-align: center;
+            font-weight: bold;
+            /* 初始状态：向下移动100%隐藏 */
+            transform: translateY(100%);
+            transition: transform 0.3s ease-in-out;
+            z-index: 10;
+			cursor: pointer;
+			pointer-events: auto;
+
+			display: flex;
+    		flex-direction: column;
+    		align-items: flex-start;
+        }
+
+		.main-title, .sub-title, .location {
+    		text-align: left;
+    		width: 100%;
+			}
+
+
+		.main-title {
+    		font-size:18px; /* 大标题稍微调大一点 */
+    		line-height: 1.2;
 		}
 
-		.chapter-title {
-			font-size: 42px;
-			font-weight: 600;
-			color: #B8B812;
+		.sub-title {
+    		font-size: 11px;
+    		font-weight: normal;
 			font-style: italic;
-			padding-bottom: 10px;
+    		margin-top: 3px; /* 两行之间的间距 */
 		}
 
-		.photo-box {
-			display: grid;
-			grid-template-columns: repeat(3, 1fr);
-			/* grid-template-rows: auto; */
-			gap: 68px 18px;
-			justify-content: flex-start;
-			/* width: 200px; */
-			/* height: 200px; */
-
+		.location {
+    		font-size: 11px;
+    		font-weight: normal;
+			font-style: italic;
+    		margin-top: 3px; /* 两行之间的间距 */
 		}
 
-		.photo-item {
-			/* width: calc(((100% - 76px) / 3)); */
-			aspect-ratio: 1272/715;
-			/* aspect-ratio: auto; */
-			font-size: 0;
-			margin-bottom: 0;
-			margin-right: 0;
-			/* height: 100%; */
-		}
 
-		.photo-item img {
-			width: 100%;
-			height: 100%;
-		}
+        /* 鼠标移入容器，标题升起 */
+        .photo-item.photo-wrapper:hover .photo-title {
+            transform: translateY(0);
+        }
 
 		.people-box {
 			display: flex;
@@ -204,7 +188,7 @@
 
 		.name {
 			font-size: 50px;
-			color: rgba(117, 117, 96, 1);
+			color: rgba(71, 71, 60, 1);
 			padding-right: 20px;
 			/* 左边增加 20px 的内边距 */
 			font-style: italic;
@@ -229,78 +213,27 @@
 		.bottom-box {
 			/* margin-top: 50px; */
 		}
+        /* 后续其他原有样式保持不变... */
+        .bottom-box-title { color: rgba(184, 184, 18, 1); font-size: 36px; font-style: italic; }
+        .bottom-box-title-span { color: rgba(128, 128, 128, 1); font-style: italic; font-weight: 250; font-size: 24px; margin-bottom: 30px; }
+        .bottom-box-info { margin-top: 8px; color: rgba(38, 38, 38, 1); font-size: 20px; line-height: 30px; margin-bottom: 65px; display: flex; flex-direction: column; }
+        .grid-type-1 { display: grid; grid-template-columns: 1fr 2fr; gap: 0 50px; }
+        .grid-type-1 > div { margin-bottom: 30px; }
+        .grid-type-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
 
-		.bottom-box-title {
-			color: rgba(184, 184, 18, 1);
-			/* padding-bottom: 14px; */
-			font-size: 36px;
-			font-style: italic;
-			/* border-bottom: 1px solid rgba(166, 166, 166, 1); */
-		}
+        @media screen and (max-width:640px) {
 
-		.bottom-box-title-span {
-			color: rgba(128, 128, 128, 1);
-			font-style: italic;
-			font-weight: 250;
-			font-size: 24px;
-			margin-bottom: 30px;
-			/* margin-left: 10px; */
-		}
-
-		.bottom-box-info {
-            margin-top: 8px;
-            color: rgba(38, 38, 38, 1);
-            font-size: 20px;
-  			line-height: 30px;
-  			margin-bottom: 65px;
-  
-  /* 新增行距控制 */
-  			display: flex;
-  			flex-direction: column;
-  			
-}
-
-
-		.grid-type-1 {
-			display: grid;
-			grid-template-columns: 1fr 2fr;
-			gap: 0 50px;
-			justify-content: flex-start;
-		}
-		.bottom-box-info.grid-type-1 {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    gap: 0 50px; /* 水平列间距保持原样 */
-}
-
-/* 针对大类 div（直接子元素），增加垂直间距 */
-.bottom-box-info.grid-type-1 > div {
-    margin-bottom: 30px; /* 调整大类之间的间距 */
-}
-/* 保持小名字 <p> 间距正常 */
-.bottom-box-info.grid-type-1 > div > p {
-    margin: 0; /* 或者可自定义微小间距，例如 margin-bottom: 4px; */
-    padding: 0;
-}
-		.grid-type-2 {
-			display: grid;
-			grid-template-columns: 1fr 1fr;
-			gap: 0;
-			justify-content: flex-start;
-			margin-right: 10px;
-		}
-
-		@media screen and (max-width:640px) {
-			.grid-type-1 {
+            .grid-type-1 {
 				grid-template-columns: 1fr 1fr;
 			}
 
-			.grid-type-2 {
-				grid-template-columns: repeat(1, 1fr);
-			}
+			.photo-box {
+        		grid-template-columns: repeat(2, 1fr) !important; /* 强制改为一行2张 */
+        		gap: 15px 10px; /* 适当调小移动端的间距，可选 */
+    			}
 
 			.li-box {
-				height: 6.1rem;
+				height: 3.7rem;
 			}
 
 			.zhuti {
@@ -319,8 +252,7 @@
 			.img-bg {
 				height: 3rem;
 			}
-
-			.title-text-bg {
+            .title-text-bg {
 				width: calc(19.7rem/3);
 				height: calc(4.1rem /3);
 				background-size: 100% 100%;
@@ -357,15 +289,7 @@
 				padding-bottom: 0.1rem;
 			}
 
-			.photo-box {
-				display: grid;
-				grid-template-columns: repeat(2, 1fr);
-				gap: 20px 7px;
-				justify-content: flex-start;
-			}
-
-
-			.photo-item {
+            .photo-item {
 				/* width: calc(((100% - 0.07rem) / 2)); */
 				/* height: 1.54rem; */
 				height: 100%;
@@ -377,8 +301,14 @@
 
 
 			.photo-item img {
-				width: 100%;
-				height: 100%;
+				position: absolute;
+    			top: 0;
+    			left: 0;
+    			width: 100%;
+    			height: 100%;
+    			display: block;
+    			/* 核心属性：二选一 */
+    			object-fit: cover;
 			}
 
 			.people-box {
@@ -403,8 +333,7 @@
 				background-size: 100% 100%;
 				margin-bottom: 20px;
 			}
-
-			.head-img img {
+            .head-img img {
 				position: absolute;
 				bottom: 0;
 				width: 1.88rem;
@@ -439,8 +368,7 @@
 				font-style: italic;
 				/* border-bottom: 1px solid rgba(166, 166, 166, 1); */
 			}
-
-			.bottom-box-title-span {
+            .bottom-box-title-span {
 				color: rgba(128, 128, 128, 1);
 				font-style: italic;
 				font-weight: 250;
@@ -461,101 +389,119 @@
 
 		.el-image-viewer__canvas {
 			img {
-				object-fit: contain;
+				object-fit: cover;
 			}
 		}
-	</style>
-  <script type="module" crossorigin src="/assets/Navbar-Bchr76sf.js"></script>
-  <script type="module" crossorigin src="/assets/myPageEntry-C8KBUsWp.js"></script>
-  <link rel="stylesheet" crossorigin href="/assets/Navbar-DUVpDIUv.css">
-  <link rel="stylesheet" crossorigin href="/assets/myPageEntry-D67GmawQ.css">
-</head>
+    
+            /* 移动端调整标题大小 */
+    </style>
+		<script type="module" crossorigin src="/assets/Navbar-Bchr76sf.js"></script>
+		<script type="module" crossorigin src="/assets/myPageEntry-C8KBUsWp.js"></script>
+		<link rel="stylesheet" crossorigin href="/assets/Navbar-DUVpDIUv.css">
+		<link rel="stylesheet" crossorigin href="/assets/myPageEntry-D67GmawQ.css">
+	</head>
 
-<body>
-	<div id="root"></div>
-	<div id="app">
-		<div class="page-body" id="allText">
-			<div class="li-box">
-				<div class="zhuti">
-					<div class="shadow-title">
-						<div class="title-text-bg">
-							<!-- <div>OPEN </div>
-                            <div class="second-line">CALL</div> -->
-						</div>
-					</div>
-					<div class="on-shadow-title-box">
-						<div class="on-shadow-title-bg">
-							<!-- <div>OPEN </div>
-                            <div class="second-line">CALL</div> -->
-						</div>
-					</div>
-					<div class="center-box">
-						<div class="img-bg" id="imgBg">
-							<div
-								style="position: absolute;left: 0;right: 0;top:0;bottom:0;z-index: -2;background:#eaea24">
-							</div>
-							<div
-								style="position: absolute;left: 0;right: 0;top:0;bottom:0;z-index: -1;margin: 0 auto;text-align: center">
-								<main>
+	<body>
+		<div id="root"></div>
+		<div id="app">
+			<div class="page-body" id="allText">
+				<div class="li-box">
+					<div class="zhuti">
+						<div class="shadow-title"><div class="title-text-bg"></div></div>
+						<div class="on-shadow-title-box"><div
+								class="on-shadow-title-bg"></div></div>
+						<div class="center-box">
+							<div class="img-bg" id="imgBg">
+								<div
+									style="position: absolute;left: 0;right: 0;top:0;bottom:0;z-index: -2;background:#eaea24"></div>
+								<div
+									style="position: absolute;left: 0;right: 0;top:0;bottom:0;z-index: -1;margin: 0 auto;text-align: center">
+									<main>
 
-								</main>
+									</main>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-			<div class="content" id="content">
-				<div class="chapter-title">Highlights</div>
-				<div class="photo-box">
-					<el-image v-for="(img, index) in imageList" :key="index" class="photo-item" :src="img.src"
-						:preview-src-list="previewList" :initial-index="index" :fit="contain" />
-				</div>
-				<div class="chapter-title" style="margin-top: 100px">Meet the Organizers</div>
-				<div class="bottom-box">
-					<div class="bottom-box-title-span">(Listed Alphabetically by Last Name)</div>
-					<div class="bottom-box-title">Lead Organizers</div>
-					<div class="bottom-box-info">
-						<p>Yun Dai, NYU Shanghai Library</p>
-						<p>Jung Hyun Moon, NYU Shanghai Interactive Media Arts</p>
-						<p>Aidan Nelson, Telecommunications Program / Interactive Media Arts, NYU Tisch School of
-							the Arts</p>
+
+				<div class="content" id="content">
+					<div class="chapter-title">Highlights</div>
+					<div class="photo-box">
+						<template v-for="(img, index) in imageList" :key="index">
+							<div class="photo-item photo-wrapper">
+								<el-image
+									class="photo-image"
+									:src="img.src"
+									:preview-src-list="previewList"
+									:initial-index="index"
+									:preview-teleported="true"
+									fit="cover"
+									:ref="el => { if (el) imageRefs[index] = el }"></el-image>
+
+								<div class="photo-title" @click="openPreview(index)">
+									<div class="main-title">
+										{{ img.title }}
+									</div>
+
+									<div class="sub-title" v-if="img.subtitle">
+										{{ img.subtitle }}
+
+										<div class="location" v-if="img.location">
+											{{ img.location }}
+										</div>
+									</div>
+								</div>
+							</div>
+						</template>
 					</div>
-					<div class="bottom-box-title">Faculty Leads</div>
-					<div class="bottom-box-info">
-						<p>Shawn Van Every, Telecommunications Program / Interactive Media Arts, NYU Tisch School of the
-							Arts</p>
-						<p>Scott Fitzgerald, NYU Tandon Integrated Design & Media</p>
-						<p>Marcela Godoy, NYU Shanghai Interactive Media Arts</p>
-						<p>Craig Protzel, NYU IMA Low Res</p>
-					</div>
-					<div class="bottom-box-title">Collaborators</div>
-					<div class="bottom-box-info grid-type-1">
-						<div>NYU Abu Dhabi Library</div>
-						<div>
-							<p>Grace Oluwaseyi Itiola</p>
-							<p>Amani Magid</p>
+
+					<div class="chapter-title" style="margin-top: 100px">Meet the
+						Organizers</div>
+					<div class="bottom-box">
+						<div class="bottom-box-title-span">(Listed Alphabetically by Last
+							Name)</div>
+						<div class="bottom-box-title">Lead Organizers</div>
+						<div class="bottom-box-info">
+							<p>Yun Dai, NYU Shanghai Library</p>
+							<p>Jung Hyun Moon, NYU Shanghai Interactive Media Arts</p>
+							<p>Aidan Nelson, Telecommunications Program / Interactive Media Arts, NYU
+								Tisch School of the Arts</p>
 						</div>
-						<div>NYU Shanghai Computer Science, Data Science, and Engineering</div>
-						<div>Nasir Memon</div>
-						<div>NYU Bobst Library</div>
-						<div>Roxane Pickens</div>
-						<div>NYU Shanghai Students (Class of 2025)</div>
-						<div>
-							<p>Tracy Chenxuan Sun</p>
-							<p>Andy Jinran Ye</p>
+						<div class="bottom-box-title">Faculty Leads</div>
+						<div class="bottom-box-info">
+							<p>Shawn Van Every, Telecommunications Program / Interactive Media Arts,
+								NYU Tisch School of the Arts</p>
+							<p>Scott Fitzgerald, NYU Tandon Integrated Design & Media</p>
+							<p>Marcela Godoy, NYU Shanghai Interactive Media Arts</p>
+							<p>Craig Protzel, NYU IMA Low Res</p>
 						</div>
-						<div>NYU Shanghai Library</div>
-						<div>
-							<p>Jesse Jiaxing Yu</p>
-							<p>Xinyi Zhu</p>
+						<div class="bottom-box-title">Collaborators</div>
+						<div class="bottom-box-info grid-type-1">
+							<div>NYU Abu Dhabi Library</div>
+							<div><p>Grace Oluwaseyi Itiola</p><p>Amani Magid</p></div>
+							<div>NYU Shanghai Computer Science, Data Science, and Engineering</div>
+							<div>Nasir Memon</div>
+							<div>NYU Bobst Library</div>
+							<div>Roxane Pickens</div>
+							<div>NYU Shanghai Students (Class of 2025)</div>
+							<div>
+								<p>Tracy Chenxuan Sun</p>
+								<p>Andy Jinran Ye</p>
+							</div>
+							<div>NYU Shanghai Library</div>
+							<div>
+								<p>Jesse Jiaxing Yu</p>
+								<p>Xinyi Zhu</p>
+							</div>
+							<div>NYU Shanghai University Communications Events Office</div>
+							<div>
+								<p>Rona Xia</p>
+								<p>Mia Zhuo</p>
+							</div>
+							<div>NYU Shanghai Office of Non-Degree Programs</div>
+							<div>Yaoyao Zhuang</div>
 						</div>
-						<div>NYU Shanghai University Communications Events Office</div>
-						<div>
-							<p>Rona Xia</p>
-							<p>Mia Zhuo</p>
-						</div>
-						<div>NYU Shanghai Office of Non-Degree Programs</div>
-						<div>Yaoyao Zhuang</div>
 					</div>
 					<div class="bottom-box-title">Website Design & Development</div>
 					<div class="bottom-box-info grid-type-1">
@@ -592,37 +538,66 @@
 						</div>
 					</div>
 				</div>
+
 				<div class="bottom-box" style="padding-bottom: 100px;"></div>
 			</div>
 
 			<script>
-				const { createApp, ref, onMounted } = Vue
+        const { createApp, ref, reactive } = Vue
+        createApp({
+            setup() {
+                const imageList = ref([
+                    { src: '/about/images/FutureLab01.jpg', title: 'Art & Design Education: FutureLab 2025', subtitle:'Oct 31 - Nov 2, 2025', location: 'West Bund Art Center, Shanghai'},
+                    { src: '/about/images/FutureLab02.jpg', title: 'Art & Design Education: FutureLab 2025', subtitle:'Oct 31 - Nov 2, 2025', location: 'West Bund Art Center, Shanghai'},
+                    { src: '/about/images/FutureLab03.jpg', title: 'Art & Design Education: FutureLab 2025', subtitle:'Oct 31 - Nov 2, 2025', location: 'West Bund Art Center, Shanghai'},
+                    { src: '/about/images/FutureLab04.jpg', title: 'Art & Design Education: FutureLab 2025', subtitle:'Oct 31 - Nov 2, 2025', location: 'West Bund Art Center, Shanghai'},
+                    { src: '/about/images/FutureLab05.jpg', title: 'Art & Design Education: FutureLab 2025', subtitle:'Oct 31 - Nov 2, 2025', location: 'West Bund Art Center, Shanghai'},
+                    { src: '/about/images/FutureLab06.jpg', title: 'Art & Design Education: FutureLab 2025', subtitle:'Oct 31 - Nov 2, 2025', location: 'West Bund Art Center, Shanghai'},
+                    { src: '/about/images/FutureLab07.jpg', title: 'Art & Design Education: FutureLab 2025', subtitle:'Oct 31 - Nov 2, 2025', location: 'West Bund Art Center, Shanghai'},
+                    { src: '/about/images/New York Opening01.jpg', title: 'Exploring Creativity in the Age of AI: Project Sharing Across NYU Campuses (New York)', subtitle:'Oct 10, 2025', location: 'ITP/IMA floor'},
+                    { src: '/about/images/New York Opening02.jpg', title: 'Exploring Creativity in the Age of AI: Project Sharing Across NYU Campuses (New York)', subtitle:'Oct 10, 2025', location: 'ITP/IMA floor'},
+                    { src: '/about/images/New York Opening03.jpg', title: 'Exploring Creativity in the Age of AI: Project Sharing Across NYU Campuses (New York)', subtitle:'Oct 10, 2025', location: 'ITP/IMA floor'},
+                    { src: '/about/images/New York Opening04.jpg', title: 'Exploring Creativity in the Age of AI: Project Sharing Across NYU Campuses (New York)', subtitle:'Oct 10, 2025', location: 'ITP/IMA floor'},
+                    { src: '/about/images/New York Opening05.jpg', title: 'Exploring Creativity in the Age of AI: Project Sharing Across NYU Campuses (New York)', subtitle:'Oct 10, 2025', location: 'ITP/IMA floor'},
+                    { src: '/about/images/New York Opening06.jpg', title: 'Exploring Creativity in the Age of AI: Project Sharing Across NYU Campuses (New York)', subtitle:'Oct 10, 2025', location: 'ITP/IMA floor'},
+                    { src: '/about/images/New York Opening07.jpg', title: 'Exploring Creativity in the Age of AI: Project Sharing Across NYU Campuses (New York)', subtitle:'Oct 10, 2025', location: 'ITP/IMA floor'},
+                    { src: '/about/images/New York Opening08.jpg', title: 'Exploring Creativity in the Age of AI: Project Sharing Across NYU Campuses (New York)', subtitle:'Oct 10, 2025', location: 'ITP/IMA floor'},
+                    { src: '/about/images/New York Opening09.jpg', title: 'Exploring Creativity in the Age of AI: Project Sharing Across NYU Campuses (New York)', subtitle:'Oct 10, 2025', location: 'ITP/IMA floor'},
+                    { src: '/about/images/New York Opening10.jpg', title: 'Exploring Creativity in the Age of AI: Project Sharing Across NYU Campuses (New York)', subtitle:'Oct 10, 2025', location: 'ITP/IMA floor'},
+                    { src: '/about/images/New York Opening11.jpg', title: 'Exploring Creativity in the Age of AI: Project Sharing Across NYU Campuses (New York)', subtitle:'Oct 10, 2025', location: 'ITP/IMA floor'},
+                    { src: '/about/images/New York Opening12.jpg', title: 'Exploring Creativity in the Age of AI: Project Sharing Across NYU Campuses (New York)', subtitle:'Oct 10, 2025', location: 'ITP/IMA floor'},
+                    { src: '/about/images/New York Opening13.jpg', title: 'Exploring Creativity in the Age of AI: Project Sharing Across NYU Campuses (New York)', subtitle:'Oct 10, 2025', location: 'ITP/IMA floor'},
+                    { src: '/about/images/New York Opening14.jpg', title: 'Exploring Creativity in the Age of AI: Project Sharing Across NYU Campuses (New York)', subtitle:'Oct 10, 2025', location: 'ITP/IMA floor'},
+                    { src: '/about/images/New York Opening15.jpg', title: 'Exploring Creativity in the Age of AI: Project Sharing Across NYU Campuses (New York)', subtitle:'Oct 10, 2025', location: 'ITP/IMA floor'},
+                    { src: '/about/images/New York Opening16.jpg', title: 'Exploring Creativity in the Age of AI: Project Sharing Across NYU Campuses (New York)', subtitle:'Oct 10, 2025', location: 'ITP/IMA floor'},
+                    { src: '/about/images/IMA Gallery Exhibition01.jpg', title: 'Exploring Creativity in the Age of AI: Project Sharing Across NYU Campuses (Shanghai)', subtitle:'Oct 9 - 26, 2025', location: 'IMA Studio'},
+                    { src: '/about/images/IMA Gallery Exhibition02.jpg', title: 'Exploring Creativity in the Age of AI: Project Sharing Across NYU Campuses (Shanghai)', subtitle:'Oct 9 - 26, 2025', location: 'IMA Studio'},
+                    { src: '/about/images/IMA Gallery Exhibition03.jpg', title: 'Exploring Creativity in the Age of AI: Project Sharing Across NYU Campuses (Shanghai)', subtitle:'Oct 9 - 26, 2025', location: 'IMA Studio'},
+                    { src: '/about/images/IMA Gallery Exhibition04.jpg', title: 'Exploring Creativity in the Age of AI: Project Sharing Across NYU Campuses (Shanghai)', subtitle:'Oct 9 - 26, 2025', location: 'IMA Studio'},
+                    { src: '/about/images/IMA Gallery Exhibition05.jpg', title: 'Exploring Creativity in the Age of AI: Project Sharing Across NYU Campuses (Shanghai)', subtitle:'Oct 9 - 26, 2025', location: 'IMA Studio'},
+                    { src: '/about/images/IMA Gallery Exhibition06.jpg', title: 'Exploring Creativity in the Age of AI: Project Sharing Across NYU Campuses (Shanghai)', subtitle:'Oct 9 - 26, 2025', location: 'IMA Studio'},
+                    { src: '/about/images/IMA Gallery Exhibition07.jpg', title: 'Exploring Creativity in the Age of AI: Project Sharing Across NYU Campuses (Shanghai)', subtitle:'Oct 9 - 26, 2025', location: 'IMA Studio'},
+                    { src: '/about/images/IMA Gallery Exhibition08.jpg', title: 'Exploring Creativity in the Age of AI: Project Sharing Across NYU Campuses (Shanghai)', subtitle:'Oct 9 - 26, 2025', location: 'IMA Studio'},
+                    { src: '/about/images/IMA Gallery Exhibition09.jpg', title: 'Exploring Creativity in the Age of AI: Project Sharing Across NYU Campuses (Shanghai)', subtitle:'Oct 9 - 26, 2025', location: 'IMA Studio'},
+                    { src: '/about/images/IMA Gallery Exhibition10.jpg', title: 'Exploring Creativity in the Age of AI: Project Sharing Across NYU Campuses (Shanghai)', subtitle:'Oct 9 - 26, 2025', location: 'IMA Studio'}
+                ]);
+                const previewList = ref(imageList.value.map(img => img.src));
+                const imageRefs = reactive({});
 
-				createApp({
-					setup() {
-						const classActive = ref(true);
-						const imageList = ref([
-							{ src: '/about/images/01.png' },
-							{ src: '/about/images/02.jpg' },
-							{ src: '/about/images/03.jpg' },
-							{ src: '/about/images/04.jpg' },
-							{ src: '/about/images/05.jpg' },
-							{ src: '/about/images/06.jpg' },
-							{ src: '/about/images/07.png' },
-							{ src: '/about/images/08.jpg' },
-							{ src: '/about/images/09.jpg' }
-						]);
+                const openPreview = (index) => {
+                    const imageRef = imageRefs[index];
+                    if (imageRef) {
+                        // 触发 el-image 的点击事件
+                        const imgElement = imageRef.$el.querySelector('img');
+                        if (imgElement) {
+                            imgElement.click();
+                        }
+                    }
+                };
 
-						const previewList = ref(imageList.value.map(img => img.src));
-
-						return {
-							classActive,
-							imageList,
-							previewList
-						}
-					}
-				}).use(ElementPlus).mount('#app')
-			</script>
-</body>
-
-</html>
+                return { imageList, previewList, imageRefs, openPreview }
+            }
+        }).use(ElementPlus).mount('#app')
+    </script>
+		</body>
+	</html>
