@@ -363,6 +363,7 @@ const Showcase: React.FC = () => {
   const [offset, setOffset] = useState({ x: 0, y: 0 });
   const [dragging, setDragging] = useState(false);
   const [lastPos, setLastPos] = useState({ x: 0, y: 0 });
+  const hasDraggedRef = useRef(false);
 
   // We'll measure the viewport size to clamp dragging
   const outerRef = useRef<HTMLDivElement>(null);
@@ -373,11 +374,29 @@ const Showcase: React.FC = () => {
   const [scale, setScale] = useState(1);
 
   const handleZoomIn = () => {
-    setScale(prev => prev + 0.1);
+    const delta = 0.1;
+    setScale(prev => {
+      setOffset(prevOffset => ({
+        x: prevOffset.x - (CANVAS_WIDTH / 2) * delta,
+        y: prevOffset.y - (CANVAS_HEIGHT / 2) * delta,
+      }));
+      return prev + delta;
+    });
   };
 
   const handleZoomOut = () => {
-    setScale(prev => Math.max(0.1, prev - 0.1));
+    const delta = 0.1;
+    setScale(prev => {
+      const newScale = Math.max(0.1, prev - delta);
+      const actualDelta = newScale - prev;
+      if (actualDelta !== 0) {
+        setOffset(prevOffset => ({
+          x: prevOffset.x - (CANVAS_WIDTH / 2) * actualDelta,
+          y: prevOffset.y - (CANVAS_HEIGHT / 2) * actualDelta,
+        }));
+      }
+      return newScale;
+    });
   };
 
   useLayoutEffect(() => {
@@ -435,31 +454,34 @@ const Showcase: React.FC = () => {
   // DRAG handlers
   const handleMouseDown = (e: React.MouseEvent) => {
     setDragging(true);
+    hasDraggedRef.current = false;
     setLastPos({ x: e.clientX, y: e.clientY });
   };
 
   const handleMouseMove = (e: React.MouseEvent) => {
     if (!dragging) return;
+    hasDraggedRef.current = true;
     const dx = e.clientX - lastPos.x;
     const dy = e.clientY - lastPos.y;
 
     setOffset(prev => {
-      // Proposed new offset
       let newX = prev.x + dx;
       let newY = prev.y + dy;
 
-      // Clamp so we don't drag outside - account for scale
       const scaledCanvasWidth = CANVAS_WIDTH * scale;
       const scaledCanvasHeight = CANVAS_HEIGHT * scale;
       const minX = viewportWidth - scaledCanvasWidth;
-      const maxX = 0;
       const minY = viewportHeight - scaledCanvasHeight;
-      const maxY = 0;
 
-      if (newX < minX) newX = minX;
-      if (newX > maxX) newX = maxX;
-      if (newY < minY) newY = minY;
-      if (newY > maxY) newY = maxY;
+      // Only clamp when canvas is larger than viewport
+      if (minX < 0) {
+        if (newX < minX) newX = minX;
+        if (newX > 0) newX = 0;
+      }
+      if (minY < 0) {
+        if (newY < minY) newY = minY;
+        if (newY > 0) newY = 0;
+      }
 
       return { x: newX, y: newY };
     });
@@ -479,32 +501,34 @@ const Showcase: React.FC = () => {
   const handleTouchStart = (e: React.TouchEvent) => {
     if (e.touches.length === 1) {
       setDragging(true);
+      hasDraggedRef.current = false;
       setLastPos({ x: e.touches[0].clientX, y: e.touches[0].clientY });
     }
   };
 
   const handleTouchMove = (e: React.TouchEvent) => {
     if (!dragging || e.touches.length !== 1) return;
+    hasDraggedRef.current = true;
     const dx = e.touches[0].clientX - lastPos.x;
     const dy = e.touches[0].clientY - lastPos.y;
 
     setOffset(prev => {
-      // Proposed new offset
       let newX = prev.x + dx;
       let newY = prev.y + dy;
 
-      // Clamp so we don't drag outside - account for scale
       const scaledCanvasWidth = CANVAS_WIDTH * scale;
       const scaledCanvasHeight = CANVAS_HEIGHT * scale;
       const minX = viewportWidth - scaledCanvasWidth;
-      const maxX = 0;
       const minY = viewportHeight - scaledCanvasHeight;
-      const maxY = 0;
 
-      if (newX < minX) newX = minX;
-      if (newX > maxX) newX = maxX;
-      if (newY < minY) newY = minY;
-      if (newY > maxY) newY = maxY;
+      if (minX < 0) {
+        if (newX < minX) newX = minX;
+        if (newX > 0) newX = 0;
+      }
+      if (minY < 0) {
+        if (newY < minY) newY = minY;
+        if (newY > 0) newY = 0;
+      }
 
       return { x: newX, y: newY };
     });
@@ -516,27 +540,20 @@ const Showcase: React.FC = () => {
     setDragging(false);
   };
 
-  // Scroll handlers
+  // Scroll handlers - zoom in/out centered on canvas center
   const handleWheel = (e: React.WheelEvent) => {
-    setOffset(prev => {
-      // Proposed new offset
-      let newX = prev.x - e.deltaX;
-      let newY = prev.y - e.deltaY;
-
-      // Clamp so we don't drag outside - account for scale
-      const scaledCanvasWidth = CANVAS_WIDTH * scale;
-      const scaledCanvasHeight = CANVAS_HEIGHT * scale;
-      const minX = viewportWidth - scaledCanvasWidth;
-      const maxX = 0;
-      const minY = viewportHeight - scaledCanvasHeight;
-      const maxY = 0;
-
-      if (newX < minX) newX = minX;
-      if (newX > maxX) newX = maxX;
-      if (newY < minY) newY = minY;
-      if (newY > maxY) newY = maxY;
-
-      return { x: newX, y: newY };
+    e.preventDefault();
+    const delta = 0.009;
+    setScale(prev => {
+      const newScale = e.deltaY < 0 ? prev + delta : Math.max(0.1, prev - delta);
+      const actualDelta = newScale - prev;
+      if (actualDelta !== 0) {
+        setOffset(prevOffset => ({
+          x: prevOffset.x - (CANVAS_WIDTH / 2) * actualDelta,
+          y: prevOffset.y - (CANVAS_HEIGHT / 2) * actualDelta,
+        }));
+      }
+      return newScale;
     });
   };
 
@@ -725,8 +742,9 @@ const Showcase: React.FC = () => {
                     }}
 
                     onClick={(e) => {
-                      if (!item.real) return; // Only navigate if the item is real
-                      e.stopPropagation(); // 防止事件冒泡（可选）
+                      if (hasDraggedRef.current) return; // Prevent click after drag
+                      if (!item.real) return;
+                      e.stopPropagation();
                       const fullUrl = `${window.location.origin}/showcase/${item.id}`;
                       window.open(fullUrl, '_blank', 'noopener,noreferrer');
                     }}
