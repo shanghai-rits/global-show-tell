@@ -206,6 +206,11 @@ const Navbar: React.FC = () => {
                 </button>
               </div>
               <div className="nav-button-wrapper">
+                <button className="nav-button" onClick={() => window.open("/exhibitions", "_blank")}>
+                  Exhibitions
+                </button>
+              </div>
+              <div className="nav-button-wrapper">
                 <button className="nav-button" onClick={() => window.open("/about", "_blank")}>
                   About
                 </button>
