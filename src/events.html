@@ -187,6 +187,7 @@
             width: calc(var(--size) * 1%);
             display: flex;
             flex-direction: column;
+            cursor: pointer;
         }
 
         .event-bubble-circle {
@@ -196,6 +197,7 @@
             overflow: hidden;
             background: #e0e0e0;
             box-shadow: var(--ring-shadow), 0 8px 24px rgba(0, 0, 0, 0.08);
+            transition: box-shadow 0.28s ease, transform 0.28s ease;
         }
 
         .event-bubble-circle img {
@@ -230,6 +232,18 @@
             color: #3d3d3d;
             line-height: 1.08;
             letter-spacing: -0.02em;
+            transition: color 0.24s ease;
+            padding-top: 18px;
+        }
+
+        .event-bubble:hover .event-bubble-circle {
+            box-shadow: var(--ring-shadow), 0 0 22px var(--hover-glow-color), 0 0 38px var(--hover-glow-color), 0 8px 24px rgba(0, 0, 0, 0.12);
+            transform: translateY(-2px);
+        }
+
+        .event-bubble:hover .event-title {
+            color: var(--hover-title-color);
+            font-weight: 600;
         }
 
         .event-title-line {
@@ -301,7 +315,7 @@
         .highlights-section {
             width: 100%;
             max-width: 1280px;
-            margin: 80px auto 0;
+            margin: 1px auto 0;
             padding: 0 18px;
         }
 
@@ -703,7 +717,12 @@
                         <article v-for="item in circleEvents" :key="item.id"
                             class="event-bubble"
                             :class="{ 'event-bubble--title-top': item.titlePosition === 'top', 'event-bubble--info-right': item.infoPosition === 'right' }"
-                            :style="eventStyle(item)">
+                            :style="eventStyle(item)"
+                            role="link"
+                            tabindex="0"
+                            @click="openEventDetail(item.id)"
+                            @keydown.enter.prevent="openEventDetail(item.id)"
+                            @keydown.space.prevent="openEventDetail(item.id)">
                             <div class="event-bubble-circle"
                                 :style="bubbleCircleStyle(item)">
                                 <img :src="item.image"
@@ -927,7 +946,6 @@
                         firstLineWidth: 244,
                         labelWidth: 220,
                         labelOffsetX: 12,
-                        titleSize: 'clamp(14px, 2vw, 18px)',
                     },
                     {
                         id: 'live-diffusion',
@@ -1078,10 +1096,26 @@
                 let timer = null;
 
                 function eventStyle(item) {
+                    const primaryTagLine = tagLines(item)[0] || [];
+                    const primaryTag = primaryTagLine[0];
+                    const primaryTagType = primaryTag?.type || item.borderTag || 'event';
+                    const primaryTagLabel = (primaryTag?.label || '').toLowerCase();
+                    let hoverColor = tagColors[primaryTagType] || tagColors.event;
+
+                    if (primaryTagType === 'exhibition') {
+                        hoverColor = 'rgba(235, 110, 201, 1)';
+                    } else if (primaryTagType === 'event') {
+                        hoverColor = 'rgba(185, 204, 92, 1)';
+                    } else if (primaryTagLabel === 'works' || primaryTagType === 'info') {
+                        hoverColor = 'rgba(109, 217, 227, 1)';
+                    }
+
                     return {
                         '--x': item.x,
                         '--y': item.y,
                         '--size': item.size,
+                        '--hover-title-color': hoverColor,
+                        '--hover-glow-color': hoverColor,
                     };
                 }
 
@@ -1171,6 +1205,10 @@
                     previewSrc.value = src;
                 }
 
+                function openEventDetail(id) {
+                    window.location.href = `/event/${id}`;
+                }
+
                 function rotateImages() {
                     // Set next images on the back layer
                     const next = pickRandom9();
@@ -1208,6 +1246,7 @@
                     titleStyle,
                     titleLineStyle,
                     openPreview,
+                    openEventDetail,
                 }
             }
         }).mount('#app')
