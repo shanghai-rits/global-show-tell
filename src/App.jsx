@@ -29,8 +29,8 @@ function App() {
           element={<RedirectToAbout />}
         />
         <Route
-          path="/exhibitions"
-          element={<RedirectToExhibitions />}
+          path="/events"
+          element={<RedirectToEvents />}
         />
         <Route
           path="/showcase"
@@ -85,9 +85,9 @@ function RedirectToAbout() {
   return null;
 }
 
-function RedirectToExhibitions() {
+function RedirectToEvents() {
   React.useEffect(() => {
-    window.location.href = '/src/exhibitions.html';
+    window.location.href = '/src/events.html';
   }, []);
   return null;
 }

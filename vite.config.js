@@ -12,7 +12,7 @@ export default defineConfig({
         opencall: './src/opencall.html', // Additional HTML page
         collaboration: './src/collaboration.html', // Additional HTML page
         calendar: './src/calendar.html',
-        exhibitions: './src/exhibitions.html',
+        events: './src/events.html',
         about: './src/about.html',
         homepage: './public/homepage/index.html', // Additional HTML page
       },
