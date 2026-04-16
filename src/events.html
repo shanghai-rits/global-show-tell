@@ -49,6 +49,7 @@
            ========================================================================== */
         .page-body {
             --title-scroll-depth: 2.6rem;
+            --detail-event-bubble-size: 138px;
             width: 100%;
             height: 100vh;
         }
@@ -88,9 +89,9 @@
             background: url('/events/title-text.svg');
             width: 68%;
             max-width: 1200px;
-            /* Rounded from the SVG's original width/height, approximately 4:1. */
-            aspect-ratio: 880 / 220;
-            height: auto;
+            /* Hand-tuned height instead of aspect-ratio for easier visual adjustment. */
+            height: 17vw;
+            max-height: 300px;
             background-repeat: no-repeat;
             background-position: left top;
             background-size: contain;
@@ -98,15 +99,15 @@
         }
 
         .center-box {
-            height: 300px;
-            margin-top: -80px;
+            height: 340px;
+            margin-top: -130px;
             position: relative;
             z-index: 1;
         }
 
         .img-bg {
             width: 100%;
-            height: 1.3rem;
+            height: 1.55rem;
             background-size: cover;
             position: relative;
             overflow: hidden;
@@ -140,14 +141,14 @@
             left: 0;
             top: 0;
             background: url('/events/title-shadow.svg');
-                width: 68%;
+            width: 68%;
             max-width: 1200px;
-                /* Rounded from the SVG's original width/height, approximately 4.1:1. */
-                aspect-ratio: 874 / 213;
-                height: auto;
-                background-repeat: no-repeat;
-                background-position: left top;
-                background-size: contain;
+            /* Hand-tuned height instead of aspect-ratio for easier visual adjustment. */
+            height: 16.5vw;
+            max-height: 292px;
+            background-repeat: no-repeat;
+            background-position: left top;
+            background-size: contain;
         }
 
         /* ==========================================================================
@@ -223,8 +224,8 @@
         }
 
         .event-title {
-            font-size: 20px;
-            font-weight: 600;
+            font-size: clamp(16px, 1.45vw, 20px);
+            font-weight: 500;
             font-style: italic;
             color: #3d3d3d;
             line-height: 1.08;
@@ -237,10 +238,10 @@
 
         .event-date {
             margin-top: 6px;
-            font-size: 14px;
+            font-size: clamp(12px, 1vw, 14px);
             font-weight: 400;
             font-style: italic;
-            color: #a6a6a6;
+            color: rgba(156, 156, 156, 1);
             line-height: 1.15;
         }
 
@@ -264,14 +265,15 @@
             justify-content: center;
             border-radius: 999px;
             padding: 3px 10px;
-            font-size: 12px;
+            font-size: clamp(11px, 0.85vw, 12px);
+            font-weight: 400;
             line-height: 1;
             white-space: nowrap;
         }
 
         .tag-pill {
-            border: 1px solid rgba(64, 64, 64, 0.55);
-            color: #303030;
+            border: 1px solid rgb(0, 0, 0);
+            color: #000000;
             font-style: italic;
         }
 
@@ -289,8 +291,8 @@
 
         .tag-pill--campus {
             background: #fff;
-            border: 1px solid rgba(64, 64, 64, 0.55);
-            color: #303030;
+            border: 1px solid rgb(0, 0, 0);
+            color: #000000;
         }
 
         /* ==========================================================================
@@ -447,7 +449,7 @@
             }
 
             .img-bg {
-                height: 1.5rem;
+                height: 1.7rem;
             }
 
             .content {
@@ -461,7 +463,7 @@
                 display: flex;
                 flex-wrap: wrap;
                 justify-content: center;
-                gap: 36px 22px;
+                gap: clamp(24px, 3vw, 34px) clamp(14px, 1.8vw, 20px);
             }
 
             .event-bubble {
@@ -471,10 +473,47 @@
                 width: min(40%, 260px);
             }
 
+            .event-bubble:not(.event-bubble--info-right) {
+                width: calc((100% - 66px) / 4);
+                max-width: calc((100% - 66px) / 4);
+                flex: 0 0 calc((100% - 66px) / 4);
+                align-items: center;
+            }
+
+            .event-bubble:not(.event-bubble--info-right).event-bubble--title-top .event-info {
+                order: 0;
+                margin-top: 12px;
+                margin-bottom: 0;
+            }
+
+            .event-bubble--info-right {
+                width: calc((100% - 44px) / 3);
+                max-width: calc((100% - 44px) / 3);
+                flex: 0 0 calc((100% - 44px) / 3);
+                align-items: center;
+            }
+
+            .event-bubble--info-right .event-bubble-circle {
+                width: min(100%, clamp(112px, 15vw, var(--detail-event-bubble-size)));
+            }
+
             .event-info {
                 width: auto !important;
                 margin-left: 0 !important;
                 text-align: center;
+            }
+
+            .event-title {
+                font-size: clamp(15px, 1.7vw, 18px);
+            }
+
+            .event-date {
+                font-size: clamp(11px, 1.1vw, 13px);
+            }
+
+            .tag-pill {
+                font-size: clamp(10px, 0.9vw, 11px);
+                padding: 3px 8px;
             }
 
             .event-bubble--info-right .event-info {
@@ -482,11 +521,12 @@
                 left: auto;
                 top: auto;
                 transform: none;
-                margin-top: 12px;
+                margin-top: 10px;
             }
 
             .event-tags {
                 align-items: center;
+                gap: 4px;
             }
 
             .highlights-section {
@@ -519,12 +559,12 @@
             }
 
             .center-box {
-                height: 2rem;
-                margin-top: -0.3rem;
+                height: 2.2rem;
+                margin-top: -0.55rem;
             }
 
             .img-bg {
-                height: 1.5rem;
+                height: 1.7rem;
             }
 
             .content {
@@ -534,19 +574,58 @@
             }
 
             .events-layout {
-                gap: 24px 14px;
+                padding: 0 12px;
+                box-sizing: border-box;
+                gap: 26px 14px;
             }
 
             .event-bubble {
                 width: calc(50% - 12px);
             }
 
+            .event-bubble:not(.event-bubble--info-right) {
+                width: calc((100% - 122px) / 2);
+                max-width: calc((100% - 122px) / 2);
+                flex: 0 1 calc((100% - 122px) / 2);
+                align-items: center;
+            }
+
+            .event-bubble:not(.event-bubble--info-right).event-bubble--title-top .event-info {
+                order: 0;
+                margin-top: 20px;
+                margin-bottom: 0;
+            }
+
+            .event-bubble--info-right {
+                width: calc((100% - 14px) / 2);
+                max-width: calc((100% - 14px) / 2);
+                flex: 0 0 calc((100% - 14px) / 2);
+                align-items: center;
+            }
+
+            .event-bubble--info-right .event-bubble-circle {
+                width: min(100%, clamp(96px, 23vw, 124px));
+            }
+
             .event-title {
-                font-size: 16px;
+                font-size: clamp(14px, 3.5vw, 16px);
             }
 
             .event-date {
-                font-size: 13px;
+                font-size: clamp(11px, 2.7vw, 13px);
+            }
+
+            .tag-pill {
+                font-size: clamp(10px, 2.2vw, 11px);
+                padding: 3px 7px;
+            }
+
+            .event-bubble--info-right .event-info {
+                margin-top: 8px;
+            }
+
+            .event-tags {
+                gap: 4px;
             }
 
             .highlights-section {
@@ -561,6 +640,30 @@
             .photo-box {
                 grid-template-columns: repeat(2, 1fr);
                 gap: 16px 10px;
+            }
+        }
+
+        @media screen and (max-width: 496px) {
+            .events-layout {
+                gap: 26px 10px;
+            }
+
+            .event-bubble:not(.event-bubble--info-right) {
+                width: 100%;
+                max-width: 260px;
+                flex: 0 1 100%;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .event-bubble--info-right {
+                width: calc((100% - 14px) / 2);
+                max-width: calc((100% - 14px) / 2);
+                flex: 0 0 calc((100% - 14px) / 2);
+            }
+
+            .event-bubble--info-right .event-bubble-circle {
+                width: min(100%, clamp(88px, 22vw, 112px));
             }
         }
         </style>
@@ -751,9 +854,9 @@
                         ],
                         ringOrder: ['exhibition', 'event'],
                         borderTag: 'event',
-                        x: 1.5,
-                        y: 8,
-                        size: 15.5,
+                        x: 1,
+                        y: 2,
+                        size: 20,
                         firstLineWidth: 248,
                         labelWidth: 215,
                     },
@@ -770,9 +873,9 @@
                         ],
                         borderTag: 'exhibition',
                         titlePosition: 'top',
-                        x: 25,
-                        y: 15,
-                        size: 16.2,
+                        x: 28,
+                        y: 0,
+                        size: 20,
                         firstLineWidth: 248,
                         labelWidth: 228,
                         labelOffsetX: 4,
@@ -797,9 +900,9 @@
                         ringOrder: ['exhibition', 'event'],
                         borderTag: 'event',
                         titlePosition: 'below',
-                        x: 45,
-                        y: 6,
-                        size: 18.8,
+                        x: 55,
+                        y: -2,
+                        size: 20,
                         firstLineWidth: 252,
                         labelWidth: 230,
                         labelOffsetX: -6,
@@ -818,15 +921,14 @@
                         campuses: ['SH'],
                         borderTag: 'exhibition',
                         titlePosition: 'top',
-                        x: 68,
+                        x: 78,
                         y: 13,
-                        size: 17.8,
+                        size: 20,
                         firstLineWidth: 244,
                         labelWidth: 220,
                         labelOffsetX: 12,
-                        titleSize: 18,
+                        titleSize: 'clamp(14px, 2vw, 18px)',
                     },
-                    
                     {
                         id: 'live-diffusion',
                         image: '/events/images/08.jpg',
@@ -848,9 +950,9 @@
                         ],
                         borderTag: 'exhibition',
                         infoPosition: 'right',
-                        x: 6,
+                        x: 2,
                         y: 52,
-                        size: 10.8,
+                        size: 11,
                         labelWidth: 230,
                     },
                     {
@@ -874,9 +976,9 @@
                         ],
                         borderTag: 'info',
                         infoPosition: 'right',
-                        x: 40,
+                        x: 36,
                         y: 52,
-                        size: 10.8,
+                        size: 11,
                         labelWidth: 200,
                     },
                     {
@@ -896,9 +998,9 @@
                         ],
                         borderTag: 'event',
                         infoPosition: 'right',
-                        x: 73,
+                        x: 70,
                         y: 52,
-                        size: 10.8,
+                        size: 11,
                         labelWidth: 185,
                     },
                     {
@@ -918,9 +1020,9 @@
                         ],
                         borderTag: 'event',
                         infoPosition: 'right',
-                        x: 6,
-                        y: 74,
-                        size: 10.8,
+                        x: 2,
+                        y: 73,
+                        size: 11,
                         labelWidth: 180,
                     },
                     {
@@ -940,8 +1042,8 @@
                         ],
                         borderTag: 'info',
                         infoPosition: 'right',
-                        x: 40,
-                        y: 74,
+                        x: 36,
+                        y: 73,
                         size: 10.8,
                         labelWidth: 220,
                     },
@@ -962,8 +1064,8 @@
                         ],
                         borderTag: 'event',
                         infoPosition: 'right',
-                        x: 73,
-                        y: 74,
+                        x: 70,
+                        y: 73,
                         size: 10.8,
                         labelWidth: 185,
                     },
@@ -993,7 +1095,7 @@
                         ? [...orderedRingTypes, ...remainingRingTypes].filter((type, index, array) => array.indexOf(type) === index)
                         : [item.borderTag || 'event'];
                     const ringShadow = colorTypes
-                        .map((type, index) => `0 0 0 ${(index + 1) * 4}px ${tagColors[type] || tagColors.event}`)
+                        .map((type, index) => `0 0 0 ${(index + 1) * 3}px ${tagColors[type] || tagColors.event}`)
                         .join(', ');
 
                     return {
@@ -1034,7 +1136,11 @@
 
                 function titleStyle(item) {
                     return {
-                        fontSize: item.titleSize ? `${item.titleSize}px` : undefined,
+                        fontSize: item.titleSize
+                            ? typeof item.titleSize === 'number'
+                                ? `${item.titleSize}px`
+                                : item.titleSize
+                            : undefined,
                     };
                 }
 
