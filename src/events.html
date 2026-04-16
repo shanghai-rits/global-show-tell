@@ -1,0 +1,1259 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="icon" href="/logo.png" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="/opencall/assets/font.css">
+        <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+        <script src="/opencall/assets/p5.js"></script>
+        <title>Events - Global Show & Tell</title>
+        <meta name="viewport"
+            content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no,viewport-fit=cover">
+        <script>
+        //rem自动计算
+        (function (doc, win) {
+            var docEl = doc.documentElement,
+                resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+                recalc = function () {
+                    var clientWidth = docEl.clientWidth;
+                    if (!clientWidth) return;
+                    docEl.style.fontSize = 100 * (clientWidth / 720) + 'px';
+                };
+
+            if (!doc.addEventListener) return;
+            win.addEventListener(resizeEvt, recalc, false);
+            doc.addEventListener('DOMContentLoaded', recalc, false);
+            setup();
+        })(document, window);
+        </script>
+        <script src="/about/assets/sketch.js"></script>
+
+        <style>
+        /* ==========================================================================
+           RESET & BASE STYLES
+           ========================================================================== */
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        body {
+            font-family: 'NYU', sans-serif;
+            color: #333;
+        }
+
+        /* ==========================================================================
+           LAYOUT COMPONENTS
+           ========================================================================== */
+        .page-body {
+            --title-scroll-depth: 2.6rem;
+            --detail-event-bubble-size: 138px;
+            width: 100%;
+            height: 100vh;
+        }
+
+        .li-box {
+            height: var(--title-scroll-depth);
+            width: 100%;
+            position: relative;
+            z-index: 1;
+        }
+
+        .zhuti {
+            height: var(--title-scroll-depth);
+            margin: 0px 0;
+            position: relative;
+        }
+
+        .shadow-title {
+            position: sticky;
+            z-index: -1;
+            left: 0;
+            top: 0;
+            color: #000;
+        }
+
+        /* .title-text-bg {
+            background: url('/events/title-text.svg');
+            width: 88%;
+            max-width: 1440px;
+            height: 12vw;
+            background-size: 100% 100%;
+            margin-top: 53px;
+            margin-left: -280px;
+        } */
+
+        .title-text-bg {
+            background: url('/events/title-text.svg');
+            width: 68%;
+            max-width: 1200px;
+            /* Hand-tuned height instead of aspect-ratio for easier visual adjustment. */
+            height: 17vw;
+            max-height: 300px;
+            background-repeat: no-repeat;
+            background-position: left top;
+            background-size: contain;
+            margin-top: 53px;
+        }
+
+        .center-box {
+            height: 340px;
+            margin-top: -130px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .img-bg {
+            width: 100%;
+            height: 1.55rem;
+            background-size: cover;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .on-shadow-title-box {
+            position: absolute;
+            z-index: 3;
+            top: 0;
+            width: 100%;
+            height: var(--title-scroll-depth);
+            pointer-events: none;
+        }
+
+        /* .on-shadow-title-bg {
+            position: sticky;
+            z-index: -1;
+            left: -280px;
+            top: 0;
+            background: url('/events/title-shadow.svg');
+            width: 88%;
+            max-width: 1440px;
+            height: 12vw;
+            background-size: 100% 100%;
+            margin-left:-280px;
+        } */
+
+         .on-shadow-title-bg {
+            position: sticky;
+            z-index: -1;
+            left: 0;
+            top: 0;
+            background: url('/events/title-shadow.svg');
+            width: 68%;
+            max-width: 1200px;
+            /* Hand-tuned height instead of aspect-ratio for easier visual adjustment. */
+            height: 16.5vw;
+            max-height: 292px;
+            background-repeat: no-repeat;
+            background-position: left top;
+            background-size: contain;
+        }
+
+        /* ==========================================================================
+           CONTENT AREA
+           ========================================================================== */
+        .content {
+            margin-top: 15px;
+            padding: 48px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding-bottom: 80px;
+            min-height: 100vh;
+        }
+
+        ::-webkit-scrollbar {
+            width: 0px;
+        }
+
+        /* ==========================================================================
+           EVENT BUBBLE LAYOUT
+           ========================================================================== */
+        .events-layout {
+            position: relative;
+            width: 100%;
+            max-width: 1280px;
+            aspect-ratio: 1280 / 980;
+            margin: 0 auto;
+        }
+
+        .event-bubble {
+            position: absolute;
+            left: calc(var(--x) * 1%);
+            top: calc(var(--y) * 1%);
+            width: calc(var(--size) * 1%);
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .event-bubble-circle {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            border-radius: 50%;
+            overflow: hidden;
+            background: #e0e0e0;
+            box-shadow: var(--ring-shadow), 0 8px 24px rgba(0, 0, 0, 0.08);
+            transition: box-shadow 0.28s ease, transform 0.28s ease;
+        }
+
+        .event-bubble-circle img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .event-info {
+            margin-top: 12px;
+        }
+
+        .event-bubble--title-top .event-info {
+            order: -1;
+            margin-top: 0;
+            margin-bottom: 12px;
+        }
+
+        .event-bubble--info-right .event-info {
+            position: absolute;
+            left: calc(100% + 18px);
+            top: 50%;
+            transform: translateY(-50%);
+            margin-top: 0;
+        }
+
+        .event-title {
+            font-size: clamp(16px, 1.45vw, 20px);
+            font-weight: 500;
+            font-style: italic;
+            color: #3d3d3d;
+            line-height: 1.08;
+            letter-spacing: -0.02em;
+            transition: color 0.24s ease;
+            padding-top: 18px;
+        }
+
+        .event-bubble:hover .event-bubble-circle {
+            box-shadow: var(--ring-shadow), 0 0 22px var(--hover-glow-color), 0 0 38px var(--hover-glow-color), 0 8px 24px rgba(0, 0, 0, 0.12);
+            transform: translateY(-2px);
+        }
+
+        .event-bubble:hover .event-title {
+            color: var(--hover-title-color);
+            font-weight: 600;
+        }
+
+        .event-title-line {
+            display: block;
+        }
+
+        .event-date {
+            margin-top: 6px;
+            font-size: clamp(12px, 1vw, 14px);
+            font-weight: 400;
+            font-style: italic;
+            color: rgba(156, 156, 156, 1);
+            line-height: 1.15;
+        }
+
+        .event-tags {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 6px;
+            margin-top: 6px;
+        }
+
+        .event-tag-line {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0;
+        }
+
+        .tag-pill {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 999px;
+            padding: 3px 10px;
+            font-size: clamp(11px, 0.85vw, 12px);
+            font-weight: 400;
+            line-height: 1;
+            white-space: nowrap;
+        }
+
+        .tag-pill {
+            border: 1px solid rgb(0, 0, 0);
+            color: #000000;
+            font-style: italic;
+        }
+
+        .tag-pill--exhibition {
+            background: rgba(255, 182, 236, 1);
+        }
+
+        .tag-pill--event {
+            background: rgba(222, 247, 94, 1);
+        }
+
+        .tag-pill--info {
+            background: rgba(140, 245, 255, 1);
+        }
+
+        .tag-pill--campus {
+            background: #fff;
+            border: 1px solid rgb(0, 0, 0);
+            color: #000000;
+        }
+
+        /* ==========================================================================
+           HIGHLIGHTS SECTION
+           ========================================================================== */
+        .highlights-section {
+            width: 100%;
+            max-width: 1280px;
+            margin: 1px auto 0;
+            padding: 0 18px;
+        }
+
+        .chapter-title {
+            font-size: 42px;
+            font-weight: 600;
+            color: #B8B812;
+            font-style: italic;
+            padding-bottom: 10px;
+        }
+
+        .photo-box {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 38px 18px;
+            justify-content: flex-start;
+            width: 100%;
+        }
+
+        .photo-item {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 1272 / 715;
+            width: 100%;
+            background: #f0f0f0;
+            cursor: pointer;
+        }
+
+        .photo-item .img-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .photo-item .img-layer img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .photo-item .img-back {
+            z-index: 0;
+        }
+
+        .photo-item .img-front {
+            z-index: 1;
+            transition: opacity 0.8s ease;
+        }
+
+        .photo-item .img-front.cross-fade {
+            opacity: 0;
+        }
+
+        /* Hover title overlay */
+        .photo-title {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0) 1%, rgb(221, 222, 183, 0.3) 25%, rgba(242, 247, 77, 1) 85%);
+            color: rgba(71, 71, 60, 1);
+            padding: 155px 20px 15px 20px;
+            font-weight: bold;
+            transform: translateY(100%);
+            transition: transform 0.3s ease-in-out;
+            z-index: 10;
+            cursor: pointer;
+            pointer-events: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .photo-item:hover .photo-title {
+            transform: translateY(0);
+        }
+
+        .photo-title .main-title {
+            font-size: 18px;
+            line-height: 1.2;
+            text-align: left;
+            width: 100%;
+        }
+
+        .photo-title .sub-title {
+            font-size: 11px;
+            font-weight: normal;
+            font-style: italic;
+            margin-top: 3px;
+            text-align: left;
+            width: 100%;
+        }
+
+        .photo-title .location {
+            font-size: 11px;
+            font-weight: normal;
+            font-style: italic;
+            margin-top: 3px;
+            text-align: left;
+            width: 100%;
+        }
+
+        /* Fullscreen preview overlay */
+        .preview-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .preview-overlay img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            border-radius: 4px;
+        }
+
+        /* ==========================================================================
+           RESPONSIVE DESIGN
+           ========================================================================== */
+        /* Tablet */
+        @media screen and (max-width: 1320px) {
+            .page-body {
+                --title-scroll-depth: 2.8rem;
+            }
+
+            .zhuti,
+            .on-shadow-title-box,
+            .li-box {
+                height: var(--title-scroll-depth);
+            }
+
+            .on-shadow-title-box {
+                height: var(--title-scroll-depth);
+            }
+
+            .img-bg {
+                height: 1.7rem;
+            }
+
+            .content {
+                width: 98vw;
+                padding: 10px;
+                margin-top: 0px;
+            }
+
+            .events-layout {
+                aspect-ratio: auto;
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: clamp(24px, 3vw, 34px) clamp(14px, 1.8vw, 20px);
+            }
+
+            .event-bubble {
+                position: relative;
+                left: auto;
+                top: auto;
+                width: min(40%, 260px);
+            }
+
+            .event-bubble:not(.event-bubble--info-right) {
+                width: calc((100% - 66px) / 4);
+                max-width: calc((100% - 66px) / 4);
+                flex: 0 0 calc((100% - 66px) / 4);
+                align-items: center;
+            }
+
+            .event-bubble:not(.event-bubble--info-right).event-bubble--title-top .event-info {
+                order: 0;
+                margin-top: 12px;
+                margin-bottom: 0;
+            }
+
+            .event-bubble--info-right {
+                width: calc((100% - 44px) / 3);
+                max-width: calc((100% - 44px) / 3);
+                flex: 0 0 calc((100% - 44px) / 3);
+                align-items: center;
+            }
+
+            .event-bubble--info-right .event-bubble-circle {
+                width: min(100%, clamp(112px, 15vw, var(--detail-event-bubble-size)));
+            }
+
+            .event-info {
+                width: auto !important;
+                margin-left: 0 !important;
+                text-align: center;
+            }
+
+            .event-title {
+                font-size: clamp(15px, 1.7vw, 18px);
+            }
+
+            .event-date {
+                font-size: clamp(11px, 1.1vw, 13px);
+            }
+
+            .tag-pill {
+                font-size: clamp(10px, 0.9vw, 11px);
+                padding: 3px 8px;
+            }
+
+            .event-bubble--info-right .event-info {
+                position: static;
+                left: auto;
+                top: auto;
+                transform: none;
+                margin-top: 10px;
+            }
+
+            .event-tags {
+                align-items: center;
+                gap: 4px;
+            }
+
+            .highlights-section {
+                padding: 0 10px;
+                margin-top: 40px;
+            }
+
+            .chapter-title {
+                font-size: 32px;
+            }
+
+            .photo-box {
+                gap: 20px 10px;
+            }
+        }
+
+        /* Mobile Large */
+        @media screen and (max-width: 720px) {
+            .page-body {
+                --title-scroll-depth: 3rem;
+            }
+
+            .li-box {
+                height: var(--title-scroll-depth);
+            }
+
+            .zhuti,
+            .on-shadow-title-box {
+                height: var(--title-scroll-depth);
+            }
+
+            .center-box {
+                height: 2.2rem;
+                margin-top: -0.55rem;
+            }
+
+            .img-bg {
+                height: 1.7rem;
+            }
+
+            .content {
+                width: 98vw;
+                padding: 10px;
+                margin-top: 0px;
+            }
+
+            .events-layout {
+                padding: 0 12px;
+                box-sizing: border-box;
+                gap: 26px 14px;
+            }
+
+            .event-bubble {
+                width: calc(50% - 12px);
+            }
+
+            .event-bubble:not(.event-bubble--info-right) {
+                width: calc((100% - 122px) / 2);
+                max-width: calc((100% - 122px) / 2);
+                flex: 0 1 calc((100% - 122px) / 2);
+                align-items: center;
+            }
+
+            .event-bubble:not(.event-bubble--info-right).event-bubble--title-top .event-info {
+                order: 0;
+                margin-top: 20px;
+                margin-bottom: 0;
+            }
+
+            .event-bubble--info-right {
+                width: calc((100% - 14px) / 2);
+                max-width: calc((100% - 14px) / 2);
+                flex: 0 0 calc((100% - 14px) / 2);
+                align-items: center;
+            }
+
+            .event-bubble--info-right .event-bubble-circle {
+                width: min(100%, clamp(96px, 23vw, 124px));
+            }
+
+            .event-title {
+                font-size: clamp(14px, 3.5vw, 16px);
+            }
+
+            .event-date {
+                font-size: clamp(11px, 2.7vw, 13px);
+            }
+
+            .tag-pill {
+                font-size: clamp(10px, 2.2vw, 11px);
+                padding: 3px 7px;
+            }
+
+            .event-bubble--info-right .event-info {
+                margin-top: 8px;
+            }
+
+            .event-tags {
+                gap: 4px;
+            }
+
+            .highlights-section {
+                padding: 0 10px;
+                margin-top: 30px;
+            }
+
+            .chapter-title {
+                font-size: 28px;
+            }
+
+            .photo-box {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 16px 10px;
+            }
+        }
+
+        @media screen and (max-width: 496px) {
+            .events-layout {
+                gap: 26px 10px;
+            }
+
+            .event-bubble:not(.event-bubble--info-right) {
+                width: 100%;
+                max-width: 260px;
+                flex: 0 1 100%;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .event-bubble--info-right {
+                width: calc((100% - 14px) / 2);
+                max-width: calc((100% - 14px) / 2);
+                flex: 0 0 calc((100% - 14px) / 2);
+            }
+
+            .event-bubble--info-right .event-bubble-circle {
+                width: min(100%, clamp(88px, 22vw, 112px));
+            }
+        }
+        </style>
+      <script type="module" crossorigin src="/assets/Navbar-CIRcXlDV.js"></script>
+      <script type="module" crossorigin src="/assets/myPageEntry-3vgZswCf.js"></script>
+      <link rel="stylesheet" crossorigin href="/assets/Navbar-DUVpDIUv.css">
+      <link rel="stylesheet" crossorigin href="/assets/myPageEntry-D67GmawQ.css">
+    </head>
+
+    <body>
+        <div id="root"></div>
+        <div id="app">
+            <div class="page-body" id="allText">
+                <div class="li-box">
+                    <div class="zhuti">
+                        <div class="shadow-title">
+                            <div class="title-text-bg">
+                            </div>
+                        </div>
+                        <div class="center-box">
+                            <div class="img-bg" id="imgBg">
+                                <div
+                                    style="position: absolute;left: 0;right: 0;top:0;bottom:0;z-index: -2;background:#eaea24">
+                                </div>
+                                <div
+                                    style="position: absolute;left: 0;right: 0;top:0;bottom:0;z-index: -1;margin: 0 auto;text-align: center">
+                                    <main>
+                                    </main>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="on-shadow-title-box">
+                            <div class="on-shadow-title-bg">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="content">
+                    <div class="events-layout">
+                        <article v-for="item in circleEvents" :key="item.id"
+                            class="event-bubble"
+                            :class="{ 'event-bubble--title-top': item.titlePosition === 'top', 'event-bubble--info-right': item.infoPosition === 'right' }"
+                            :style="eventStyle(item)"
+                            role="link"
+                            tabindex="0"
+                            @click="openEventDetail(item.id)"
+                            @keydown.enter.prevent="openEventDetail(item.id)"
+                            @keydown.space.prevent="openEventDetail(item.id)">
+                            <div class="event-bubble-circle"
+                                :style="bubbleCircleStyle(item)">
+                                <img :src="item.image"
+                                    :alt="item.titleLines.join(' ')" />
+                            </div>
+                            <div class="event-info" :style="labelStyle(item)">
+                                <div class="event-title"
+                                    :style="titleStyle(item)">
+                                    <div
+                                        v-for="(line, lineIndex) in item.titleLines"
+                                        :key="item.id + '-title-' + lineIndex"
+                                        class="event-title-line"
+                                        :style="titleLineStyle(item, lineIndex)">{{
+                                        line }}</div>
+                                </div>
+                                <div class="event-date">
+                                    <div
+                                        v-for="(line, lineIndex) in item.dateLines"
+                                        :key="item.id + '-date-' + lineIndex">{{
+                                        line }}</div>
+                                </div>
+                                <div class="event-tags">
+                                    <div
+                                        v-for="(tagLine, lineIndex) in tagLines(item)"
+                                        :key="item.id + '-tag-line-' + lineIndex"
+                                        class="event-tag-line">
+                                        <span
+                                            v-for="(tag, tagIndex) in tagLine"
+                                            :key="item.id + '-tag-' + lineIndex + '-' + tag.type + '-' + tag.label + '-' + tagIndex"
+                                            class="tag-pill"
+                                            :class="'tag-pill--' + tag.type">{{
+                                            tag.label }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+
+                    <!-- Highlights Section -->
+                    <div class="highlights-section">
+                        <div class="chapter-title">Highlights</div>
+                        <div class="photo-box">
+                            <div v-for="(img, index) in displayedImages"
+                                :key="'photo-' + index" class="photo-item">
+                                <div class="img-layer img-back">
+                                    <img
+                                        :src="nextImages[index] ? nextImages[index].src : img.src" />
+                                </div>
+                                <div class="img-layer img-front"
+                                    :class="{ 'cross-fade': crossFading }">
+                                    <img :src="img.src" />
+                                </div>
+                                <div class="photo-title"
+                                    @click="openPreview(img.src)">
+                                    <div class="main-title">{{ img.title
+                                        }}</div>
+                                    <div class="sub-title" v-if="img.subtitle">
+                                        {{ img.subtitle }}
+                                        <div class="location"
+                                            v-if="img.location">{{ img.location
+                                            }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Preview overlay -->
+                    <div class="preview-overlay" v-if="previewSrc"
+                        @click="previewSrc = null">
+                        <img :src="previewSrc" />
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <script>
+        const { createApp, ref, onMounted, onUnmounted } = Vue;
+        createApp({
+            setup() {
+                const allImages = ref([
+                    { src: '/events/images/04.jpg', title: 'Opening Ceremony and Launch Events (Shanghai)', subtitle: 'Apr 13, 2025', location: 'NYU Shanghai Qiantan Campus' },
+                    { src: '/events/images/06.jpg', title: 'Opening Ceremony and Launch Events (Shanghai)', subtitle: 'Apr 13, 2025', location: 'NYU Shanghai Qiantan Campus' },
+                    { src: '/events/images/08.jpg', title: 'Opening Project: Live-Diffusion', subtitle: 'Apr 9 - 13, 2025', location: 'Shanghai / New York / Abu Dhabi' },
+                    { src: '/events/images/FutureLab01.jpg', title: 'Art & Design Education: FutureLab 2025', subtitle: 'Oct 31 - Nov 2, 2025', location: 'West Bund Art Center, Shanghai' },
+                    { src: '/events/images/FutureLab02.jpg', title: 'Art & Design Education: FutureLab 2025', subtitle: 'Oct 31 - Nov 2, 2025', location: 'West Bund Art Center, Shanghai' },
+                    { src: '/events/images/FutureLab03.jpg', title: 'Art & Design Education: FutureLab 2025', subtitle: 'Oct 31 - Nov 2, 2025', location: 'West Bund Art Center, Shanghai' },
+                    { src: '/events/images/FutureLab04.jpg', title: 'Art & Design Education: FutureLab 2025', subtitle: 'Oct 31 - Nov 2, 2025', location: 'West Bund Art Center, Shanghai' },
+                    { src: '/events/images/FutureLab05.jpg', title: 'Art & Design Education: FutureLab 2025', subtitle: 'Oct 31 - Nov 2, 2025', location: 'West Bund Art Center, Shanghai' },
+                    { src: '/events/images/FutureLab06.jpg', title: 'Art & Design Education: FutureLab 2025', subtitle: 'Oct 31 - Nov 2, 2025', location: 'West Bund Art Center, Shanghai' },
+                    { src: '/events/images/FutureLab07.jpg', title: 'Art & Design Education: FutureLab 2025', subtitle: 'Oct 31 - Nov 2, 2025', location: 'West Bund Art Center, Shanghai' },
+                    { src: '/events/images/IMA Gallery Exhibition01.jpg', title: 'Exploring Creativity in the Age of AI (Shanghai)', subtitle: 'Oct 9 - 26, 2025', location: 'IMA Studio' },
+                    { src: '/events/images/IMA Gallery Exhibition02.jpg', title: 'Exploring Creativity in the Age of AI (Shanghai)', subtitle: 'Oct 9 - 26, 2025', location: 'IMA Studio' },
+                    { src: '/events/images/IMA Gallery Exhibition03.jpg', title: 'Exploring Creativity in the Age of AI (Shanghai)', subtitle: 'Oct 9 - 26, 2025', location: 'IMA Studio' },
+                    { src: '/events/images/IMA Gallery Exhibition04.jpg', title: 'Exploring Creativity in the Age of AI (Shanghai)', subtitle: 'Oct 9 - 26, 2025', location: 'IMA Studio' },
+                    { src: '/events/images/IMA Gallery Exhibition05.jpg', title: 'Exploring Creativity in the Age of AI (Shanghai)', subtitle: 'Oct 9 - 26, 2025', location: 'IMA Studio' },
+                    { src: '/events/images/IMA Gallery Exhibition06.jpg', title: 'Exploring Creativity in the Age of AI (Shanghai)', subtitle: 'Oct 9 - 26, 2025', location: 'IMA Studio' },
+                    { src: '/events/images/IMA Gallery Exhibition07.jpg', title: 'Exploring Creativity in the Age of AI (Shanghai)', subtitle: 'Oct 9 - 26, 2025', location: 'IMA Studio' },
+                    { src: '/events/images/IMA Gallery Exhibition08.jpg', title: 'Exploring Creativity in the Age of AI (Shanghai)', subtitle: 'Oct 9 - 26, 2025', location: 'IMA Studio' },
+                    { src: '/events/images/IMA Gallery Exhibition09.jpg', title: 'Exploring Creativity in the Age of AI (Shanghai)', subtitle: 'Oct 9 - 26, 2025', location: 'IMA Studio' },
+                    { src: '/events/images/IMA Gallery Exhibition10.jpg', title: 'Exploring Creativity in the Age of AI (Shanghai)', subtitle: 'Oct 9 - 26, 2025', location: 'IMA Studio' },
+                    { src: '/events/images/New York Opening01.jpg', title: 'Exploring Creativity in the Age of AI (New York)', subtitle: 'Oct 10, 2025', location: 'ITP/IMA floor' },
+                    { src: '/events/images/New York Opening02.jpg', title: 'Exploring Creativity in the Age of AI (New York)', subtitle: 'Oct 10, 2025', location: 'ITP/IMA floor' },
+                    { src: '/events/images/New York Opening03.jpg', title: 'Exploring Creativity in the Age of AI (New York)', subtitle: 'Oct 10, 2025', location: 'ITP/IMA floor' },
+                    { src: '/events/images/New York Opening04.jpg', title: 'Exploring Creativity in the Age of AI (New York)', subtitle: 'Oct 10, 2025', location: 'ITP/IMA floor' },
+                    { src: '/events/images/New York Opening05.jpg', title: 'Exploring Creativity in the Age of AI (New York)', subtitle: 'Oct 10, 2025', location: 'ITP/IMA floor' },
+                    { src: '/events/images/New York Opening06.jpg', title: 'Exploring Creativity in the Age of AI (New York)', subtitle: 'Oct 10, 2025', location: 'ITP/IMA floor' },
+                    { src: '/events/images/New York Opening07.jpg', title: 'Exploring Creativity in the Age of AI (New York)', subtitle: 'Oct 10, 2025', location: 'ITP/IMA floor' },
+                    { src: '/events/images/New York Opening08.jpg', title: 'Exploring Creativity in the Age of AI (New York)', subtitle: 'Oct 10, 2025', location: 'ITP/IMA floor' },
+                    { src: '/events/images/New York Opening09.jpg', title: 'Exploring Creativity in the Age of AI (New York)', subtitle: 'Oct 10, 2025', location: 'ITP/IMA floor' },
+                    { src: '/events/images/New York Opening10.jpg', title: 'Exploring Creativity in the Age of AI (New York)', subtitle: 'Oct 10, 2025', location: 'ITP/IMA floor' },
+                    { src: '/events/images/New York Opening11.jpg', title: 'Exploring Creativity in the Age of AI (New York)', subtitle: 'Oct 10, 2025', location: 'ITP/IMA floor' },
+                    { src: '/events/images/New York Opening12.jpg', title: 'Exploring Creativity in the Age of AI (New York)', subtitle: 'Oct 10, 2025', location: 'ITP/IMA floor' },
+                    { src: '/events/images/New York Opening13.jpg', title: 'Exploring Creativity in the Age of AI (New York)', subtitle: 'Oct 10, 2025', location: 'ITP/IMA floor' },
+                    { src: '/events/images/New York Opening14.jpg', title: 'Exploring Creativity in the Age of AI (New York)', subtitle: 'Oct 10, 2025', location: 'ITP/IMA floor' },
+                    { src: '/events/images/New York Opening15.jpg', title: 'Exploring Creativity in the Age of AI (New York)', subtitle: 'Oct 10, 2025', location: 'ITP/IMA floor' },
+                    { src: '/events/images/New York Opening16.jpg', title: 'Exploring Creativity in the Age of AI (New York)', subtitle: 'Oct 10, 2025', location: 'ITP/IMA floor' },
+                ]);
+
+                const tagColors = {
+                    exhibition: 'rgba(255, 182, 236, 1)',
+                    event: 'rgba(222, 247, 94, 1)',
+                    info: 'rgba(140, 245, 255, 1)',
+                };
+
+                const circleEvents = ref([
+                    {
+                        id: 'opening-launch',
+                        image: '/events/images/04.jpg',
+                        titleLines: ['NYU Global Show & Tell', '(Opening)'],
+                        dateLines: ['Apr 13, 2025'],
+                        tags: [
+                            { label: 'Event', type: 'event' },
+                            { label: 'Exhibition', type: 'exhibition' },
+                        ],
+                        campuses: ['SH', 'NY', 'AD'],
+                        tagLines: [
+                            [
+                                { label: 'Event', type: 'event' },
+                                { label: 'Exhibition', type: 'exhibition' },
+                            ],
+                            [
+                                { label: 'SH', type: 'campus' },
+                                { label: 'NY', type: 'campus' },
+                                { label: 'AD', type: 'campus' },
+                            ],
+                        ],
+                        ringOrder: ['exhibition', 'event'],
+                        borderTag: 'event',
+                        x: 1,
+                        y: 2,
+                        size: 20,
+                        firstLineWidth: 248,
+                        labelWidth: 215,
+                    },
+                    {
+                        id: 'shanghai-show',
+                        image: '/events/images/IMA Gallery Exhibition03.jpg',
+                        titleLines: ['NYU Global Show & Tell', '(Shanghai)'],
+                        dateLines: ['October 9 - 26, 2025'],
+                         tagLines: [
+                            [
+                                { label: 'Exhibition', type: 'exhibition' },
+                                { label: 'SH', type: 'campus' },
+                            ]
+                        ],
+                        borderTag: 'exhibition',
+                        titlePosition: 'top',
+                        x: 28,
+                        y: 0,
+                        size: 20,
+                        firstLineWidth: 248,
+                        labelWidth: 228,
+                        labelOffsetX: 4,
+                    },
+                    {
+                        id: 'new-york-show',
+                        image: '/events/images/New York Opening15.jpg',
+                        titleLines: ['NYU Global Show & Tell', '(New York)'],
+                        dateLines: ['October 10, 2025'],
+                        tags: [
+                            { label: 'Event', type: 'event' },
+                            { label: 'Exhibition', type: 'exhibition' },
+                        ],
+                        campuses: ['NY'],
+                        tagLines: [
+                            [
+                                { label: 'Event', type: 'event' },
+                                { label: 'Exhibition', type: 'exhibition' },
+                                { label: 'NY', type: 'campus' },
+                            ]
+                        ],
+                        ringOrder: ['exhibition', 'event'],
+                        borderTag: 'event',
+                        titlePosition: 'below',
+                        x: 55,
+                        y: -2,
+                        size: 20,
+                        firstLineWidth: 252,
+                        labelWidth: 230,
+                        labelOffsetX: -6,
+                    },
+                    {
+                        id: 'future-lab',
+                        image: '/events/images/FutureLab01.jpg',
+                        titleLines: ['Future Lab Exhibition'],
+                        dateLines: ['October 31 - November 2,', '2025'],
+                        tagLines: [
+                            [
+                                { label: 'Exhibition', type: 'exhibition' },
+                                { label: 'SH', type: 'campus' },
+                            ]
+                        ],
+                        campuses: ['SH'],
+                        borderTag: 'exhibition',
+                        titlePosition: 'top',
+                        x: 78,
+                        y: 13,
+                        size: 20,
+                        firstLineWidth: 244,
+                        labelWidth: 220,
+                        labelOffsetX: 12,
+                    },
+                    {
+                        id: 'live-diffusion',
+                        image: '/events/images/08.jpg',
+                        titleLines: ['Opening Project:', 'Live-Diffusion'],
+                        dateLines: ['April 9 - April 13, 2025'],
+                        tags: [
+                            { label: 'Exhibition', type: 'exhibition' },
+                        ],
+                        campuses: ['SH', 'NY', 'AD'],
+                        tagLines: [
+                            [
+                                { label: 'Exhibition', type: 'exhibition' },
+                            ],
+                            [
+                                { label: 'SH', type: 'campus' },
+                                { label: 'NY', type: 'campus' },
+                                { label: 'AD', type: 'campus' },
+                            ],
+                        ],
+                        borderTag: 'exhibition',
+                        infoPosition: 'right',
+                        x: 2,
+                        y: 52,
+                        size: 11,
+                        labelWidth: 230,
+                    },
+                    {
+                        id: 'video-loop',
+                        image: '/events/images/08.jpg',
+                        titleLines: ['Projects (video', 'loop)'],
+                        dateLines: [],
+                        tags: [
+                            { label: 'Works', type: 'info' },
+                        ],
+                        campuses: ['SH', 'NY', 'AD'],
+                        tagLines: [
+                            [
+                                { label: 'Works', type: 'info' },
+                            ],
+                            [
+                                { label: 'SH', type: 'campus' },
+                                { label: 'NY', type: 'campus' },
+                                { label: 'AD', type: 'campus' },
+                            ],
+                        ],
+                        borderTag: 'info',
+                        infoPosition: 'right',
+                        x: 36,
+                        y: 52,
+                        size: 11,
+                        labelWidth: 200,
+                    },
+                    {
+                        id: 'opening-video-october',
+                        image: '/events/images/06.jpg',
+                        titleLines: ['Opening Video (SH)'],
+                        dateLines: ['October 9, 2025'],
+                        tags: [
+                            { label: 'Event', type: 'event' },
+                        ],
+                        campuses: ['SH'],
+                        tagLines: [
+                            [
+                                { label: 'Event', type: 'event' },
+                                { label: 'SH', type: 'campus' },
+                            ],
+                        ],
+                        borderTag: 'event',
+                        infoPosition: 'right',
+                        x: 70,
+                        y: 52,
+                        size: 11,
+                        labelWidth: 185,
+                    },
+                    {
+                        id: 'lightning-talks',
+                        image: '/events/images/New York Opening02.jpg',
+                        titleLines: ['Lightning', 'Talks (NY)'],
+                        dateLines: ['October 10, 2025'],
+                        tags: [
+                            { label: 'Event', type: 'event' },
+                        ],
+                        campuses: ['NY'],
+                        tagLines: [
+                            [
+                                { label: 'Event', type: 'event' },
+                                { label: 'NY', type: 'campus' },
+                            ],
+                        ],
+                        borderTag: 'event',
+                        infoPosition: 'right',
+                        x: 2,
+                        y: 73,
+                        size: 11,
+                        labelWidth: 180,
+                    },
+                    {
+                        id: 'moon-interview',
+                        image: '/events/images/IMA Gallery Exhibition05.jpg',
+                        titleLines: ["Moon and Inmi's", 'interview clip'],
+                        dateLines: ['October 9, 2025'],
+                        tags: [
+                            { label: 'Interview', type: 'info' },
+                        ],
+                        campuses: ['SH'],
+                        tagLines: [
+                            [
+                                { label: 'Interview', type: 'info' },
+                                { label: 'SH', type: 'campus' },
+                            ],
+                        ],
+                        borderTag: 'info',
+                        infoPosition: 'right',
+                        x: 36,
+                        y: 73,
+                        size: 10.8,
+                        labelWidth: 220,
+                    },
+                    {
+                        id: 'opening-video-april',
+                        image: '/events/images/06.jpg',
+                        titleLines: ['Opening Video (SH)'],
+                        dateLines: ['Apr 13, 2025'],
+                        tags: [
+                            { label: 'Event', type: 'event' },
+                        ],
+                        campuses: ['SH'],
+                        tagLines: [
+                            [
+                                { label: 'Event', type: 'event' },
+                                { label: 'SH', type: 'campus' },
+                            ],
+                        ],
+                        borderTag: 'event',
+                        infoPosition: 'right',
+                        x: 70,
+                        y: 73,
+                        size: 10.8,
+                        labelWidth: 185,
+                    },
+                ]);
+
+                const displayedImages = ref([]);
+                const nextImages = ref([]);
+                const crossFading = ref(false);
+                const previewSrc = ref(null);
+                let timer = null;
+
+                function eventStyle(item) {
+                    const primaryTagLine = tagLines(item)[0] || [];
+                    const primaryTag = primaryTagLine[0];
+                    const primaryTagType = primaryTag?.type || item.borderTag || 'event';
+                    const primaryTagLabel = (primaryTag?.label || '').toLowerCase();
+                    let hoverColor = tagColors[primaryTagType] || tagColors.event;
+
+                    if (primaryTagType === 'exhibition') {
+                        hoverColor = 'rgba(235, 110, 201, 1)';
+                    } else if (primaryTagType === 'event') {
+                        hoverColor = 'rgba(185, 204, 92, 1)';
+                    } else if (primaryTagLabel === 'works' || primaryTagType === 'info') {
+                        hoverColor = 'rgba(109, 217, 227, 1)';
+                    }
+
+                    return {
+                        '--x': item.x,
+                        '--y': item.y,
+                        '--size': item.size,
+                        '--hover-title-color': hoverColor,
+                        '--hover-glow-color': hoverColor,
+                    };
+                }
+
+                function bubbleCircleStyle(item) {
+                    const ringTypes = [...new Set((item.tags || []).map((tag) => tag.type))];
+                    const orderedRingTypes = (item.ringOrder || []).filter((type) => ringTypes.includes(type));
+                    const remainingRingTypes = ringTypes.filter((type) => !orderedRingTypes.includes(type));
+                    const colorTypes = (orderedRingTypes.length > 0
+                        ? [...orderedRingTypes, ...remainingRingTypes]
+                        : ringTypes).length > 0
+                        ? [...orderedRingTypes, ...remainingRingTypes].filter((type, index, array) => array.indexOf(type) === index)
+                        : [item.borderTag || 'event'];
+                    const ringShadow = colorTypes
+                        .map((type, index) => `0 0 0 ${(index + 1) * 3}px ${tagColors[type] || tagColors.event}`)
+                        .join(', ');
+
+                    return {
+                        '--ring-shadow': ringShadow,
+                    };
+                }
+
+                function combinedTags(item) {
+                    const contentTags = item.tags || [];
+                    const campusTags = (item.campuses || []).map((campus) => ({
+                        label: campus,
+                        type: 'campus',
+                    }));
+
+                    return [...contentTags, ...campusTags];
+                }
+
+                function tagLines(item) {
+                    if (item.tagLines && item.tagLines.length > 0) {
+                        return item.tagLines.filter((line) => (line || []).length > 0);
+                    }
+
+                    const contentTags = item.tags || [];
+                    const campusTags = (item.campuses || []).map((campus) => ({
+                        label: campus,
+                        type: 'campus',
+                    }));
+
+                    return [contentTags, campusTags].filter((line) => line.length > 0);
+                }
+
+                function labelStyle(item) {
+                    return {
+                        marginLeft: `${item.labelOffsetX || 0}px`,
+                        width: `${item.labelWidth || 200}px`,
+                    };
+                }
+
+                function titleStyle(item) {
+                    return {
+                        fontSize: item.titleSize
+                            ? typeof item.titleSize === 'number'
+                                ? `${item.titleSize}px`
+                                : item.titleSize
+                            : undefined,
+                    };
+                }
+
+                function titleLineStyle(item, lineIndex) {
+                    if (lineIndex !== 0 || !item.firstLineWidth) {
+                        return undefined;
+                    }
+
+                    return {
+                        width: `${item.firstLineWidth}px`,
+                    };
+                }
+
+                function shuffle(arr) {
+                    const a = [...arr];
+                    for (let i = a.length - 1; i > 0; i--) {
+                        const j = Math.floor(Math.random() * (i + 1));
+                        [a[i], a[j]] = [a[j], a[i]];
+                    }
+                    return a;
+                }
+
+                function pickRandom9() {
+                    return shuffle(allImages.value).slice(0, 9);
+                }
+
+                function openPreview(src) {
+                    previewSrc.value = src;
+                }
+
+                function openEventDetail(id) {
+                    window.location.href = `/event/${id}`;
+                }
+
+                function rotateImages() {
+                    // Set next images on the back layer
+                    const next = pickRandom9();
+                    nextImages.value = next;
+                    // Trigger crossfade: front fades out to reveal back
+                    crossFading.value = true;
+                    setTimeout(() => {
+                        // Swap: move next to front, reset
+                        displayedImages.value = next;
+                        crossFading.value = false;
+                        nextImages.value = [];
+                    }, 800); // match CSS transition duration
+                }
+
+                onMounted(() => {
+                    displayedImages.value = pickRandom9();
+                    timer = setInterval(rotateImages, 9000);
+                });
+
+                onUnmounted(() => {
+                    if (timer) clearInterval(timer);
+                });
+
+                return {
+                    circleEvents,
+                    displayedImages,
+                    nextImages,
+                    crossFading,
+                    previewSrc,
+                    eventStyle,
+                    bubbleCircleStyle,
+                    combinedTags,
+                    tagLines,
+                    labelStyle,
+                    titleStyle,
+                    titleLineStyle,
+                    openPreview,
+                    openEventDetail,
+                }
+            }
+        }).mount('#app')
+        </script>
+    </body>
+
+</html>
