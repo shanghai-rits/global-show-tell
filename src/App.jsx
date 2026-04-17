@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
-import Showcase from './pages/Showcase.tsx';
 import EventDetail from './pages/EventDetail.tsx';
+import Showcase from './pages/Showcase.tsx';
 import ShowcaseDetail from './pages/ShowcaseDetail.tsx';
 
 function App() {
