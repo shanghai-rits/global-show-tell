@@ -24,12 +24,12 @@ const Navbar: React.FC = () => {
   //   return () => window.removeEventListener("resize", handleResize);
   // }, []);
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsOpen(false);
-    }, 1500); // Collapse after 1 second
-    return () => clearTimeout(timer);
-  }, []);
+  // useEffect(() => {
+  //   const timer = setTimeout(() => {
+  //     setIsOpen(false);
+  //   }, 1500); // Collapse after 1 second
+  //   return () => clearTimeout(timer);
+  // }, []);
 
   // Auto-collapse when the cursor leaves the navbar area by more than ~10px.
   useEffect(() => {
@@ -40,7 +40,7 @@ const Navbar: React.FC = () => {
 
     const EDGE_THRESHOLD = 10;
     const LEAVE_DELAY = 500;
-    const ANIMATION_TOTAL = 800;
+    const ANIMATION_TOTAL = 500;
 
     const clearTimers = () => {
       if (collapseTimerRef.current) {
@@ -88,12 +88,10 @@ const Navbar: React.FC = () => {
     };
   }, [isOpen]);
 
-  const collapseStyle = (delay: string): React.CSSProperties => ({
-    transition: "transform 0.3s ease-in, opacity 0.3s ease-in",
-    transitionDelay: isCollapsing ? delay : "0s",
-    transform: isCollapsing ? "translateX(calc(100% + 60px))" : "none",
-    opacity: isCollapsing ? 0 : 1,
-  });
+  const collapseStyle: React.CSSProperties = {
+    transition: "transform 0.35s cubic-bezier(0.65, 0, 0.35, 1)",
+    transform: isCollapsing ? "translateX(600px)" : "translateX(0)",
+  };
 
   return (
     <div
@@ -136,7 +134,7 @@ const Navbar: React.FC = () => {
             </div>
           </button>
           <nav className="navbar">
-            <div className="nav-title" style={collapseStyle("0.42s")} onClick={() => window.open("/", "_blank")}>
+            <div className="nav-title" style={collapseStyle} onClick={() => window.open("/", "_blank")}>
               {/* <div>NYU Global</div>
             <div>SHOW & TELL</div> */}
               <svg className="default" width="483" height="164" viewBox="0 0 483 164" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -257,28 +255,28 @@ const Navbar: React.FC = () => {
               </svg>
             </div>
             <div className="nav-buttons">
-              <div className="nav-button-wrapper" style={collapseStyle("0.32s")}>
-                <button className="nav-button" onClick={() => window.open("/showcase", "_blank")}>
+              <div className="nav-button-wrapper">
+                <button className="nav-button" style={collapseStyle} onClick={() => window.open("/showcase", "_blank")}>
                   Online Showcase
                 </button>
               </div>
-              <div className="nav-button-wrapper" style={collapseStyle("0.24s")}>
-                <button className="nav-button" onClick={() => window.open("/events", "_blank")}>
+              <div className="nav-button-wrapper">
+                <button className="nav-button" style={collapseStyle} onClick={() => window.open("/events", "_blank")}>
                   Events and Activities
                 </button>
               </div>
-              <div className="nav-button-wrapper" style={collapseStyle("0.16s")}>
-                <button className="nav-button" onClick={() => window.open("/calendar", "_blank")}>
+              <div className="nav-button-wrapper">
+                <button className="nav-button" style={collapseStyle} onClick={() => window.open("/calendar", "_blank")}>
                   Programme Calendar
                 </button>
               </div>
-              <div className="nav-button-wrapper" style={collapseStyle("0.08s")}>
-                <button className="nav-button" onClick={() => window.open("/about", "_blank")}>
+              <div className="nav-button-wrapper">
+                <button className="nav-button" style={collapseStyle} onClick={() => window.open("/about", "_blank")}>
                   About
                 </button>
               </div>
-              <div className="nav-button-wrapper" style={collapseStyle("0s")}>
-                <button className="nav-button" onClick={() => window.open("/opencall", "_blank")}>
+              <div className="nav-button-wrapper">
+                <button className="nav-button" style={collapseStyle} onClick={() => window.open("/opencall", "_blank")}>
                   Open Call (Closed)
                 </button>
               </div>
