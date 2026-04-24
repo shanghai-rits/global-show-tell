@@ -265,3 +265,6 @@ button {
   cursor: pointer;
 }
 
+/* Auto-collapse animation: transform/opacity/delay are all applied via inline
+   style from the component to avoid any CSS cascade surprises. */
+

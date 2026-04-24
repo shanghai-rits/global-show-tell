@@ -1,8 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./Navbar.css";
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isCollapsing, setIsCollapsing] = useState(false);
   const mobileThreshold = 768; // adjust threshold as needed
+
+  const navRef = useRef<HTMLDivElement>(null);
+  const collapseTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const closeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // useEffect(() => {
   //   const handleResize = () => {
@@ -26,8 +31,75 @@ const Navbar: React.FC = () => {
     return () => clearTimeout(timer);
   }, []);
 
+  // Auto-collapse when the cursor leaves the navbar area by more than ~10px.
+  useEffect(() => {
+    if (!isOpen) {
+      setIsCollapsing(false);
+      return;
+    }
+
+    const EDGE_THRESHOLD = 10;
+    const LEAVE_DELAY = 500;
+    const ANIMATION_TOTAL = 800;
+
+    const clearTimers = () => {
+      if (collapseTimerRef.current) {
+        clearTimeout(collapseTimerRef.current);
+        collapseTimerRef.current = null;
+      }
+      if (closeTimerRef.current) {
+        clearTimeout(closeTimerRef.current);
+        closeTimerRef.current = null;
+      }
+    };
+
+    const handleMouseMove = (e: MouseEvent) => {
+      const el = navRef.current;
+      if (!el) return;
+      const rect = el.getBoundingClientRect();
+      const dx = Math.max(rect.left - e.clientX, 0, e.clientX - rect.right);
+      const dy = Math.max(rect.top - e.clientY, 0, e.clientY - rect.bottom);
+      const outside = dx > EDGE_THRESHOLD || dy > EDGE_THRESHOLD;
+
+      if (outside) {
+        if (!collapseTimerRef.current && !closeTimerRef.current) {
+          collapseTimerRef.current = setTimeout(() => {
+            collapseTimerRef.current = null;
+            setIsCollapsing(true);
+            closeTimerRef.current = setTimeout(() => {
+              closeTimerRef.current = null;
+              setIsOpen(false);
+              setIsCollapsing(false);
+            }, ANIMATION_TOTAL);
+          }, LEAVE_DELAY);
+        }
+      } else {
+        if (collapseTimerRef.current || closeTimerRef.current) {
+          clearTimers();
+          setIsCollapsing(false);
+        }
+      }
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      clearTimers();
+    };
+  }, [isOpen]);
+
+  const collapseStyle = (delay: string): React.CSSProperties => ({
+    transition: "transform 0.3s ease-in, opacity 0.3s ease-in",
+    transitionDelay: isCollapsing ? delay : "0s",
+    transform: isCollapsing ? "translateX(calc(100% + 60px))" : "none",
+    opacity: isCollapsing ? 0 : 1,
+  });
+
   return (
-    <div className={`navbar-container ${isOpen ? "expanded" : "collapsed"}`}>
+    <div
+      ref={navRef}
+      className={`navbar-container ${isOpen ? "expanded" : "collapsed"}${isCollapsing ? " is-collapsing" : ""}`}
+    >
       {/* Toggle Button */}
       {!isOpen && (
         <button className="toggle-button" onClick={() => setIsOpen(!isOpen)}>
@@ -64,7 +136,7 @@ const Navbar: React.FC = () => {
             </div>
           </button>
           <nav className="navbar">
-            <div className="nav-title" onClick={() => window.open("/", "_blank")}>
+            <div className="nav-title" style={collapseStyle("0.42s")} onClick={() => window.open("/", "_blank")}>
               {/* <div>NYU Global</div>
             <div>SHOW & TELL</div> */}
               <svg className="default" width="483" height="164" viewBox="0 0 483 164" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -185,34 +257,29 @@ const Navbar: React.FC = () => {
               </svg>
             </div>
             <div className="nav-buttons">
-              <div className="nav-button-wrapper">
-                <button className="nav-button" onClick={() => window.open("/submission", "_blank")} >
-                  Submit Your Work
-                </button>
-              </div>
-              <div className="nav-button-wrapper">
-                <button className="nav-button" onClick={() => window.open("/collaboration", "_blank")}>
-                  Find Your Collaborator
-                </button>
-              </div>
-              <div className="nav-button-wrapper">
+              <div className="nav-button-wrapper" style={collapseStyle("0.32s")}>
                 <button className="nav-button" onClick={() => window.open("/showcase", "_blank")}>
-                  Showcase
+                  Online Showcase
                 </button>
               </div>
-              <div className="nav-button-wrapper">
-                <button className="nav-button" onClick={() => window.open("/calendar", "_blank")}>
-                  Program Calendar
-                </button>
-              </div>
-              <div className="nav-button-wrapper">
+              <div className="nav-button-wrapper" style={collapseStyle("0.24s")}>
                 <button className="nav-button" onClick={() => window.open("/events", "_blank")}>
-                  Events
+                  Events and Activities
                 </button>
               </div>
-              <div className="nav-button-wrapper">
+              <div className="nav-button-wrapper" style={collapseStyle("0.16s")}>
+                <button className="nav-button" onClick={() => window.open("/calendar", "_blank")}>
+                  Programme Calendar
+                </button>
+              </div>
+              <div className="nav-button-wrapper" style={collapseStyle("0.08s")}>
                 <button className="nav-button" onClick={() => window.open("/about", "_blank")}>
                   About
+                </button>
+              </div>
+              <div className="nav-button-wrapper" style={collapseStyle("0s")}>
+                <button className="nav-button" onClick={() => window.open("/opencall", "_blank")}>
+                  Open Call (Closed)
                 </button>
               </div>
             </div>
