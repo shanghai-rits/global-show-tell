@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 	<head>
@@ -19,9 +19,9 @@
 		<script defer>
 		let screenWidth = window.innerWidth;
 		let screenHeight = window.innerHeight;
-		let sqrtNum = Math.sqrt(screenWidth**2 + screenHeight**2);
+		let sqrtNum = Math.sqrt(screenWidth ** 2 + screenHeight ** 2);
 		let ultraWideRatio = 1;
-		if(screenWidth/screenHeight > 2){
+		if (screenWidth / screenHeight > 2) {
 			ultraWideRatio = 0.8
 		}
 
@@ -38,9 +38,9 @@
 		function handleResize() {
 			screenWidth = window.innerWidth;
 			screenHeight = window.innerHeight;
-			sqrtNum = Math.sqrt(screenWidth**2 + screenHeight**2);
+			sqrtNum = Math.sqrt(screenWidth ** 2 + screenHeight ** 2);
 			let ultraWideRatio = 1;
-			if(screenWidth/screenHeight > 2){
+			if (screenWidth / screenHeight > 2) {
 				ultraWideRatio = 0.8
 			}
 
@@ -83,21 +83,21 @@
 			cursor: pointer;
 			transition: all 0.1s;
 		}
+
 		#draggable2 {
 			cursor: pointer;
 			transition: all 0.1s;
 		}
-
-
 	</style>
 		<style>
-		:root{
-			--sqrt-line:0;
-			--height-line:0;
-			--width-line:0;
+		:root {
+			--sqrt-line: 0;
+			--height-line: 0;
+			--width-line: 0;
 			--img-multiple: 0;
 			--ultra-wide: 0
 		}
+
 		::-webkit-scrollbar {
 			width: 0;
 			height: 0;
@@ -105,24 +105,26 @@
 			/* height: 10px; */
 			/* 横向滚动条的高度 */
 		}
-        * {
-            padding: 0;
-            margin: 0;
-        }
 
-        body {
-            font-family: 'NYU', sans-serif;
-            color: #333;
-        }
+		* {
+			padding: 0;
+			margin: 0;
+		}
 
-        .page-body {
-            width: 100%;
+		body {
+			font-family: 'NYU', sans-serif;
+			color: #333;
+		}
+
+		.page-body {
+			width: 100%;
 			height: 100vh;
 			/*background-color: #E9E92C;*/
 			position: relative;
-             overflow-x: auto;
-        }
-		.company-top{
+			overflow-x: auto;
+		}
+
+		.company-top {
 			background: #57068C;
 			height: 73px;
 			width: 100%;
@@ -143,15 +145,18 @@
 			from {
 				top: -73px;
 			}
-			80%{
+
+			80% {
 				top: -73px;
 			}
+
 			/* to表示动画的结束位置，也可以使用100%来表示。 */
 			to {
 				top: 0;
 			}
 		}
-		.company-top-img1{
+
+		.company-top-img1 {
 			background: url("./assets/abudhabi_white.png.png");
 			width: 133px;
 			height: 33.5px;
@@ -159,7 +164,7 @@
 			margin-right: 50px;
 		}
 
-		.company-top-img2{
+		.company-top-img2 {
 			background: url("./assets/NYU_Short_RGB_White.png.png") no-repeat center;
 			width: 93.5px;
 			height: 32px;
@@ -167,7 +172,7 @@
 			margin-right: 50px;
 		}
 
-		.company-top-img3{
+		.company-top-img3 {
 			background: url("./assets/shanghai_white.png.png");
 			width: 133px;
 			height: 35px;
@@ -175,13 +180,45 @@
 			margin-right: 50px;
 		}
 
-		.base-div{
+		.base-div {
 			background-color: #E9E92C;
 			height: 100vh;
 			position: relative;
 			overflow: hidden;
 		}
-		.first-circle{
+
+		.fade-blur-container {
+			position: absolute;
+			bottom: 0;
+
+			width: 100%;
+			height: 100px;
+			z-index: 20;
+			pointer-events: none;
+			/* 关键：让鼠标事件穿透，不影响点击底下的内容 */
+			opacity: 0;
+			animation: fadeInGradient 0.5s forwards;
+			animation-delay: 2s;
+
+			/* 核心代码：从上(透明) 到 下(黄色) 的渐变 */
+			/* 你可以调整 rgba 的最后一个参数 0.8 来控制黄色的深浅 */
+			background: linear-gradient(to bottom,
+					rgba(255, 255, 0, 0) 0%,
+					/* 顶部：完全透明 */
+					rgba(255, 255, 0, 0) 50%,
+					/* 中间开始变色（可选） */
+					rgb(233, 233, 44) 100%
+					/* 底部：黄色（0.8是不透明度） */
+				);
+		}
+
+		@keyframes fadeInGradient {
+			100% {
+				opacity: 1;
+			}
+		}
+
+		.first-circle {
 			position: absolute;
 			z-index: 1;
 			overflow: hidden;
@@ -192,9 +229,10 @@
 			background: #EFF8DD;
 			left: 0;
 			right: 0;
-			margin:  0 auto;
+			margin: 0 auto;
 		}
-		.second-circle{
+
+		.second-circle {
 			position: absolute;
 			z-index: 2;
 			overflow: hidden;
@@ -205,7 +243,7 @@
 			background: #6D872A;
 			left: 0;
 			right: 0;
-			margin:  0 auto;
+			margin: 0 auto;
 		}
 
 		@keyframes circle {
@@ -219,19 +257,19 @@
 
 			/* to表示动画的结束位置，也可以使用100%来表示。 */
 			to {
-				left:-50vw;
+				left: -50vw;
 				right: -50vw;
-				bottom:calc((var(--sqrt-line) - var(--height-line))/-2 );
+				bottom: calc((var(--sqrt-line) - var(--height-line))/-2);
 				height: var(--sqrt-line);
 				width: var(--sqrt-line);
 			}
 		}
 
-		.last-text{
+		.last-text {
 			position: absolute;
-			z-index:10;
+			z-index: 10;
 			overflow-y: auto;
-			bottom:0;
+			bottom: 0;
 			text-align: center;
 			animation: lastText .4s forwards linear;
 			animation-delay: 1.2s;
@@ -241,7 +279,7 @@
 			background: #E9E92C;
 			left: 0;
 			right: 0;
-			margin:  0 auto;
+			margin: 0 auto;
 			display: flex;
 			justify-content: center;
 		}
@@ -249,33 +287,34 @@
 		@keyframes lastText {
 
 			/* from表示动画的开始位置，也可以使用0%来表示。 */
-			0%{
+			0% {
 				width: 500px;
-				height:500px;
+				height: 500px;
 				bottom: -500px;
 			}
+
 			/*25%{*/
 			/*	*/
 			/*	width: 40vw;*/
 			/*	height: 40vw;*/
 			/*}*/
-			100%{
-				left:-50vw;
+			100% {
+				left: -50vw;
 				right: -50vw;
-				bottom:calc((var(--sqrt-line) - var(--height-line))/-2 );
+				bottom: calc((var(--sqrt-line) - var(--height-line))/-2);
 				height: var(--sqrt-line);
 				width: var(--sqrt-line);
 			}
 		}
 
 
-		.text-top{
+		.text-top {
 			text-align: center;
 			position: absolute;
-			width:100%;
-			overflow:hidden;
+			width: 100%;
+			overflow: hidden;
 			/*background: url("./assets/top-bg.png")no-repeat center;*/
-			background-size: 100% auto ;
+			background-size: 100% auto;
 			height: auto;
 			animation: lastTop 1.5s forwards linear;
 			animation-delay: .5s;
@@ -283,55 +322,63 @@
 
 		@keyframes lastTop {
 			from {
-				top:0;
+				top: 0;
 			}
+
 			90% {
-				top:calc((var(--sqrt-line) - var(--height-line))/2 - calc(calc((var(--width-line)/1.246 * var(--ultra-wide))/3.969)*3 + 100px));
+				top: calc((var(--sqrt-line) - var(--height-line))/2 - calc(calc((var(--width-line)/1.246 * var(--ultra-wide))/3.969)*3 + 100px));
 			}
+
 			100% {
-				top:calc((var(--sqrt-line) - var(--height-line))/2 - calc(calc((var(--width-line)/1.246 * var(--ultra-wide))/3.969)*3));
+				top: calc((var(--sqrt-line) - var(--height-line))/2 - calc(calc((var(--width-line)/1.246 * var(--ultra-wide))/3.969)*3));
 			}
 		}
-		.hidden-text{
+
+		.hidden-text {
 			animation: hiddenText 1.5s forwards linear;
 			animation-delay: .5s;
 			position: relative;
 		}
+
 		@keyframes hiddenText {
 
 			/* from表示动画的开始位置，也可以使用0%来表示。 */
-			from {
+			from {}
 
-			}
 			/* to表示动画的结束位置，也可以使用100%来表示。 */
 			60% {
-				top:0
+				top: 0
 			}
+
 			100% {
 				top: -200px;
 			}
 		}
-		.above-text{
+
+		.above-text {
 			/*animation: aboveText 1.5s forwards linear;*/
 			animation-delay: .5s;
 			position: relative;
 		}
+
 		@keyframes aboveText {
 
 			/* from表示动画的开始位置，也可以使用0%来表示。 */
 			from {
-				top:0
+				top: 0
 			}
+
 			/* to表示动画的结束位置，也可以使用100%来表示。 */
 			50% {
-				top:calc((var(--width-line)/1.246 * var(--ultra-wide))/3.969*-1);
+				top: calc((var(--width-line)/1.246 * var(--ultra-wide))/3.969*-1);
 			}
+
 			100% {
-				top:calc( (var(--sqrt-line) - var(--height-line))/2 );
+				top: calc((var(--sqrt-line) - var(--height-line))/2);
 			}
 		}
 
-		.below-text{
+		.below-text {
 			animation: belowText 1.5s forwards linear;
 			animation-delay: .5s;
 			position: relative;
@@ -341,21 +388,23 @@
 
 			/* from表示动画的开始位置，也可以使用0%来表示。 */
 			from {
-				top:0
+				top: 0
 			}
+
 			/* to表示动画的结束位置，也可以使用100%来表示。 */
 			50% {
-				top:calc((var(--width-line)/1.246 * var(--ultra-wide))/3.969*-1);
+				top: calc((var(--width-line)/1.246 * var(--ultra-wide))/3.969*-1);
 			}
+
 			100% {
-				top:calc(calc((var(--width-line)/1.2 * var(--ultra-wide))/3.969*-1) + 10px);
-				left:10px
+				top: calc(calc((var(--width-line)/1.2 * var(--ultra-wide))/3.969*-1) + 10px);
+				left: 10px
 			}
 		}
 
-		.top-line1{
+		.top-line1 {
 			background: url('./assets/tell1-line-bg-svg.svg') no-repeat;
-			width:calc(var(--width-line)/1.246 * var(--ultra-wide));
+			width: calc(var(--width-line)/1.246 * var(--ultra-wide));
 			height: calc((var(--width-line)/1.2 * var(--ultra-wide))/3.969);
 			background-size: 100% 100%;
 			margin: 0 auto;
@@ -363,9 +412,9 @@
 			z-index: 1;
 		}
 
-		.top-line2{
+		.top-line2 {
 			background: url('./assets/tell2-line-bg-svg.svg') no-repeat;
-			width:calc(var(--width-line)/1.246 * var(--ultra-wide));
+			width: calc(var(--width-line)/1.246 * var(--ultra-wide));
 			height: calc((var(--width-line)/1.205 * var(--ultra-wide))/3.969);
 			background-size: 100% 100%;
 			margin: 0 auto;
@@ -374,12 +423,13 @@
 			margin-top: 40px;
 		}
 
-		.btn-box{
+		.btn-box {
 			position: relative;
-			top:calc((var(--width-line)/1.246 * var(--ultra-wide))/3.969*(-1)  + 20px);
+			top: calc((var(--width-line)/1.246 * var(--ultra-wide))/3.969*(-1) + 60px);
 			font-size: 2.4vh;
 		}
-		.btn-item{
+
+		.btn-item {
 			height: 5vh;
 			display: inline-flex;
 			/*display: flex;*/
@@ -387,8 +437,8 @@
 			justify-content: center;
 			border-radius: 50px;
 			padding: 0 8vh;
-			color:#6B8829;
-			border:2px solid #475929;
+			color: #6B8829;
+			border: 0.15vw solid #475929;
 			background: #ffffff;
 			margin-top: 1vh;
 			position: relative;
@@ -396,42 +446,50 @@
 			cursor: pointer;
 		}
 
-		.btn-item a{
-            text-decoration:none
-                     }
-        .btn-item a:link{
-            color:#6B8829;  
-                          }
-        .btn-item a:active{
-            color:#6B8829;
-                          }
-        .btn-item a:visited{
-            color:#6B8829;
-                           }
-        .btn-item a:hover{
-            color:#6B8829;
-                          }
+		.btn-item a {
+			text-decoration: none
+		}
 
-				.btn-showcase a{
-            text-decoration:none
-                     }
-        .btn-showcase a:link{
-            color:rgba(251, 255, 214, 1);  
-                          }
-        .btn-showcase a:active{
-            color:rgba(251, 255, 214, 1);
-                          }
-        .btn-showcase a:visited{
-            color:rgba(251, 255, 214, 1);
-                           }
-        .btn-showcase a:hover{
-            color:rgba(251, 255, 214, 1);
-                          }
+		.btn-item a:link {
+			color: #6B8829;
+		}
 
-			.btn-showcase{
+		.btn-item a:active {
+			color: #6B8829;
+		}
+
+		.btn-item a:visited {
+			color: #6B8829;
+		}
+
+		.btn-item a:hover {
+			color: #6B8829;
+		}
+
+		.btn-showcase a {
+			text-decoration: none
+		}
+
+		.btn-showcase a:link {
+			color: rgba(251, 255, 214, 1);
+		}
+
+		.btn-showcase a:active {
+			color: rgba(251, 255, 214, 1);
+		}
+
+		.btn-showcase a:visited {
+			color: rgba(251, 255, 214, 1);
+		}
+
+		.btn-showcase a:hover {
+			color: rgba(251, 255, 214, 1);
+		} 
+
+		.btn-showcase {
 			height: 5vh;
 			display: inline-flex;
-			/*display: flex;*/
+			display: flex;
 			align-items: center;
 			justify-content: center;
 			border-radius: 50px;
@@ -440,50 +498,64 @@
 			position: relative;
 			opacity: 0;
 			cursor: pointer;
-			background: rgba(87, 6, 140, 1);
-			box-shadow: 0px 0px 15px  rgba(255, 255, 255, 1),inset 0px 0px 10px  rgba(255, 255, 255, 1);
+			/*background: rgba(87, 6, 140, 1); */
+			box-shadow: 0px 0px 15px rgba(255, 255, 255, 1), inset 0px 0px 10px rgba(255, 255, 255, 1); 
 			border: 1px solid #ffffff;
 			outline: 1.5px solid #ffffff;
 			font-weight: 500;
 			font-family: 'NYU', sans-serif;
-			color: rgba(255, 255, 214, 1);
-		}
-		.item1{
-			animation: btnOpacity 1.5s linear forwards; /* 动画 */
+			color: rgba(255, 255, 214, 1); 
+		} 
+
+		.item1 {
+			animation: btnOpacity 1.5s linear forwards;
+			/* 动画 */
 			animation-delay: 1s;
 		}
-		.item2{
-			animation: btnOpacity 1.5s linear forwards; /* 动画 */
+
+		.item2 {
+			animation: btnOpacity 1.5s linear forwards;
+			/* 动画 */
 			animation-delay: 1.8s;
 		}
-		.item3{
-			animation: btnOpacity 1.5s linear forwards; /* 动画 */
+
+		.item3 {
+			animation: btnOpacity 1.5s linear forwards;
+			/* 动画 */
 			animation-delay: 1.6s;
 		}
-		.item4{
-			animation: btnOpacity 1.5s linear forwards; /* 动画 */
+
+		.item4 {
+			animation: btnOpacity 1.5s linear forwards;
+			/* 动画 */
 			animation-delay: 1.4s;
 		}
-		.item5{
-			animation: btnOpacity 1.5s linear forwards; /* 动画 */
+
+		.item5 {
+			animation: btnOpacity 1.5s linear forwards;
+			/* 动画 */
 			animation-delay: 1.2s;
 		}
+
 		@keyframes btnOpacity {
 			from {
-				bottom:-100vh;
+				bottom: -100vh;
 				opacity: 0;
 			}
-			60%{
+
+			60% {
 				opacity: 0;
 			}
+
 			to {
-				bottom:0;
+				bottom: 0;
 				opacity: 1;
 			}
 		}
-		.arrow{
+
+		.arrow {
 			position: relative;
-			top:-40px;
+			top: -40px;
 			background: url("./assets/arrow.png") no-repeat;
 			width: 60px;
 			height: 25px;
@@ -491,23 +563,31 @@
 			z-index: 999;
 			opacity: 1;
 			cursor: pointer;
-			animation: arrow 1.5s linear infinite; /* 动画 */
+			animation: arrow 1.5s linear infinite;
+			/* 动画 */
 			animation-delay: 3s;
+			display: none;
 		}
 
 		@keyframes arrow {
 			from {
 				opacity: 0;
 			}
+
 			50% {
 				opacity: 1;
 			}
+
 			100% {
 				opacity: 0;
 			}
 		}
 
-		.second-page{
+		.photo-box {
+			position: relative;
+		}
+
+		.second-page {
 			position: relative;
 			height: 100vh;
 			overflow: hidden;
@@ -523,7 +603,7 @@
 		}
 
 
-		.el-carousel__arrow{
+		.el-carousel__arrow {
 			background: url("./assets/arrow-icon.png");
 			width: 52px;
 			height: 53px;
@@ -531,13 +611,15 @@
 			background-size: 100% 100%;
 			top: calc(50% - 25px);
 		}
-		.el-carousel__arrow.el-carousel__arrow--right{
+
+		.el-carousel__arrow.el-carousel__arrow--right {
 			background: url("./assets/arrow-icon.png");
 			width: 52px;
 			height: 53px;
 			transform: rotate(0);
 			background-size: 100% 100%;
 		}
+
 		.el-carousel__item {
 			text-align: center;
 			display: flex;
@@ -547,8 +629,9 @@
 
 		.scroll-box {
 			display: flex;
-			position: absolute;;
-			transition:all 1s linear 0.3s;
+			position: absolute;
+			;
+			transition: all 1s linear 0.3s;
 			overflow: hidden;
 		}
 
@@ -562,7 +645,7 @@
 			height: 53px;
 			transform: rotate(180deg);
 			cursor: pointer;
-			color:#ffffff;
+			color: #ffffff;
 			background-size: 100% 100%;
 		}
 
@@ -589,7 +672,7 @@
 			height: 53px;
 			transform: rotate(180deg);
 			cursor: pointer;
-			color:#ffffff;
+			color: #ffffff;
 			background-size: 100% 100%;
 		}
 
@@ -610,17 +693,20 @@
 				transform: scale(1);
 				border-radius: 20px;
 			}
-			20%{
+
+			20% {
 				transform: scale(1.1);
 				border-radius: 20px;
 			}
+
 			50% {
 				transform: scale(1);
 				border-radius: 20px;
 				/*left:0;*/
 
 			}
-			100%{
+
+			100% {
 				transform: scale(0.9);
 				border-radius: 20px;
 				/*left:-100%;*/
@@ -641,7 +727,7 @@
 
 		.img-tool {
 			position: absolute;
-			bottom:71px;
+			bottom: 71px;
 			left: 66px;
 			line-height: 1;
 			color: white;
@@ -662,7 +748,8 @@
 			align-items: center;
 			margin-top: 8px;
 		}
-		.big-title-btn{
+
+		.big-title-btn {
 			height: 52px;
 			line-height: 52px;
 			background: #ffffff;
@@ -674,7 +761,8 @@
 			margin-left: 8px;
 			cursor: pointer;
 		}
-		.title-btn-icon{
+
+		.title-btn-icon {
 			background: url("./assets/btn-icon.png");
 			width: 44px;
 			height: 28px;
@@ -730,58 +818,113 @@
 			color: #000;
 		}
 
-		.middle-page{
+		.new-page {
+			min-height: 100vh;
+
+		}
+
+		.new-page-title {
+			text-align: center;
+			background: linear-gradient(180deg, rgba(234, 234, 36, 1) 0%, rgba(251, 254, 232, 0) 100%);
+			font-size: 56px;
+			font-weight: 600;
+			font-style: italic;
+			/* letter-spacing: 0px; */
+			/* line-height: 112px; */
+			/* width: 50%; */
+			color: #ffffff;
+			text-shadow: 2px 2px 4px rgba(176, 176, 18, 1);
+			-webkit-text-stroke: 1px rgba(176, 176, 18, 1);
+			text-align: center;
+			vertical-align: top;
+			padding: 5vh 0;
+		}
+
+		.new-page-title-span {
+			/* width: 60%; */
+			margin: 0 auto;
+		}
+
+		.new-page-video {
+			width: 20vw;
+			height: 30vh;
+			margin: 0 auto;
+			transition: width 0.6s ease-out, height 0.6s ease-out;
+		}
+
+		.new-page-video.expanded {
+			width: 80vw;
+			height: 60vh;
+		}
+
+		.new-page-box {
+			width: 100%;
+			height: 100%;
+		}
+
+		.middle-page {
 			position: relative;
-			height: 100vh;
+			/* height: 100vh; */
 			display: flex;
 		}
-		.middle-left{
+
+		.middle-left {
 			width: 61%;
 			display: flex;
 			flex-direction: column;
 			justify-content: center;
 			padding-left: 5.5vw;
 			padding-right: 4vw;
-			background-image: radial-gradient(ellipse 103.1588646964804% 116.6952117583113% at 0% 30%, rgba(234, 234, 36, 0.4) 0%, rgba(254, 255, 244, 0.4) 33.64%, rgba(231, 249, 153, 0.4) 63.01%, rgba(255, 255, 204, 0) 100%);
+			/* background-image: radial-gradient(ellipse 103.1588646964804% 116.6952117583113% at 0% 30%, rgba(234, 234, 36, 0.4) 0%, rgba(254, 255, 244, 0.4) 33.64%, rgba(231, 249, 153, 0.4) 63.01%, rgba(255, 255, 204, 0) 100%); */
 		}
 
-		.middle-left-title{
+		.middle-left-title {
 			font-size: 7vh;
-			color:rgba(176, 176, 18, 1);
+			color: rgba(176, 176, 18, 1);
 			margin-bottom: 3vh;
 			line-height: 1;
 			font-weight: 600;
 			/*font-style: italic;*/
 		}
-		.middle-left-content{
+
+		.middle-left-content {
 			display: flex;
 			flex-direction: column;
 
 		}
-		.middle-left-content p{
+
+		.middle-left-content p {
 			font-size: 24px;
 			line-height: 30px;
-			color:#2a2a28;
+			color: #2a2a28;
 			margin-bottom: 20px;
 		}
-		.middle-right{
-			flex:1;
+
+		.middle-right {
+			flex: 1;
 			padding-right: 5vw;
-			display: flex; /* Enable Flexbox */
-			justify-content: center; /* Center horizontally */
-			align-items: center; /* Center vertically */
+			display: flex;
+			/* Enable Flexbox */
+			justify-content: center;
+			/* Center horizontally */
+			align-items: center;
+			/* Center vertically */
 		}
 
-		.middle-right-ul{
-			padding: 20px 8px; /* Equal padding top and bottom, no horizontal padding */
+		.middle-right-ul {
+			padding: 20px 8px;
+			/* Equal padding top and bottom, no horizontal padding */
 			overflow-y: auto;
-			height: auto; /* Let the height adjust based on content */
-			max-height: 100%; /* Ensure it doesn't exceed the parent's height */
+			height: auto;
+			/* Let the height adjust based on content */
+			max-height: 100%;
+			/* Ensure it doesn't exceed the parent's height */
 		}
-		.middle-right-li-title{
+
+		.middle-right-li-title {
 			font-weight: bold;
 			font-size: 2vh;
-			color:#BFBF4D;
+			color: #BFBF4D;
 			padding-left: 17px;
 			padding-bottom: 12px;
 			border-bottom: #DBDBDB 1px solid;
@@ -789,22 +932,24 @@
 			margin-top: 10px;
 		}
 
-		.middle-right-li{
+		.middle-right-li {
 			font-size: 2vh;
 			text-decoration: none;
 			padding: 2vh;
-			color:#2a2a28;
+			color: #2a2a28;
 			border-bottom: #DBDBDB 1px solid;
 			position: relative;
 			padding-right: 40px;
 			display: block;
 		}
-		.middle-right-li:hover{
-			background: rgb(234, 234, 36,0.25);
+
+		.middle-right-li:hover {
+			background: rgb(234, 234, 36, 0.25);
 			font-style: italic;
 			cursor: pointer;
 		}
-		.middle-right-li:before{
+
+		.middle-right-li:before {
 			position: absolute;
 			content: '';
 			right: 10px;
@@ -815,7 +960,7 @@
 			border-radius: 50%;
 		}
 
-		.middle-right-li:hover:before{
+		.middle-right-li:hover:before {
 			position: absolute;
 			content: '';
 			right: 10px;
@@ -823,142 +968,219 @@
 			height: 13px;
 			width: 13px;
 			background: #ffffff;
-			border:2px solid #828223;
+			border: 2px solid #828223;
 			border-radius: 50%;
 		}
-		@keyframes moveAni{
-			0%{left:0;}
-			100%{
+
+		@keyframes moveAni {
+			0% {
+				left: 0;
+			}
+
+			100% {
 				left: -800px;
 			}
 		}
 
-		.three-box{
-			
+		.three-box {
+
 			background: rgba(87, 6, 140, 1);
 			/*overflow-y:auto;*/
-			height: 73px; /* Set a height for the div */
-    		display: flex; /* Enable Flexbox */
-    		align-items: center; /* Align items to the bottom */
-    		justify-content: center; /* Center text horizontally */
+			height: 60px;
+			/* Set a height for the div */
+			display: flex;
+			/* Enable Flexbox */
+			align-items: center;
+			/* Align items to the bottom */
+			justify-content: center;
+			/* Center text horizontally */
 		}
 
-		.company-info{
-			color: white; /* Text color */
-    		font-size: 16px;
-   			 margin: 20px; /* Remove default margin */
+		.company-info {
+			color: white;
+			/* Text color */
+			font-size: 14px;
+			margin: 20px;
+			/* Remove default margin */
 		}
 
-		@media screen and (max-width: 1080px) and (min-width: 768px) {
+		@media screen and (max-width: 1080px) and (min-width: 768px) {}
 
-
-		}
-		.phone-page-body{
+		.phone-page-body {
 			display: none;
 		}
+		
 		@media screen and (max-width: 640px) {
-			.company-top{
+			.new-page {
+				min-height: 0;
+			}
+
+			.new-page-title {
+				text-align: center;
+				background: linear-gradient(180deg, rgba(234, 234, 36, 1) 0%, rgba(251, 254, 232, 0) 100%);
+				font-size: 0.56rem;
+				font-weight: 600;
+				font-style: italic;
+				/* letter-spacing: 0px; */
+				/* line-height: 112px; */
+				/* width: 50%; */
+				color: #ffffff;
+				text-shadow: 2px 2px 4px rgba(176, 176, 18, 1);
+				-webkit-text-stroke: 1px rgba(176, 176, 18, 1);
+				text-align: center;
+				vertical-align: top;
+				padding: 10vh 0;
+			}
+
+			.new-page-title-span {
+				/* width: 60%; */
+				margin: 0 auto;
+			}
+
+			.new-page-video {
+				width: 100vw;
+				height: 30vh;
+				margin: 0 auto;
+				transition: width 0.6s ease-out, height 0.6s ease-out;
+			}
+
+			.new-page-video.expanded {
+				width: 80vw;
+				height: 60vh;
+			}
+
+			.new-page-box {
+				width: 100%;
+				height: 100%;
+			}
+
+
+			.company-top {
 				position: relative;
 				animation: none;
 				top: 0;
 				height: 0.9rem;
 			}
-			.company-top-img1{
-			background: url("./assets/abudhabi_white.png.png");
-			width:calc(1.4rem*1) ;
-			height:calc(0.35rem*1) ;
-			background-size: 100% 100%;
-			margin-right: 0.5rem;
+
+			.company-top-img1 {
+				background: url("./assets/abudhabi_white.png.png");
+				width: calc(1.4rem*1);
+				height: calc(0.35rem*1);
+				background-size: 100% 100%;
+				margin-right: 0.5rem;
 			}
 
-			.company-top-img2{
+			.company-top-img2 {
 				background: url("./assets/NYU_Short_RGB_White.png.png") no-repeat center;
-				width:calc(0.935rem*1) ;
-				height:calc(0.32rem*1) ;
+				width: calc(0.935rem*1);
+				height: calc(0.32rem*1);
 				background-size: 100% 100%;
 				margin-right: 0.5rem;
 			}
 
-			.company-top-img3{
+			.company-top-img3 {
 				background: url("./assets/shanghai_white.png.png");
-				width:calc(1.4rem*1) ;
-				height:calc(0.37rem*1) ;
+				width: calc(1.4rem*1);
+				height: calc(0.37rem*1);
 				background-size: 100% 100%;
 				margin-right: 0.5rem;
 			}
-			.page-body{
+
+			.page-body {
 				display: none;
 			}
-			.phone-page-body{
+
+			.phone-page-body {
 				display: block;
 				overflow: hidden;
 			}
-	
-			
-            .first-page {
-                height: calc(100vh - 0.8rem);
-                width: 100vw;
-                background: url("./assets/phone-first-bg.png") no-repeat center center;
-                background-size: cover;
-                padding-top: 0.8rem;
-            }
 
-			.phone-title{
-				width: 6rem;
-				height: 5.4rem;
+
+			.first-page {
+				height: calc(100vh - 0.8rem);
+				width: 100vw;
+				background: url("./assets/phone-first-bg.png") no-repeat center center;
+				background-size: cover;
+				padding-top: 0.8rem;
+
+				position: relative;
+			}
+			.phone-title {
+				width: 4rem;
+				height: 3.6rem;
 				background: url("./assets/title-homepage-phone.svg");
 				background-size: 100% 100%;
-				margin: 0 auto;
+				margin-left:0.3rem
 			}
 
-			.btn-box{
-				top: 1.2rem;
+			.btn-box {
+				top: 0.2rem;
 				font-size: 0.4rem;
 				padding-left: 0.26rem;
 			}
-			.btn-item{
-				height: 0.8rem;
+
+			.btn-item {
+				height: 0.6rem;
 				padding: 0 0.8rem;
-				border:2px solid #475929;
+				border: 2px solid #475929;
 				margin-top: 0.1rem;
+				display: flex;
+           		align-items: center;
+        		justify-content: center;
+        		border-radius: 50px;
+        		background: #ffffff;
+        		color: #6B8829;
 			}
-			.btn-showcase{
+
+			/*.btn-showcase {
 				height: 0.8rem;
 				padding: 0 0.8rem;
 				margin-top: 0.1rem;
 				font-family: 'NYU', sans-serif;
 				font-size: 0.4rem;
-			}
+			} */
+
 			.item1 {
 				animation: btnOpacity 0.7s linear forwards;
 				animation-delay: 1;
 			}
-			.item2{
-				animation: btnOpacity 0.7s linear forwards; /* 动画 */
+
+			.item2 {
+				animation: btnOpacity 0.7s linear forwards;
+				/* 动画 */
 				animation-delay: 0.7s;
-				}
-			.item3{
-				animation: btnOpacity 0.7s linear forwards; /* 动画 */
+			}
+
+			.item3 {
+				animation: btnOpacity 0.7s linear forwards;
+				/* 动画 */
 				animation-delay: 0.9s;
 			}
-			.item4{
-				animation: btnOpacity 0.7s linear forwards; /* 动画 */
+
+			.item4 {
+				animation: btnOpacity 0.7s linear forwards;
+				/* 动画 */
 				animation-delay: 1.1s;
 			}
-			.item5{
-				animation: btnOpacity 0.7s linear forwards; /* 动画 */
+
+			.item5 {
+				animation: btnOpacity 0.7s linear forwards;
+				/* 动画 */
 				animation-delay: 1.3s;
 			}
-			.phone-second-page{
+
+			.phone-second-page {
 				width: calc(100% - 0.52rem);
 				padding: 0.26rem;
 			}
-			.second-title{
-				color:rgba(176, 176, 18, 1);
+
+			.second-title {
+				color: rgba(176, 176, 18, 1);
 				font-weight: 600;
 				font-size: 0.8rem;
 				line-height: 1;
 			}
+
 			.paragraph-box {
 				padding: 0.3rem 0;
 				/* min-width: 954px; */
@@ -982,20 +1204,23 @@
 			.paragraph-box li {
 				font-size: 0.3rem;
 			}
-			.middle-right-ul{
+
+			.middle-right-ul {
 				padding: 0;
 			}
-			.middle-right-li{
+
+			.middle-right-li {
 				font-size: 0.3rem;
 				padding: 0.2rem 0;
 				padding-right: 0.6rem;
 				padding-bottom: 0.4rem;
-				color:#2a2a28;
+				color: #2a2a28;
 				border-bottom: #DBDBDB 1px solid;
 				position: relative;
 				display: block;
 			}
-			.middle-right-li:before{
+
+			.middle-right-li:before {
 				position: absolute;
 				content: '';
 				right: 0.1rem;
@@ -1003,11 +1228,11 @@
 				height: 0.16rem;
 				width: 0.16rem;
 				background: #DBDB0F;
-				border:2px solid #DBDB0F;
+				border: 2px solid #DBDB0F;
 				border-radius: 50%;
 			}
 
-			.middle-right-li:hover:before{
+			.middle-right-li:hover:before {
 				position: absolute;
 				content: '';
 				right: 0.1rem;
@@ -1015,29 +1240,34 @@
 				height: 0.16rem;
 				width: 0.16rem;
 				background: #ffffff;
-				border:2px solid #828223;
+				border: 2px solid #828223;
 				border-radius: 50%;
 			}
-			.middle-right-li-title{
+
+			.middle-right-li-title {
 				padding-left: 0
 			}
-			.ad-box{
+
+			.ad-box {
 				width: 100%;
 				aspect-ratio: 430/272;
-				
+
 				font-size: 0;
 			}
-			.ad-box-img{
+
+			.ad-box-img {
 				width: 100%;
 				height: 100%;
 				position: relative;
 			}
-			.three-box{
+
+			.three-box {
 				position: relative;
-				height:1.6rem
-				/*overflow-y:auto;*/
+				height: 1.6rem
+					/*overflow-y:auto;*/
 			}
-			.company-info{
+
+			.company-info {
 				height: 1.6rem;
 				text-align: center;
 				font-size: 0.3rem;
@@ -1049,6 +1279,28 @@
 			}
 
 		}
+		@media screen and (max-width: 430px) {
+			.phone-title {
+				width: 6rem;
+				height: 5.4rem;
+				background: url("./assets/title-homepage-phone.svg");
+				background-size: 100% 100%;
+				margin: 0 auto;
+			}
+
+			.btn-box {
+				top: 0.8rem;
+				font-size: 0.4rem;
+				padding-left: 0.26rem;
+			}
+
+			.btn-item {
+				height: 0.8rem;
+				padding: 0 0.8rem;
+				border: 2px solid #475929;
+				margin-top: 0.1rem;
+			}
+		}
 	</style>
 	</head>
 
@@ -1056,6 +1308,7 @@
 		<div id="app">
 			<div class="page-body">
 				<div class="base-div">
+					<div class="fade-blur-container"></div>
 					<div class="company-top">
 						<div class="company-top-img2"></div>
 						<div class="company-top-img3"></div>
@@ -1079,27 +1332,31 @@
 							</div>
 							<div class="btn-box">
 								<div class="btn-item item1">
-									<a href="https://nyuglobal.show/submission"
-										target="_blank">Submit Your Work</a></div>
+									<a href="https://nyuglobal.show/showcase">Online
+										Showcase</a>
+								</div>
 								<br>
 								<div class="btn-item item2">
-									<a href="https://nyuglobal.show/collaboration" target="_blank">Find
-										Your Collaborator</a>
+									<a href="https://nyuglobal.show/events">Events and
+										Activities
+									</a>
 								</div>
 								<br>
-								<div class="btn-showcase item3">
-									<a href="https://nyuglobal.show/showcase" target="_blank">Showcase</a>
+								<div class="btn-item item3">
+									<a href="https://nyuglobal.show/calendar">Program
+										Calendar</a>
 								</div>
 								<br>
-								<div class="btn-item item4"><a href="https://nyuglobal.show/calendar"
-										target="_blank">Program Calendar</a></div>
+								<div class="btn-item item4"><a
+										href="https://nyuglobal.show/about">About</a></div>
 								<br>
-								<div class="btn-item item5"><a href="https://nyuglobal.show/about"
-										target="_blank">About</a></div>
+								<div class="btn-item item5"><a
+										href="https://nyuglobal.show/opencall">Open Call (Closed)</a>
+								</div>
 							</div>
 						</div>
 						<div
-							style="position: absolute;overflow:hidden;left: 0;right: 0;top:0;bottom:0;z-index: -1">
+							style="position: absolute;overflow:hidden;left: 0;right: 0;top:0;bottom:100px;z-index: -1">
 							<main>
 							</main>
 						</div>
@@ -1107,6 +1364,28 @@
 				</div>
 				<div style="text-align: center;height: 0;">
 					<div class="arrow" @click="scrollTool"></div>
+				</div>
+
+				<div class="new-page">
+					<div class="new-page-title">
+						<div class="new-page-title-span">
+							" Global Learning,
+						</div>
+						<div class="new-page-title-span">
+							Artificial Intelligence,
+						</div>
+						<div class="new-page-title-span">
+							& Interactivity "
+						</div>
+					</div>
+					<div class="new-page-video">
+						<div class="new-page-box">
+							<!-- <img style="height: 100%;width: 100%" src="./assets/carousel-bg2.png" alt> -->
+							<video style="height: 100%;width: 100%"
+								src="./assets/nyuglobal-show-tell.mp4" autoplay muted
+								controls></video>
+						</div>
+					</div>
 				</div>
 				<div class="middle-page" id="middlePage">
 					<div class="middle-left">
@@ -1186,6 +1465,7 @@
 						</div>
 					</div>
 				</div>
+
 				<div class="second-page" id="textDiv">
 					<div class="carousel-box">
 						<el-carousel :height="getCarousel" arrow="always" :interval="6000"
@@ -1283,37 +1563,64 @@
 				</div>
 			</div>
 			<div class="phone-page-body">
+
 				<div class="company-top">
 					<div class="company-top-img2"></div>
 					<div class="company-top-img3"></div>
 					<div class="company-top-img1"></div>
 				</div>
 				<div class="first-page">
+					<div class="fade-blur-container"></div>
 					<div class="phone-title"></div>
 					<div class="btn-box">
 						<div class="btn-item item1">
-							<a href="https://nyuglobal.show/submission" target="_blank">Submit
-								Your Work</a>
+							<a href="https://nyuglobal.show/submission" target="_blank">Online
+								Showcase</a>
 						</div>
 						<br>
 						<div class="btn-item item2">
-							<a href="https://nyuglobal.show/collaboration" target="_blank">Find
-								Your Collaborator</a>
+							<a href="https://nyuglobal.show/collaboration" target="_blank">Events and
+								Activities
+							</a>
 						</div>
 						<br>
-						<div class="btn-showcase item3">
-							<a href="https://nyuglobal.show/showcase" target="_blank">Showcase</a>
+						<div class="btn-item item3">
+							<a href="https://nyuglobal.show/showcase" target="_blank">Program
+								Calendar</a>
 						</div>
 						<br>
 						<div class="btn-item item4"><a href="https://nyuglobal.show/calendar"
-								target="_blank">Program Calendar</a></div>
+								target="_blank">About
+							</a></div>
 						<br>
 						<div class="btn-item item5"><a href="https://nyuglobal.show/about"
-								target="_blank">About</a></div>
+								target="_blank">Open Call (Closed)</a></div>
+					</div>
+				</div>
+				<div class="new-page">
+					<div class="new-page-title">
+						<div class="new-page-title-span">
+							" Global Learning,
+						</div>
+						<div class="new-page-title-span">
+							Artificial Intelligence,
+						</div>
+						<div class="new-page-title-span">
+							& Interactivity "
+						</div>
+					</div>
+					<div class="new-page-video">
+						<div class="new-page-box">
+							<!-- <img style="height: 100%;width: 100%" src="./assets/carousel-bg2.png" alt> -->
+							<video style="height: 100%;width: 100%"
+								src="./assets/nyuglobal-show-tell.mp4" autoplay muted
+								controls></video>
+						</div>
 					</div>
 				</div>
 				<div class="phone-second-page">
 					<div class="second-title">
+						<br>
 						Global Learning,<br>
 						Artificial Intelligence,<br>
 						& Interactivity
@@ -1330,6 +1637,15 @@
 							multidisciplinary collaborations through student works that bring
 							together Artificial Intelligence and interactive media.
 						</p>
+						<p>
+							<a
+								href="https://www.nyu.edu/academics/interdisciplinary-initiatives/goddard-impact-awards.html"
+								target="_blank"
+								style="font-weight: bold;">
+								NYU Goddard Impact Group Award</a>
+							supported this initiative.
+						</p>
+
 					</div>
 					<div class="middle-right">
 						<div class="middle-right-ul">
@@ -1389,7 +1705,7 @@
 					<img class="ad-box-img" src="./assets/carousel-bg2.png" alt>
 				</div>
 				<div class="three-box">
-					<div class="company-info">
+					<div class="company-info" style="font-size: 0.19rem; ">
 						NYU Global Show & Tell @ 2025
 					</div>
 				</div>
@@ -1402,41 +1718,265 @@
 		createApp({
 
 			setup() {
-				const scrollText = ref([{},{},{},{}]);
+				const scrollText = ref([{}, {}, {}, {}]);
 				const scrollLeft = ref(0);
 
 				const scrollNum = ref(0);// 判断页面可以容下几个可以滚动的模块
 
 				const getCarousel = ref('1000px');
-				onMounted(() =>{
-					setInterval(() =>{
+				onMounted(() => {
+					setInterval(() => {
 						scrollText.value.unshift({})
-						scrollLeft.value-=100;
-						if(scrollText.value.length>10){
+						scrollLeft.value -= 100;
+						if (scrollText.value.length > 10) {
 							scrollText.value.pop()
 						}
-					},2000)
+					}, 2000)
 
 					getCarousel.value = window.innerHeight + 'px'
 
 					const screenWidth = window.innerWidth;
 					const screenHeight = window.innerHeight;
-					const sqrtNum = Math.sqrt(screenWidth**2 + screenHeight**2);
+					const sqrtNum = Math.sqrt(screenWidth ** 2 + screenHeight ** 2);
 					// 判断页面可以容下几个可以滚动的模块
 					scrollNum.value = Math.floor(sqrtNum / 360);
 
+					// 初始化carousel拖动功能
+					//initCarouselDrag();
 				})
+
+				// carousel拖动功能
+				const initCarouselDrag = () => {
+					const carouselBox = document.querySelector('.carousel-box');
+					const secondPage = document.querySelector('.second-page');
+					const leftArrow = document.querySelector('.left-arrow');
+					const rightArrow = document.querySelector('.right-arrow');
+					if (!carouselBox || !secondPage) return;
+
+					let isDragging = false;
+					let startX = 0;
+					let scrollLeft = 0;
+
+					// 更新箭头可见性
+					const updateArrowsVisibility = () => {
+						const imgBoxes = carouselBox.querySelectorAll('.img-box');
+						if (imgBoxes.length === 0) return;
+
+						const scrollPosition = secondPage.scrollLeft;
+						const firstBox = imgBoxes[0];
+						const lastBox = imgBoxes[imgBoxes.length - 1];
+
+						// 在第一个图片时隐藏左箭头
+						if (leftArrow) {
+							if (scrollPosition <= firstBox.offsetLeft + 10) {
+								leftArrow.style.display = 'none';
+							} else {
+								leftArrow.style.display = 'block';
+							}
+						}
+
+						// 在最后一个图片时隐藏右箭头
+						if (rightArrow) {
+							const maxScroll = secondPage.scrollWidth - secondPage.clientWidth;
+							if (scrollPosition >= maxScroll - 10) {
+								rightArrow.style.display = 'none';
+							} else {
+								rightArrow.style.display = 'block';
+							}
+						}
+					};
+
+					// 监听滚动事件
+					secondPage.addEventListener('scroll', updateArrowsVisibility);
+
+					// 初始化箭头可见性
+					updateArrowsVisibility();
+
+					// 吸附到最近的img-box
+					const snapToNearestBox = () => {
+						const imgBoxes = carouselBox.querySelectorAll('.img-box');
+						if (imgBoxes.length === 0) return;
+
+						const scrollPosition = secondPage.scrollLeft;
+						let nearestBox = null;
+						let minDistance = Infinity;
+
+						imgBoxes.forEach((box) => {
+							const boxLeft = box.offsetLeft;
+							const distance = Math.abs(boxLeft - scrollPosition);
+							if (distance < minDistance) {
+								minDistance = distance;
+								nearestBox = box;
+							}
+						});
+
+						if (nearestBox) {
+							secondPage.scrollTo({
+								left: nearestBox.offsetLeft,
+								behavior: 'smooth'
+							});
+						}
+					};
+
+					// 鼠标按下
+					carouselBox.addEventListener('mousedown', (e) => {
+						isDragging = true;
+						carouselBox.classList.add('dragging');
+						startX = e.pageX - secondPage.offsetLeft;
+						scrollLeft = secondPage.scrollLeft;
+					});
+
+					// 鼠标移动
+					carouselBox.addEventListener('mousemove', (e) => {
+						if (!isDragging) return;
+						e.preventDefault();
+						const x = e.pageX - secondPage.offsetLeft;
+						const walk = (x - startX) * 2; // 拖动速度倍数
+						secondPage.scrollLeft = scrollLeft - walk;
+					});
+
+					// 鼠标松开
+					carouselBox.addEventListener('mouseup', () => {
+						isDragging = false;
+						carouselBox.classList.remove('dragging');
+						snapToNearestBox();
+					});
+
+					// 鼠标离开
+					carouselBox.addEventListener('mouseleave', () => {
+						if (isDragging) {
+							isDragging = false;
+							carouselBox.classList.remove('dragging');
+							snapToNearestBox();
+						}
+					});
+
+					// 触摸支持
+					carouselBox.addEventListener('touchstart', (e) => {
+						isDragging = true;
+						carouselBox.classList.add('dragging');
+						startX = e.touches[0].pageX - secondPage.offsetLeft;
+						scrollLeft = secondPage.scrollLeft;
+					}, { passive: true });
+
+					carouselBox.addEventListener('touchmove', (e) => {
+						if (!isDragging) return;
+						const x = e.touches[0].pageX - secondPage.offsetLeft;
+						const walk = (x - startX) * 2;
+						secondPage.scrollLeft = scrollLeft - walk;
+					}, { passive: true });
+
+					carouselBox.addEventListener('touchend', () => {
+						isDragging = false;
+						carouselBox.classList.remove('dragging');
+						snapToNearestBox();
+					});
+
+					// 左右箭头点击事件
+					if (leftArrow) {
+						leftArrow.addEventListener('click', () => {
+							const imgBoxes = carouselBox.querySelectorAll('.img-box');
+							if (imgBoxes.length === 0) return;
+
+							const scrollPosition = secondPage.scrollLeft;
+							let targetBox = null;
+
+							// 找到当前在视口内的或最近的img-box，然后找前一个
+							for (let i = imgBoxes.length - 1; i >= 0; i--) {
+								if (imgBoxes[i].offsetLeft < scrollPosition - 10) {
+									targetBox = imgBoxes[i];
+									break;
+								}
+							}
+
+							// 如果没有找到前一个，就滚动到第一个
+							if (!targetBox) {
+								targetBox = imgBoxes[0];
+							}
+
+							secondPage.scrollTo({
+								left: targetBox.offsetLeft,
+								behavior: 'smooth'
+							});
+						});
+					}
+
+					if (rightArrow) {
+						rightArrow.addEventListener('click', () => {
+							const imgBoxes = carouselBox.querySelectorAll('.img-box');
+							if (imgBoxes.length === 0) return;
+
+							const scrollPosition = secondPage.scrollLeft;
+							let targetBox = null;
+
+							// 找到当前在视口内的或最近的img-box，然后找下一个
+							for (let i = 0; i < imgBoxes.length; i++) {
+								if (imgBoxes[i].offsetLeft > scrollPosition + 10) {
+									targetBox = imgBoxes[i];
+									break;
+								}
+							}
+
+							// 如果没有找到下一个，就滚动到最后一个
+							if (!targetBox) {
+								targetBox = imgBoxes[imgBoxes.length - 1];
+							}
+
+							secondPage.scrollTo({
+								left: targetBox.offsetLeft,
+								behavior: 'smooth'
+							});
+						});
+					}
+				}
 
 				// 跳转到指定位置
 				const scrollTool = () => {
 					let element = document.getElementById('middlePage');
-					element.scrollIntoView({behavior: 'smooth'});
+					element.scrollIntoView({ behavior: 'smooth' });
 				}
 				return {
-					scrollTool,scrollText,scrollLeft,getCarousel,scrollNum
+					scrollTool, scrollText, scrollLeft, getCarousel, scrollNum
 				}
 			}
 		}).use(ElementPlus).mount('#app');
+	</script>
+
+		<script>
+		// new-page-video滚动动画
+		document.addEventListener('DOMContentLoaded', function () {
+			const newPageVideo = document.querySelector('.new-page-video');
+			if (!newPageVideo) return;
+
+			let isExpanded = false;
+			let debounceTimer = null;
+
+			const observer = new IntersectionObserver((entries) => {
+				entries.forEach(entry => {
+					// 清除之前的定时器
+					if (debounceTimer) {
+						clearTimeout(debounceTimer);
+					}
+
+					// 防抖处理
+					debounceTimer = setTimeout(() => {
+						// 当元素50%进入视口时展开
+						if (entry.intersectionRatio >= 0.5 && !isExpanded) {
+							entry.target.classList.add('expanded');
+							isExpanded = true;
+						} else if (entry.intersectionRatio < 0.3 && isExpanded) {
+							// 当元素离开视口（低于30%时）收缩，避免在临界点抖动
+							entry.target.classList.remove('expanded');
+							isExpanded = false;
+						}
+					}, 100); // 100ms防抖
+				});
+			}, {
+				threshold: [0, 0.3, 0.5, 1]
+			});
+
+			observer.observe(newPageVideo);
+		});
 	</script>
 	</body>
 

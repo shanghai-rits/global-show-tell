@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./Navbar.css";
+
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isCollapsing, setIsCollapsing] = useState(false);
@@ -93,6 +94,10 @@ const Navbar: React.FC = () => {
     transform: isCollapsing ? "translateX(600px)" : "translateX(0)",
   };
 
+  const navigateInPlace = (path: string) => {
+    window.location.assign(path);
+  };
+
   return (
     <div
       ref={navRef}
@@ -134,7 +139,7 @@ const Navbar: React.FC = () => {
             </div>
           </button>
           <nav className="navbar">
-            <div className="nav-title" style={collapseStyle} onClick={() => window.open("/", "_blank")}>
+            <div className="nav-title" style={collapseStyle} onClick={() => navigateInPlace("/")}>
               {/* <div>NYU Global</div>
             <div>SHOW & TELL</div> */}
               <svg className="default" width="483" height="164" viewBox="0 0 483 164" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -256,27 +261,27 @@ const Navbar: React.FC = () => {
             </div>
             <div className="nav-buttons">
               <div className="nav-button-wrapper">
-                <button className="nav-button" style={collapseStyle} onClick={() => window.open("/showcase", "_blank")}>
+                <button className="nav-button" style={collapseStyle} onClick={() => navigateInPlace("/showcase")}>
                   Online Showcase
                 </button>
               </div>
               <div className="nav-button-wrapper">
-                <button className="nav-button" style={collapseStyle} onClick={() => window.open("/events", "_blank")}>
+                <button className="nav-button" style={collapseStyle} onClick={() => navigateInPlace("/events")}>
                   Events and Activities
                 </button>
               </div>
               <div className="nav-button-wrapper">
-                <button className="nav-button" style={collapseStyle} onClick={() => window.open("/calendar", "_blank")}>
+                <button className="nav-button" style={collapseStyle} onClick={() => navigateInPlace("/calendar")}>
                   Programme Calendar
                 </button>
               </div>
               <div className="nav-button-wrapper">
-                <button className="nav-button" style={collapseStyle} onClick={() => window.open("/about", "_blank")}>
+                <button className="nav-button" style={collapseStyle} onClick={() => navigateInPlace("/about")}>
                   About
                 </button>
               </div>
               <div className="nav-button-wrapper">
-                <button className="nav-button" style={collapseStyle} onClick={() => window.open("/opencall", "_blank")}>
+                <button className="nav-button" style={collapseStyle} onClick={() => navigateInPlace("/opencall")}>
                   Open Call (Closed)
                 </button>
               </div>
