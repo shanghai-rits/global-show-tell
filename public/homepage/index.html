@@ -197,7 +197,7 @@
 			pointer-events: none;
 			/* 关键：让鼠标事件穿透，不影响点击底下的内容 */
 			opacity: 0;
-			animation: fadeInGradient 0.5s forwards;
+			animation: fadeInGradient 0s forwards;
 			animation-delay: 2s;
 
 			/* 核心代码：从上(透明) 到 下(黄色) 的渐变 */
@@ -1278,27 +1278,53 @@
 				justify-content: center;
 			}
 
+			.fade-blur-container {
+				z-index: 0;
+				animation: fadeInGradient 0s forwards;
+				animation-delay: 0s;
+			}
+			.btn-box {
+				top: 0.5rem;
+				font-size: 0.4rem;
+				padding: 0 0.6rem;
+				/* padding-right: 0.6rem; */
+			}
+
+			.btn-item {
+				height: 0.75rem;
+				padding: 0 0.5rem;
+				border: 2px solid #475929;
+				margin-top: 0.2rem;
+				width: fit-content
+			}
+
 		}
 		@media screen and (max-width: 430px) {
+			.fade-blur-container {
+				z-index: 0;
+				animation: fadeInGradient 0s forwards;
+				animation-delay: 0s;
+			}
 			.phone-title {
 				width: 6rem;
 				height: 5.4rem;
 				background: url("./assets/title-homepage-phone.svg");
 				background-size: 100% 100%;
-				margin: 0 auto;
 			}
 
 			.btn-box {
-				top: 0.8rem;
+				top: 0.5rem;
 				font-size: 0.4rem;
-				padding-left: 0.26rem;
+				padding: 0 0.6rem;
+				/* padding-right: 0.6rem; */
 			}
 
 			.btn-item {
-				height: 0.8rem;
-				padding: 0 0.8rem;
+				height: 0.75rem;
+				padding: 0 0.5rem;
 				border: 2px solid #475929;
-				margin-top: 0.1rem;
+				margin-top: 0.2rem;
+				width: fit-content
 			}
 		}
 	</style>
@@ -1577,22 +1603,22 @@
 							<a href="https://nyuglobal.show/submission" target="_blank">Online
 								Showcase</a>
 						</div>
-						<br>
+						<!-- <br> -->
 						<div class="btn-item item2">
 							<a href="https://nyuglobal.show/collaboration" target="_blank">Events and
 								Activities
 							</a>
 						</div>
-						<br>
+						<!-- <br> -->
 						<div class="btn-item item3">
 							<a href="https://nyuglobal.show/showcase" target="_blank">Program
 								Calendar</a>
 						</div>
-						<br>
+						<!-- <br> -->
 						<div class="btn-item item4"><a href="https://nyuglobal.show/calendar"
 								target="_blank">About
 							</a></div>
-						<br>
+						<!-- <br> -->
 						<div class="btn-item item5"><a href="https://nyuglobal.show/about"
 								target="_blank">Open Call (Closed)</a></div>
 					</div>
