@@ -1,0 +1,1007 @@
+/* ========================================
+   CALENDAR.HTML - Extracted CSS
+   ======================================== */
+
+
+        .content table tbody::before {
+            top: var(--divider-y, 0);
+        }
+    
+
+
+         /* ==========================================================================
+           RESET & BASE STYLES
+           ========================================================================== */
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        body {
+            font-family: 'NYU', sans-serif;
+            color: #333;
+        }
+         /* ==========================================================================
+           LAYOUT COMPONENTS
+          ========================================================================== */
+        .page-body {
+            width: 100%;
+            height: 100vh;
+        }
+
+        .li-box {
+            height: 2rem;
+            width: 100%;
+            position: relative;
+            z-index: 1;
+        }
+
+        .zhuti {
+            height: 2rem;
+            margin: 0px 0;
+            position: relative;
+        }
+
+        .shadow-title {
+            position: sticky;
+            z-index: -1;
+            left: 20px;
+            top: 0;
+            color: #000;
+        }
+
+        .title-text-bg {
+            background: url('/calendar/assets/program-fill.svg');
+            width: 72%;
+            max-width: 1200px;
+            height: 10vw;
+            background-size: 100% 100%;
+            margin-top: 53px;
+        }
+
+        .center-box {
+            height: 300px;
+            margin-top: -80px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .img-bg {
+            width: 100%;
+            height: 1.3rem;
+            background-size: cover;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .on-shadow-title-box {
+            position: absolute;
+            z-index: 3;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2rem;
+            pointer-events: none;
+        }
+
+        .on-shadow-title-bg {
+            position: sticky;
+            z-index: -1;
+            left: 0;
+            top: 0;
+            background: url('/calendar/assets/program-line.svg');
+            width: 72%;
+            max-width: 1200px;
+            height: 10vw;
+            background-size: 100% 100%;
+        }
+
+        /* ==========================================================================
+           CONTENT AREA & TABLE STYLES
+           ========================================================================== */
+        .content {
+            margin-top: 15px;
+            padding: 48px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding-bottom: 80px;
+        }
+
+        table {
+            width: 1180.77px;
+            border-collapse: collapse;
+            text-align: left;
+            position: relative;
+        }
+
+        thead {
+            border-bottom: 2px solid #000;
+        }
+
+        th {
+            font-size: 24px;
+            font-weight: 900;
+            letter-spacing: 0px;
+            line-height: 24px;
+            color: rgba(0, 0, 0, 1);
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        .table-note {
+            left: 52.8px;
+            top: 373.6px;
+            width: 225.6px;
+            height: 43.2px;
+            opacity: 1;
+            font-size: 17.6px;
+            font-weight: 400;
+            letter-spacing: 0px;
+            line-height: 21.3px;
+            color: rgba(56, 56, 56, 1);
+            text-align: left;
+            vertical-align: top;
+            font-style: italic;
+            padding-bottom: 5.6px;
+        }
+
+        td {
+            vertical-align: top;
+            padding: 9.6px;
+            font-size: 17.6px;
+        }
+
+        .date {
+            display: flex;
+            justify-content: center;
+            margin-left: 40px;
+            flex-direction: column;
+            z-index: 2;
+            position: relative;
+        }
+
+        /* Table hover effects */
+        .content table tbody {
+            position: relative;
+        }
+
+        .content table tbody::before {
+            content: "";
+            position: absolute;
+            height: 18px;
+            background-color: #DEFFBF;
+            width: 105%;
+            left: -40px;
+            top: var(--divider-y, 0);
+            display: none;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .content table tbody:hover::before {
+            display: block;
+        }
+
+
+
+         /* ==========================================================================
+           BOX COMPONENTS
+           ========================================================================== */
+        .box-container {
+            padding: 0 0 20px 0;
+            width: 276px;
+        }
+
+        .table-box {
+            left: 259.2px;
+            top: 531.2px;
+            width: 276.8px;
+            height: 80px;
+            opacity: 1;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 8px 12px 8px 28px;
+            cursor: pointer;
+        }
+
+        .table-box:hover {
+            background: linear-gradient(154.98deg, rgba(222, 255, 191, 1) 0%, #fff 60%) !important;
+            font-style: italic;
+        }
+
+        .table-box:hover .table-icon {
+            border: 1.5px solid rgba(92, 137, 22, 1);
+            background-color: transparent !important;
+            width: 14.5px;
+            height: 14.5px;
+        }
+
+        /* Box variations */
+        .exhibition {
+            background: linear-gradient(154.98deg, rgba(255, 179, 236, 0.7) 0%, #fff 60%);
+        }
+
+        .current {
+            background: linear-gradient(154.98deg, rgba(222, 255, 191, 1) 0%, #fff 60%);
+            font-style: italic;
+        }
+
+        .event {
+            background: linear-gradient(154.98deg, rgba(221, 247, 92, 1) 0%, #fff 60%);
+        }
+
+        .open-call {
+            background: linear-gradient(154.98deg, rgba(234, 234, 36, 0.9) 0%, #fff 60%);
+        }
+
+        .box-text {
+            width: 214.4px;
+            opacity: 1;
+            font-size: 19.2px;
+            font-weight: 600;
+            letter-spacing: 0px;
+            line-height: 23.24px;
+            color: rgba(0, 0, 0, 1);
+            vertical-align: middle;
+            z-index: 2;
+        }
+
+        /* ==========================================================================
+           ICONS & BUTTONS
+        ========================================================================== */
+
+        .end-icon {
+            margin-top: 3px;
+            width: 50px;
+            height: 30px;
+            opacity: 1;
+            border-radius: 95px;
+
+            border: 1.2px solid rgba(0, 0, 0, 1);
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 0px 12px 3px 12px;
+            font-size: 20px;
+            font-weight: 400;
+        }
+
+
+        .start-icon {
+            margin-top: 3px;
+            width: 70px;
+            height: 30px;
+            opacity: 1;
+            border-radius: 95px;
+
+            border: 1.2px solid rgba(0, 0, 0, 1);
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 0px 12px 3px 12px;
+            font-size: 20px;
+            font-weight: 400;
+        }
+
+        .table-icon {
+            position: relative;
+            left: 36px;
+            top: 0;
+            width: 15px;
+            height: 15px;
+            opacity: 1;
+            display: flex;
+            z-index: 2;
+        }
+
+        .table-box:hover {
+            background: linear-gradient(154.98deg, rgba(222, 255, 191, 1) 0%, #fff 60%) !important;
+            font-style: italic;
+        }
+
+        /* Change table-icon on hover */
+        .table-box:hover .table-icon {
+            border: 1.5px solid rgba(92, 137, 22, 1);
+            background-color: transparent !important;
+            width: 14.5px;
+            height: 14.5px;
+        }
+
+        .open-call-yellow {
+            background: linear-gradient(to right, #fffbd6, #fff);
+        }
+
+        .light-blue {
+            background-color: #d8fdff;
+        }
+
+        .purple-icon {
+            background-color: #bb86fc;
+        }
+
+        .current-icon {
+            border: 1.5px solid rgba(92, 137, 22, 1);
+            display: flex;
+            width: 14.5px;
+            height: 14.5px;
+        }
+
+        .green-icon {
+            background-color: #A8D611;
+        }
+
+        .yellow-icon {
+            background-color: #FCE303;
+        }
+
+        .border {
+            border-top: 2px solid black;
+            margin-bottom: 10px;
+        }
+
+        .box-details {
+            display: flex;
+            padding-top: 32px;
+            gap: 24px;
+            font-size: 16px;
+            width: 1184.36px;
+            height: 665.6px;
+        }
+
+        .divider {
+            border-top: 2px solid #333;
+        }
+
+        .left {
+            width: 560px;
+            height: 100%;
+            display: flex;
+            margin-left: 8px;
+            margin-top: 16px;
+        }
+
+        .left-highlight {
+            max-width:60px;
+            width: 1rem;
+            padding: 20px;
+            box-sizing: border-box;
+            height: 100%;
+        }
+
+        .exhibition-highlight {
+            background: linear-gradient(90deg, rgba(255, 179, 236, 1) 0px, rgba(255, 179, 236, 0.3) 50%, #ffffff 100%);
+        }
+
+        .detail-content {
+            display: flex;
+        }
+
+        .event-highlight {
+            background: linear-gradient(90deg, rgba(221, 247, 92, 1) 0px, rgba(221, 247, 92, 0.3) 50%, #ffffff 100%);
+        }
+
+        .left-content {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .left h2 {
+            font-size: 33.6px;
+            font-weight: 900;
+            font-style: italic;
+            margin-bottom: 16px;
+            margin-left: 24px;
+            margin-top: 8px;
+            /* font-family: Inter; */
+        }
+
+        .left .label {
+            font-weight: bold;
+            font-size: 20.8px;
+            margin-top: 8px;
+            margin-left: 24px;
+            /* font-family: Inter; */
+        }
+
+        .left .info {
+            font-style: italic;
+            margin-bottom: 12px;
+            margin-left: 24px;
+            font-size: 20.8px;
+            line-height: 1.8;
+        }
+
+        .right {
+            width: 50%;
+            margin-left: 10px;
+            margin-top: 20px;
+        }
+
+        .right-content {
+            margin-top: 24px;
+            font-size: 19.2px;
+        }
+
+        .right p {
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .image-wrapper {
+            margin-top: 32px;
+            width: 623.2px;
+        }
+
+        .exhibition-image {
+            box-shadow: 8px 8px 0px rgba(255, 179, 236, 1);
+            width: 560px;
+        }
+
+        .event-image {
+            box-shadow: 8px 8px 0px rgba(221, 247, 92, 1);
+        }
+
+        .image-wrapper img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .section-title {
+            font-style: italic;
+            color: #555;
+            margin-bottom: 4px;
+            margin-top: 48px;
+            font-size: 17.6px;
+            width: 1176.36px;
+        }
+
+        .back-to-top {
+            position: relative;
+            top: -50px;
+            cursor: pointer;
+            margin-left: 75vw;
+            z-index: 1999;
+        }
+
+        #opening-project {
+        height:1340px;
+        }
+
+        #exploring-creativity {
+        height:1340px;
+        }
+
+        .exploring-creativity-1 {
+           height: 130px;
+        }
+
+        .exploring-creativity-2 {
+           height: 173px;
+        }
+
+        .futurelab-expo {
+           height: 150px;
+        }
+
+        .live-diffusion {
+           height: 150px;
+        }
+
+        #opening-ceremony {
+        height: 1390px;
+        }
+
+        .links {
+            color:#000;
+            font-size: 19.2px;
+            font-weight: 700;
+        }
+
+          .timezone-dropdown {
+            background: rgba(247, 247, 69, 0.5);
+            border: 1px solid rgba(234, 234, 36, 1);
+            width: 246px;
+            height: 61px;
+            border-radius: 620px;
+            box-shadow: 0px 2px 4px  rgba(168, 214, 17, 0.5);
+            border: none;
+            font-size: 22px;
+            font-weight: 400;
+            letter-spacing: 0px;
+            line-height: 26.63px;
+            color: rgba(56, 56, 56, 1);
+            font-style: italic;
+            padding: 0;
+            font-family: 'NYU', sans-serif;
+            cursor: pointer;
+            outline: none;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            background-size: 36px;
+            padding-right: 30px;
+            padding-top: 4px;
+            padding-bottom: 4px;
+            margin-top: 25px;
+            margin-right: 0px;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .timezone-dropdown:hover {
+            color: rgba(0, 0, 0, 1);
+        }
+
+        .timezone-dropdown option {
+            background: white;
+            color: black;
+            padding: 8px;
+        }
+
+
+        /* ==========================================================================
+           ANIMATIONS
+           ========================================================================== */
+        @keyframes active {
+
+            /* from表示动画的开始位置，也可以使用0%来表示。 */
+            from {}
+
+            /* to表示动画的结束位置，也可以使用100%来表示。 */
+            to {
+                flex: 1;
+                border: 2px solid rgba(234, 234, 36, 1);
+                background: rgba(234, 234, 36, 1);
+                font-weight: 600;
+            }
+        }
+
+        @keyframes noActive {
+
+            /* from表示动画的开始位置，也可以使用0%来表示。 */
+            from {
+                flex: 1
+            }
+
+            /* to表示动画的结束位置，也可以使用100%来表示。 */
+            to {
+                border: 2px solid rgba(0, 0, 0, 1);
+                background: #ffffff;
+                font-weight: 400;
+            }
+        }
+
+        @keyframes activeforMax1080 {
+
+            /* from表示动画的开始位置，也可以使用0%来表示。 */
+            from {}
+
+            /* to表示动画的结束位置，也可以使用100%来表示。 */
+            to {
+                width: calc(100% - 72px);
+                border: 2px solid rgba(234, 234, 36, 1);
+                background: rgba(234, 234, 36, 1);
+                font-weight: 600;
+            }
+        }
+
+        @keyframes noActiveforMax1080 {
+
+            /* from表示动画的开始位置，也可以使用0%来表示。 */
+            from {
+                width: calc(100% - 72px);
+            }
+
+            /* to表示动画的结束位置，也可以使用100%来表示。 */
+            to {
+                border: 2px solid rgba(0, 0, 0, 1);
+                background: #ffffff;
+                font-weight: 400;
+            }
+        }
+
+
+        /* ==========================================================================
+           RESPONSIVE DESIGN
+           ========================================================================== */
+        /* Tablet */
+        @media screen and (max-width: 1320px) {
+
+            .content table tbody::before {
+                display: none !important;
+            }
+            
+            .content table tbody:hover::before {
+                display: none !important;
+            }
+            .zhuti,
+            .on-shadow-title-box,
+            .li-box {
+                height: 2.1rem;
+            }
+             .on-shadow-title-box {
+                height: 2.1rem;
+            }
+
+            .img-bg {
+                height: 1.5rem;
+            }
+
+            .content {
+                width: 98vw;
+                padding: 10px;
+                margin-top: 0px;
+            }
+
+            .timezone-dropdown {
+                margin-top: 0px;
+                margin-bottom: 0.2rem;
+                text-align: nowrap;
+                width: 1.8rem;
+                height: 0.41rem;
+                font-size: 0.14rem;
+                white-space: nowrap;
+                padding-right: 0.3rem;
+                padding-top: 0.04rem;
+                padding-bottom: 0.04rem;
+                background-size: 0.36rem;
+                background-position: right 0.1rem center;
+            }
+
+
+            .timezone-label {
+                font-size: 0.18rem;
+                line-height: 1.2;
+                white-space: normal;
+            }
+
+
+             .timezone-options {
+                width: 100%;
+                max-width: 200px; /* Adjust based on your design */
+            }
+
+            .timezone-option {
+                font-size: 0.18rem !important; /* Smaller font on mobile */
+                padding: 10px 15px !important;
+                line-height: 1.3 !important;
+                white-space: normal;
+            }
+
+            .center-box {
+                height: 1.8rem;
+                margin-top: -0.3rem;
+            }
+
+            table {
+                width: 55%;
+            }
+
+            th:not(.table-note) {
+                display: none;
+            }
+
+            .table-note {
+                font-size: 22px;
+                padding-bottom: 0px;
+                white-space: nowrap;
+                height: 0.4rem;
+                align-self: flex-start;
+            }
+
+            tr {
+                display: flex;
+                flex-direction: column;
+                margin-bottom: 5px;
+                align-items: center;
+            }
+
+            tbody {
+                align-items: center;
+            }
+
+            td.date {
+                width: 30%;
+                box-sizing: border-box;
+                padding: 5px;
+                align-self: flex-start;
+            }
+
+            td {
+                width: 50%;
+                box-sizing: border-box;
+                padding: 0;
+            }
+
+            .section-title,
+            .box-details {
+                width: 98vw;
+            }
+
+            .section-title {
+                font-size: 0.24rem;
+                margin-top: 0.5rem;
+            }
+
+            .detail-content {
+                width: 80%;
+                display: flex;
+                flex-direction: column;
+            }
+            .box-details {
+                gap:0.1rem;
+            }
+
+            .left {
+                height: auto;
+                margin-left: -15px;
+                width: 90%;
+            }
+
+            .left-content {
+                margin-bottom: 0px;
+                padding-bottom: 0px;
+            }
+
+            .right {
+                width: 90%;
+            }
+
+            .exhibition-image {
+                width: 70%;
+            }
+
+            #opening-project {
+                height: 1800px;
+            }
+
+            #exploring-creativity {
+                height: 1800px;
+            }
+
+
+            #opening-ceremony {
+                height: 2500px;
+            }
+
+            .back-to-top {
+                margin-left: 65vw;
+                top: -50px;
+            }
+
+            /* .timezone-dropdown {
+                font-size: 18px;
+                white-space: nowrap;
+            } */
+
+            .back-to-top {
+                margin-left: 65vw;
+                top: -0.5rem;
+            }
+
+            .back-to-top svg {
+                width: 2.06rem;
+                height: 1.42rem;
+            }
+        }
+
+        /* Mobile Large */
+        @media screen and (max-width: 720px) {
+            .content table tbody::before {
+                display: none !important;
+            }
+            
+            .content table tbody:hover::before {
+                display: none !important;
+            }
+            .li-box {
+                height: 2.3rem;
+            }
+
+            .zhuti,
+            .on-shadow-title-box {
+                height: 2.3rem;
+            }
+
+            .center-box {
+                height: 2rem;
+                margin-top: -0.3rem;
+            }
+
+            .img-bg {
+                height: 1.5rem;
+            }
+
+            .content {
+                width: 98vw;
+                padding: 10px;
+                /* overflow-x: hidden; */
+                margin-top: 0px;
+            }
+
+
+            .timezone-dropdown {
+                margin-top: 0px;
+                margin-bottom: 0.2rem;
+                width: 1.96rem;
+                height: 0.58rem;
+                font-size: 0.18rem;
+                padding-right: 0.25rem;
+                padding-top: 0.03rem;
+                padding-bottom: 0.03rem;
+                background-size: 0.3rem;
+                background-position: right 0.08rem center;
+            }
+            table {
+                width: 100%;
+            }
+
+            th:not(.table-note) {
+                display: none;
+            }
+
+            .table-note {
+                padding-bottom: 0px;
+                white-space: nowrap;
+                height: 0.3rem;
+                align-self: flex-start;
+            }
+
+            tr {
+                display: flex;
+                flex-direction: column;
+                margin-bottom: 5px;
+                align-items: center;
+            }
+
+            tbody {
+                align-items: center;
+            }
+
+            td.date {
+                width: 30%;
+                box-sizing: border-box;
+                padding: 0.05rem;
+                align-self: flex-start;
+            }
+
+            td {
+                width: 100%;
+                box-sizing: border-box;
+                padding: 0;
+            }
+             td.date svg {
+                width: 1.14rem;
+                height: 0.75rem;
+            }
+
+            .box-container {
+                padding: 0px;
+                width: 3rem;
+            }
+              .table-box {
+                width: 3.46rem;
+                height: 1rem;
+                padding: 0.1rem 0.15rem 0.1rem 0.35rem;
+                font-size: 0.2rem;
+            }
+
+            .left-highlight {
+                width: 0.7rem;
+            }
+
+            .box-text {
+                width: 2.68rem;
+                font-size: 0.24rem;
+                line-height: 0.29rem;
+            }
+
+            .table-icon {
+                width: 0.15rem;
+                height: 0.15rem;
+                left: 0.36rem;
+            }
+            .start-icon, .end-icon {
+                font-size: 0.16rem;
+                height: 0.24rem;
+                padding: 0px 0.1rem 0.03rem 0.1rem;
+            }
+
+            .start-icon {
+                width: 0.56rem;
+            }
+
+            .end-icon {
+                width: 0.4rem;
+            }
+
+            .section-title,
+            .box-details {
+                width: 98vw;
+            }
+
+            .detail-content {
+                width: 80%;
+                display: flex;
+                flex-direction: column;
+            }
+
+            .left {
+                height: auto;
+                margin-left: -15px;
+                width: 90%;
+            }
+
+            .left-content {
+                margin-bottom: 0px;
+                padding-bottom: 0px;
+            }
+
+            .left h2 {
+                font-size: 0.38rem;
+                line-height: normal;
+            }
+
+            .left .label {
+                font-size: 0.24rem;
+            }
+
+            .left .info {
+                font-size: 0.24rem;
+                line-height: 180%;
+            }
+
+            .right {
+                width: 90%;
+            }
+
+            .right-content {
+                font-size: 0.24rem;
+                line-height: 180%;
+            }
+
+            .exhibition-image {
+                width: 80%;
+            }
+
+            #opening-project {
+                height: 18rem;
+            }
+
+            #exploring-creativity {
+                height: 18rem;
+            }
+
+            #opening-ceremony {
+                height: 28rem;
+            }
+
+             .back-to-top {
+                margin-left: 65vw;
+                top: -0.5rem;
+            }
+
+            .back-to-top svg {
+                width: 1.8rem;
+                height: 1.2rem;
+            }
+            .links {
+            font-size: 0.26rem;
+            font-weight: 700;
+        }
+        }
+
+    

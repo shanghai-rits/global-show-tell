@@ -1,0 +1,367 @@
+/* ========================================
+   ABOUT.HTML - Extracted CSS
+   ======================================== */
+
+
+        * { padding: 0; margin: 0; }
+        body { font-family: 'NYU', sans-serif; color: #333; }
+        .page-body { width: 100%; }
+        .li-box { height: 500px; width: 100%; position: relative; z-index: 1; }
+        .zhuti { height: 600px; margin-top: 20px; position: relative; }
+        .shadow-title { position: sticky; z-index: -1; left: 20px; top: 0; color: #000; }
+        .title-text-bg { background: url('/about/assets/about-fill.svg'); width: 73%; height: calc(410px /2); background-size: 100% 100%; }
+        .center-box { height: 300px; margin-top: -90px; position: relative; z-index: 1; }
+        .img-bg { width: 100%; height: 350px; background-size: cover; position: relative; overflow: hidden; }
+        .on-shadow-title-box { position: absolute; z-index: 3; top: 0; width: 100%; height: 600px; pointer-events: none; }
+        .on-shadow-title-bg { position: sticky; z-index: -1; left: 0; top: 0; background: url('/about/assets/about-line.svg'); width: 75%; height: calc(410px /2); background-size: 100% 100%; }
+        
+        .content {
+            position: relative;
+            top: 100px;
+            margin: 0 auto 150px;
+            font-family: 'NYU', sans-serif;
+            max-width: 1404px;
+            padding: 0 66px;
+        }
+
+        .chapter-title {
+            font-size: 42px;
+            font-weight: 600;
+            color: #B8B812;
+            font-style: italic;
+            padding-bottom: 10px;
+        }
+
+        /* 照片网格布局 */
+        .photo-box {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 38px 18px;
+            justify-content: flex-start;
+			width: 100%;
+        }
+
+        /* 修改后的照片容器样式 */
+        .photo-item.photo-wrapper {
+            position: relative; 
+            overflow: hidden;   
+            aspect-ratio: 1272/715;
+			width: 100%;
+        }
+
+		.photo-image {
+    		position: absolute; /* 脱离文档流，不撑开父盒子 */
+    		top: 0;
+    		left: 0;
+    		width: 100%;
+    		height: 100%;
+		}
+
+		/* 关键：确保 el-image 内部的 img 标签也占满 100% */
+			:deep(.el-image__inner) {
+    			width: 100%;
+    			height: 100%;
+		}
+
+
+        .photo-item img {
+            width: 100%;
+            height: 100%;
+			object-fit: cover; /* 保证不变形 */
+            display: block;
+        }
+
+        /* 修改后的悬浮标题样式 */
+        .photo-title {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0) 1%,rgb(221, 222, 183, 0.3) 25%, rgba(242, 247, 77, 1) 85%); /* 黄色半透明背景增强文字可读性 */
+            color: rgba(71, 71, 60, 1); /* 修改为黑色文字 */
+            padding:155px 20px 15px 20px;
+			text-align: left;
+            font-size: 3 rem;
+            text-align: center;
+            font-weight: bold;
+            /* 初始状态：向下移动100%隐藏 */
+            transform: translateY(100%);
+            transition: transform 0.3s ease-in-out;
+            z-index: 10;
+			cursor: pointer;
+			pointer-events: auto;
+
+			display: flex;
+    		flex-direction: column;
+    		align-items: flex-start;
+        }
+
+		.main-title, .sub-title, .location {
+    		text-align: left;
+    		width: 100%;
+			}
+
+
+		.main-title {
+    		font-size:18px; /* 大标题稍微调大一点 */
+    		line-height: 1.2;
+		}
+
+		.sub-title {
+    		font-size: 11px;
+    		font-weight: normal;
+			font-style: italic;
+    		margin-top: 3px; /* 两行之间的间距 */
+		}
+
+		.location {
+    		font-size: 11px;
+    		font-weight: normal;
+			font-style: italic;
+    		margin-top: 3px; /* 两行之间的间距 */
+		}
+
+
+        /* 鼠标移入容器，标题升起 */
+        .photo-item.photo-wrapper:hover .photo-title {
+            transform: translateY(0);
+        }
+
+		.people-box {
+			display: flex;
+			justify-content: space-between;
+			align-items: flex-start;
+		}
+
+		.people-item {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			flex-direction: column;
+			margin: 30px;
+		}
+
+		.head-img {
+			width: 238px;
+			height: 238px;
+			position: relative;
+			background: url("/about/assets/Ellipse3.png");
+			background-size: 100% 100%;
+			margin-bottom: 30px;
+			padding-left: 10px;
+		}
+
+		.head-img img {
+			position: absolute;
+			bottom: 0;
+		}
+
+		.name {
+			font-size: 50px;
+			color: rgba(71, 71, 60, 1);
+			padding-right: 20px;
+			/* 左边增加 20px 的内边距 */
+			font-style: italic;
+			/* 字体变成斜体 */
+			font-weight: 400;
+		}
+
+		.info {
+			font-size: 24px;
+			color: rgba(38, 38, 38, 1);
+			margin-top: 15px;
+			font-weight: 380;
+			font-style: italic;
+		}
+
+		.people-bottom-info {
+			font-size: 24px;
+			color: rgba(38, 38, 38, 1);
+			margin-top: 70px;
+		}
+
+		.bottom-box {
+			/* margin-top: 50px; */
+		}
+        /* 后续其他原有样式保持不变... */
+        .bottom-box-title { color: rgba(184, 184, 18, 1); font-size: 36px; font-style: italic; }
+        .bottom-box-title-span { color: rgba(128, 128, 128, 1); font-style: italic; font-weight: 250; font-size: 24px; margin-bottom: 30px; }
+        .bottom-box-info { margin-top: 8px; color: rgba(38, 38, 38, 1); font-size: 20px; line-height: 30px; margin-bottom: 65px; display: flex; flex-direction: column; }
+        .grid-type-1 { display: grid; grid-template-columns: 1fr 2fr; gap: 0 50px; }
+        .grid-type-1 > div { margin-bottom: 30px; }
+        .grid-type-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+
+        @media screen and (max-width:640px) {
+
+            .grid-type-1 {
+				grid-template-columns: 1fr 1fr;
+			}
+
+			.photo-box {
+        		grid-template-columns: repeat(2, 1fr) !important; /* 强制改为一行2张 */
+        		gap: 15px 10px; /* 适当调小移动端的间距，可选 */
+    			}
+
+			.li-box {
+				height: 3.7rem;
+			}
+
+			.zhuti {
+				height: 5.2rem;
+			}
+
+			.on-shadow-title-box {
+				height: 5.2rem;
+			}
+
+			.center-box {
+				height: 3rem;
+				margin-top: -0.6rem;
+			}
+
+			.img-bg {
+				height: 3rem;
+			}
+            .title-text-bg {
+				width: calc(19.7rem/3);
+				height: calc(4.1rem /3);
+				background-size: 100% 100%;
+			}
+
+			.on-shadow-title-bg {
+				position: sticky;
+				z-index: -1;
+				left: 0;
+				top: 0;
+				width: calc(19.54rem/3);
+				height: calc(4.1rem /3);
+				background-size: 100% 100%;
+			}
+
+			.content {
+				position: relative;
+				top: 100px;
+				/* opacity: 0; */
+				left: 0;
+				right: 0;
+				margin: 0 auto;
+				font-family: 'NYU', sans-serif;
+				max-width: 1404px;
+				padding: 0 0.22rem;
+			}
+
+
+			.chapter-title {
+				font-size: 0.42rem;
+				font-weight: 600;
+				color: #B8B812;
+				font-style: italic;
+				padding-bottom: 0.1rem;
+			}
+
+            .photo-item {
+				/* width: calc(((100% - 0.07rem) / 2)); */
+				/* height: 1.54rem; */
+				height: 100%;
+				font-size: 0;
+				margin-bottom: 0;
+				margin-right: 0rem;
+				aspect-ratio: 1272/715;
+			}
+
+
+			.photo-item img {
+				position: absolute;
+    			top: 0;
+    			left: 0;
+    			width: 100%;
+    			height: 100%;
+    			display: block;
+    			/* 核心属性：二选一 */
+    			object-fit: cover;
+			}
+
+			.people-box {
+				display: flex;
+				justify-content: space-between;
+				flex-wrap: wrap;
+			}
+
+			.people-item {
+				display: flex;
+				width: 100%;
+				justify-content: center;
+				align-items: center;
+				flex-direction: column;
+			}
+
+			.head-img {
+				width: 2.42rem;
+				height: 2.42rem;
+				position: relative;
+				background: url("/about/assets/Ellipse3.png");
+				background-size: 100% 100%;
+				margin-bottom: 20px;
+			}
+            .head-img img {
+				position: absolute;
+				bottom: 0;
+				width: 1.88rem;
+				height: 1.82rem;
+			}
+
+			.name {
+				font-size: 0.5rem;
+				color: rgba(38, 38, 38, 1);
+			}
+
+			.info {
+				font-size: 0.24rem;
+				color: rgba(38, 38, 38, 1);
+				margin-top: 0.26rem;
+			}
+
+			.people-bottom-info {
+				font-size: 0.24rem;
+				color: rgba(38, 38, 38, 1);
+				margin-top: 0.6rem;
+			}
+
+			.bottom-box {
+				/* margin-top: 1.55rem; */
+			}
+
+			.bottom-box-title {
+				color: rgba(184, 184, 18, 1);
+				/* padding-bottom: 0.14rem; */
+				font-size: 0.36rem;
+				font-style: italic;
+				/* border-bottom: 1px solid rgba(166, 166, 166, 1); */
+			}
+            .bottom-box-title-span {
+				color: rgba(128, 128, 128, 1);
+				font-style: italic;
+				font-weight: 250;
+				font-size: 0.24rem;
+				margin-bottom: 0.3rem;
+				/* margin-left: 10px; */
+			}
+
+			.bottom-box-info {
+				margin-top: 0.14rem;
+				color: rgba(38, 38, 38, 1);
+				font-size: 0.2rem;
+				line-height: 0.3rem;
+				margin-bottom: 0.5rem;
+			}
+
+		}
+
+		.el-image-viewer__canvas {
+			img {
+				object-fit: cover;
+			}
+		}
+    
+            /* 移动端调整标题大小 */
+    

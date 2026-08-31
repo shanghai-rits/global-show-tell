@@ -6,7 +6,7 @@
 	<link rel="icon" href="/logo.png" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/inter-ui/inter.css"> -->
-	<link rel="stylesheet" href="/about/assets/font.css">
+	<link rel="stylesheet" href="/fonts.css">
 	<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 
 	<link rel="stylesheet" href="https://unpkg.com/element-plus/dist/index.css" />
@@ -31,7 +31,6 @@
 			if (!doc.addEventListener) return;
 			win.addEventListener(resizeEvt, recalc, false);
 			doc.addEventListener('DOMContentLoaded', recalc, false);
-			setup();
 		})(document, window);
 	</script>
 	<script src="/about/assets/sketch.js"></script>
@@ -248,17 +247,17 @@
 		}
 
 		.bottom-box-info {
-            margin-top: 8px;
-            color: rgba(38, 38, 38, 1);
-            font-size: 20px;
-  			line-height: 30px;
-  			margin-bottom: 65px;
-  
-  /* 新增行距控制 */
-  			display: flex;
-  			flex-direction: column;
-  			
-}
+			margin-top: 8px;
+			color: rgba(38, 38, 38, 1);
+			font-size: 20px;
+			line-height: 30px;
+			margin-bottom: 65px;
+
+			/* 新增行距控制 */
+			display: flex;
+			flex-direction: column;
+
+		}
 
 
 		.grid-type-1 {
@@ -267,21 +266,27 @@
 			gap: 0 50px;
 			justify-content: flex-start;
 		}
-		.bottom-box-info.grid-type-1 {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    gap: 0 50px; /* 水平列间距保持原样 */
-}
 
-/* 针对大类 div（直接子元素），增加垂直间距 */
-.bottom-box-info.grid-type-1 > div {
-    margin-bottom: 30px; /* 调整大类之间的间距 */
-}
-/* 保持小名字 <p> 间距正常 */
-.bottom-box-info.grid-type-1 > div > p {
-    margin: 0; /* 或者可自定义微小间距，例如 margin-bottom: 4px; */
-    padding: 0;
-}
+		.bottom-box-info.grid-type-1 {
+			display: grid;
+			grid-template-columns: 1fr 2fr;
+			gap: 0 50px;
+			/* 水平列间距保持原样 */
+		}
+
+		/* 针对大类 div（直接子元素），增加垂直间距 */
+		.bottom-box-info.grid-type-1>div {
+			margin-bottom: 30px;
+			/* 调整大类之间的间距 */
+		}
+
+		/* 保持小名字 <p> 间距正常 */
+		.bottom-box-info.grid-type-1>div>p {
+			margin: 0;
+			/* 或者可自定义微小间距，例如 margin-bottom: 4px; */
+			padding: 0;
+		}
+
 		.grid-type-2 {
 			display: grid;
 			grid-template-columns: 1fr 1fr;
@@ -488,8 +493,7 @@
 					</div>
 					<div class="center-box">
 						<div class="img-bg" id="imgBg">
-							<div
-								style="position: absolute;left: 0;right: 0;top:0;bottom:0;z-index: -2;background:#eaea24">
+							<div style="position: absolute;left: 0;right: 0;top:0;bottom:0;z-index: -2;background:#eaea24">
 							</div>
 							<div
 								style="position: absolute;left: 0;right: 0;top:0;bottom:0;z-index: -1;margin: 0 auto;text-align: center">
@@ -591,35 +595,36 @@
 				</div>
 				<div class="bottom-box" style="padding-bottom: 100px;"></div>
 			</div>
+		</div>
 
-			<script>
-				const { createApp, ref, onMounted } = Vue
+		<script>
+			const { createApp, ref, onMounted } = Vue
 
-				createApp({
-					setup() {
-						const classActive = ref(true);
-						const imageList = ref([
-							{ src: '/about/images/01.png' },
-							{ src: '/about/images/02.jpg' },
-							{ src: '/about/images/03.jpg' },
-							{ src: '/about/images/04.jpg' },
-							{ src: '/about/images/05.jpg' },
-							{ src: '/about/images/06.jpg' },
-							{ src: '/about/images/07.png' },
-							{ src: '/about/images/08.jpg' },
-							{ src: '/about/images/09.jpg' }
-						]);
+			createApp({
+				setup() {
+					const classActive = ref(true);
+					const imageList = ref([
+						{ src: '/about/images/01.png' },
+						{ src: '/about/images/02.jpg' },
+						{ src: '/about/images/03.jpg' },
+						{ src: '/about/images/04.jpg' },
+						{ src: '/about/images/05.jpg' },
+						{ src: '/about/images/06.jpg' },
+						{ src: '/about/images/07.png' },
+						{ src: '/about/images/08.jpg' },
+						{ src: '/about/images/09.jpg' }
+					]);
 
-						const previewList = ref(imageList.value.map(img => img.src));
+					const previewList = ref(imageList.value.map(img => img.src));
 
-						return {
-							classActive,
-							imageList,
-							previewList
-						}
+					return {
+						classActive,
+						imageList,
+						previewList
 					}
-				}).use(ElementPlus).mount('#app')
-			</script>
+				}
+			}).use(ElementPlus).mount('#app')
+		</script>
 </body>
 
 </html>

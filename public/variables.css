@@ -1,0 +1,39 @@
+/* ========================================
+   CSS VARIABLES
+   ======================================== */
+:root {
+  --sqrt-line: 0;
+  --height-line: 0;
+  --width-line: 0;
+  --img-multiple: 0;
+  --ultra-wide: 0;
+
+  /* Color palette */
+  --primary-yellow: #E9E92C;
+  --primary-purple: #57068C;
+  --primary-green: #6D872A;
+  --accent-green: #6B8829;
+  --light-green: #EFF8DD;
+  --border-green: #475929;
+  --light-gray: #DBDBDB;
+  --dark-green: #828223;
+  --highlight-yellow: #DBDB0F;
+  --gradient-yellow: rgba(234, 234, 36, 1);
+  --text-gray: rgba(128, 128, 128, 1);
+  --text-dark: #2a2a28;
+
+  /* Spacing */
+  --spacing-xs: 8px;
+  --spacing-sm: 12px;
+  --spacing-md: 20px;
+  --spacing-lg: 40px;
+  --spacing-xl: 60px;
+
+  /* Font sizes */
+  --font-xs: 14px;
+  --font-sm: 20px;
+  --font-md: 24px;
+  --font-lg: 40px;
+  --font-xl: 56px;
+  --font-xxl: 70px;
+}

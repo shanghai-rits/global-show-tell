@@ -541,7 +541,7 @@ const Showcase: React.FC = () => {
   };
 
   // Scroll handlers - zoom in/out centered on canvas center
-  const handleWheel = (e: React.WheelEvent) => {
+  const handleWheel = (e: WheelEvent) => {
     e.preventDefault();
     const delta = 0.009;
     setScale(prev => {
@@ -556,6 +556,16 @@ const Showcase: React.FC = () => {
       return newScale;
     });
   };
+
+  useEffect(() => {
+    const el = outerRef.current;
+    if (!el) return;
+
+    el.addEventListener('wheel', handleWheel, { passive: false });
+    return () => {
+      el.removeEventListener('wheel', handleWheel);
+    };
+  }, [handleWheel]);
 
 
 
@@ -696,7 +706,6 @@ const Showcase: React.FC = () => {
           }}
           onMouseUp={handleMouseUp}
           onMouseLeave={handleMouseLeave}
-          onWheel={handleWheel}
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
@@ -793,23 +802,23 @@ const Showcase: React.FC = () => {
           <div className='zoom-in-out'>
             <div onClick={handleZoomIn} style={{ cursor: 'pointer' }}>
               <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" width="37.75" height="37.75" viewBox="0 0 37.75 37.75" fill="none">
-                <circle cx="18.25" cy="18.25" r="17.5" stroke="rgba(38, 38, 38, 1)" stroke-width="1.5"   >
+                <circle cx="18.25" cy="18.25" r="17.5" stroke="rgba(38, 38, 38, 1)" strokeWidth="1.5"   >
                 </circle>
                 <path fill="rgba(38, 38, 38, 1)" d="M34.3358 37.1642L30.3358 33.1642L33.1642 30.3358L37.1642 34.3358L34.3358 37.1642ZM31.75 28.9216L33.1642 30.3358L30.3358 33.1642L28.9216 31.75L31.75 28.9216ZM35.75 37.75C34.6454 37.75 33.75 36.8546 33.75 35.75C33.75 34.6454 34.6454 33.75 35.75 33.75C36.8546 33.75 37.75 34.6454 37.75 35.75C37.75 36.8546 36.8546 37.75 35.75 37.75Z">
                 </path>
-                <path stroke="rgba(38, 38, 38, 1)" stroke-width="2.5" d="M7.25 18.2518L29.36 18.3618">
+                <path stroke="rgba(38, 38, 38, 1)" strokeWidth="2.5" d="M7.25 18.2518L29.36 18.3618">
                 </path>
-                <path stroke="rgba(38, 38, 38, 1)" stroke-width="2.5" d="M18.5 7.25183L18.5 29.3621">
+                <path stroke="rgba(38, 38, 38, 1)" strokeWidth="2.5" d="M18.5 7.25183L18.5 29.3621">
                 </path>
               </svg>
             </div>
             <div onClick={handleZoomOut} style={{ cursor: 'pointer' }}>
               <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" width="37.75" height="37.75" viewBox="0 0 37.75 37.75" fill="none">
-                <circle cx="18.25" cy="18.25" r="17.5" stroke="rgba(38, 38, 38, 1)" stroke-width="1.5"   >
+                <circle cx="18.25" cy="18.25" r="17.5" stroke="rgba(38, 38, 38, 1)" strokeWidth="1.5"   >
                 </circle>
                 <path fill="rgba(38, 38, 38, 1)" d="M34.3358 37.1642L30.3358 33.1642L33.1642 30.3358L37.1642 34.3358L34.3358 37.1642ZM31.75 28.9216L33.1642 30.3358L30.3358 33.1642L28.9216 31.75L31.75 28.9216ZM35.75 37.75C34.6454 37.75 33.75 36.8546 33.75 35.75C33.75 34.6454 34.6454 33.75 35.75 33.75C36.8546 33.75 37.75 34.6454 37.75 35.75C37.75 36.8546 36.8546 37.75 35.75 37.75Z">
                 </path>
-                <path stroke="rgba(38, 38, 38, 1)" stroke-width="3" d="M7.25 18.75L29.36 18.86">
+                <path stroke="rgba(38, 38, 38, 1)" strokeWidth="3" d="M7.25 18.75L29.36 18.86">
                 </path>
               </svg>
             </div>
