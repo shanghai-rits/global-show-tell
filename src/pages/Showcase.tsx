@@ -1,9 +1,19 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import showcaseSampleCover from '../assets/showcase-sample-cover.png';
 import Navbar from '../components/Navbar/Navbar';
 import SearchBox from '../components/SearchBox';
-import { showcaseItems, type ShowcaseItem } from '../data/showcaseItems';
 import './Showcase.css';
+
+
+interface ShowcaseItem {
+  id: number;
+  title: string;
+  authors: string;
+  program: string;
+  size?: { width?: number; height?: number };
+  real: boolean;
+}
 /**
  * Checks if two items (by top-left corner) with the same width/height/spacing overlap.
  * Adjust to fit your actual isOverlap function signature.
@@ -212,124 +222,12 @@ function generateNonOverlappingPositions(
   // Return positions in the shuffled order
   return positions;
 }
-type ProjectCardProps = {
-  item: ShowcaseItem;
-  onClick: (event: React.MouseEvent<HTMLDivElement>) => void;
-  className?: string;
-  titleStyle?: React.CSSProperties;
-  authorStyle?: React.CSSProperties;
-  imageStyle?: React.CSSProperties;
-  showProgram?: boolean;
-  isGalleryView?: boolean;
-};
-
-const GridProjectCard: React.FC<ProjectCardProps> = ({
-  item,
-  onClick,
-  className,
-  titleStyle,
-  authorStyle,
-  imageStyle,
-}) => (
-  <div
-    key={item.id}
-    className={className}
-    style={{
-      background: 'transparent',
-      display: 'flex',
-      flexDirection: 'column',
-      borderRadius: 0,
-      padding: 0,
-      margin: 0,
-      cursor: item.real ? 'pointer' : 'default',
-    }}
-    onClick={onClick}
-  >
-    <img
-      className="grid-item-image"
-      src={`/showcase/${item.id}/cover.jpg`}
-      alt={`${item.title} cover`}
-      onError={(e) => { e.currentTarget.src = showcaseSampleCover; }}
-      onDragStart={(e) => e.preventDefault()}
-      style={imageStyle}
-    />
-    <div className="grid-item-title" style={titleStyle}>
-      {item.title}
-    </div>
-    <div className="grid-item-authors" style={authorStyle}>
-      {item.authors.split('<br/>').map((part, i, arr) => (
-        <React.Fragment key={i}>
-          {part}
-          {i < arr.length - 1 && <br />}
-        </React.Fragment>
-      ))}
-    </div>
-  </div>
-);
-
-const GalleryProjectCard: React.FC<ProjectCardProps> = ({
-  item,
-  onClick,
-  imageStyle,
-  titleStyle,
-  authorStyle,
-  showProgram,
-}) => (
-  <div
-    key={item.id}
-    style={{
-      position: 'absolute',
-      left: 0,
-      top: 0,
-      background: 'transparent',
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'flex-start',
-      borderRadius: 0,
-      overflow: 'hidden',
-      padding: 0,
-      margin: 0,
-      cursor: item.real ? 'pointer' : 'default',
-    }}
-    onClick={onClick}
-  >
-    <img
-      src={`/showcase/${item.id}/cover.jpg`}
-      alt={`${item.title} cover`}
-      onError={(e) => { e.currentTarget.src = showcaseSampleCover; }}
-      onDragStart={(e) => e.preventDefault()}
-      style={imageStyle}
-    />
-    <div style={titleStyle}>{item.title}</div>
-    <div style={authorStyle}>
-      {item.authors.split('<br/>').map((part, i, arr) => (
-        <React.Fragment key={i}>
-          {part}
-          {i < arr.length - 1 && <br />}
-        </React.Fragment>
-      ))}
-    </div>
-    {showProgram && (
-      <div style={{ marginTop: '0px', marginLeft: '2px', color: 'rgba(128, 128, 128, 1)', fontSize: '18px' }}>
-        {item.program.split('<br/>').map((part, i, arr) => (
-          <React.Fragment key={i}>
-            {part}
-            {i < arr.length - 1 && <br />}
-          </React.Fragment>
-        ))}
-      </div>
-    )}
-  </div>
-);
-
-const ZoomButton: React.FC<{ onClick: () => void; children: React.ReactNode }> = ({ onClick, children }) => (
-  <div onClick={onClick} style={{ cursor: 'pointer' }}>
-    {children}
-  </div>
-);
+// ...existing code...
 
 const Showcase: React.FC = () => {
-  const items = showcaseItems;
+
+  // Details Page
+  const navigate = useNavigate();
 
   // SearchBox
   const [searchQuery, setSearchQuery] = useState('');
@@ -401,13 +299,6 @@ const Showcase: React.FC = () => {
     setSearchQuery(e.target.value);
   };
 
-  const handleItemClick = (item: ShowcaseItem, e: React.MouseEvent<HTMLDivElement>) => {
-    if (!item.real) return;
-    e.stopPropagation();
-    const fullUrl = `${window.location.origin}/showcase/${item.id}`;
-    window.open(fullUrl, '_blank', 'noopener,noreferrer');
-  };
-
   const handleSearchSubmit = () => {
     setShowResults(true);
     const filteredItems = items.filter(item =>
@@ -422,6 +313,38 @@ const Showcase: React.FC = () => {
     setSearchQuery('');
     setShowResults(false);
   };
+
+  const items: ShowcaseItem[] = [
+    { id: 1, title: 'Live-Diffusion', authors: 'Chenxuan Sun, Jinran Ye', program: "NYU Shanghai IMA ", size: { width: 420 }, real: true },
+    { id: 2, title: 'DreamyBot', authors: 'Ruiqi Liu', program: "NYU Shanghai IMA", real: true },
+    { id: 3, title: 'KUNST KAPUTT', authors: 'Senaida Ng, Brian Ho, Dadabots', program: "NYU IMA Low Res", real: true },
+    { id: 4, title: 'Digital Genesis', authors: 'Yanrui Shao and Jiayue Qiu', program: "NYU Shanghai IMA", real: true },
+    { id: 5, title: 'Dear Diary', authors: 'Yingfan Chen', program: "NYU Shanghai IMA", real: true },
+    { id: 6, title: 'The Silhouette', authors: 'Lizhemei (Riva) Wang & Chenyi Wang', program: "NYU Tandon ID&M", real: true },
+    { id: 7, title: 'A Tale of Two Lives', authors: 'Danni Wang', program: "NYU IMA Low Res", real: true },
+    {
+      id: 8, title: 'Poespin', authors: `
+      Cory Yihua Li, Baiyuan Xin, Cardin An Chung<br/>
+      Wendy Li, Jiayi Li, Archy Hongyue Cheng<br/>
+      Reraner Yetong Xin, Armon Naeini<br/>`,
+      program: `NYU Tisch ITP/IMA, USC Thornton<br/> Universität Freiburg English Literatures and Literary Theory<br/> Harvard GSD`,
+      real: true
+    },
+    { id: 9, title: 'Arrival', authors: 'Jiaqi Yi', program: "NYU Tisch ITP/IMA", real: true },
+    { id: 10, title: 'GenLight', authors: 'Tatsan Chen', program: "NYU Tandon ID&M", real: true },
+    { id: 11, title: 'Lingo Bud', authors: 'Jiahui(Georgia) Chen, Chenxu (Cathy) Li, Will Park', program: "NYU Tisch ITP/IMA", real: true },
+    { id: 12, title: 'The Theater', authors: 'John Luo', program: "NYU Tisch ITP/IMA", real: true },
+    { id: 13, title: 'Memourn', authors: 'Jiachen Zhou', program: "NYU Tisch ITP/IMA", real: true },
+    { id: 14, title: 'Forgiveness 荒村别墅', authors: 'Liyanbing He', program: "NYU IMA Low Res", real: true },
+    { id: 15, title: 'The Red Line', authors: 'Jasmine Nackash', program: "NYU Tisch ITP/IMA", real: true },
+    { id: 16, title: 'BABEL 巴别塔', authors: 'Ken Zhixing Zhang', program: "NYU Shanghai IMA", real: true },
+    { id: 17, title: 'Unheld', authors: 'Yuzhuo Sun (Zora)', program: "NYU Shanghai IMA", real: true },
+    { id: 18, title: "It's Okay to Let Go", authors: 'Wanyu Chen', program: "NYU Shanghai IMA", real: true },
+    { id: 19, title: 'Faces in Motion', authors: 'Jingchen Gao', program: "NYU Shanghai IMA", real: true },
+    { id: 20, title: 'Sentimental Galaxy', authors: 'Cara Cai', program: "NYU Tisch ITP/IMA", real: true },
+    { id: 21, title: 'Input/Output', authors: 'Emy Sainbayar', program: "NYU Shanghai IMA", real: true },
+    { id: 22, title: 'Interactive Neural Networks', authors: 'Xiaozao Wang', program: "NYU Shanghai IMA", real: true },
+  ];
 
   // Canvas = "map" we can drag around.
   const CANVAS_WIDTH = 3400;
@@ -447,7 +370,7 @@ const Showcase: React.FC = () => {
   const [viewportWidth, setViewportWidth] = useState(0);
   const [viewportHeight, setViewportHeight] = useState(0);
 
-  // Canvas zoom state.
+  // 在组件函数中添加：
   const [scale, setScale] = useState(1);
 
   const handleZoomIn = () => {
@@ -641,7 +564,7 @@ const Showcase: React.FC = () => {
       <div style={{ position: 'fixed', zIndex: 999 }}>
         <Navbar />
       </div>
-      {/* SearchBox */}
+      {/* 添加 SearchBox */}
       <SearchBox
         searchQuery={searchQuery}
         onSearchChange={handleSearchChange}
@@ -701,28 +624,56 @@ const Showcase: React.FC = () => {
             }}
           >
             {filteredShowcaseItems.map(item => (
-              <GridProjectCard
+              <div
                 key={item.id}
-                item={item}
+                style={{
+                  background: 'transparent',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  borderRadius: 0,
+                  padding: 0,
+                  margin: 0,
+                  cursor: item.real ? 'pointer' : 'default',
+                }}
+
+                // onClick={() => navigate(`/showcase/${item.id}`)}
+
                 onClick={(e) => {
-                  if (!item.real) return;
-                  e.stopPropagation();
+                  if (!item.real) return; // Only navigate if the item is real
+                  e.stopPropagation(); // 防止事件冒泡（可选）
                   const fullUrl = `${window.location.origin}/showcase/${item.id}`;
                   window.open(fullUrl, '_blank', 'noopener,noreferrer');
                 }}
-                imageStyle={{
-                  width: '100%',
-                  height: 'auto',
-                  maxWidth: item.size?.width ?? MAX_ITEM_WIDTH,
-                  maxHeight: item.size?.height ?? MAX_ITEM_HEIGHT,
-                  objectFit: 'cover',
-                  margin: 0,
-                  padding: 0,
-                  boxShadow: '0px 1px 4px 0px rgba(0,0,0,0.2)',
-                }}
-                titleStyle={{ lineHeight: '1', marginTop: '15px', fontFamily: 'NYU', fontSize: '22px', fontWeight: 'unset', color: 'rgba(128, 128, 128, 1)' }}
-                authorStyle={{ marginTop: '5px', marginLeft: '2px', color: 'rgba(128, 128, 128, 1)', fontSize: '15px' }}
-              />
+              >
+                <img
+                  className="grid-item-image"
+                  src={`/showcase/${item.id}/cover.jpg`}
+                  alt={`${item.title} cover`}
+                  onError={(e) => { e.currentTarget.src = showcaseSampleCover; }}
+                  onDragStart={(e) => e.preventDefault()}
+                  style={{
+                    width: '100%',
+                    height: 'auto',
+                    maxWidth: item.size?.width ?? MAX_ITEM_WIDTH,
+                    maxHeight: item.size?.height ?? MAX_ITEM_HEIGHT,
+                    objectFit: 'cover',
+                    margin: 0,
+                    padding: 0,
+                    boxShadow: '0px 1px 4px 0px rgba(0,0,0,0.2)',
+                  }}
+                />
+                <div className="grid-item-title" style={{ lineHeight: '1', marginTop: '15px', fontFamily: 'NYU', fontSize: '22px', fontWeight: 'unset', color: 'rgba(128, 128, 128, 1)' }}>
+                  {item.title}
+                </div>
+                <div className="grid-item-authors" style={{ marginTop: '5px', marginLeft: '2px', color: 'rgba(128, 128, 128, 1)', fontSize: '15px' }}>
+                  {item.authors.split('<br/>').map((part, i, arr) => (
+                    <React.Fragment key={i}>
+                      {part}
+                      {i < arr.length - 1 && <br />}
+                    </React.Fragment>
+                  ))}
+                </div>
+              </div>
             ))}
           </div>
         )
@@ -767,8 +718,10 @@ const Showcase: React.FC = () => {
               }}
             >
               {positions.map(pos => {
-                const item = showcaseItems.find(i => i.id === pos.id);
+                const item = items.find(i => i.id === pos.id);
                 if (!item) return null;
+
+                const coverImagePath = `/showcase/${item.id}/cover.jpg`;
 
                 return (
                   <div
@@ -777,25 +730,32 @@ const Showcase: React.FC = () => {
                       position: 'absolute',
                       left: pos.x,
                       top: pos.y,
+                      background: 'transparent',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      justifyContent: 'flex-start',
+                      borderRadius: 0,
+                      overflow: 'hidden',
+                      padding: 0,
+                      margin: 0,
+                      cursor: item.real ? 'pointer' : 'default',
                     }}
+
                     onClick={(e) => {
-                      if (hasDraggedRef.current) return;
+                      if (hasDraggedRef.current) return; // Prevent click after drag
                       if (!item.real) return;
                       e.stopPropagation();
                       const fullUrl = `${window.location.origin}/showcase/${item.id}`;
                       window.open(fullUrl, '_blank', 'noopener,noreferrer');
                     }}
+
                   >
-                    <GalleryProjectCard
-                      item={item}
-                      onClick={(e) => {
-                        if (hasDraggedRef.current) return;
-                        if (!item.real) return;
-                        e.stopPropagation();
-                        const fullUrl = `${window.location.origin}/showcase/${item.id}`;
-                        window.open(fullUrl, '_blank', 'noopener,noreferrer');
-                      }}
-                      imageStyle={{
+                    <img
+                      src={coverImagePath}
+                      alt={`${item.title} cover`}
+                      onError={(e) => { e.currentTarget.src = showcaseSampleCover; }}
+                      onDragStart={(e) => e.preventDefault()}
+                      style={{
                         width: '100%',
                         height: 'auto',
                         maxWidth: item.size?.width ?? MAX_ITEM_WIDTH,
@@ -805,38 +765,54 @@ const Showcase: React.FC = () => {
                         padding: 0,
                         boxShadow: '0px 1px 4px 0px rgba(0,0,0,0.2)',
                       }}
-                      titleStyle={{ lineHeight: '1', marginTop: '15px', fontFamily: 'NYU', fontSize: '32px', fontWeight: 'unset', color: 'rgba(128, 128, 128, 1)' }}
-                      authorStyle={{ marginTop: '3px', marginLeft: '2px', color: 'rgba(128, 128, 128, 1)', fontSize: '20px' }}
-                      showProgram
                     />
+                    <div style={{ lineHeight: '1', marginTop: '15px', fontFamily: 'NYU', fontSize: '32px', fontWeight: 'unset', color: 'rgba(128, 128, 128, 1)' }}>
+                      {item.title}
+                    </div>
+                    <div style={{ marginTop: '3px', marginLeft: '2px', color: 'rgba(128, 128, 128, 1)', fontSize: '20px' }}>
+                      {item.authors.split('<br/>').map((part, i, arr) => (
+                        <React.Fragment key={i}>
+                          {part}
+                          {i < arr.length - 1 && <br />}
+                        </React.Fragment>
+                      ))}
+                    </div>
+                    <div style={{ marginTop: '0px', marginLeft: '2px', color: 'rgba(128, 128, 128, 1)', fontSize: '18px' }}>
+                      {item.program.split('<br/>').map((part, i, arr) => (
+                        <React.Fragment key={i}>
+                          {part}
+                          {i < arr.length - 1 && <br />}
+                        </React.Fragment>
+                      ))}
+                    </div>
                   </div>
                 );
               })}
             </div>
           </div>
           <div className='zoom-in-out'>
-            <ZoomButton onClick={handleZoomIn}>
+            <div onClick={handleZoomIn} style={{ cursor: 'pointer' }}>
               <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" width="37.75" height="37.75" viewBox="0 0 37.75 37.75" fill="none">
-                <circle cx="18.25" cy="18.25" r="17.5" stroke="rgba(38, 38, 38, 1)" strokeWidth="1.5"   >
+                <circle cx="18.25" cy="18.25" r="17.5" stroke="rgba(38, 38, 38, 1)" stroke-width="1.5"   >
                 </circle>
                 <path fill="rgba(38, 38, 38, 1)" d="M34.3358 37.1642L30.3358 33.1642L33.1642 30.3358L37.1642 34.3358L34.3358 37.1642ZM31.75 28.9216L33.1642 30.3358L30.3358 33.1642L28.9216 31.75L31.75 28.9216ZM35.75 37.75C34.6454 37.75 33.75 36.8546 33.75 35.75C33.75 34.6454 34.6454 33.75 35.75 33.75C36.8546 33.75 37.75 34.6454 37.75 35.75C37.75 36.8546 36.8546 37.75 35.75 37.75Z">
                 </path>
-                <path stroke="rgba(38, 38, 38, 1)" strokeWidth="2.5" d="M7.25 18.2518L29.36 18.3618">
+                <path stroke="rgba(38, 38, 38, 1)" stroke-width="2.5" d="M7.25 18.2518L29.36 18.3618">
                 </path>
-                <path stroke="rgba(38, 38, 38, 1)" strokeWidth="2.5" d="M18.5 7.25183L18.5 29.3621">
+                <path stroke="rgba(38, 38, 38, 1)" stroke-width="2.5" d="M18.5 7.25183L18.5 29.3621">
                 </path>
               </svg>
-            </ZoomButton>
-            <ZoomButton onClick={handleZoomOut}>
+            </div>
+            <div onClick={handleZoomOut} style={{ cursor: 'pointer' }}>
               <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" width="37.75" height="37.75" viewBox="0 0 37.75 37.75" fill="none">
-                <circle cx="18.25" cy="18.25" r="17.5" stroke="rgba(38, 38, 38, 1)" strokeWidth="1.5"   >
+                <circle cx="18.25" cy="18.25" r="17.5" stroke="rgba(38, 38, 38, 1)" stroke-width="1.5"   >
                 </circle>
                 <path fill="rgba(38, 38, 38, 1)" d="M34.3358 37.1642L30.3358 33.1642L33.1642 30.3358L37.1642 34.3358L34.3358 37.1642ZM31.75 28.9216L33.1642 30.3358L30.3358 33.1642L28.9216 31.75L31.75 28.9216ZM35.75 37.75C34.6454 37.75 33.75 36.8546 33.75 35.75C33.75 34.6454 34.6454 33.75 35.75 33.75C36.8546 33.75 37.75 34.6454 37.75 35.75C37.75 36.8546 36.8546 37.75 35.75 37.75Z">
                 </path>
-                <path stroke="rgba(38, 38, 38, 1)" strokeWidth="3" d="M7.25 18.75L29.36 18.86">
+                <path stroke="rgba(38, 38, 38, 1)" stroke-width="3" d="M7.25 18.75L29.36 18.86">
                 </path>
               </svg>
-            </ZoomButton>
+            </div>
           </div>
           {/* Tooltip */}
           {showTooltip && (
