@@ -1,18 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8" />
-    <link rel="icon" href="/logo.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/opencall/assets/font.css">
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    <script src="/opencall/assets/p5.js"></script>
-    <link rel="stylesheet" href="/static-navbar.css" />
-    <title>Events - Global Show & Tell</title>
-    <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no,viewport-fit=cover">
-    <script>
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="icon" href="/logo.png" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="/opencall/assets/font.css">
+        <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+        <script src="/opencall/assets/p5.js"></script>
+        <title>Events - Global Show & Tell</title>
+        <meta name="viewport"
+            content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no,viewport-fit=cover">
+        <script>
         //rem自动计算
         (function (doc, win) {
             var docEl = doc.documentElement,
@@ -26,11 +25,12 @@
             if (!doc.addEventListener) return;
             win.addEventListener(resizeEvt, recalc, false);
             doc.addEventListener('DOMContentLoaded', recalc, false);
+            setup();
         })(document, window);
-    </script>
-    <script src="/about/assets/sketch.js"></script>
+        </script>
+        <script src="/about/assets/sketch.js"></script>
 
-    <style>
+        <style>
         /* ==========================================================================
            RESET & BASE STYLES
            ========================================================================== */
@@ -100,7 +100,7 @@
         }
 
         .center-box {
-            height: 300px;
+             height: 300px;
             margin-top: -160px;
             position: relative;
             z-index: 1;
@@ -136,7 +136,7 @@
             margin-left:-280px;
         } */
 
-        .on-shadow-title-bg {
+         .on-shadow-title-bg {
             position: sticky;
             z-index: -1;
             left: 0;
@@ -749,104 +749,127 @@
                 margin-top: clamp(1px, 0.5vw, 2px);
             }
         }
-    </style>
-</head>
+        </style>
+    </head>
 
-<body>
-    <div id="app">
-        <div class="page-body" id="allText">
-            <div class="li-box">
-                <div class="zhuti">
-                    <div class="shadow-title">
-                        <div class="title-text-bg">
-                        </div>
-                    </div>
-                    <div class="center-box">
-                        <div class="img-bg" id="imgBg">
-                            <div
-                                style="position: absolute;left: 0;right: 0;top:0;bottom:0;z-index: -2;background:#eaea24">
-                            </div>
-                            <div
-                                style="position: absolute;left: 0;right: 0;top:0;bottom:0;z-index: -1;margin: 0 auto;text-align: center">
-                                <main>
-                                </main>
+    <body>
+        <div id="root"></div>
+        <script type="module" src="/src/myPageEntry.jsx"></script>
+        <div id="app">
+            <div class="page-body" id="allText">
+                <div class="li-box">
+                    <div class="zhuti">
+                        <div class="shadow-title">
+                            <div class="title-text-bg">
                             </div>
                         </div>
-                    </div>
-                    <div class="on-shadow-title-box">
-                        <div class="on-shadow-title-bg">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="content">
-                <div class="events-layout">
-                    <article v-for="item in circleEvents" :key="item.id" class="event-bubble"
-                        :class="{ 'event-bubble--title-top': item.titlePosition === 'top', 'event-bubble--info-right': item.infoPosition === 'right' }"
-                        :style="eventStyle(item)" role="link" tabindex="0" @click="openEventDetail(item.id)"
-                        @keydown.enter.prevent="openEventDetail(item.id)"
-                        @keydown.space.prevent="openEventDetail(item.id)">
-                        <div class="event-bubble-circle" :style="bubbleCircleStyle(item)">
-                            <img :src="item.image" :alt="item.titleLines.join(' ')" />
-                        </div>
-                        <div class="event-info" :style="labelStyle(item)">
-                            <div class="event-title" :style="titleStyle(item)">
-                                <div v-for="(line, lineIndex) in item.titleLines" :key="item.id + '-title-' + lineIndex"
-                                    class="event-title-line" :style="titleLineStyle(item, lineIndex)">{{
-                                    line }}</div>
-                            </div>
-                            <div class="event-date">
-                                <div v-for="(line, lineIndex) in item.dateLines" :key="item.id + '-date-' + lineIndex">
-                                    {{
-                                    line }}</div>
-                            </div>
-                            <div class="event-tags">
-                                <div v-for="(tagLine, lineIndex) in tagLines(item)"
-                                    :key="item.id + '-tag-line-' + lineIndex" class="event-tag-line">
-                                    <span v-for="(tag, tagIndex) in tagLine"
-                                        :key="item.id + '-tag-' + lineIndex + '-' + tag.type + '-' + tag.label + '-' + tagIndex"
-                                        class="tag-pill" :class="'tag-pill--' + tag.type">{{
-                                        tag.label }}</span>
+                        <div class="center-box">
+                            <div class="img-bg" id="imgBg">
+                                <div
+                                    style="position: absolute;left: 0;right: 0;top:0;bottom:0;z-index: -2;background:#eaea24">
+                                </div>
+                                <div
+                                    style="position: absolute;left: 0;right: 0;top:0;bottom:0;z-index: -1;margin: 0 auto;text-align: center">
+                                    <main>
+                                    </main>
                                 </div>
                             </div>
                         </div>
-                    </article>
+                        <div class="on-shadow-title-box">
+                            <div class="on-shadow-title-bg">
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                <div class="content">
+                    <div class="events-layout">
+                        <article v-for="item in circleEvents" :key="item.id"
+                            class="event-bubble"
+                            :class="{ 'event-bubble--title-top': item.titlePosition === 'top', 'event-bubble--info-right': item.infoPosition === 'right' }"
+                            :style="eventStyle(item)"
+                            role="link"
+                            tabindex="0"
+                            @click="openEventDetail(item.id)"
+                            @keydown.enter.prevent="openEventDetail(item.id)"
+                            @keydown.space.prevent="openEventDetail(item.id)">
+                            <div class="event-bubble-circle"
+                                :style="bubbleCircleStyle(item)">
+                                <img :src="item.image"
+                                    :alt="item.titleLines.join(' ')" />
+                            </div>
+                            <div class="event-info" :style="labelStyle(item)">
+                                <div class="event-title"
+                                    :style="titleStyle(item)">
+                                    <div
+                                        v-for="(line, lineIndex) in item.titleLines"
+                                        :key="item.id + '-title-' + lineIndex"
+                                        class="event-title-line"
+                                        :style="titleLineStyle(item, lineIndex)">{{
+                                        line }}</div>
+                                </div>
+                                <div class="event-date">
+                                    <div
+                                        v-for="(line, lineIndex) in item.dateLines"
+                                        :key="item.id + '-date-' + lineIndex">{{
+                                        line }}</div>
+                                </div>
+                                <div class="event-tags">
+                                    <div
+                                        v-for="(tagLine, lineIndex) in tagLines(item)"
+                                        :key="item.id + '-tag-line-' + lineIndex"
+                                        class="event-tag-line">
+                                        <span
+                                            v-for="(tag, tagIndex) in tagLine"
+                                            :key="item.id + '-tag-' + lineIndex + '-' + tag.type + '-' + tag.label + '-' + tagIndex"
+                                            class="tag-pill"
+                                            :class="'tag-pill--' + tag.type">{{
+                                            tag.label }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
 
-                <!-- Highlights Section -->
-                <div class="highlights-section">
-                    <div class="chapter-title">Highlights</div>
-                    <div class="photo-box">
-                        <div v-for="(img, index) in displayedImages" :key="'photo-' + index" class="photo-item">
-                            <div class="img-layer img-back">
-                                <img :src="nextImages[index] ? nextImages[index].src : img.src" />
-                            </div>
-                            <div class="img-layer img-front" :class="{ 'cross-fade': crossFading }">
-                                <img :src="img.src" />
-                            </div>
-                            <div class="photo-title" @click="openPreview(img.src)">
-                                <div class="main-title">{{ img.title
-                                    }}</div>
-                                <div class="sub-title" v-if="img.subtitle">
-                                    {{ img.subtitle }}
-                                    <div class="location" v-if="img.location">{{ img.location
+                    <!-- Highlights Section -->
+                    <div class="highlights-section">
+                        <div class="chapter-title">Highlights</div>
+                        <div class="photo-box">
+                            <div v-for="(img, index) in displayedImages"
+                                :key="'photo-' + index" class="photo-item">
+                                <div class="img-layer img-back">
+                                    <img
+                                        :src="nextImages[index] ? nextImages[index].src : img.src" />
+                                </div>
+                                <div class="img-layer img-front"
+                                    :class="{ 'cross-fade': crossFading }">
+                                    <img :src="img.src" />
+                                </div>
+                                <div class="photo-title"
+                                    @click="openPreview(img.src)">
+                                    <div class="main-title">{{ img.title
                                         }}</div>
+                                    <div class="sub-title" v-if="img.subtitle">
+                                        {{ img.subtitle }}
+                                        <div class="location"
+                                            v-if="img.location">{{ img.location
+                                            }}</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Preview overlay -->
-                <div class="preview-overlay" v-if="previewSrc" @click="previewSrc = null">
-                    <img :src="previewSrc" />
-                </div>
+                    <!-- Preview overlay -->
+                    <div class="preview-overlay" v-if="previewSrc"
+                        @click="previewSrc = null">
+                        <img :src="previewSrc" />
+                    </div>
 
+                </div>
             </div>
         </div>
-    </div>
 
-    <script>
+        <script>
         const { createApp, ref, onMounted, onUnmounted } = Vue;
         createApp({
             setup() {
@@ -930,7 +953,7 @@
                         image: '/events/images/IMA Gallery Exhibition03.jpg',
                         titleLines: ['NYU Global Show & Tell', '(Shanghai)'],
                         dateLines: ['October 9 - 26, 2025'],
-                        tagLines: [
+                         tagLines: [
                             [
                                 { label: 'Exhibition', type: 'exhibition' },
                                 { label: 'SH', type: 'campus' },
@@ -1296,44 +1319,7 @@
                 }
             }
         }).mount('#app')
-    </script>
-</body>
-
-<div id="global-show-tell-static-navbar">
-    <div class="navbar-container collapsed">
-        <button class="toggle-button" type="button" aria-label="Open menu"
-            onclick="document.querySelector('.navbar-container').classList.toggle('expanded')">
-            <div class="menu-text" style="margin-left: 6px;">MENU</div>
-            <div style="margin-left: 10px; margin-top: 2px; margin-right: 0px; display: flex;">
-                <svg class="vector vector-1" width="18" height="36" viewBox="0 0 18 38" fill="none"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path d="M17 36.5L2 18.5732L17 1.5" stroke="black" stroke-width="2" />
-                </svg>
-            </div>
-        </button>
-        <button class="toggle-button-close" type="button" aria-label="Close menu"
-            onclick="document.querySelector('.navbar-container').classList.toggle('expanded')">
-            <div style="margin-left: 5px; margin-top: 2px; margin-right: 8px; display: flex;">
-                <svg width="18" height="38" viewBox="0 0 18 38" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M1 36.5L16 18.5732L0.999996 1.5" stroke="black" stroke-width="2" />
-                </svg>
-            </div>
-        </button>
-        <nav class="navbar" aria-label="Main navigation">
-            <div class="nav-title"><a href="/homepage/index.html">NYU<br>GLOBAL</a></div>
-            <div class="nav-buttons">
-                <div class="nav-button-wrapper"><a class="nav-button" href="/src/showcase.html">Online Showcase</a>
-                </div>
-                <div class="nav-button-wrapper"><a class="nav-button" href="/src/events.html">Events and Activities</a>
-                </div>
-                <div class="nav-button-wrapper"><a class="nav-button" href="/src/calendar.html">Programme Calendar</a>
-                </div>
-                <div class="nav-button-wrapper"><a class="nav-button" href="/src/about.html">About</a></div>
-                <div class="nav-button-wrapper"><a class="nav-button" href="/src/opencall.html">Open Call (Closed)</a>
-                </div>
-            </div>
-        </nav>
-    </div>
-</div>
+        </script>
+    </body>
 
 </html>
