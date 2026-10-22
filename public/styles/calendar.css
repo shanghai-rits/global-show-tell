@@ -6,21 +6,12 @@
         .content table tbody::before {
             top: var(--divider-y, 0);
         }
-    
+
 
 
          /* ==========================================================================
            RESET & BASE STYLES
            ========================================================================== */
-        * {
-            padding: 0;
-            margin: 0;
-        }
-
-        body {
-            font-family: 'NYU', sans-serif;
-            color: #333;
-        }
          /* ==========================================================================
            LAYOUT COMPONENTS
           ========================================================================== */
@@ -47,7 +38,7 @@
             z-index: -1;
             left: 20px;
             top: 0;
-            color: #000;
+            color: var(--color-ink);
         }
 
         .title-text-bg {
@@ -101,7 +92,7 @@
            ========================================================================== */
         .content {
             margin-top: 15px;
-            padding: 48px;
+            padding: var(--spacing-48);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -117,16 +108,16 @@
         }
 
         thead {
-            border-bottom: 2px solid #000;
+            border-bottom: 2px solid var(--color-ink);
         }
 
         th {
-            font-size: 24px;
-            font-weight: 900;
+            font-size: var(--font-md);
+            font-weight: var(--weight-black);
             letter-spacing: 0px;
             line-height: 24px;
-            color: rgba(0, 0, 0, 1);
-            margin-bottom: 16px;
+            color: var(--color-ink);
+            margin-bottom: var(--spacing-16);
             text-align: center;
         }
 
@@ -136,11 +127,11 @@
             width: 225.6px;
             height: 43.2px;
             opacity: 1;
-            font-size: 17.6px;
-            font-weight: 400;
+            font-size: var(--font-size-17_6px);
+            font-weight: var(--weight-normal);
             letter-spacing: 0px;
             line-height: 21.3px;
-            color: rgba(56, 56, 56, 1);
+            color: var(--color-copy);
             text-align: left;
             vertical-align: top;
             font-style: italic;
@@ -150,13 +141,13 @@
         td {
             vertical-align: top;
             padding: 9.6px;
-            font-size: 17.6px;
+            font-size: var(--font-size-17_6px);
         }
 
         .date {
             display: flex;
             justify-content: center;
-            margin-left: 40px;
+            margin-left: var(--spacing-lg);
             flex-direction: column;
             z-index: 2;
             position: relative;
@@ -171,7 +162,7 @@
             content: "";
             position: absolute;
             height: 18px;
-            background-color: #DEFFBF;
+            background-color: var(--color-calendar-current);
             width: 105%;
             left: -40px;
             top: var(--divider-y, 0);
@@ -190,7 +181,7 @@
            BOX COMPONENTS
            ========================================================================== */
         .box-container {
-            padding: 0 0 20px 0;
+            padding: 0 0 var(--spacing-md) 0;
             width: 276px;
         }
 
@@ -203,17 +194,17 @@
             display: flex;
             justify-content: flex-start;
             align-items: center;
-            padding: 8px 12px 8px 28px;
+            padding: var(--spacing-xs) var(--spacing-sm) var(--spacing-xs) 28px;
             cursor: pointer;
         }
 
         .table-box:hover {
-            background: linear-gradient(154.98deg, rgba(222, 255, 191, 1) 0%, #fff 60%) !important;
+            background: linear-gradient(154.98deg, var(--color-calendar-current) 0%, var(--color-surface) 60%) !important;
             font-style: italic;
         }
 
         .table-box:hover .table-icon {
-            border: 1.5px solid rgba(92, 137, 22, 1);
+            border: 1.5px solid var(--color-calendar-current-border);
             background-color: transparent !important;
             width: 14.5px;
             height: 14.5px;
@@ -221,30 +212,30 @@
 
         /* Box variations */
         .exhibition {
-            background: linear-gradient(154.98deg, rgba(255, 179, 236, 0.7) 0%, #fff 60%);
+            background: linear-gradient(154.98deg, var(--color-calendar-exhibition-a700) 0%, var(--color-surface) 60%);
         }
 
         .current {
-            background: linear-gradient(154.98deg, rgba(222, 255, 191, 1) 0%, #fff 60%);
+            background: linear-gradient(154.98deg, var(--color-calendar-current) 0%, var(--color-surface) 60%);
             font-style: italic;
         }
 
         .event {
-            background: linear-gradient(154.98deg, rgba(221, 247, 92, 1) 0%, #fff 60%);
+            background: linear-gradient(154.98deg, var(--color-calendar-event) 0%, var(--color-surface) 60%);
         }
 
         .open-call {
-            background: linear-gradient(154.98deg, rgba(234, 234, 36, 0.9) 0%, #fff 60%);
+            background: linear-gradient(154.98deg, var(--canvas-yellow-a900) 0%, var(--color-surface) 60%);
         }
 
         .box-text {
             width: 214.4px;
             opacity: 1;
-            font-size: 19.2px;
-            font-weight: 600;
+            font-size: var(--font-size-19_2px);
+            font-weight: var(--weight-semibold);
             letter-spacing: 0px;
             line-height: 23.24px;
-            color: rgba(0, 0, 0, 1);
+            color: var(--color-ink);
             vertical-align: middle;
             z-index: 2;
         }
@@ -258,17 +249,17 @@
             width: 50px;
             height: 30px;
             opacity: 1;
-            border-radius: 95px;
+            border-radius: var(--radius-95);
 
-            border: 1.2px solid rgba(0, 0, 0, 1);
+            border: 1.2px solid var(--color-ink);
 
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 0px 12px 3px 12px;
-            font-size: 20px;
-            font-weight: 400;
+            padding: 0px var(--spacing-sm) 3px var(--spacing-sm);
+            font-size: var(--font-sm);
+            font-weight: var(--weight-normal);
         }
 
 
@@ -277,17 +268,17 @@
             width: 70px;
             height: 30px;
             opacity: 1;
-            border-radius: 95px;
+            border-radius: var(--radius-95);
 
-            border: 1.2px solid rgba(0, 0, 0, 1);
+            border: 1.2px solid var(--color-ink);
 
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 0px 12px 3px 12px;
-            font-size: 20px;
-            font-weight: 400;
+            padding: 0px var(--spacing-sm) 3px var(--spacing-sm);
+            font-size: var(--font-sm);
+            font-weight: var(--weight-normal);
         }
 
         .table-icon {
@@ -302,81 +293,81 @@
         }
 
         .table-box:hover {
-            background: linear-gradient(154.98deg, rgba(222, 255, 191, 1) 0%, #fff 60%) !important;
+            background: linear-gradient(154.98deg, var(--color-calendar-current) 0%, var(--color-surface) 60%) !important;
             font-style: italic;
         }
 
         /* Change table-icon on hover */
         .table-box:hover .table-icon {
-            border: 1.5px solid rgba(92, 137, 22, 1);
+            border: 1.5px solid var(--color-calendar-current-border);
             background-color: transparent !important;
             width: 14.5px;
             height: 14.5px;
         }
 
         .open-call-yellow {
-            background: linear-gradient(to right, #fffbd6, #fff);
+            background: linear-gradient(to right, var(--color-calendar-call), var(--color-surface));
         }
 
         .light-blue {
-            background-color: #d8fdff;
+            background-color: var(--color-calendar-blue);
         }
 
         .purple-icon {
-            background-color: #bb86fc;
+            background-color: var(--color-calendar-purple);
         }
 
         .current-icon {
-            border: 1.5px solid rgba(92, 137, 22, 1);
+            border: 1.5px solid var(--color-calendar-current-border);
             display: flex;
             width: 14.5px;
             height: 14.5px;
         }
 
         .green-icon {
-            background-color: #A8D611;
+            background-color: var(--color-calendar-green);
         }
 
         .yellow-icon {
-            background-color: #FCE303;
+            background-color: var(--color-calendar-yellow);
         }
 
         .border {
-            border-top: 2px solid black;
-            margin-bottom: 10px;
+            border-top: 2px solid var(--color-ink);
+            margin-bottom: var(--spacing-10);
         }
 
         .box-details {
             display: flex;
-            padding-top: 32px;
-            gap: 24px;
-            font-size: 16px;
+            padding-top: var(--spacing-32);
+            gap: var(--spacing-24);
+            font-size: var(--font-size-16px);
             width: 1184.36px;
             height: 665.6px;
         }
 
         .divider {
-            border-top: 2px solid #333;
+            border-top: 2px solid var(--color-body);
         }
 
         .left {
             width: 560px;
             height: 100%;
             display: flex;
-            margin-left: 8px;
-            margin-top: 16px;
+            margin-left: var(--spacing-xs);
+            margin-top: var(--spacing-16);
         }
 
         .left-highlight {
             max-width:60px;
             width: 1rem;
-            padding: 20px;
+            padding: var(--spacing-md);
             box-sizing: border-box;
             height: 100%;
         }
 
         .exhibition-highlight {
-            background: linear-gradient(90deg, rgba(255, 179, 236, 1) 0px, rgba(255, 179, 236, 0.3) 50%, #ffffff 100%);
+            background: linear-gradient(90deg, var(--color-calendar-exhibition) 0px, var(--color-calendar-exhibition-a300) 50%, var(--color-surface) 100%);
         }
 
         .detail-content {
@@ -384,7 +375,7 @@
         }
 
         .event-highlight {
-            background: linear-gradient(90deg, rgba(221, 247, 92, 1) 0px, rgba(221, 247, 92, 0.3) 50%, #ffffff 100%);
+            background: linear-gradient(90deg, var(--color-calendar-event) 0px, var(--color-calendar-event-a300) 50%, var(--color-surface) 100%);
         }
 
         .left-content {
@@ -393,59 +384,59 @@
         }
 
         .left h2 {
-            font-size: 33.6px;
-            font-weight: 900;
+            font-size: var(--font-size-33_6px);
+            font-weight: var(--weight-black);
             font-style: italic;
-            margin-bottom: 16px;
-            margin-left: 24px;
-            margin-top: 8px;
+            margin-bottom: var(--spacing-16);
+            margin-left: var(--spacing-24);
+            margin-top: var(--spacing-xs);
             /* font-family: Inter; */
         }
 
         .left .label {
             font-weight: bold;
-            font-size: 20.8px;
-            margin-top: 8px;
-            margin-left: 24px;
+            font-size: var(--font-size-20_8px);
+            margin-top: var(--spacing-xs);
+            margin-left: var(--spacing-24);
             /* font-family: Inter; */
         }
 
         .left .info {
             font-style: italic;
-            margin-bottom: 12px;
-            margin-left: 24px;
-            font-size: 20.8px;
+            margin-bottom: var(--spacing-sm);
+            margin-left: var(--spacing-24);
+            font-size: var(--font-size-20_8px);
             line-height: 1.8;
         }
 
         .right {
             width: 50%;
-            margin-left: 10px;
-            margin-top: 20px;
+            margin-left: var(--spacing-10);
+            margin-top: var(--spacing-md);
         }
 
         .right-content {
-            margin-top: 24px;
-            font-size: 19.2px;
+            margin-top: var(--spacing-24);
+            font-size: var(--font-size-19_2px);
         }
 
         .right p {
-            margin-bottom: 20px;
-            line-height: 1.5;
+            margin-bottom: var(--spacing-md);
+            line-height: var(--leading-normal);
         }
 
         .image-wrapper {
-            margin-top: 32px;
+            margin-top: var(--spacing-32);
             width: 623.2px;
         }
 
         .exhibition-image {
-            box-shadow: 8px 8px 0px rgba(255, 179, 236, 1);
+            box-shadow: var(--shadow-calendar-exhibition);
             width: 560px;
         }
 
         .event-image {
-            box-shadow: 8px 8px 0px rgba(221, 247, 92, 1);
+            box-shadow: var(--shadow-calendar-event);
         }
 
         .image-wrapper img {
@@ -456,10 +447,10 @@
 
         .section-title {
             font-style: italic;
-            color: #555;
-            margin-bottom: 4px;
-            margin-top: 48px;
-            font-size: 17.6px;
+            color: var(--color-text-muted);
+            margin-bottom: var(--spacing-4);
+            margin-top: var(--spacing-48);
+            font-size: var(--font-size-17_6px);
             width: 1176.36px;
         }
 
@@ -500,27 +491,27 @@
         }
 
         .links {
-            color:#000;
-            font-size: 19.2px;
-            font-weight: 700;
+            color:var(--color-ink);
+            font-size: var(--font-size-19_2px);
+            font-weight: var(--weight-bold);
         }
 
           .timezone-dropdown {
-            background: rgba(247, 247, 69, 0.5);
-            border: 1px solid rgba(234, 234, 36, 1);
+            background: var(--color-timezone-background-a500);
+            border: 1px solid var(--canvas-yellow);
             width: 246px;
             height: 61px;
-            border-radius: 620px;
-            box-shadow: 0px 2px 4px  rgba(168, 214, 17, 0.5);
+            border-radius: var(--radius-620);
+            box-shadow: var(--shadow-timezone);
             border: none;
-            font-size: 22px;
-            font-weight: 400;
+            font-size: var(--font-size-22px);
+            font-weight: var(--weight-normal);
             letter-spacing: 0px;
             line-height: 26.63px;
-            color: rgba(56, 56, 56, 1);
+            color: var(--color-copy);
             font-style: italic;
             padding: 0;
-            font-family: 'NYU', sans-serif;
+            font-family: var(--font-family-body);
             cursor: pointer;
             outline: none;
             appearance: none;
@@ -530,9 +521,9 @@
             background-repeat: no-repeat;
             background-position: right 10px center;
             background-size: 36px;
-            padding-right: 30px;
-            padding-top: 4px;
-            padding-bottom: 4px;
+            padding-right: var(--spacing-30);
+            padding-top: var(--spacing-4);
+            padding-bottom: var(--spacing-4);
             margin-top: 25px;
             margin-right: 0px;
             text-align: left;
@@ -542,13 +533,13 @@
         }
 
         .timezone-dropdown:hover {
-            color: rgba(0, 0, 0, 1);
+            color: var(--color-ink);
         }
 
         .timezone-dropdown option {
-            background: white;
-            color: black;
-            padding: 8px;
+            background: var(--color-surface);
+            color: var(--color-ink);
+            padding: var(--spacing-xs);
         }
 
 
@@ -558,14 +549,13 @@
         @keyframes active {
 
             /* from表示动画的开始位置，也可以使用0%来表示。 */
-            from {}
 
             /* to表示动画的结束位置，也可以使用100%来表示。 */
             to {
                 flex: 1;
-                border: 2px solid rgba(234, 234, 36, 1);
-                background: rgba(234, 234, 36, 1);
-                font-weight: 600;
+                border: 2px solid var(--canvas-yellow);
+                background: var(--canvas-yellow);
+                font-weight: var(--weight-semibold);
             }
         }
 
@@ -578,23 +568,22 @@
 
             /* to表示动画的结束位置，也可以使用100%来表示。 */
             to {
-                border: 2px solid rgba(0, 0, 0, 1);
-                background: #ffffff;
-                font-weight: 400;
+                border: 2px solid var(--color-ink);
+                background: var(--color-surface);
+                font-weight: var(--weight-normal);
             }
         }
 
         @keyframes activeforMax1080 {
 
             /* from表示动画的开始位置，也可以使用0%来表示。 */
-            from {}
 
             /* to表示动画的结束位置，也可以使用100%来表示。 */
             to {
                 width: calc(100% - 72px);
-                border: 2px solid rgba(234, 234, 36, 1);
-                background: rgba(234, 234, 36, 1);
-                font-weight: 600;
+                border: 2px solid var(--canvas-yellow);
+                background: var(--canvas-yellow);
+                font-weight: var(--weight-semibold);
             }
         }
 
@@ -607,9 +596,9 @@
 
             /* to表示动画的结束位置，也可以使用100%来表示。 */
             to {
-                border: 2px solid rgba(0, 0, 0, 1);
-                background: #ffffff;
-                font-weight: 400;
+                border: 2px solid var(--color-ink);
+                background: var(--color-surface);
+                font-weight: var(--weight-normal);
             }
         }
 
@@ -623,7 +612,7 @@
             .content table tbody::before {
                 display: none !important;
             }
-            
+
             .content table tbody:hover::before {
                 display: none !important;
             }
@@ -642,7 +631,7 @@
 
             .content {
                 width: 98vw;
-                padding: 10px;
+                padding: var(--spacing-10);
                 margin-top: 0px;
             }
 
@@ -652,7 +641,7 @@
                 text-align: nowrap;
                 width: 1.8rem;
                 height: 0.41rem;
-                font-size: 0.14rem;
+                font-size: var(--font-size-0_14rem);
                 white-space: nowrap;
                 padding-right: 0.3rem;
                 padding-top: 0.04rem;
@@ -663,8 +652,8 @@
 
 
             .timezone-label {
-                font-size: 0.18rem;
-                line-height: 1.2;
+                font-size: var(--font-size-0_18rem);
+                line-height: var(--leading-heading);
                 white-space: normal;
             }
 
@@ -675,9 +664,9 @@
             }
 
             .timezone-option {
-                font-size: 0.18rem !important; /* Smaller font on mobile */
-                padding: 10px 15px !important;
-                line-height: 1.3 !important;
+                font-size: var(--font-size-0_18rem) !important; /* Smaller font on mobile */
+                padding: var(--spacing-10) 15px !important;
+                line-height: var(--leading-compact) !important;
                 white-space: normal;
             }
 
@@ -695,7 +684,7 @@
             }
 
             .table-note {
-                font-size: 22px;
+                font-size: var(--font-size-22px);
                 padding-bottom: 0px;
                 white-space: nowrap;
                 height: 0.4rem;
@@ -732,7 +721,7 @@
             }
 
             .section-title {
-                font-size: 0.24rem;
+                font-size: var(--font-size-0_24rem);
                 margin-top: 0.5rem;
             }
 
@@ -803,7 +792,7 @@
             .content table tbody::before {
                 display: none !important;
             }
-            
+
             .content table tbody:hover::before {
                 display: none !important;
             }
@@ -827,7 +816,7 @@
 
             .content {
                 width: 98vw;
-                padding: 10px;
+                padding: var(--spacing-10);
                 /* overflow-x: hidden; */
                 margin-top: 0px;
             }
@@ -838,7 +827,7 @@
                 margin-bottom: 0.2rem;
                 width: 1.96rem;
                 height: 0.58rem;
-                font-size: 0.18rem;
+                font-size: var(--font-size-0_18rem);
                 padding-right: 0.25rem;
                 padding-top: 0.03rem;
                 padding-bottom: 0.03rem;
@@ -896,7 +885,7 @@
                 width: 3.46rem;
                 height: 1rem;
                 padding: 0.1rem 0.15rem 0.1rem 0.35rem;
-                font-size: 0.2rem;
+                font-size: var(--font-size-0_2rem);
             }
 
             .left-highlight {
@@ -905,7 +894,7 @@
 
             .box-text {
                 width: 2.68rem;
-                font-size: 0.24rem;
+                font-size: var(--font-size-0_24rem);
                 line-height: 0.29rem;
             }
 
@@ -915,7 +904,7 @@
                 left: 0.36rem;
             }
             .start-icon, .end-icon {
-                font-size: 0.16rem;
+                font-size: var(--font-size-0_16rem);
                 height: 0.24rem;
                 padding: 0px 0.1rem 0.03rem 0.1rem;
             }
@@ -951,17 +940,17 @@
             }
 
             .left h2 {
-                font-size: 0.38rem;
+                font-size: var(--font-size-0_38rem);
                 line-height: normal;
             }
 
             .left .label {
-                font-size: 0.24rem;
+                font-size: var(--font-size-0_24rem);
             }
 
             .left .info {
-                font-size: 0.24rem;
-                line-height: 180%;
+                font-size: var(--font-size-0_24rem);
+                line-height: var(--leading-prose-mobile);
             }
 
             .right {
@@ -969,8 +958,8 @@
             }
 
             .right-content {
-                font-size: 0.24rem;
-                line-height: 180%;
+                font-size: var(--font-size-0_24rem);
+                line-height: var(--leading-prose-mobile);
             }
 
             .exhibition-image {
@@ -999,9 +988,21 @@
                 height: 1.2rem;
             }
             .links {
-            font-size: 0.26rem;
-            font-weight: 700;
+            font-size: var(--font-size-0_26rem);
+            font-weight: var(--weight-bold);
         }
         }
 
-    
+
+.timezone-native-select { display: none; }
+.calendar-table-spacer { height: 10px; }
+.calendar-date-path { mix-blend-mode:normal }
+.calendar-section-label { text-decoration: underline; }
+
+.timezone-dropdown { position: relative; }
+.timezone-dropdown.is-open { border-radius: var(--radius-38) var(--radius-38) 0 0; }
+.timezone-options { position: absolute; top: 100%; left: 0; right: 0; background: var(--color-surface); border: 1px solid var(--canvas-yellow); border-radius: var(--radius-8); box-shadow: var(--shadow-dropdown); z-index: var(--layer-controls); display: none; max-height: 250px; }
+.timezone-dropdown.is-open .timezone-options { display: block; }
+.timezone-option { padding: var(--spacing-sm) 15px var(--spacing-sm) var(--spacing-lg); cursor: pointer; font-size: var(--font-sm); font-style: italic; color: var(--color-copy); transition: background-color var(--motion-fast); }
+.timezone-option:hover { background-color: var(--canvas-yellow-a100); }
+@media screen and (max-width: 720px) { .timezone-dropdown { background-size: 0.3rem; background-position: right 0.08rem center; } }

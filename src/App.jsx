@@ -1,4 +1,5 @@
 import React from 'react';
+import './styles/detail.css';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import EventDetail from './pages/EventDetail.tsx';
 import Showcase from './pages/Showcase.tsx';

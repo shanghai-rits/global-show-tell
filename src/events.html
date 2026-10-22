@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <link rel="icon" href="/logo.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/fonts.css">
+    <link rel="stylesheet" href="/theme.css">
     <link rel="stylesheet" href="/styles/events.css">
 
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
@@ -32,7 +32,7 @@
     <script src="/about/assets/sketch.js"></script>
 </head>
 
-<body>
+<body class="static-page">
     <div id="root"></div>
     <script type="module" src="/src/myPageEntry.jsx"></script>
     <div id="app">
@@ -45,11 +45,11 @@
                     </div>
                     <div class="center-box">
                         <div class="img-bg" id="imgBg">
-                            <div
-                                style="position: absolute;left: 0;right: 0;top:0;bottom:0;z-index: -2;background:#eaea24">
+                            <div class="art-backdrop"
+                                >
                             </div>
-                            <div
-                                style="position: absolute;left: 0;right: 0;top:0;bottom:0;z-index: -1;margin: 0 auto;text-align: center">
+                            <div class="art-canvas"
+                                >
                                 <main>
                                 </main>
                             </div>
@@ -172,9 +172,9 @@
                 ]);
 
                 const tagColors = {
-                    exhibition: 'rgba(255, 182, 236, 1)',
-                    event: 'rgba(222, 247, 94, 1)',
-                    info: 'rgba(140, 245, 255, 1)',
+                    exhibition: 'var(--color-tag-exhibition)',
+                    event: 'var(--color-tag-event)',
+                    info: 'var(--color-tag-info)',
                 };
 
                 const circleEvents = ref([
@@ -431,11 +431,11 @@
                     let hoverColor = tagColors[primaryTagType] || tagColors.event;
 
                     if (primaryTagType === 'exhibition') {
-                        hoverColor = 'rgba(255, 182, 236, 1)';
+                        hoverColor = 'var(--color-tag-exhibition)';
                     } else if (primaryTagType === 'event') {
-                        hoverColor = 'rgba(222, 247, 94, 1)';
+                        hoverColor = 'var(--color-tag-event)';
                     } else if (primaryTagLabel === 'works' || primaryTagType === 'info') {
-                        hoverColor = 'rgba(140, 245, 255, 1)';
+                        hoverColor = 'var(--color-tag-info)';
                     }
 
                     return {

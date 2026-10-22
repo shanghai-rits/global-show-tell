@@ -1,5 +1,4 @@
 /* Navbar container */
-@import url('/homepage/font.css');
 
 @media only screen and (max-width: 768px) {
   .navbar-container {
@@ -9,7 +8,7 @@
   }
 
   .expanded {
-    padding-top: 20px;
+    padding-top: var(--spacing-md);
   }
 }
 
@@ -19,22 +18,22 @@
   right: 0;
   height: 750px;
   background-color: transparent;
-  font-family: "NYU";
-  font-size: 16px;
-  line-height: 1.5;
+  font-family: var(--font-family);
+  font-size: var(--font-size-16px);
+  line-height: var(--leading-normal);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  transition: width 0.2s ease-in-out;
+  transition: width var(--motion-fast) ease-in-out;
   overflow: hidden;
   line-break: initial;
-  z-index: 1000;
+  z-index: var(--layer-controls);
 }
 
 .expanded {
   width: 500px;
-  padding: 35px 20px 0 0;
+  padding: 35px var(--spacing-md) 0 0;
 }
 
 .collapsed {
@@ -54,17 +53,17 @@
   right: 0px;
   width: 155px;
   height: 60px;
-  border: 2px solid black;
-  border-radius: 30px 0 0 30px;
+  border: 2px solid var(--color-ink);
+  border-radius: var(--radius-30) 0 0 var(--radius-30);
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 28px;
-  font-weight: 400;
-  background: linear-gradient(90deg, #EAEA24 -10.32%, #EBF4A1 33.55%);
-  box-shadow: 0px 2px 10px 0px #61891626;
-  color: #000;
+  font-size: var(--font-size-28px);
+  font-weight: var(--weight-normal);
+  background: linear-gradient(90deg, var(--canvas-yellow) -10.32%, var(--color-control-accent) 33.55%);
+  box-shadow: var(--shadow-menu);
+  color: var(--color-ink);
 }
 
 .toggle-button-close {
@@ -73,16 +72,16 @@
   right: 0px;
   width: 69px;
   height: 60px;
-  border: 2px solid black;
-  border-radius: 30px 0 0 30px;
+  border: 2px solid var(--color-ink);
+  border-radius: var(--radius-30) 0 0 var(--radius-30);
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 28px;
-  font-weight: 400;
-  background: linear-gradient(90deg, #EAEA24 -10.32%, #EBF4A1 33.55%);
-  box-shadow: 0px 2px 10px 0px #61891626;
+  font-size: var(--font-size-28px);
+  font-weight: var(--weight-normal);
+  background: linear-gradient(90deg, var(--canvas-yellow) -10.32%, var(--color-control-accent) 33.55%);
+  box-shadow: var(--shadow-menu);
 }
 
 /* All SVGs occupy the same space */
@@ -95,7 +94,7 @@
 
 @keyframes menuMarginChange {
   0% {
-    margin-left: 8px;
+    margin-left: var(--spacing-xs);
   }
 
   33.33% {
@@ -105,17 +104,17 @@
 
   66.66% {
     /* ≈0.4s */
-    margin-left: 12px;
+    margin-left: var(--spacing-sm);
   }
 
   100% {
     /* ≈0.6s */
-    margin-left: 8px;
+    margin-left: var(--spacing-xs);
   }
 }
 
 .toggle-button:hover .menu-text {
-  animation: menuMarginChange 0.8s ease-in-out infinite;
+  animation: menuMarginChange var(--motion-menu) ease-in-out infinite;
 }
 
 
@@ -149,24 +148,24 @@
 
 /* Animation settings for each vector */
 .toggle-button:hover .vector-1 {
-  animation: sequence 0.8s ease-in infinite;
+  animation: sequence var(--motion-menu) ease-in infinite;
 }
 
 .toggle-button:hover .vector-2 {
   left: 130px;
-  animation: sequence 0.8s ease-out infinite 0.2s;
+  animation: sequence var(--motion-menu) ease-out infinite var(--motion-fast);
   /* 25% offset */
 }
 
 .toggle-button:hover .vector-3 {
   left: 125px;
-  animation: sequence 0.8s ease-out infinite 0.4s;
+  animation: sequence var(--motion-menu) ease-out infinite 0.4s;
   /* 50% offset */
 }
 
 .toggle-button:hover .vector-4 {
   left: 118px;
-  animation: sequence 0.8s ease-out infinite 0.6s;
+  animation: sequence var(--motion-menu) ease-out infinite 0.6s;
   /* 75% offset */
 }
 
@@ -179,14 +178,14 @@
 
 /* Title */
 .nav-title {
-  font-size: 70px;
-  font-weight: 1000;
+  font-size: var(--font-xxl);
+  font-weight: var(--weight-ultra);
   font-style: italic;
   line-height: 66.5px;
   text-align: right;
   text-underline-position: from-font;
   text-decoration-skip-ink: none;
-  -webkit-text-stroke: 2px black;
+  -webkit-text-stroke: 2px var(--color-ink);
   letter-spacing: -1.5px;
   cursor: pointer;
 }
@@ -251,39 +250,27 @@
 .nav-buttons {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: var(--spacing-md);
   align-items: flex-end;
-}
-
-button {
-  /* border-radius: 8px; */
-  /* border: 1px solid transparent; */
-  padding: 0em 1em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
 }
 
 /* Button styling */
 .nav-button {
-  font-size: 28px;
-  font-weight: 400;
-  padding: 8px 50px;
-  border: 2px solid black;
-  border-radius: 30px;
-  background-color: white;
+  font-size: var(--font-size-28px);
+  font-weight: var(--weight-normal);
+  padding: var(--spacing-xs) var(--spacing-50);
+  border: 2px solid var(--color-ink);
+  border-radius: var(--radius-30);
+  background-color: var(--color-surface);
   cursor: pointer;
   text-align: center;
-  color: black;
+  color: var(--color-ink);
 }
 
 .nav-button-wrapper:hover .nav-button {
-  animation: bounce 0.3s forwards;
+  animation: bounce var(--motion-normal) forwards;
   box-shadow:
-    6px 6px 0px 0px rgba(235, 244, 161, 0.8),
-    10px 10px 0px 0px rgba(234, 234, 36, 1);
+    var(--shadow-nav-hover);
 }
 
 @keyframes bounce {
@@ -314,3 +301,26 @@ button {
 
 /* Auto-collapse animation: transform/opacity/delay are all applied via inline
    style from the component to avoid any CSS cascade surprises. */
+/* Static presentation extracted from JSX. */
+
+.menu-label {
+  margin-left: 6px;
+  }
+
+.menu-open-icon {
+  margin-left: var(--spacing-10);
+  margin-top: 2px;
+  margin-right: 0px;
+  display: flex;
+  }
+
+.menu-close-icon {
+  margin-left: 5px;
+  margin-top: 2px;
+  margin-right: var(--spacing-xs);
+  display: flex;
+  }
+
+.menu-text { margin-left: 6px; }
+.nav-title, .nav-button { transition: transform var(--motion-nav-collapse); transform: translateX(0); }
+.is-collapsing .nav-title, .is-collapsing .nav-button { transform: translateX(600px); }

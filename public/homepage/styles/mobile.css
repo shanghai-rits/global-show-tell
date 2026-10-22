@@ -16,7 +16,7 @@
   }
 
   .new-page-title {
-    font-size: 0.56rem;
+    font-size: var(--font-size-0_56rem);
     padding: 10vh 0;
   }
 
@@ -74,7 +74,7 @@
 
   .btn-box {
     top: 0.2rem;
-    font-size: 0.4rem;
+    font-size: var(--font-size-0_4rem);
     padding-left: 0.26rem;
   }
 
@@ -86,8 +86,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 50px;
-    background: #ffffff;
+    border-radius: var(--radius-pill);
+    background: var(--color-surface);
     color: var(--accent-green);
   }
 
@@ -96,15 +96,15 @@
   .item3,
   .item4,
   .item5 {
-    animation: btnOpacity 0.7s linear forwards;
+    animation: btnOpacity var(--motion-fade) linear forwards;
   }
 
   .item1 {
-    animation-delay: 1s;
+    animation-delay: var(--motion-slow);
   }
 
   .item2 {
-    animation-delay: 0.7s;
+    animation-delay: var(--motion-fade);
   }
 
   .item3 {
@@ -125,30 +125,30 @@
   }
 
   .second-title {
-    color: rgba(176, 176, 18, 1);
-    font-weight: 600;
-    font-size: 0.8rem;
-    line-height: 1;
+    color: var(--color-home-heading);
+    font-weight: var(--weight-semibold);
+    font-size: var(--font-size-0_8rem);
+    line-height: var(--leading-tight);
   }
 
   .paragraph-box {
     padding: 0.3rem 0;
-    font-size: 0.2rem;
+    font-size: var(--font-size-0_2rem);
   }
 
   .paragraph-box p {
     margin-bottom: 0.4rem;
-    font-size: 0.28rem;
+    font-size: var(--font-size-0_28rem);
     line-height: 30px;
   }
 
   .paragraph-box .title {
-    font-size: 0.42rem;
+    font-size: var(--font-size-0_42rem);
     line-height: 0.89rem;
   }
 
   .paragraph-box li {
-    font-size: 0.3rem;
+    font-size: var(--font-size-0_3rem);
   }
 
   .middle-right-ul {
@@ -156,7 +156,7 @@
   }
 
   .middle-right-li {
-    font-size: 0.3rem;
+    font-size: var(--font-size-0_3rem);
     padding: 0.2rem 0;
     padding-right: 0.6rem;
     padding-bottom: 0.4rem;
@@ -202,7 +202,7 @@
   .company-info {
     height: 1.6rem;
     text-align: center;
-    font-size: 0.3rem;
+    font-size: var(--font-size-0_3rem);
     line-height: 1.2rem;
     display: flex;
     align-items: flex-end;
@@ -210,7 +210,7 @@
   }
 
   .company-info-mobile {
-    font-size: 0.19rem;
+    font-size: var(--font-size-0_19rem);
   }
 
   .fade-blur-container {
@@ -221,7 +221,7 @@
 
   .btn-box {
     top: 0.5rem;
-    font-size: 0.4rem;
+    font-size: var(--font-size-0_4rem);
     padding: 0 0.6rem;
   }
 
@@ -247,7 +247,7 @@
 
   .btn-box {
     top: 0.5rem;
-    font-size: 0.4rem;
+    font-size: var(--font-size-0_4rem);
     padding: 0 0.6rem;
   }
 
