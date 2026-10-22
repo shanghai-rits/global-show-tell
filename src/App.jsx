@@ -65,42 +65,47 @@ function Home() {
 
 function RedirectToSubmission() {
   React.useEffect(() => {
-    window.location.href = '/src/opencall.html';
+    redirectToStaticPage('/src/opencall.html');
   }, []);
   return null;
 }
 
 function RedirectToCollaboration() {
   React.useEffect(() => {
-    window.location.href = '/src/collaboration.html';
+    redirectToStaticPage('/src/collaboration.html');
   }, []);
   return null;
 }
 
 function RedirectToCalendar() {
   React.useEffect(() => {
-    window.location.href = '/src/calendar.html';
+    redirectToStaticPage('/src/calendar.html');
   }, []);
   return null;
 }
 
 function RedirectToAbout() {
   React.useEffect(() => {
-    window.location.href = '/src/about.html';
+    redirectToStaticPage('/src/about.html');
   }, []);
   return null;
 }
 
 function RedirectToEvents() {
   React.useEffect(() => {
-    window.location.href = '/src/events.html';
+    redirectToStaticPage('/src/events.html');
   }, []);
   return null;
 }
 
 function RedirectToHomePage() {
   React.useEffect(() => {
-    window.location.href = '/homepage/index.html';
+    redirectToStaticPage('/homepage/index.html');
   }, []);
   return null;
+}
+
+function redirectToStaticPage(path) {
+  const { search, hash } = window.location;
+  window.location.replace(`${path}${search}${hash}`);
 }

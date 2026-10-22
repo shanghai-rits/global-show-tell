@@ -309,13 +309,13 @@
                             <td></td>
                             <td class="box-container">
                                 <div class="table-box open-call"
-                                    onclick="window.open('https://nyuglobal.show/submission', '_blank')">
+                                    data-route="/opencall">
                                     <span class="box-text">Open call<br />
                                         <span class="start-icon">Starts</span></span>
                                     <div class="table-icon yellow-icon"></div>
                                 </div>
                                 <div class="table-box open-call"
-                                    onclick="window.open('https://nyuglobal.show/collaboration', '_blank')">
+                                    data-route="/collaboration">
                                     <span class="box-text">Call for
                                         collaboration<br />
                                         <span class="start-icon">Starts</span>
@@ -490,7 +490,7 @@
                                 campuses!
                             </div>
                             <br />
-                            <a class="links" href="https://nyuglobal.show/showcase/1/" target="_blank">Read more</a>
+                            <a class="links" href="/showcase/1/" target="_blank">Read more</a>
 
                             <div class="image-wrapper exhibition-image">
                                 <img src="/calendar/assets/poster-opening-project_0411updated.png"
@@ -720,14 +720,9 @@
                     const tableBoxes = document.querySelectorAll('.table-box');
                     tableBoxes.forEach((box, index) => {
                         box.addEventListener('click', () => {
-                            // Check if this is the Find Your Collaborator box
-                            const boxText = box.querySelector('.box-text');
-                            if (boxText && boxText.textContent.trim() === 'Find Your Collaborator') {
-                                window.open('/src/collaboration.html', '_blank');
-                                return;
-                            }
-                            if (boxText && boxText.textContent.trim() === 'Open Call') {
-                                window.open('/src/opencall.html', '_blank');
+                            const route = box.dataset.route;
+                            if (route) {
+                                window.open(route, '_blank', 'noopener,noreferrer');
                                 return;
                             }
                             // Get the target section ID from the data attribute
