@@ -7,11 +7,9 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<link rel="stylesheet" href="/theme.css">
 	<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-
-	<link rel="stylesheet" href="https://unpkg.com/element-plus/dist/index.css" />
 	<link rel="stylesheet" href="/styles/about.css">
-
-	<script src="https://unpkg.com/element-plus"></script>
+<link rel="stylesheet" href="/styles/highlights.css">
+<script src="/scripts/highlights.js"></script>
 
 	<script src="/about/assets/p5.js"></script>
 	<title>About - Global Show & Tell</title>
@@ -68,30 +66,9 @@
 <p>This initiative was made possible through the generous support of the NYU Goddard Impact Group Award.</p>
 </div>
 <h2 class="chapter-title">Highlights</h2>
-				<div class="photo-box">
-					<template v-for="(img, index) in imageList" :key="index">
-						<div class="photo-item photo-wrapper">
-							<el-image class="photo-image" :src="img.src" :preview-src-list="previewList" :initial-index="index"
-								:preview-teleported="true" fit="cover" :ref="el => { if (el) imageRefs[index] = el }"></el-image>
+<site-highlights :count="6"></site-highlights>
 
-							<div class="photo-title" @click="openPreview(index)">
-								<div class="main-title">
-									{{ img.title }}
-								</div>
-
-								<div class="sub-title" v-if="img.subtitle">
-									{{ img.subtitle }}
-
-									<div class="location" v-if="img.location">
-										{{ img.location }}
-									</div>
-								</div>
-							</div>
-						</div>
-					</template>
-				</div>
-
-				<h2 class="chapter-title organizers-heading">Meet the Organizers</h2>
+<h2 class="chapter-title organizers-heading">Meet the Organizers</h2>
 <div class="about-prose about-organizers-introduction"><p>The project involved faculty, staff, and students across NYU campuses and communities. NYU Shanghai IMA and NYU Shanghai Library served as the primary organizing hub. NYU ITP/IMA activated its local community by hosting an on-site exhibition and lightning talks. Other NYU sites also provided organizational support.</p></div>
 				<div class="bottom-box">
 					<div class="bottom-box-title-span">(Listed Alphabetically by Last
@@ -195,66 +172,9 @@
 		</div>
 	</div>
 
-	<script>
-		const { createApp, ref, reactive } = Vue
-		createApp({
-			setup() {
-				const imageList = ref([
-					{ src: '/about/images/FutureLab01.jpg', title: 'Art & Design Education: FutureLab 2025', subtitle: 'Oct 31 - Nov 2, 2025', location: 'West Bund Art Center, Shanghai' },
-					{ src: '/about/images/FutureLab02.jpg', title: 'Art & Design Education: FutureLab 2025', subtitle: 'Oct 31 - Nov 2, 2025', location: 'West Bund Art Center, Shanghai' },
-					{ src: '/about/images/FutureLab03.jpg', title: 'Art & Design Education: FutureLab 2025', subtitle: 'Oct 31 - Nov 2, 2025', location: 'West Bund Art Center, Shanghai' },
-					{ src: '/about/images/FutureLab04.jpg', title: 'Art & Design Education: FutureLab 2025', subtitle: 'Oct 31 - Nov 2, 2025', location: 'West Bund Art Center, Shanghai' },
-					{ src: '/about/images/FutureLab05.jpg', title: 'Art & Design Education: FutureLab 2025', subtitle: 'Oct 31 - Nov 2, 2025', location: 'West Bund Art Center, Shanghai' },
-					{ src: '/about/images/FutureLab06.jpg', title: 'Art & Design Education: FutureLab 2025', subtitle: 'Oct 31 - Nov 2, 2025', location: 'West Bund Art Center, Shanghai' },
-					{ src: '/about/images/FutureLab07.jpg', title: 'Art & Design Education: FutureLab 2025', subtitle: 'Oct 31 - Nov 2, 2025', location: 'West Bund Art Center, Shanghai' },
-					{ src: '/about/images/New York Opening01.jpg', title: 'Exploring Creativity in the Age of AI: Project Sharing Across NYU Campuses (New York)', subtitle: 'Oct 10, 2025', location: 'ITP/IMA floor' },
-					{ src: '/about/images/New York Opening02.jpg', title: 'Exploring Creativity in the Age of AI: Project Sharing Across NYU Campuses (New York)', subtitle: 'Oct 10, 2025', location: 'ITP/IMA floor' },
-					{ src: '/about/images/New York Opening03.jpg', title: 'Exploring Creativity in the Age of AI: Project Sharing Across NYU Campuses (New York)', subtitle: 'Oct 10, 2025', location: 'ITP/IMA floor' },
-					{ src: '/about/images/New York Opening04.jpg', title: 'Exploring Creativity in the Age of AI: Project Sharing Across NYU Campuses (New York)', subtitle: 'Oct 10, 2025', location: 'ITP/IMA floor' },
-					{ src: '/about/images/New York Opening05.jpg', title: 'Exploring Creativity in the Age of AI: Project Sharing Across NYU Campuses (New York)', subtitle: 'Oct 10, 2025', location: 'ITP/IMA floor' },
-					{ src: '/about/images/New York Opening06.jpg', title: 'Exploring Creativity in the Age of AI: Project Sharing Across NYU Campuses (New York)', subtitle: 'Oct 10, 2025', location: 'ITP/IMA floor' },
-					{ src: '/about/images/New York Opening07.jpg', title: 'Exploring Creativity in the Age of AI: Project Sharing Across NYU Campuses (New York)', subtitle: 'Oct 10, 2025', location: 'ITP/IMA floor' },
-					{ src: '/about/images/New York Opening08.jpg', title: 'Exploring Creativity in the Age of AI: Project Sharing Across NYU Campuses (New York)', subtitle: 'Oct 10, 2025', location: 'ITP/IMA floor' },
-					{ src: '/about/images/New York Opening09.jpg', title: 'Exploring Creativity in the Age of AI: Project Sharing Across NYU Campuses (New York)', subtitle: 'Oct 10, 2025', location: 'ITP/IMA floor' },
-					{ src: '/about/images/New York Opening10.jpg', title: 'Exploring Creativity in the Age of AI: Project Sharing Across NYU Campuses (New York)', subtitle: 'Oct 10, 2025', location: 'ITP/IMA floor' },
-					{ src: '/about/images/New York Opening11.jpg', title: 'Exploring Creativity in the Age of AI: Project Sharing Across NYU Campuses (New York)', subtitle: 'Oct 10, 2025', location: 'ITP/IMA floor' },
-					{ src: '/about/images/New York Opening12.jpg', title: 'Exploring Creativity in the Age of AI: Project Sharing Across NYU Campuses (New York)', subtitle: 'Oct 10, 2025', location: 'ITP/IMA floor' },
-					{ src: '/about/images/New York Opening13.jpg', title: 'Exploring Creativity in the Age of AI: Project Sharing Across NYU Campuses (New York)', subtitle: 'Oct 10, 2025', location: 'ITP/IMA floor' },
-					{ src: '/about/images/New York Opening14.jpg', title: 'Exploring Creativity in the Age of AI: Project Sharing Across NYU Campuses (New York)', subtitle: 'Oct 10, 2025', location: 'ITP/IMA floor' },
-					{ src: '/about/images/New York Opening15.jpg', title: 'Exploring Creativity in the Age of AI: Project Sharing Across NYU Campuses (New York)', subtitle: 'Oct 10, 2025', location: 'ITP/IMA floor' },
-					{ src: '/about/images/New York Opening16.jpg', title: 'Exploring Creativity in the Age of AI: Project Sharing Across NYU Campuses (New York)', subtitle: 'Oct 10, 2025', location: 'ITP/IMA floor' },
-					{ src: '/about/images/IMA Gallery Exhibition01.jpg', title: 'Exploring Creativity in the Age of AI: Project Sharing Across NYU Campuses (Shanghai)', subtitle: 'Oct 9 - 26, 2025', location: 'IMA Studio' },
-					{ src: '/about/images/IMA Gallery Exhibition02.jpg', title: 'Exploring Creativity in the Age of AI: Project Sharing Across NYU Campuses (Shanghai)', subtitle: 'Oct 9 - 26, 2025', location: 'IMA Studio' },
-					{ src: '/about/images/IMA Gallery Exhibition03.jpg', title: 'Exploring Creativity in the Age of AI: Project Sharing Across NYU Campuses (Shanghai)', subtitle: 'Oct 9 - 26, 2025', location: 'IMA Studio' },
-					{ src: '/about/images/IMA Gallery Exhibition04.jpg', title: 'Exploring Creativity in the Age of AI: Project Sharing Across NYU Campuses (Shanghai)', subtitle: 'Oct 9 - 26, 2025', location: 'IMA Studio' },
-					{ src: '/about/images/IMA Gallery Exhibition05.jpg', title: 'Exploring Creativity in the Age of AI: Project Sharing Across NYU Campuses (Shanghai)', subtitle: 'Oct 9 - 26, 2025', location: 'IMA Studio' },
-					{ src: '/about/images/IMA Gallery Exhibition06.jpg', title: 'Exploring Creativity in the Age of AI: Project Sharing Across NYU Campuses (Shanghai)', subtitle: 'Oct 9 - 26, 2025', location: 'IMA Studio' },
-					{ src: '/about/images/IMA Gallery Exhibition07.jpg', title: 'Exploring Creativity in the Age of AI: Project Sharing Across NYU Campuses (Shanghai)', subtitle: 'Oct 9 - 26, 2025', location: 'IMA Studio' },
-					{ src: '/about/images/IMA Gallery Exhibition08.jpg', title: 'Exploring Creativity in the Age of AI: Project Sharing Across NYU Campuses (Shanghai)', subtitle: 'Oct 9 - 26, 2025', location: 'IMA Studio' },
-					{ src: '/about/images/IMA Gallery Exhibition09.jpg', title: 'Exploring Creativity in the Age of AI: Project Sharing Across NYU Campuses (Shanghai)', subtitle: 'Oct 9 - 26, 2025', location: 'IMA Studio' },
-					{ src: '/about/images/IMA Gallery Exhibition10.jpg', title: 'Exploring Creativity in the Age of AI: Project Sharing Across NYU Campuses (Shanghai)', subtitle: 'Oct 9 - 26, 2025', location: 'IMA Studio' },
-					{ src: '/about/images/04.jpg', title: 'Opening Ceremony and Launch Events (Shanghai)', subtitle: 'Apr 13, 2025', location: 'NYU Shanghai Qiantan Campus' },
-					{ src: '/about/images/06.jpg', title: 'Opening Ceremony and Launch Events (Shanghai)', subtitle: 'Apr 13, 2025', location: 'NYU Shanghai Qiantan Campus' },
-					{ src: '/about/images/08.jpg', title: 'Opening Project: Live-Diffusion', subtitle: 'Apr 9 - 13, 2025', location: 'Shanghai: IMA Studio & Library, New York: Bobst Library, Abu Dhabi: Library' },
-				]);
-				const previewList = ref(imageList.value.map(img => img.src));
-				const imageRefs = reactive({});
-
-				const openPreview = (index) => {
-					const imageRef = imageRefs[index];
-					if (imageRef) {
-						// 触发 el-image 的点击事件
-						const imgElement = imageRef.$el.querySelector('img');
-						if (imgElement) {
-							imgElement.click();
-						}
-					}
-				};
-
-				return { imageList, previewList, imageRefs, openPreview }
-			}
-		}).use(ElementPlus).mount('#app')
-	</script>
+<script>
+Vue.createApp({}).component('site-highlights', window.NYUHighlights).mount('#app');
+</script>
 </body>
 
 </html>

@@ -1,0 +1,109 @@
+        .shared-highlights .photo-box {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 38px 18px;
+            justify-content: flex-start;
+            width: 100%;
+        }
+
+        .shared-highlights .photo-item {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 1272 / 715;
+            width: 100%;
+            background: var(--color-photo-placeholder);
+            cursor: pointer;
+        }
+
+        .shared-highlights .photo-item .img-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .shared-highlights .photo-item .img-layer img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .shared-highlights .photo-item .img-back {
+            z-index: 0;
+        }
+
+        .shared-highlights .photo-item .img-front {
+            z-index: 1;
+            transition: opacity var(--motion-menu) ease;
+        }
+
+        .shared-highlights .photo-item .img-front.cross-fade {
+            opacity: 0;
+        }
+
+        /* Hover title overlay */
+        .shared-highlights .photo-title {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(180deg, var(--color-surface-a0) 1%, var(--color-caption-mid-a300) 25%, var(--color-caption-end) 85%);
+            color: var(--color-caption);
+            padding: 155px var(--spacing-md) 15px var(--spacing-md);
+            font-weight: bold;
+            transform: translateY(100%);
+            transition: transform var(--motion-normal) ease-in-out;
+            z-index: 10;
+            cursor: pointer;
+            pointer-events: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .shared-highlights .photo-item:hover .photo-title {
+            transform: translateY(0);
+        }
+
+        .shared-highlights .photo-title .main-title {
+            font-size: var(--font-size-18px);
+            line-height: var(--leading-heading);
+            text-align: left;
+            width: 100%;
+        }
+
+        .shared-highlights .photo-title .sub-title {
+            font-size: var(--font-size-11px);
+            font-weight: normal;
+            font-style: italic;
+            margin-top: 3px;
+            text-align: left;
+            width: 100%;
+        }
+
+        .shared-highlights .photo-title .location {
+            font-size: var(--font-size-11px);
+            font-weight: normal;
+            font-style: italic;
+            margin-top: 3px;
+            text-align: left;
+            width: 100%;
+        }
+
+
+.shared-highlights button.photo-item { padding: 0; border: 0; color: inherit; font: inherit; text-align: left; }
+.shared-highlights .photo-item:focus-visible { outline: 3px solid var(--primary-purple); outline-offset: 3px; }
+.shared-highlights .photo-item:focus-visible .photo-title { transform: translateY(0); }
+.shared-highlights .highlights-preview { border: 0; padding: 0; margin: auto; background: transparent; max-width: 94vw; max-height: 94vh; overflow: visible; }
+.shared-highlights .highlights-preview::backdrop { background: var(--color-ink-a850); }
+.shared-highlights .highlights-preview img { display: block; max-width: 90vw; max-height: 85vh; object-fit: contain; }
+.shared-highlights .highlights-close { position: absolute; right: 0; top: 0; width: 44px; height: 44px; font-size: 30px; color: white; background: var(--primary-purple); border: 0; cursor: pointer; }
+@media (max-width: 640px) {
+  .shared-highlights .photo-box { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 15px 10px; }
+  .shared-highlights .photo-title { padding: 45px 10px 8px; }
+  .shared-highlights .photo-title .main-title { font-size: 12px; }
+  .shared-highlights .photo-title .sub-title, .shared-highlights .photo-title .location { font-size: 10px; }
+}
+@media (prefers-reduced-motion: reduce) { .shared-highlights .img-front, .shared-highlights .photo-title { transition: none; } }

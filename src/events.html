@@ -7,6 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/theme.css">
     <link rel="stylesheet" href="/styles/events.css">
+<link rel="stylesheet" href="/styles/highlights.css">
+<script src="/scripts/highlights.js"></script>
 
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="/opencall/assets/p5.js"></script>
@@ -98,30 +100,7 @@
                 <!-- Highlights Section -->
                 <div class="highlights-section">
                     <div class="chapter-title">Highlights</div>
-                    <div class="photo-box">
-                        <div v-for="(img, index) in displayedImages" :key="'photo-' + index" class="photo-item">
-                            <div class="img-layer img-back">
-                                <img :src="nextImages[index] ? nextImages[index].src : img.src" />
-                            </div>
-                            <div class="img-layer img-front" :class="{ 'cross-fade': crossFading }">
-                                <img :src="img.src" />
-                            </div>
-                            <div class="photo-title" @click="openPreview(img.src)">
-                                <div class="main-title">{{ img.title
-                                    }}</div>
-                                <div class="sub-title" v-if="img.subtitle">
-                                    {{ img.subtitle }}
-                                    <div class="location" v-if="img.location">{{ img.location
-                                        }}</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Preview overlay -->
-                <div class="preview-overlay" v-if="previewSrc" @click="previewSrc = null">
-                    <img :src="previewSrc" />
+                    <site-highlights :count="9"></site-highlights>
                 </div>
 
             </div>
@@ -129,47 +108,9 @@
     </div>
 
     <script>
-        const { createApp, ref, onMounted, onUnmounted } = Vue;
+        const { createApp, ref } = Vue;
         createApp({
             setup() {
-                const allImages = ref([
-                    { src: '/events/images/04.jpg', title: 'Opening Ceremony and Launch Events (Shanghai)', subtitle: 'Apr 13, 2025', location: 'NYU Shanghai Qiantan Campus' },
-                    { src: '/events/images/06.jpg', title: 'Opening Ceremony and Launch Events (Shanghai)', subtitle: 'Apr 13, 2025', location: 'NYU Shanghai Qiantan Campus' },
-                    { src: '/events/images/08.jpg', title: 'Opening Project: Live-Diffusion', subtitle: 'Apr 9 - 13, 2025', location: 'Shanghai / New York / Abu Dhabi' },
-                    { src: '/events/images/FutureLab01.jpg', title: 'Art & Design Education: FutureLab 2025', subtitle: 'Oct 31 - Nov 2, 2025', location: 'West Bund Art Center, Shanghai' },
-                    { src: '/events/images/FutureLab02.jpg', title: 'Art & Design Education: FutureLab 2025', subtitle: 'Oct 31 - Nov 2, 2025', location: 'West Bund Art Center, Shanghai' },
-                    { src: '/events/images/FutureLab03.jpg', title: 'Art & Design Education: FutureLab 2025', subtitle: 'Oct 31 - Nov 2, 2025', location: 'West Bund Art Center, Shanghai' },
-                    { src: '/events/images/FutureLab04.jpg', title: 'Art & Design Education: FutureLab 2025', subtitle: 'Oct 31 - Nov 2, 2025', location: 'West Bund Art Center, Shanghai' },
-                    { src: '/events/images/FutureLab05.jpg', title: 'Art & Design Education: FutureLab 2025', subtitle: 'Oct 31 - Nov 2, 2025', location: 'West Bund Art Center, Shanghai' },
-                    { src: '/events/images/FutureLab06.jpg', title: 'Art & Design Education: FutureLab 2025', subtitle: 'Oct 31 - Nov 2, 2025', location: 'West Bund Art Center, Shanghai' },
-                    { src: '/events/images/FutureLab07.jpg', title: 'Art & Design Education: FutureLab 2025', subtitle: 'Oct 31 - Nov 2, 2025', location: 'West Bund Art Center, Shanghai' },
-                    { src: '/events/images/IMA Gallery Exhibition01.jpg', title: 'Exploring Creativity in the Age of AI (Shanghai)', subtitle: 'Oct 9 - 26, 2025', location: 'IMA Studio' },
-                    { src: '/events/images/IMA Gallery Exhibition02.jpg', title: 'Exploring Creativity in the Age of AI (Shanghai)', subtitle: 'Oct 9 - 26, 2025', location: 'IMA Studio' },
-                    { src: '/events/images/IMA Gallery Exhibition03.jpg', title: 'Exploring Creativity in the Age of AI (Shanghai)', subtitle: 'Oct 9 - 26, 2025', location: 'IMA Studio' },
-                    { src: '/events/images/IMA Gallery Exhibition04.jpg', title: 'Exploring Creativity in the Age of AI (Shanghai)', subtitle: 'Oct 9 - 26, 2025', location: 'IMA Studio' },
-                    { src: '/events/images/IMA Gallery Exhibition05.jpg', title: 'Exploring Creativity in the Age of AI (Shanghai)', subtitle: 'Oct 9 - 26, 2025', location: 'IMA Studio' },
-                    { src: '/events/images/IMA Gallery Exhibition06.jpg', title: 'Exploring Creativity in the Age of AI (Shanghai)', subtitle: 'Oct 9 - 26, 2025', location: 'IMA Studio' },
-                    { src: '/events/images/IMA Gallery Exhibition07.jpg', title: 'Exploring Creativity in the Age of AI (Shanghai)', subtitle: 'Oct 9 - 26, 2025', location: 'IMA Studio' },
-                    { src: '/events/images/IMA Gallery Exhibition08.jpg', title: 'Exploring Creativity in the Age of AI (Shanghai)', subtitle: 'Oct 9 - 26, 2025', location: 'IMA Studio' },
-                    { src: '/events/images/IMA Gallery Exhibition09.jpg', title: 'Exploring Creativity in the Age of AI (Shanghai)', subtitle: 'Oct 9 - 26, 2025', location: 'IMA Studio' },
-                    { src: '/events/images/IMA Gallery Exhibition10.jpg', title: 'Exploring Creativity in the Age of AI (Shanghai)', subtitle: 'Oct 9 - 26, 2025', location: 'IMA Studio' },
-                    { src: '/events/images/New York Opening01.jpg', title: 'Exploring Creativity in the Age of AI (New York)', subtitle: 'Oct 10, 2025', location: 'ITP/IMA floor' },
-                    { src: '/events/images/New York Opening02.jpg', title: 'Exploring Creativity in the Age of AI (New York)', subtitle: 'Oct 10, 2025', location: 'ITP/IMA floor' },
-                    { src: '/events/images/New York Opening03.jpg', title: 'Exploring Creativity in the Age of AI (New York)', subtitle: 'Oct 10, 2025', location: 'ITP/IMA floor' },
-                    { src: '/events/images/New York Opening04.jpg', title: 'Exploring Creativity in the Age of AI (New York)', subtitle: 'Oct 10, 2025', location: 'ITP/IMA floor' },
-                    { src: '/events/images/New York Opening05.jpg', title: 'Exploring Creativity in the Age of AI (New York)', subtitle: 'Oct 10, 2025', location: 'ITP/IMA floor' },
-                    { src: '/events/images/New York Opening06.jpg', title: 'Exploring Creativity in the Age of AI (New York)', subtitle: 'Oct 10, 2025', location: 'ITP/IMA floor' },
-                    { src: '/events/images/New York Opening07.jpg', title: 'Exploring Creativity in the Age of AI (New York)', subtitle: 'Oct 10, 2025', location: 'ITP/IMA floor' },
-                    { src: '/events/images/New York Opening08.jpg', title: 'Exploring Creativity in the Age of AI (New York)', subtitle: 'Oct 10, 2025', location: 'ITP/IMA floor' },
-                    { src: '/events/images/New York Opening09.jpg', title: 'Exploring Creativity in the Age of AI (New York)', subtitle: 'Oct 10, 2025', location: 'ITP/IMA floor' },
-                    { src: '/events/images/New York Opening10.jpg', title: 'Exploring Creativity in the Age of AI (New York)', subtitle: 'Oct 10, 2025', location: 'ITP/IMA floor' },
-                    { src: '/events/images/New York Opening11.jpg', title: 'Exploring Creativity in the Age of AI (New York)', subtitle: 'Oct 10, 2025', location: 'ITP/IMA floor' },
-                    { src: '/events/images/New York Opening12.jpg', title: 'Exploring Creativity in the Age of AI (New York)', subtitle: 'Oct 10, 2025', location: 'ITP/IMA floor' },
-                    { src: '/events/images/New York Opening13.jpg', title: 'Exploring Creativity in the Age of AI (New York)', subtitle: 'Oct 10, 2025', location: 'ITP/IMA floor' },
-                    { src: '/events/images/New York Opening14.jpg', title: 'Exploring Creativity in the Age of AI (New York)', subtitle: 'Oct 10, 2025', location: 'ITP/IMA floor' },
-                    { src: '/events/images/New York Opening15.jpg', title: 'Exploring Creativity in the Age of AI (New York)', subtitle: 'Oct 10, 2025', location: 'ITP/IMA floor' },
-                    { src: '/events/images/New York Opening16.jpg', title: 'Exploring Creativity in the Age of AI (New York)', subtitle: 'Oct 10, 2025', location: 'ITP/IMA floor' },
-                ]);
 
                 const tagColors = {
                     exhibition: 'var(--color-tag-exhibition)',
@@ -417,12 +358,6 @@
                     },
                 ]);
 
-                const displayedImages = ref([]);
-                const nextImages = ref([]);
-                const crossFading = ref(false);
-                const previewSrc = ref(null);
-                let timer = null;
-
                 function eventStyle(item) {
                     const primaryTagLine = tagLines(item)[0] || [];
                     const primaryTag = primaryTagLine[0];
@@ -516,56 +451,12 @@
                     };
                 }
 
-                function shuffle(arr) {
-                    const a = [...arr];
-                    for (let i = a.length - 1; i > 0; i--) {
-                        const j = Math.floor(Math.random() * (i + 1));
-                        [a[i], a[j]] = [a[j], a[i]];
-                    }
-                    return a;
-                }
-
-                function pickRandom9() {
-                    return shuffle(allImages.value).slice(0, 9);
-                }
-
-                function openPreview(src) {
-                    previewSrc.value = src;
-                }
-
                 function openEventDetail(id) {
                     window.location.href = `/event/${id}`;
                 }
 
-                function rotateImages() {
-                    // Set next images on the back layer
-                    const next = pickRandom9();
-                    nextImages.value = next;
-                    // Trigger crossfade: front fades out to reveal back
-                    crossFading.value = true;
-                    setTimeout(() => {
-                        // Swap: move next to front, reset
-                        displayedImages.value = next;
-                        crossFading.value = false;
-                        nextImages.value = [];
-                    }, 800); // match CSS transition duration
-                }
-
-                onMounted(() => {
-                    displayedImages.value = pickRandom9();
-                    timer = setInterval(rotateImages, 9000);
-                });
-
-                onUnmounted(() => {
-                    if (timer) clearInterval(timer);
-                });
-
                 return {
                     circleEvents,
-                    displayedImages,
-                    nextImages,
-                    crossFading,
-                    previewSrc,
                     eventStyle,
                     bubbleCircleStyle,
                     combinedTags,
@@ -573,11 +464,10 @@
                     labelStyle,
                     titleStyle,
                     titleLineStyle,
-                    openPreview,
                     openEventDetail,
                 }
             }
-        }).mount('#app')
+        }).component('site-highlights', window.NYUHighlights).mount('#app')
     </script>
 </body>
 
