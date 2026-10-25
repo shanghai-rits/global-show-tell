@@ -363,3 +363,20 @@
 
 .organizers-heading { margin-top: 100px }
 .organizers-footer { padding-bottom: 100px; }
+
+/* About copy: preserve the supplied text, with a readable measure and hierarchy. */
+#content .about-prose { max-width: 960px; font-size: 18px; line-height: 1.7; color: var(--color-heading); }
+#content .about-prose p { margin: 0 0 20px; }
+#content .about-introduction { margin-bottom: 64px; }
+#content .about-organizers-introduction { margin: 12px 0 32px; }
+#content .about-journey, #content .about-impact { margin-top: 64px; }
+#content .about-journey ol { padding-left: 1.6em; }
+#content .about-journey li { padding-left: 8px; margin: 28px 0; }
+#content .about-journey li::marker { font-weight: var(--weight-semibold); }
+#content .about-journey h3 { font-size: 20px; line-height: 1.4; font-weight: var(--weight-semibold); margin: 0 0 12px; }
+@media (max-width: 640px) {
+  #content .about-prose { font-size: 16px; line-height: 1.7; }
+  #content .about-introduction { margin-bottom: 40px; }
+  #content .about-journey, #content .about-impact { margin-top: 40px; }
+  #content .about-journey h3 { font-size: 18px; }
+}
