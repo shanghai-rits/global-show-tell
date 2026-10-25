@@ -1,18 +1,18 @@
 /* Navbar container */
 
 @media only screen and (max-width: 768px) {
-  .navbar-container {
+  .site-header .navbar-container {
     transform: scale(0.7);
     transform-origin: top right;
     /* Adjust as needed */
   }
 
-  .expanded {
+  .site-header .expanded {
     padding-top: var(--spacing-md);
   }
 }
 
-.navbar-container {
+.site-header .navbar-container {
   position: fixed;
   top: 0;
   right: 0;
@@ -31,12 +31,12 @@
   z-index: var(--layer-controls);
 }
 
-.expanded {
+.site-header .expanded {
   width: 500px;
   padding: 35px var(--spacing-md) 0 0;
 }
 
-.collapsed {
+.site-header .collapsed {
   width: 160px;
   /* Just enough to show the half-circle */
   display: flex;
@@ -47,7 +47,7 @@
 
 
 /* Half-circle toggle button */
-.toggle-button {
+.site-header .toggle-button {
   position: absolute;
   top: 60px;
   right: 0px;
@@ -66,7 +66,7 @@
   color: var(--color-ink);
 }
 
-.toggle-button-close {
+.site-header .toggle-button-close {
   position: absolute;
   top: 60px;
   right: 0px;
@@ -85,7 +85,7 @@
 }
 
 /* All SVGs occupy the same space */
-.toggle-button svg {
+.site-header .toggle-button svg {
   position: absolute;
   top: 10px;
   left: 120px;
@@ -113,19 +113,17 @@
   }
 }
 
-.toggle-button:hover .menu-text {
+.site-header .toggle-button:hover .menu-text {
   animation: menuMarginChange var(--motion-menu) ease-in-out infinite;
 }
 
 
 /* Initial state - only vector-1 is visible */
-.toggle-button .vector-1 {
+.site-header .toggle-button .vector-1 {
   opacity: 1;
 }
 
-.toggle-button .vector-2,
-.toggle-button .vector-3,
-.toggle-button .vector-4 {
+.site-header .toggle-button .vector-2, .site-header .toggle-button .vector-3, .site-header .toggle-button .vector-4 {
   opacity: 0;
 }
 
@@ -147,37 +145,37 @@
 }
 
 /* Animation settings for each vector */
-.toggle-button:hover .vector-1 {
+.site-header .toggle-button:hover .vector-1 {
   animation: sequence var(--motion-menu) ease-in infinite;
 }
 
-.toggle-button:hover .vector-2 {
+.site-header .toggle-button:hover .vector-2 {
   left: 130px;
   animation: sequence var(--motion-menu) ease-out infinite var(--motion-fast);
   /* 25% offset */
 }
 
-.toggle-button:hover .vector-3 {
+.site-header .toggle-button:hover .vector-3 {
   left: 125px;
   animation: sequence var(--motion-menu) ease-out infinite 0.4s;
   /* 50% offset */
 }
 
-.toggle-button:hover .vector-4 {
+.site-header .toggle-button:hover .vector-4 {
   left: 118px;
   animation: sequence var(--motion-menu) ease-out infinite 0.6s;
   /* 75% offset */
 }
 
 
-.navbar {
+.site-header .navbar {
   position: absolute;
   top: 115px;
   right: 20px;
 }
 
 /* Title */
-.nav-title {
+.site-header .nav-title {
   font-size: var(--font-xxl);
   font-weight: var(--weight-ultra);
   font-style: italic;
@@ -190,18 +188,18 @@
   cursor: pointer;
 }
 
-.nav-title .default {
+.site-header .nav-title .default {
   z-index: 0;
   opacity: 1;
   /* transition: opacity 50ms ease-out; */
 }
 
-.nav-title:hover .default {
+.site-header .nav-title:hover .default {
   opacity: 0;
   transition-delay: 70ms;
 }
 
-.stage {
+.site-header .stage {
   opacity: 0;
   /* transition: opacity 150ms ease-in; */
   position: absolute;
@@ -209,45 +207,45 @@
 }
 
 /* Each new stage sits above the last */
-.stage-1 {
+.site-header .stage-1 {
   z-index: 1;
 }
 
-.stage-2 {
+.site-header .stage-2 {
   z-index: 2;
 }
 
-.stage-3 {
+.site-header .stage-3 {
   z-index: 3;
 }
 
-.stage-4 {
+.site-header .stage-4 {
   z-index: 4;
 }
 
 /* Show them in sequence (with delays so they appear one after another) */
-.nav-title:hover .stage-1 {
+.site-header .nav-title:hover .stage-1 {
   opacity: 1;
   transition-delay: 90ms;
 }
 
-.nav-title:hover .stage-2 {
+.site-header .nav-title:hover .stage-2 {
   opacity: 1;
   transition-delay: 180ms;
 }
 
-.nav-title:hover .stage-3 {
+.site-header .nav-title:hover .stage-3 {
   opacity: 1;
   transition-delay: 250ms;
 }
 
-.nav-title:hover .stage-4 {
+.site-header .nav-title:hover .stage-4 {
   opacity: 1;
   transition-delay: 350ms;
 }
 
 /* Buttons container */
-.nav-buttons {
+.site-header .nav-buttons {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-md);
@@ -255,7 +253,7 @@
 }
 
 /* Button styling */
-.nav-button {
+.site-header .nav-button {
   font-size: var(--font-size-28px);
   font-weight: var(--weight-normal);
   padding: var(--spacing-xs) var(--spacing-50);
@@ -267,7 +265,7 @@
   color: var(--color-ink);
 }
 
-.nav-button-wrapper:hover .nav-button {
+.site-header .nav-button-wrapper:hover .nav-button {
   animation: bounce var(--motion-normal) forwards;
   box-shadow:
     var(--shadow-nav-hover);
@@ -291,36 +289,57 @@
   }
 }
 
-.svg-container {
+.site-header .svg-container {
   position: relative;
   /* This makes sure the children can be positioned absolutely */
   width: 38px;
   height: 77px;
   cursor: pointer;
 }
-
-/* Auto-collapse animation: transform/opacity/delay are all applied via inline
-   style from the component to avoid any CSS cascade surprises. */
 /* Static presentation extracted from JSX. */
 
-.menu-label {
+.site-header .menu-label {
   margin-left: 6px;
   }
 
-.menu-open-icon {
+.site-header .menu-open-icon {
   margin-left: var(--spacing-10);
   margin-top: 2px;
   margin-right: 0px;
   display: flex;
   }
 
-.menu-close-icon {
+.site-header .menu-close-icon {
   margin-left: 5px;
   margin-top: 2px;
   margin-right: var(--spacing-xs);
   display: flex;
   }
 
-.menu-text { margin-left: 6px; }
-.nav-title, .nav-button { transition: transform var(--motion-nav-collapse); transform: translateX(0); }
-.is-collapsing .nav-title, .is-collapsing .nav-button { transform: translateX(600px); }
+.site-header .menu-text { margin-left: 6px; }
+.site-header .nav-title, .site-header .nav-button { transition: transform var(--motion-nav-collapse); transform: translateX(0); }
+
+/* The navigation shell never intercepts content outside its visible controls. */
+.site-header .navbar-container { pointer-events: none; }
+.site-header .toggle-button,
+.site-header .toggle-button-close,
+.site-header .navbar { pointer-events: auto; }
+
+.site-header .collapsed { height: 60px; top: 60px; }
+.site-header .collapsed .toggle-button { top: 0; }
+
+.site-header .nav-title { display: block; text-decoration: none; color: inherit; }
+.site-header .nav-button { display: inline-flex; align-items: center; justify-content: center; text-decoration: none; }
+.site-header a:focus-visible,
+.site-header button:focus-visible { outline: 2px solid var(--primary-purple); outline-offset: 4px; }
+
+@media only screen and (max-width: 768px) {
+  .site-header .navbar-container.collapsed { top: 42px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-header *, .site-header *::before, .site-header *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

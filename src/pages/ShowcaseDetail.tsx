@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import Navbar from '../components/Navbar/Navbar';
 import './ShowcaseDetail.css';
 
 
@@ -725,7 +724,6 @@ https://github.com/emybayar/inputoutput`,
 
   return (
     <div className="detail-container">
-      <Navbar />
       <div className="hero-image-container">
         <img
           src={item.coverImage}

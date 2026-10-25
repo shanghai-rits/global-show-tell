@@ -156,11 +156,6 @@
 }
 /* Static presentation extracted from JSX. */
 
-.showcase-nav-layer {
-  position: fixed;
-  z-index: var(--layer-nav-wrapper);
-}
-
 .view-mode-toggle {
   position: fixed;
   bottom: 5px;

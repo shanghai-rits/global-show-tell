@@ -1,5 +1,6 @@
 import React from 'react';
 import './styles/detail.css';
+import SiteLayout from './components/SiteLayout';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import EventDetail from './pages/EventDetail.tsx';
 import Showcase from './pages/Showcase.tsx';
@@ -34,18 +35,20 @@ function App() {
           path="/events"
           element={<RedirectToEvents />}
         />
-        <Route
-          path="/showcase"
-          element={<Showcase />}
-        />
-        <Route
-          path="/showcase/:id"
-          element={<ShowcaseDetail />}
-        />
-        <Route
-          path="/event/:id"
-          element={<EventDetail />}
-        />
+        <Route element={<SiteLayout />}>
+          <Route
+            path="/showcase"
+            element={<Showcase />}
+          />
+          <Route
+            path="/showcase/:id"
+            element={<ShowcaseDetail />}
+          />
+          <Route
+            path="/event/:id"
+            element={<EventDetail />}
+          />
+        </Route>
       </Routes>
     </Router>
   );
@@ -53,15 +56,6 @@ function App() {
 
 export default App;
 
-function Home() {
-  return (
-    <div>
-      <h1>Home</h1>
-      <a href="/submission">Open Call</a>
-      <a href="/showcase">Showcase</a>
-    </div>
-  )
-}
 
 function RedirectToSubmission() {
   React.useEffect(() => {

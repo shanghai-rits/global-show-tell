@@ -1,7 +1,6 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import showcaseSampleCover from '../assets/showcase-sample-cover.png';
-import Navbar from '../components/Navbar/Navbar';
 import SearchBox from '../components/SearchBox';
 import './Showcase.css';
 
@@ -571,9 +570,6 @@ const Showcase: React.FC = () => {
 
   return (
     <div>
-      <div className="showcase-nav-layer">
-        <Navbar />
-      </div>
       {/* 添加 SearchBox */}
       <SearchBox
         searchQuery={searchQuery}
