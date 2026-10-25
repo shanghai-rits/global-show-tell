@@ -14,7 +14,6 @@ export default defineConfig({
         calendar: './src/calendar.html',
         events: './src/events.html',
         about: './src/about.html',
-        homepage: './public/homepage/index.html', // Additional HTML page
       },
     },
   },

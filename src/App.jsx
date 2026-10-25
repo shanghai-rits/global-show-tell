@@ -1,6 +1,7 @@
 import React from 'react';
 import './styles/detail.css';
 import SiteLayout from './components/SiteLayout';
+import Home from './pages/Home';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import EventDetail from './pages/EventDetail.tsx';
 import Showcase from './pages/Showcase.tsx';
@@ -10,7 +11,6 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<RedirectToHomePage />} />
         <Route
           path="/opencall"
           element={<RedirectToSubmission />}
@@ -36,6 +36,7 @@ function App() {
           element={<RedirectToEvents />}
         />
         <Route element={<SiteLayout />}>
+          <Route path="/" element={<Home />} />
           <Route
             path="/showcase"
             element={<Showcase />}
@@ -88,13 +89,6 @@ function RedirectToAbout() {
 function RedirectToEvents() {
   React.useEffect(() => {
     redirectToStaticPage('/src/events.html');
-  }, []);
-  return null;
-}
-
-function RedirectToHomePage() {
-  React.useEffect(() => {
-    redirectToStaticPage('/homepage/index.html');
   }, []);
   return null;
 }
