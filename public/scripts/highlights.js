@@ -85,7 +85,7 @@
       function onClose() { preview.value = null; opener?.focus(); }
       onMounted(() => {
         displayedImages.value = pick();
-        timer = setInterval(rotate, 9000);
+        timer = setInterval(rotate, 4500);
       });
       onUnmounted(() => {
         disposed = true;
