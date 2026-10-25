@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import Navbar from '../components/Navbar/Navbar';
 import './ShowcaseDetail.css';
 
 
@@ -80,7 +79,7 @@ Then they get to preview the picture of their DreamyBot. Here the user can also 
           `DreamyBot interacts with users through a web-based customization system, allowing them to select appearance, personality, and skills for their AI-generated kid robot. It integrates with AI models like Stable Diffusion for visual generation and ChatGPT API for interactive dialogue. Besides, the project has a company video that simulate the company promo and helps the audience to better understand the project.
 `,
         "The Global Learning Story":
-          `My project was inspired by the NYU Shanghai 2023 Exclusive speaker series with the China CEO of Groove X - a Japanese company who make pet robots. When I saw the promo of LOVOT, which is the customized AI pet robot that use 3 months to slowly learn their owner's preferences. They are ""perfect"" -- never cause allergy, never pee anywhere, and they don't even need to be fed...... I couldn't stop thinking, if one day this is applied on human being for customizing a friend, a lover, or even a child. 
+          `My project was inspired by the NYU Shanghai 2023 Exclusive speaker series with the China CEO of Groove X - a Japanese company who make pet robots. When I saw the promo of LOVOT, which is the customized AI pet robot that use 3 months to slowly learn their owner's preferences. They are ""perfect"" -- never cause allergy, never pee anywhere, and they don't even need to be fed...... I couldn't stop thinking, if one day this is applied on human being for customizing a friend, a lover, or even a child.
 I happened to be at Professor Gottfried Haider's class ""Machine Learning for Artists and Designers"" then, and I made this project with his help in finding, embedding the applicable model to the website.`,
         "Supplementary Information": `The first time I showed this project was on 2023 Fall IMA show, I bought two customized "DreamyBot" company hoodies and completely pretended to be the pop-up sale lady standing and promoting for "my company" at the show. Surprisingly a lot of people asked me if that was a real pop up sale at IMA show! `
       },
@@ -175,9 +174,9 @@ Code (well-trained version): https://editor.p5js.org/lindashao1220/sketches/v8od
         "Interactivity":
           `The project board features six emotional zones: Happy, Confused, Fearful, Excited, Stressful, and ??? (emotion with question marks). Participants place stones in the different emotional zones, with the weight of the stones in each zone representing the intensity of that emotions in their heart. The printer prints out diary entries every 30 seconds based on the emotion inputs on the board, producing texts that mirror what I might write under those emotional intensities.`,
         "The Global Learning Story":
-          `I built Dear Diary in Fall 2024, as the final project for the Machine Learning for Artists and Designers class. Professor Gottfried Haider, as the instructor of the class, expands my thinking in combining AI with different media. He trusts me in coming up a good projects idea, when I felt anxious in finding what I want to build. He also offers great technical support. What felt out of my reach became achievable under his guidance. 
+          `I built Dear Diary in Fall 2024, as the final project for the Machine Learning for Artists and Designers class. Professor Gottfried Haider, as the instructor of the class, expands my thinking in combining AI with different media. He trusts me in coming up a good projects idea, when I felt anxious in finding what I want to build. He also offers great technical support. What felt out of my reach became achievable under his guidance.
 
-The idea of connecting diary and emotions seeded after an office hour with Professor Junnan Chen. She patiently and gently listened to my messy thoughts, pointing out the threads that connect all my interest. From Narration to identity, from emotion to body representation, she reveals to me the power of theories. 
+The idea of connecting diary and emotions seeded after an office hour with Professor Junnan Chen. She patiently and gently listened to my messy thoughts, pointing out the threads that connect all my interest. From Narration to identity, from emotion to body representation, she reveals to me the power of theories.
 
 I learned how to form a project idea from Professor Sharon De La Cruz, who taught Design for Curiosity Portals in Spring 2023 while I studied away in New York. She said, catch the excitement, then think about what might be the things that draw you in that idea. She inspires me to follow my curiosity and create."`,
         "Video Documentation": `https://youtu.be/HSOL0H_Sr4I?si=vE_9GauRiizyUKNq`,
@@ -198,9 +197,9 @@ I learned how to form a project idea from Professor Sharon De La Cruz, who taugh
       title: 'The Silhouette',
       authors: `Lizhemei (Riva) Wang & Chenyi Wang`,
       program: 'NYU Tandon ID&M',
-      description: `The essence of our belonging subtly shifts, yet remains tethered to the earth beneath our feet. 
+      description: `The essence of our belonging subtly shifts, yet remains tethered to the earth beneath our feet.
 As international students, we share the common experience of relocating to foreign countries in pursuit of varied goals, which gradually blurs our notion of "home." Our sense of belonging evolves as we mature and live in different places. Intriguingly, despite vast cultural differences, we find a universal sense of belonging in nature.
-In this installation, my partner Chenyi and I aim to capture the dynamic changes in nature using a blend of sound, visuals, and sculpture. By employing techniques in sound making, physical computing, painting, and AI tools, we strive to provide an immersive experience that allows the audience to feel the tranquility of nature amidst the changing seasons.  
+In this installation, my partner Chenyi and I aim to capture the dynamic changes in nature using a blend of sound, visuals, and sculpture. By employing techniques in sound making, physical computing, painting, and AI tools, we strive to provide an immersive experience that allows the audience to feel the tranquility of nature amidst the changing seasons.
 https://rivawang.cargo.site/silhouette-of-life`,
       sections: {
         "How AI Is Used in This Project":
@@ -534,7 +533,7 @@ https://www.jnackash.com/the-red-line`,
           `The live score on the meter is continuously updated based on real-time news analysis and is derived using a large language model (Gemini Flash 1.5) that was trained on examples using my personal values and worldview. It evaluates news articles based on key metrics, including: Contribution to equality, Impact on human rights, Effect on the region’s socio-economic state, and Contribution to peace.`,
         "Interactivity": `The device continuously gathers news articles from various sources, analyzing and scoring them in real time using a LLM in order to reflect the current state of affairs in Israel. This score is then updated and displayed on a live meter, representing my country's “livability potential” — ranging from “full potential” to “unlivable.”
 A movable red line allows me to set a personal threshold, marking the point at which I would need to take action — whether by leaving the country, engaging in civil disobedience, or reassessing my stance. The line can be adjusted at any time, but each movement is a confrontation: a physical acknowledgment of shifting boundaries and evolving tolerances.`,
-        "The Global Learning Story": `The Red Line was done under the guidance of professor Pedro Galvao Cesar de Oliveira in Project Development class at the Interactive Telecommunications Program at New York University, 2024. Pedro supported me throughout the process by providing artistic guidance and technical advice. 
+        "The Global Learning Story": `The Red Line was done under the guidance of professor Pedro Galvao Cesar de Oliveira in Project Development class at the Interactive Telecommunications Program at New York University, 2024. Pedro supported me throughout the process by providing artistic guidance and technical advice.
 I have received additional guidance from other faculty and members of ITP:
 — Shawn Van Every provided artistic feedback
 — Dan O'Sullivan provided advice for navigating and working with AI models to find what worked best with my idea
@@ -559,7 +558,7 @@ I have received additional guidance from other faculty and members of ITP:
       description: `BABEL is an interactive installation where users can input any text or voice into the system. The work undergoes twelve cycles of translation before producing the final output. During each successive translation layer, deliberate deviations are introduced. Nuances are magnified, and the translation program not only makes this misunderstanding more visible, but gives a more direct sense of the asymmetry and distortion between languages. `,
       sections: {
         "How AI Is Used in This Project":
-          `I plan to call OpenAI's API to feed the entire translation delivery process into it, allowing the system to automatically analyze how language evolves during the translation process. To identify which specific words, syntax, or differences in understanding were misunderstood or reconstructed in multiple rounds of translation. Print out a note and send it back to the user. 
+          `I plan to call OpenAI's API to feed the entire translation delivery process into it, allowing the system to automatically analyze how language evolves during the translation process. To identify which specific words, syntax, or differences in understanding were misunderstood or reconstructed in multiple rounds of translation. Print out a note and send it back to the user.
 The system will present these explanations in the user's original input language, so that he or she clearly understands how, why, and where the errors arose. This not only provides the user with a figurative way of understanding, but also reinforces the research implications of this project on cross-cultural communication, language flow and semantic uncertainty.`,
         "Interactivity": `The work will translate the selected text 12 times in a loop, returning to the original text, thereby creating deviations and misunderstandings. Viewers will directly experience the loss and reconstruction of meaning in cross-language communication. Inspired by the “telephone game,” the installation uses a suspended globe and surrounding figures to depict how language is transmitted and distorted globally. This process of amplifying misalignment can emphasize the kind of gulf between language and thought that is difficult to align perfectly.`,
         "The Global Learning Story": `This project was inspired by such a multilingual environment as NYU Shanghai. You use English, I use Chinese, they uses Spanish. When we communicate, Chinese thoughts are processed into English, and English is processed into Spanish to be understood. In this process, how much of the meaning that we desperately and eagerly want to express is lost in the layer upon layer of translation?
@@ -725,7 +724,6 @@ https://github.com/emybayar/inputoutput`,
 
   return (
     <div className="detail-container">
-      <Navbar />
       <div className="hero-image-container">
         <img
           src={item.coverImage}
@@ -874,14 +872,13 @@ const Section: React.FC<{ title: string; content?: string }> = ({ title, content
               const embedUrl = `https://drive.google.com/file/d/${fileId}/preview`;
 
               return (
-                <div style={{ marginTop: '10px' }}>
+                <div className="video-documentation">
                   <iframe
                     src={embedUrl}
                     allow="autoplay; encrypted-media"
                     allowFullScreen
                     title="Video Documentation"
-                    className="detail-video"
-                  ></iframe>
+                    className="detail-video"></iframe>
                 </div>
               );
             }
@@ -895,14 +892,13 @@ const Section: React.FC<{ title: string; content?: string }> = ({ title, content
               const embedUrl = `https://player.vimeo.com/video/${videoId}`;
 
               return (
-                <div style={{ marginTop: '10px' }}>
+                <div className="video-documentation">
                   <iframe
                     src={embedUrl}
                     allow="autoplay; fullscreen; picture-in-picture"
                     allowFullScreen
                     title="Video Documentation"
-                    className="detail-video"
-                  ></iframe>
+                    className="detail-video"></iframe>
                 </div>
               );
             }
@@ -928,14 +924,13 @@ const Section: React.FC<{ title: string; content?: string }> = ({ title, content
               const embedUrl = `https://www.youtube.com/embed/${videoId}`;
 
               return (
-                <div style={{ marginTop: '10px' }}>
+                <div className="video-documentation">
                   <iframe
                     src={embedUrl}
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
                     title="Video Documentation"
-                    className="detail-video"
-                  ></iframe>
+                    className="detail-video"></iframe>
                 </div>
               );
             }
@@ -955,8 +950,7 @@ const Section: React.FC<{ title: string; content?: string }> = ({ title, content
                 href={part}
                 target="_blank"
                 rel="noopener noreferrer"
-                style={{ color: '#007bff', textDecoration: 'underline' }}
-              >
+                className="documentation-link">
                 {part}
               </a>
             );

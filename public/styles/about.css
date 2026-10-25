@@ -1,35 +1,31 @@
 /* ========================================
    ABOUT.HTML - Extracted CSS
    ======================================== */
-
-
-        * { padding: 0; margin: 0; }
-        body { font-family: 'NYU', sans-serif; color: #333; }
         .page-body { width: 100%; }
         .li-box { height: 500px; width: 100%; position: relative; z-index: 1; }
-        .zhuti { height: 600px; margin-top: 20px; position: relative; }
-        .shadow-title { position: sticky; z-index: -1; left: 20px; top: 0; color: #000; }
+        .zhuti { height: 600px; margin-top: var(--spacing-md); position: relative; }
+        .shadow-title { position: sticky; z-index: -1; left: 20px; top: 0; color: var(--color-ink); }
         .title-text-bg { background: url('/about/assets/about-fill.svg'); width: 73%; height: calc(410px /2); background-size: 100% 100%; }
         .center-box { height: 300px; margin-top: -90px; position: relative; z-index: 1; }
         .img-bg { width: 100%; height: 350px; background-size: cover; position: relative; overflow: hidden; }
         .on-shadow-title-box { position: absolute; z-index: 3; top: 0; width: 100%; height: 600px; pointer-events: none; }
         .on-shadow-title-bg { position: sticky; z-index: -1; left: 0; top: 0; background: url('/about/assets/about-line.svg'); width: 75%; height: calc(410px /2); background-size: 100% 100%; }
-        
+
         .content {
             position: relative;
             top: 100px;
             margin: 0 auto 150px;
-            font-family: 'NYU', sans-serif;
+            font-family: var(--font-family-body);
             max-width: 1404px;
             padding: 0 66px;
         }
 
         .chapter-title {
-            font-size: 42px;
-            font-weight: 600;
-            color: #B8B812;
+            font-size: var(--font-size-42px);
+            font-weight: var(--weight-semibold);
+            color: var(--color-section-heading);
             font-style: italic;
-            padding-bottom: 10px;
+            padding-bottom: var(--spacing-10);
         }
 
         /* 照片网格布局 */
@@ -43,8 +39,8 @@
 
         /* 修改后的照片容器样式 */
         .photo-item.photo-wrapper {
-            position: relative; 
-            overflow: hidden;   
+            position: relative;
+            overflow: hidden;
             aspect-ratio: 1272/715;
 			width: 100%;
         }
@@ -77,16 +73,16 @@
             bottom: 0;
             left: 0;
             right: 0;
-            background: linear-gradient(180deg, rgba(255, 255, 255, 0) 1%,rgb(221, 222, 183, 0.3) 25%, rgba(242, 247, 77, 1) 85%); /* 黄色半透明背景增强文字可读性 */
-            color: rgba(71, 71, 60, 1); /* 修改为黑色文字 */
-            padding:155px 20px 15px 20px;
+            background: linear-gradient(180deg, var(--color-surface-a0) 1%,var(--color-caption-mid-a300) 25%, var(--color-caption-end) 85%); /* 黄色半透明背景增强文字可读性 */
+            color: var(--color-caption); /* 修改为黑色文字 */
+            padding:155px var(--spacing-md) 15px var(--spacing-md);
 			text-align: left;
             font-size: 3 rem;
             text-align: center;
             font-weight: bold;
             /* 初始状态：向下移动100%隐藏 */
             transform: translateY(100%);
-            transition: transform 0.3s ease-in-out;
+            transition: transform var(--motion-normal) ease-in-out;
             z-index: 10;
 			cursor: pointer;
 			pointer-events: auto;
@@ -103,19 +99,19 @@
 
 
 		.main-title {
-    		font-size:18px; /* 大标题稍微调大一点 */
-    		line-height: 1.2;
+		    font-size:var(--font-size-18px); /* 大标题稍微调大一点 */
+            line-height: var(--leading-heading);
 		}
 
 		.sub-title {
-    		font-size: 11px;
+		    font-size: var(--font-size-11px);
     		font-weight: normal;
 			font-style: italic;
     		margin-top: 3px; /* 两行之间的间距 */
 		}
 
 		.location {
-    		font-size: 11px;
+		    font-size: var(--font-size-11px);
     		font-weight: normal;
 			font-style: italic;
     		margin-top: 3px; /* 两行之间的间距 */
@@ -138,7 +134,7 @@
 			justify-content: center;
 			align-items: center;
 			flex-direction: column;
-			margin: 30px;
+            margin: var(--spacing-30);
 		}
 
 		.head-img {
@@ -147,8 +143,8 @@
 			position: relative;
 			background: url("/about/assets/Ellipse3.png");
 			background-size: 100% 100%;
-			margin-bottom: 30px;
-			padding-left: 10px;
+			margin-bottom: var(--spacing-30);
+			padding-left: var(--spacing-10);
 		}
 
 		.head-img img {
@@ -157,26 +153,26 @@
 		}
 
 		.name {
-			font-size: 50px;
-			color: rgba(71, 71, 60, 1);
-			padding-right: 20px;
+			font-size: var(--font-size-50px);
+            color: var(--color-caption);
+			padding-right: var(--spacing-md);
 			/* 左边增加 20px 的内边距 */
 			font-style: italic;
 			/* 字体变成斜体 */
-			font-weight: 400;
+            font-weight: var(--weight-normal);
 		}
 
 		.info {
-			font-size: 24px;
-			color: rgba(38, 38, 38, 1);
+            font-size: var(--font-md);
+            color: var(--color-heading);
 			margin-top: 15px;
-			font-weight: 380;
+			font-weight: var(--weight-380);
 			font-style: italic;
 		}
 
 		.people-bottom-info {
-			font-size: 24px;
-			color: rgba(38, 38, 38, 1);
+            font-size: var(--font-md);
+            color: var(--color-heading);
 			margin-top: 70px;
 		}
 
@@ -184,11 +180,11 @@
 			/* margin-top: 50px; */
 		}
         /* 后续其他原有样式保持不变... */
-        .bottom-box-title { color: rgba(184, 184, 18, 1); font-size: 36px; font-style: italic; }
-        .bottom-box-title-span { color: rgba(128, 128, 128, 1); font-style: italic; font-weight: 250; font-size: 24px; margin-bottom: 30px; }
-        .bottom-box-info { margin-top: 8px; color: rgba(38, 38, 38, 1); font-size: 20px; line-height: 30px; margin-bottom: 65px; display: flex; flex-direction: column; }
-        .grid-type-1 { display: grid; grid-template-columns: 1fr 2fr; gap: 0 50px; }
-        .grid-type-1 > div { margin-bottom: 30px; }
+        .bottom-box-title { color: var(--color-section-heading); font-size: var(--font-size-36px); font-style: italic; }
+        .bottom-box-title-span { color: var(--text-gray); font-style: italic; font-weight: var(--weight-250); font-size: var(--font-md); margin-bottom: var(--spacing-30); }
+        .bottom-box-info { margin-top: var(--spacing-xs); color: var(--color-heading); font-size: var(--font-sm); line-height: 30px; margin-bottom: 65px; display: flex; flex-direction: column; }
+        .grid-type-1 { display: grid; grid-template-columns: 1fr 2fr; gap: 0 var(--spacing-50); }
+        .grid-type-1 > div { margin-bottom: var(--spacing-30); }
         .grid-type-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
 
         @media screen and (max-width:640px) {
@@ -199,7 +195,7 @@
 
 			.photo-box {
         		grid-template-columns: repeat(2, 1fr) !important; /* 强制改为一行2张 */
-        		gap: 15px 10px; /* 适当调小移动端的间距，可选 */
+		        gap: 15px var(--spacing-10); /* 适当调小移动端的间距，可选 */
     			}
 
 			.li-box {
@@ -245,16 +241,16 @@
 				left: 0;
 				right: 0;
 				margin: 0 auto;
-				font-family: 'NYU', sans-serif;
+                font-family: var(--font-family-body);
 				max-width: 1404px;
 				padding: 0 0.22rem;
 			}
 
 
 			.chapter-title {
-				font-size: 0.42rem;
-				font-weight: 600;
-				color: #B8B812;
+				font-size: var(--font-size-0_42rem);
+                font-weight: var(--weight-semibold);
+                color: var(--color-section-heading);
 				font-style: italic;
 				padding-bottom: 0.1rem;
 			}
@@ -301,7 +297,7 @@
 				position: relative;
 				background: url("/about/assets/Ellipse3.png");
 				background-size: 100% 100%;
-				margin-bottom: 20px;
+				margin-bottom: var(--spacing-md);
 			}
             .head-img img {
 				position: absolute;
@@ -311,19 +307,19 @@
 			}
 
 			.name {
-				font-size: 0.5rem;
-				color: rgba(38, 38, 38, 1);
+				font-size: var(--font-size-0_5rem);
+                color: var(--color-heading);
 			}
 
 			.info {
-				font-size: 0.24rem;
-				color: rgba(38, 38, 38, 1);
+				font-size: var(--font-size-0_24rem);
+                color: var(--color-heading);
 				margin-top: 0.26rem;
 			}
 
 			.people-bottom-info {
-				font-size: 0.24rem;
-				color: rgba(38, 38, 38, 1);
+				font-size: var(--font-size-0_24rem);
+                color: var(--color-heading);
 				margin-top: 0.6rem;
 			}
 
@@ -332,25 +328,25 @@
 			}
 
 			.bottom-box-title {
-				color: rgba(184, 184, 18, 1);
+                color: var(--color-section-heading);
 				/* padding-bottom: 0.14rem; */
-				font-size: 0.36rem;
+				font-size: var(--font-size-0_36rem);
 				font-style: italic;
 				/* border-bottom: 1px solid rgba(166, 166, 166, 1); */
 			}
             .bottom-box-title-span {
-				color: rgba(128, 128, 128, 1);
+                color: var(--text-gray);
 				font-style: italic;
-				font-weight: 250;
-				font-size: 0.24rem;
+				font-weight: var(--weight-250);
+				font-size: var(--font-size-0_24rem);
 				margin-bottom: 0.3rem;
 				/* margin-left: 10px; */
 			}
 
 			.bottom-box-info {
 				margin-top: 0.14rem;
-				color: rgba(38, 38, 38, 1);
-				font-size: 0.2rem;
+                color: var(--color-heading);
+				font-size: var(--font-size-0_2rem);
 				line-height: 0.3rem;
 				margin-bottom: 0.5rem;
 			}
@@ -362,6 +358,25 @@
 				object-fit: cover;
 			}
 		}
-    
+
             /* 移动端调整标题大小 */
-    
+
+.organizers-heading { margin-top: 100px }
+.organizers-footer { padding-bottom: 100px; }
+
+/* About copy: preserve the supplied text, with a readable measure and hierarchy. */
+#content .about-prose { max-width: 960px; font-size: 18px; line-height: 1.7; color: var(--color-heading); }
+#content .about-prose p { margin: 0 0 20px; }
+#content .about-introduction { margin-bottom: 64px; }
+#content .about-organizers-introduction { margin: 12px 0 32px; }
+#content .about-journey, #content .about-impact { margin-top: 64px; }
+#content .about-journey ol { padding-left: 1.6em; }
+#content .about-journey li { padding-left: 8px; margin: 28px 0; }
+#content .about-journey li::marker { font-weight: var(--weight-semibold); }
+#content .about-journey h3 { font-size: 20px; line-height: 1.4; font-weight: var(--weight-semibold); margin: 0 0 12px; }
+@media (max-width: 640px) {
+  #content .about-prose { font-size: 16px; line-height: 1.7; }
+  #content .about-introduction { margin-bottom: 40px; }
+  #content .about-journey, #content .about-impact { margin-top: 40px; }
+  #content .about-journey h3 { font-size: 18px; }
+}

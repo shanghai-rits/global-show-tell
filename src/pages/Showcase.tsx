@@ -1,7 +1,6 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import showcaseSampleCover from '../assets/showcase-sample-cover.png';
-import Navbar from '../components/Navbar/Navbar';
 import SearchBox from '../components/SearchBox';
 import './Showcase.css';
 
@@ -571,9 +570,6 @@ const Showcase: React.FC = () => {
 
   return (
     <div>
-      <div style={{ position: 'fixed', zIndex: 999 }}>
-        <Navbar />
-      </div>
       {/* 添加 SearchBox */}
       <SearchBox
         searchQuery={searchQuery}
@@ -587,23 +583,7 @@ const Showcase: React.FC = () => {
       {isMobile && (
         <div
           onClick={handleToggleView}
-          style={{
-            position: 'fixed',
-            bottom: '5px',
-            left: '15px',
-            height: '20px',
-            backgroundColor: '#000',
-            color: '#EBF4A1',
-            padding: '7px 20px 10px 20px',
-            borderRadius: '25px',
-            fontSize: '16px',
-            fontWeight: '500',
-            cursor: 'pointer',
-            zIndex: 1000,
-            border: 'none',
-            fontFamily: 'NYU',
-          }}
-        >
+          className="view-mode-toggle">
           {viewMode === 'grid' ? 'Gallery View' : 'Grid View'}
         </div>
       )}
@@ -611,40 +591,17 @@ const Showcase: React.FC = () => {
       {(showResults || (isMobile && viewMode === 'grid')) ? (
         filteredShowcaseItems.length === 0 && showResults ? (
           <div
-            style={{
-              display: 'flex-start',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center',
-              height: '100%',
-              fontSize: '32px',
-              color: '#888',
-              backgroundColor: '#fff',
-              width: '100vw',
-            }}
-          >
+            className="showcase-empty">
             <div>No results.</div>
             <div>Please try something else :)</div>
           </div>
         ) : (
           // show the filteredShowcaseItems in a grid layout
-          <div className="grid-container"
-            style={{
-              paddingBottom: isMobile ? '80px' : '110px', // Add extra bottom padding on mobile
-            }}
-          >
+          <div className="grid-container">
             {filteredShowcaseItems.map(item => (
               <div
                 key={item.id}
-                style={{
-                  background: 'transparent',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  borderRadius: 0,
-                  padding: 0,
-                  margin: 0,
-                  cursor: item.real ? 'pointer' : 'default',
-                }}
+                  className="grid-card" style={{ cursor: item.real ? 'pointer' : 'default' }}
 
                 // onClick={() => navigate(`/showcase/${item.id}`)}
 
@@ -656,26 +613,17 @@ const Showcase: React.FC = () => {
                 }}
               >
                 <img
-                  className="grid-item-image"
+                  className="grid-item-image grid-cover"
                   src={`/showcase/${item.id}/cover.jpg`}
                   alt={`${item.title} cover`}
                   onError={(e) => { e.currentTarget.src = showcaseSampleCover; }}
                   onDragStart={(e) => e.preventDefault()}
-                  style={{
-                    width: '100%',
-                    height: 'auto',
-                    maxWidth: item.size?.width ?? MAX_ITEM_WIDTH,
-                    maxHeight: item.size?.height ?? MAX_ITEM_HEIGHT,
-                    objectFit: 'cover',
-                    margin: 0,
-                    padding: 0,
-                    boxShadow: '0px 1px 4px 0px rgba(0,0,0,0.2)',
-                  }}
+                    style={{ maxWidth: item.size?.width ?? MAX_ITEM_WIDTH, maxHeight: item.size?.height ?? MAX_ITEM_HEIGHT }}
                 />
-                <div className="grid-item-title" style={{ lineHeight: '1', marginTop: '15px', fontFamily: 'NYU', fontSize: '22px', fontWeight: 'unset', color: 'rgba(128, 128, 128, 1)' }}>
+                <div className="grid-item-title">
                   {item.title}
                 </div>
-                <div className="grid-item-authors" style={{ marginTop: '5px', marginLeft: '2px', color: 'rgba(128, 128, 128, 1)', fontSize: '15px' }}>
+                <div className="grid-item-authors">
                   {item.authors.split('<br/>').map((part, i, arr) => (
                     <React.Fragment key={i}>
                       {part}
@@ -691,14 +639,7 @@ const Showcase: React.FC = () => {
         // Gallery view (draggable canvas)
         <div
           ref={outerRef}
-          style={{
-            width: '100vw',
-            height: '100vh',
-            overflow: 'hidden',
-            position: 'relative',
-            cursor: 'move',
-            userSelect: 'none',
-          }}
+          className="showcase-viewport"
           onMouseDown={handleMouseDown}
           onMouseMove={(e) => {
             handleMouseMove(e);
@@ -712,19 +653,10 @@ const Showcase: React.FC = () => {
         // title="Press & hold left mouse button and drag"
         >
           <div
-            style={{
-              position: 'absolute',
-              transform: `translate(${offset.x}px, ${offset.y}px)`,
-            }}
+              className="showcase-offset" style={{ transform: `translate(${offset.x}px, ${offset.y}px)` }}
           >
             <div
-              style={{
-                width: CANVAS_WIDTH,
-                height: CANVAS_HEIGHT,
-                backgroundColor: '#fff',
-                transform: `scale(${scale})`,
-                transformOrigin: '0 0',
-              }}
+              className="showcase-canvas" style={{ width: CANVAS_WIDTH, height: CANVAS_HEIGHT, transform: `scale(${scale})` }}
             >
               {positions.map(pos => {
                 const item = items.find(i => i.id === pos.id);
@@ -735,20 +667,7 @@ const Showcase: React.FC = () => {
                 return (
                   <div
                     key={item.id}
-                    style={{
-                      position: 'absolute',
-                      left: pos.x,
-                      top: pos.y,
-                      background: 'transparent',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      justifyContent: 'flex-start',
-                      borderRadius: 0,
-                      overflow: 'hidden',
-                      padding: 0,
-                      margin: 0,
-                      cursor: item.real ? 'pointer' : 'default',
-                    }}
+                    className="gallery-card" style={{ left: pos.x, top: pos.y, cursor: item.real ? 'pointer' : 'default' }}
 
                     onClick={(e) => {
                       if (hasDraggedRef.current) return; // Prevent click after drag
@@ -764,21 +683,12 @@ const Showcase: React.FC = () => {
                       alt={`${item.title} cover`}
                       onError={(e) => { e.currentTarget.src = showcaseSampleCover; }}
                       onDragStart={(e) => e.preventDefault()}
-                      style={{
-                        width: '100%',
-                        height: 'auto',
-                        maxWidth: item.size?.width ?? MAX_ITEM_WIDTH,
-                        maxHeight: item.size?.height ?? MAX_ITEM_HEIGHT,
-                        objectFit: 'cover',
-                        margin: 0,
-                        padding: 0,
-                        boxShadow: '0px 1px 4px 0px rgba(0,0,0,0.2)',
-                      }}
+                      className="gallery-cover" style={{ maxWidth: item.size?.width ?? MAX_ITEM_WIDTH, maxHeight: item.size?.height ?? MAX_ITEM_HEIGHT }}
                     />
-                    <div style={{ lineHeight: '1', marginTop: '15px', fontFamily: 'NYU', fontSize: '32px', fontWeight: 'unset', color: 'rgba(128, 128, 128, 1)' }}>
+                    <div className="gallery-item-title">
                       {item.title}
                     </div>
-                    <div style={{ marginTop: '3px', marginLeft: '2px', color: 'rgba(128, 128, 128, 1)', fontSize: '20px' }}>
+                    <div className="gallery-item-authors">
                       {item.authors.split('<br/>').map((part, i, arr) => (
                         <React.Fragment key={i}>
                           {part}
@@ -786,7 +696,7 @@ const Showcase: React.FC = () => {
                         </React.Fragment>
                       ))}
                     </div>
-                    <div style={{ marginTop: '0px', marginLeft: '2px', color: 'rgba(128, 128, 128, 1)', fontSize: '18px' }}>
+                    <div className="gallery-item-program">
                       {item.program.split('<br/>').map((part, i, arr) => (
                         <React.Fragment key={i}>
                           {part}
@@ -800,25 +710,25 @@ const Showcase: React.FC = () => {
             </div>
           </div>
           <div className='zoom-in-out'>
-            <div onClick={handleZoomIn} style={{ cursor: 'pointer' }}>
+            <div onClick={handleZoomIn} className="zoom-control">
               <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" width="37.75" height="37.75" viewBox="0 0 37.75 37.75" fill="none">
-                <circle cx="18.25" cy="18.25" r="17.5" stroke="rgba(38, 38, 38, 1)" strokeWidth="1.5"   >
+                <circle cx="18.25" cy="18.25" r="17.5" stroke="var(--color-heading)" strokeWidth="1.5"   >
                 </circle>
-                <path fill="rgba(38, 38, 38, 1)" d="M34.3358 37.1642L30.3358 33.1642L33.1642 30.3358L37.1642 34.3358L34.3358 37.1642ZM31.75 28.9216L33.1642 30.3358L30.3358 33.1642L28.9216 31.75L31.75 28.9216ZM35.75 37.75C34.6454 37.75 33.75 36.8546 33.75 35.75C33.75 34.6454 34.6454 33.75 35.75 33.75C36.8546 33.75 37.75 34.6454 37.75 35.75C37.75 36.8546 36.8546 37.75 35.75 37.75Z">
+                <path fill="var(--color-heading)" d="M34.3358 37.1642L30.3358 33.1642L33.1642 30.3358L37.1642 34.3358L34.3358 37.1642ZM31.75 28.9216L33.1642 30.3358L30.3358 33.1642L28.9216 31.75L31.75 28.9216ZM35.75 37.75C34.6454 37.75 33.75 36.8546 33.75 35.75C33.75 34.6454 34.6454 33.75 35.75 33.75C36.8546 33.75 37.75 34.6454 37.75 35.75C37.75 36.8546 36.8546 37.75 35.75 37.75Z">
                 </path>
-                <path stroke="rgba(38, 38, 38, 1)" strokeWidth="2.5" d="M7.25 18.2518L29.36 18.3618">
+                <path stroke="var(--color-heading)" strokeWidth="2.5" d="M7.25 18.2518L29.36 18.3618">
                 </path>
-                <path stroke="rgba(38, 38, 38, 1)" strokeWidth="2.5" d="M18.5 7.25183L18.5 29.3621">
+                <path stroke="var(--color-heading)" strokeWidth="2.5" d="M18.5 7.25183L18.5 29.3621">
                 </path>
               </svg>
             </div>
-            <div onClick={handleZoomOut} style={{ cursor: 'pointer' }}>
+            <div onClick={handleZoomOut} className="zoom-control">
               <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" width="37.75" height="37.75" viewBox="0 0 37.75 37.75" fill="none">
-                <circle cx="18.25" cy="18.25" r="17.5" stroke="rgba(38, 38, 38, 1)" strokeWidth="1.5"   >
+                <circle cx="18.25" cy="18.25" r="17.5" stroke="var(--color-heading)" strokeWidth="1.5"   >
                 </circle>
-                <path fill="rgba(38, 38, 38, 1)" d="M34.3358 37.1642L30.3358 33.1642L33.1642 30.3358L37.1642 34.3358L34.3358 37.1642ZM31.75 28.9216L33.1642 30.3358L30.3358 33.1642L28.9216 31.75L31.75 28.9216ZM35.75 37.75C34.6454 37.75 33.75 36.8546 33.75 35.75C33.75 34.6454 34.6454 33.75 35.75 33.75C36.8546 33.75 37.75 34.6454 37.75 35.75C37.75 36.8546 36.8546 37.75 35.75 37.75Z">
+                <path fill="var(--color-heading)" d="M34.3358 37.1642L30.3358 33.1642L33.1642 30.3358L37.1642 34.3358L34.3358 37.1642ZM31.75 28.9216L33.1642 30.3358L30.3358 33.1642L28.9216 31.75L31.75 28.9216ZM35.75 37.75C34.6454 37.75 33.75 36.8546 33.75 35.75C33.75 34.6454 34.6454 33.75 35.75 33.75C36.8546 33.75 37.75 34.6454 37.75 35.75C37.75 36.8546 36.8546 37.75 35.75 37.75Z">
                 </path>
-                <path stroke="rgba(38, 38, 38, 1)" strokeWidth="3" d="M7.25 18.75L29.36 18.86">
+                <path stroke="var(--color-heading)" strokeWidth="3" d="M7.25 18.75L29.36 18.86">
                 </path>
               </svg>
             </div>
@@ -826,30 +736,8 @@ const Showcase: React.FC = () => {
           {/* Tooltip */}
           {showTooltip && (
             <div
-              className="tooltip-with-blur"
-              style={{
-                position: 'fixed',
-                left: tooltipPosition.x + 10,
-                top: tooltipPosition.y + 20,
-                backgroundColor: 'rgba(234, 234, 36, 0.95)',
-                color: '#000',
-                padding: '8px 16px',
-                borderRadius: '20px',
-                fontSize: '14px',
-                fontWeight: '500',
-                pointerEvents: 'none',
-                zIndex: 9999,
-                border: '1px solid rgba(255, 255, 255, 0.2)',
-                backdropFilter: 'blur(10px)',
-                whiteSpace: 'nowrap',
-                animation: 'fadeInTooltip 0.3s ease-out',
-                boxShadow: `
-                  0 0 20px rgba(234, 234, 36, 0.8),
-                  0 0 40px rgba(234, 234, 36, 0.6),
-                  0 0 60px rgba(234, 234, 36, 0.4),
-                  0 2px 8px rgba(0, 0, 0, 0.15)
-                `,
-              }}
+              className="tooltip-with-blur showcase-tooltip"
+              style={{ left: tooltipPosition.x + 10, top: tooltipPosition.y + 20 }}
             >
               Press and hold to drag
             </div>

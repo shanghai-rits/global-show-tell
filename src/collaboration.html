@@ -6,7 +6,7 @@
     <link rel="icon" href="/logo.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/inter-ui/inter.css"> -->
-    <link rel="stylesheet" href="/fonts.css">
+    <link rel="stylesheet" href="/theme.css">
     <link rel="stylesheet" href="/styles/collaboration.css">
 
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
@@ -33,10 +33,10 @@
     <script src="/opencall/assets/sketch.js"></script>
 </head>
 
-<body>
-    <div id="root"></div>
+<body class="static-page">
+    <div id="site-header-root"></div>
     <script type="module" src="/src/myPageEntry.jsx"></script>
-    <div id="app">
+    <div id="app" tabindex="-1">
         <div class="page-body" id="allText">
             <div class="li-box">
                 <div class="zhuti">
@@ -48,12 +48,12 @@
                     </div>
                     <div class="center-box">
                         <div class="img-bg" id="imgBg">
-                            <div
-                                style="position: absolute;left: 0;right: 0;top:0;bottom:0;z-index: -2;background:#eaea24">
+                            <div class="art-backdrop"
+                                >
 
                             </div>
-                            <div
-                                style="position: absolute;left: 0;right: 0;top:0;bottom:0;z-index: -1;margin: 0 auto;text-align: center">
+                            <div class="art-canvas"
+                                >
                                 <main>
 
                                 </main>
@@ -223,7 +223,7 @@
                     </div>
                     <div class="paragraph-box">
                         <div class="title">Contact</div>
-                        <p>For updates, please check <a target="_blank" href="https://nyuglobal.show/"><b>our
+                        <p>For updates, please check <a target="_blank" href="/"><b>our
                                     website</b></a> regularly.<br />
                             For inquiries, please contact
                             <b>global.show@nyu.edu</b>.
@@ -257,7 +257,7 @@
                     </div>
                     <div class="paragraph-box">
                         <div class="title">Contact</div>
-                        <p>For updates, please check <a target="_blank" href="https://nyuglobal.show/"><b>our
+                        <p>For updates, please check <a target="_blank" href="/"><b>our
                                     website</b></a> regularly.<br />
                             For inquiries, please contact
                             <b>global.show@nyu.edu</b>.

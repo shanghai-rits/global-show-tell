@@ -1,8 +1,3 @@
-@import url('/homepage/font.css');
-:root {
-  font-family: "NYU";
-}
-
 .search-box-container {
     display: flex;
     align-items: center;
@@ -12,11 +7,11 @@
     left: 30px; /* 距离左侧的距离 */
     width: 384px; /* 搜索框宽度 */
     height: 53px;
-    border-radius: 49px;
-    background-color: #fff;
-    box-shadow: 2px 2px 12.9px  rgba(0, 0, 0, 0.25);
-    z-index: 1000; /* 确保在最上层 */
-    font-size: 32px;
+    border-radius: var(--radius-49);
+    background-color: var(--color-surface);
+    box-shadow: var(--shadow-search);
+    z-index: var(--layer-controls); /* 确保在最上层 */
+    font-size: var(--font-size-32px);
 }
 
 .show-all-works-btn {
@@ -25,16 +20,16 @@
     left: 30px; /* 距离左侧的距离 */
     width: 213px; /* 搜索框宽度 */
     height: 40px;
-    border-radius: 53px;
-    background-color: #000;
-    color: #EBF4A1;
-    font-size: 24px;
+    border-radius: var(--radius-53);
+    background-color: var(--color-ink);
+    color: var(--color-control-accent);
+    font-size: var(--font-md);
     align-items: center;
     justify-content: center;
     display: flex;
     cursor: pointer;
-    z-index: 1000;
-    font-weight: 400;
+    z-index: var(--layer-controls);
+    font-weight: var(--weight-normal);
 }
 
 @media only screen and (max-width: 768px) {
@@ -55,15 +50,15 @@
     height: 40px;
     border: none;
     outline: none;
-    padding: 10px 38px;
+    padding: var(--spacing-10) 38px;
     border-radius: 20px 0 0 20px;
-    font-size: 32px;
-    color: #888;
+    font-size: var(--font-size-32px);
+    color: var(--color-text-input);
     background-color: transparent; /* 确保背景透明 */
 }
 
 .search-box-input::placeholder {
-color: #ccc; /* 占位符颜色 */
+color: var(--color-placeholder); /* 占位符颜色 */
 }
 
 .search-button {
@@ -73,20 +68,26 @@ color: #ccc; /* 占位符颜色 */
     width: 53px;
     height: 53px;
     transform: translateY(-50%);
-    background-color: #000; /* 按钮背景色 */
+    background-color: var(--color-ink); /* 按钮背景色 */
     border-radius: 50%;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: background-color 0.3s ease;
+    transition: background-color var(--motion-normal) ease;
 }
 
 .search-button:hover {
-background-color: #444; /* 鼠标悬停时按钮变暗 */
+background-color: var(--color-control-hover); /* 鼠标悬停时按钮变暗 */
 }
 
 .search-button svg {
-color: #ffeb3b; /* 按钮箭头颜色 */
-font-size: 18px;
+color: var(--color-search-icon); /* 按钮箭头颜色 */
+font-size: var(--font-size-18px);
+}
+
+/* Static presentation extracted from JSX. */
+
+.search-arrow {
+  margin-left: 5px;
 }
