@@ -28,10 +28,9 @@
 .home-page .home-presenters li > * { display: block; position: relative; padding: 18px 30px 18px 0; border-bottom: 1px solid var(--light-gray); font-size: 16px; text-decoration: none; line-height: 1.4; }
 .home-page .home-presenters li > *::after { position: absolute; content: ''; right: 8px; top: calc(50% - 7px); width: 14px; height: 14px; border-radius: 50%; background: var(--highlight-yellow); }
 .home-page .home-presenters a:hover { background: var(--canvas-yellow-a250); font-style: italic; }
-.home-page .home-highlights { position: relative; }
-.home-page .home-highlight-track { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
-.home-page .home-highlight-track::-webkit-scrollbar { display: none; }
-.home-page .home-highlight { flex: 0 0 100%; min-width: 0; position: relative; height: 100vh; height: 100svh; min-height: 400px; scroll-snap-align: start; scroll-snap-stop: always; }
+.home-page .home-highlights { position: relative; overflow: clip; touch-action: pan-y pinch-zoom; }
+.home-page .home-highlight-track { display: flex; transition: transform 0.4s ease; }
+.home-page .home-highlight { flex: 0 0 100%; min-width: 0; position: relative; height: 100vh; height: 100svh; min-height: 400px; }
 .home-page .home-highlight > img { width: 100%; height: 100%; object-fit: cover; }
 .home-page .home-highlight-caption { position: absolute; inset: auto 0 0; padding: 80px 5vw 90px; color: var(--color-surface); background: linear-gradient(transparent, rgba(0,0,0,.7)); font-style: italic; }
 .home-page .home-highlight-caption p { font-size: clamp(20px, 3vw, 48px); line-height: 1.2; }

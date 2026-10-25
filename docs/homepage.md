@@ -24,9 +24,10 @@ outside the viewport or when the document is hidden. The static artwork is the
 fallback. Video playback is user initiated, inline, and paused on leaving the
 viewport or hiding the tab. It has one lazy source and native controls.
 
-Highlights use native horizontal scroll snapping, buttons, and a six-second
-rotation. Rotation pauses outside the viewport, on hover/focus, in hidden tabs,
-and for reduced motion. The Play/Pause control supports manual rotation control.
+Highlights move only through Previous/Next buttons using a translated track.
+There is no nested scroll container, swipe handling, or automatic rotation;
+vertical gestures over the carousel continue to scroll the whole page.
+Transitions respect reduced motion.
 
 Validate with `npm run build`, `npm run test:navigation`, and browser checks at
 390px, 640px, 768px and desktop sizes. Check legacy query/hash redirects with
