@@ -32,11 +32,11 @@ export default function HomeHero() {
         <div className="text-top">
           <h1 id="home-title" className="home-sr-only">NYU Global Show &amp; Tell</h1>
           <div className="home-title-art" aria-hidden="true">
-            <div className="above-text">
-              <div className="top-line1 hidden-text" /><div className="top-line2 hidden-text" />
-              <div className="top-line1 hidden-text" /><div className="top-line2" />
-            </div>
-            <div className="below-text"><div className="top-line1" /></div>
+            <picture>
+              <source media="(max-width: 640px)" srcSet="/homepage/assets/title-homepage-phone.svg" />
+              <img src="/homepage/assets/tell2-line-bg-svg.svg" alt="" />
+            </picture>
+            <img className="home-desktop-title-line" src="/homepage/assets/tell1-line-bg-svg.svg" alt="" />
           </div>
           <nav className="home-links" aria-label="Explore Global Show & Tell">
             {siteNavigation.map((item, index) => (
