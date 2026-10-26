@@ -5,13 +5,13 @@
     position: fixed; /* 固定位置 */
     bottom: 70px; /* 距离底部的距离 */
     left: 30px; /* 距离左侧的距离 */
-    width: 384px; /* 搜索框宽度 */
-    height: 53px;
+    width: var(--showcase-search-width); /* 搜索框宽度 */
+    height: var(--showcase-search-height);
     border-radius: var(--radius-49);
     background-color: var(--color-surface);
     box-shadow: var(--shadow-search);
     z-index: var(--layer-controls); /* 确保在最上层 */
-    font-size: var(--font-size-32px);
+    font-size: var(--showcase-search-font);
 }
 
 .show-all-works-btn {
@@ -47,12 +47,14 @@
 
 .search-box-input {
     width: 100%;
-    height: 40px;
+    height: 100%;
+    box-sizing: border-box;
+    min-width: 0;
     border: none;
     outline: none;
-    padding: var(--spacing-10) 38px;
+    padding: 8px var(--showcase-search-padding);
     border-radius: 20px 0 0 20px;
-    font-size: var(--font-size-32px);
+    font-size: var(--showcase-search-font);
     color: var(--color-text-input);
     background-color: transparent; /* 确保背景透明 */
 }
@@ -65,8 +67,8 @@ color: var(--color-placeholder); /* 占位符颜色 */
     position: absolute;
     right: 0;
     top: 50%;
-    width: 53px;
-    height: 53px;
+    width: var(--showcase-search-height);
+    height: var(--showcase-search-height);
     transform: translateY(-50%);
     background-color: var(--color-ink); /* 按钮背景色 */
     border-radius: 50%;
@@ -91,3 +93,5 @@ font-size: var(--font-size-18px);
 .search-arrow {
   margin-left: 5px;
 }
+
+.search-arrow { width: var(--showcase-search-icon-width); height: var(--showcase-search-icon-height); }

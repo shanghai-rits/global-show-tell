@@ -1,6 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap');
 @import url('/fonts.css');
 @import url('/variables.css');
 @import url('/styles/base.css');
 @import url('/styles/controls.css');
+@import url('/styles/prose.css');
 
-:root { font-family: var(--font-family); }
+:root { font-family: var(--font-family-body); }
+
+/* Semantic heading roles include legacy div titles, not only h1–h6 tags. */
+:where(#root, .static-page) :is(
+  h1, h2, h3, h4, h5, h6,
+  .title, .title1, .section-title, .chapter-title,
+  .bottom-box-title, .event-title, .main-title,
+  .grid-item-title, .gallery-item-title
+) {
+  font-family: var(--font-family-heading);
+}
+
+:where(#root, .static-page) .home-link {
+  font-family: var(--font-family-menu);
+}
+
+:where(#root, .static-page) :is(input, textarea, select, button) { font-family: inherit; }
+
+/* Shared weight for homepage navigation and the corner menu controls/links. */
+.home-page .home-link,
+.site-header .nav-button,
+.site-header .toggle-button,
+.site-header .toggle-button-close {
+  font-weight: var(--font-weight-menu);
+}

@@ -9,14 +9,6 @@
 	padding: 0;
 }
 
-.detail-image.full-width {
-	width: 100%;
-}
-
-.detail-image.half-width {
-	width: calc(50% - 10px);
-}
-
 .content-paragraph {
 	margin: 0 0 1em;
 	font-size: var(--font-size-26px);
@@ -29,7 +21,8 @@
     color: var(--color-body);
 }
 
-.event-detail-title {
+.event-content-wrapper .event-detail-title {
+    color: var(--color-event-detail-title);
 	margin-bottom: var(--spacing-30);
 }
 
@@ -111,9 +104,5 @@
 	.content-paragraph {
 		font-size: var(--font-size-18px);
         line-height: var(--leading-short);
-	}
-
-	.detail-image.half-width {
-		width: 100%;
 	}
 }

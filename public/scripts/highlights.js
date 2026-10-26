@@ -105,10 +105,9 @@
             </div>
           </button>
         </div>
-        <dialog ref="dialog" class="highlights-preview" aria-label="Highlight image preview" @close="onClose"
+        <dialog ref="dialog" class="highlights-preview" tabindex="-1" aria-label="Highlight image preview; click image or press Escape to close" @close="onClose"
           @click="$event.target === $event.currentTarget && closePreview()">
-          <button type="button" class="highlights-close" aria-label="Close image preview" @click="closePreview">×</button>
-          <img v-if="preview" :src="preview.src" :alt="preview.title" />
+          <img v-if="preview" :src="preview.src" :alt="preview.title" @click.left="closePreview" />
         </dialog>
       </section>`
   };

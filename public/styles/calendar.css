@@ -454,14 +454,6 @@
             width: 1176.36px;
         }
 
-        .back-to-top {
-            position: relative;
-            top: -50px;
-            cursor: pointer;
-            margin-left: 75vw;
-            z-index: 1999;
-        }
-
         #opening-project {
         height:1340px;
         }
@@ -766,25 +758,10 @@
                 height: 2500px;
             }
 
-            .back-to-top {
-                margin-left: 65vw;
-                top: -50px;
-            }
-
             /* .timezone-dropdown {
                 font-size: 18px;
                 white-space: nowrap;
             } */
-
-            .back-to-top {
-                margin-left: 65vw;
-                top: -0.5rem;
-            }
-
-            .back-to-top svg {
-                width: 2.06rem;
-                height: 1.42rem;
-            }
         }
 
         /* Mobile Large */
@@ -976,16 +953,6 @@
 
             #opening-ceremony {
                 height: 28rem;
-            }
-
-             .back-to-top {
-                margin-left: 65vw;
-                top: -0.5rem;
-            }
-
-            .back-to-top svg {
-                width: 1.8rem;
-                height: 1.2rem;
             }
             .links {
             font-size: var(--font-size-0_26rem);

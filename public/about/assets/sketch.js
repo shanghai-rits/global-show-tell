@@ -1,4 +1,6 @@
 let artColors = {};
+// Preserve the original 12 FPS pace at a fixed 30 FPS.
+const ARTWORK_SPEED_RATIO = 12 / 30;
 
 class GradientCircle {
     constructor() {
@@ -49,8 +51,8 @@ class GradientCircle {
 
     update() {
         // Update position based on velocity
-        this.startX += this.velocity.x;
-        this.startY += this.velocity.y;
+        this.startX += this.velocity.x * ARTWORK_SPEED_RATIO;
+        this.startY += this.velocity.y * ARTWORK_SPEED_RATIO;
         this.endX = this.startX;
         this.endY = this.startY;
 
@@ -65,7 +67,7 @@ class GradientCircle {
         }
 
         // Dampen the velocity over time
-        this.velocity.mult(0.9);
+        this.velocity.mult(0.9 ** ARTWORK_SPEED_RATIO);
     }
 
     show() {
@@ -153,9 +155,9 @@ class Ball {
 
         this.applyForce(this.gravity); //Apply gravity every frame
 
-        this.velocity.add(this.acceleration);
-        this.x += this.velocity.x;
-        this.y += this.velocity.y;
+        this.velocity.add(this.acceleration.copy().mult(ARTWORK_SPEED_RATIO));
+        this.x += this.velocity.x * ARTWORK_SPEED_RATIO;
+        this.y += this.velocity.y * ARTWORK_SPEED_RATIO;
         this.acceleration.mult(0); //reset acceleration
 
         //bounce off walls
@@ -220,8 +222,8 @@ class Bubble {
 
     update() {
         // Move the bubble
-        this.x += this.velocity.x;
-        this.y += this.velocity.y;
+        this.x += this.velocity.x * ARTWORK_SPEED_RATIO;
+        this.y += this.velocity.y * ARTWORK_SPEED_RATIO;
 
         // Wrap around the edges of the canvas
         if (this.x > width + this.r) this.x = -this.r;
@@ -288,7 +290,7 @@ function setup() {
     createCanvas(windowWidth, 450);
     // TODO: responsive canvas
     // TODO: set canvas to full width and fixed height
-    frameRate(12)
+    frameRate(30)
 
     colorPalette_1 = [
         color(artColors['canvas-yellow']),

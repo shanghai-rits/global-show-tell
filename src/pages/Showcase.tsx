@@ -348,6 +348,9 @@ const Showcase: React.FC = () => {
   // Canvas = "map" we can drag around.
   const CANVAS_WIDTH = 3400;
   const CANVAS_HEIGHT = 3000;
+  // Visible screen-space margins, independent of zoom.
+  const DRAG_VERTICAL_PADDING = 100;
+  const DRAG_HORIZONTAL_PADDING = 50;
 
   const MAX_ITEM_WIDTH = 400; // Adjust as needed
   const MAX_ITEM_HEIGHT = 400; // Adjust as needed
@@ -371,6 +374,35 @@ const Showcase: React.FC = () => {
 
   // 在组件函数中添加：
   const [scale, setScale] = useState(1);
+
+  const clampOffset = React.useCallback((next: { x: number; y: number }) => {
+    if (!viewportWidth || !viewportHeight) return next;
+    const oppositeX = viewportWidth - CANVAS_WIDTH * scale - DRAG_HORIZONTAL_PADDING;
+    const oppositeY = viewportHeight - CANVAS_HEIGHT * scale - DRAG_VERTICAL_PADDING;
+    return {
+      x: Math.max(Math.min(DRAG_HORIZONTAL_PADDING, oppositeX), Math.min(Math.max(DRAG_HORIZONTAL_PADDING, oppositeX), next.x)),
+      y: Math.max(Math.min(DRAG_VERTICAL_PADDING, oppositeY), Math.min(Math.max(DRAG_VERTICAL_PADDING, oppositeY), next.y)),
+    };
+  }, [viewportWidth, viewportHeight, scale]);
+
+  useEffect(() => {
+    setOffset(prev => {
+      const next = clampOffset(prev);
+      return next.x === prev.x && next.y === prev.y ? prev : next;
+    });
+  }, [clampOffset]);
+
+  useEffect(() => {
+    const viewport = outerRef.current;
+    if (!viewport) return;
+    const resize = new ResizeObserver(() => {
+      setViewportWidth(viewport.clientWidth);
+      setViewportHeight(viewport.clientHeight);
+    });
+    resize.observe(viewport);
+    return () => resize.disconnect();
+  }, [showResults, isMobile, viewMode]);
+
 
   const handleZoomIn = () => {
     const delta = 0.1;
@@ -463,27 +495,7 @@ const Showcase: React.FC = () => {
     const dx = e.clientX - lastPos.x;
     const dy = e.clientY - lastPos.y;
 
-    setOffset(prev => {
-      let newX = prev.x + dx;
-      let newY = prev.y + dy;
-
-      const scaledCanvasWidth = CANVAS_WIDTH * scale;
-      const scaledCanvasHeight = CANVAS_HEIGHT * scale;
-      const minX = viewportWidth - scaledCanvasWidth;
-      const minY = viewportHeight - scaledCanvasHeight;
-
-      // Only clamp when canvas is larger than viewport
-      if (minX < 0) {
-        if (newX < minX) newX = minX;
-        if (newX > 0) newX = 0;
-      }
-      if (minY < 0) {
-        if (newY < minY) newY = minY;
-        if (newY > 0) newY = 0;
-      }
-
-      return { x: newX, y: newY };
-    });
+    setOffset(prev => clampOffset({ x: prev.x + dx, y: prev.y + dy }));
 
     setLastPos({ x: e.clientX, y: e.clientY });
   };
@@ -511,26 +523,7 @@ const Showcase: React.FC = () => {
     const dx = e.touches[0].clientX - lastPos.x;
     const dy = e.touches[0].clientY - lastPos.y;
 
-    setOffset(prev => {
-      let newX = prev.x + dx;
-      let newY = prev.y + dy;
-
-      const scaledCanvasWidth = CANVAS_WIDTH * scale;
-      const scaledCanvasHeight = CANVAS_HEIGHT * scale;
-      const minX = viewportWidth - scaledCanvasWidth;
-      const minY = viewportHeight - scaledCanvasHeight;
-
-      if (minX < 0) {
-        if (newX < minX) newX = minX;
-        if (newX > 0) newX = 0;
-      }
-      if (minY < 0) {
-        if (newY < minY) newY = minY;
-        if (newY > 0) newY = 0;
-      }
-
-      return { x: newX, y: newY };
-    });
+    setOffset(prev => clampOffset({ x: prev.x + dx, y: prev.y + dy }));
 
     setLastPos({ x: e.touches[0].clientX, y: e.touches[0].clientY });
   };

@@ -29,7 +29,7 @@ export default function HomeHero() {
       <div className="second-circle" aria-hidden="true" />
       <div className="last-text">
         <HomeArtwork />
-        <div className="text-top">
+        <div className="main-title">
           <h1 id="home-title" className="home-sr-only">NYU Global Show &amp; Tell</h1>
           <div className="home-title-art" aria-hidden="true">
             <picture>
@@ -38,6 +38,8 @@ export default function HomeHero() {
             </picture>
             <img className="home-desktop-title-line" src="/homepage/assets/tell1-line-bg-svg.svg" alt="" />
           </div>
+        </div>
+        <div className="main-menu">
           <nav className="home-links" aria-label="Explore Global Show & Tell">
             {siteNavigation.map((item, index) => (
               <a key={item.href} className={`home-link item${index + 1}`} href={item.href}>{item.label}</a>
