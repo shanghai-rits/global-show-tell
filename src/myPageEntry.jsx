@@ -1,14 +1,8 @@
-// src/myPageEntry.jsx
-import React from 'react';
 import { createRoot } from 'react-dom/client';
-import Navbar from './components/Navbar/Navbar';
-import './opencall.css';
+import SiteHeader from './components/SiteHeader/SiteHeader';
 
-const container = document.getElementById('root');
-if (!container) {
-  console.error('No container found to mount the React component!');
-} else {
-  const root = createRoot(container);
-  root.render(<Navbar />);
+// React owns only this header root. The legacy page's #app stays owned by Vue.
+const container = document.getElementById('site-header-root');
+if (container) {
+  createRoot(container).render(<SiteHeader contentId="app" />);
 }
-

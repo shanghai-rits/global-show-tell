@@ -1,0 +1,85 @@
+/* All homepage presentation is scoped so route changes cannot restyle other pages. */
+.home-page { width: 100%; color: var(--color-body); background: var(--primary-yellow); font-family: var(--font-family-body); }
+.home-page, .home-page * { box-sizing: border-box; }
+.home-page h1, .home-page h2, .home-page h3, .home-page p, .home-page ul { margin: 0; padding: 0; }
+.home-page a { color: inherit; }
+.home-page a:focus-visible, .home-page button:focus-visible { outline: 3px solid var(--primary-purple); outline-offset: 4px; }
+.home-page .home-sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.home-page .home-hero { height: 100vh; height: 100svh; min-height: 650px; position: relative; overflow: hidden; background: var(--primary-yellow); isolation: isolate; }
+.home-page .home-campus-bar { position: absolute; inset: 0 0 auto; height: 73px; padding: 12px 190px 12px 32px; display: flex; align-items: center; justify-content: flex-end; gap: 48px; z-index: 25; background: var(--primary-purple); }
+.home-page .home-campus-bar img { width: auto; height: 34px; max-width: 25%; object-fit: contain; }
+.home-page .home-campus-bar img:first-child { height: 32px; }
+.home-page .home-artwork { position: absolute; inset: 0; background: url('/homepage/assets/phone-first-bg.png') center / cover; }
+.home-page .home-artwork canvas { display: block; width: 100% !important; height: 100% !important; }
+.home-page .text-top { z-index: 1; }
+.home-page .home-links { position: relative; top: calc((var(--width-line)/1.246 * var(--ultra-wide))/3.969*(-1) + 60px); display: flex; flex-direction: column; align-items: center; gap: 1vh; }
+.home-page .home-link { position: relative; display: inline-flex; align-items: center; justify-content: center; min-height: 44px; height: 5vh; padding: 0 8vh; border: 2px solid var(--border-green); border-radius: var(--radius-pill); color: var(--accent-green); background: var(--color-surface); font-size: max(16px, 2.4vh); text-decoration: none; }
+.home-page .home-link:hover { background: var(--canvas-yellow); }
+.home-page .home-video-section { padding-bottom: 64px; }
+.home-page .home-video-section h2 { padding: 5vh 20px; text-align: center; background: linear-gradient(180deg, var(--gradient-yellow), var(--color-video-fade-a0)); font-size: clamp(28px, 4vw, 64px); font-weight: var(--weight-semibold); font-style: italic; line-height: var(--leading-tight); color: var(--color-surface); text-shadow: 2px 2px 4px var(--color-home-heading); -webkit-text-stroke: 1px var(--color-home-heading); }
+.home-page .home-video-section video { display: block; width: min(80%, 1200px); max-height: 70vh; aspect-ratio: 16/9; object-fit: contain; margin: auto; background: var(--color-ink); }
+.home-page .home-introduction { display: grid; grid-template-columns: 1.55fr 1fr; gap: 5vw; padding: 40px 5.5vw 64px; }
+.home-page .home-introduction h2 { color: var(--color-home-heading); font-size: clamp(36px, 4.4vw, 72px); font-weight: var(--weight-semibold); line-height: var(--leading-tight); margin-bottom: 3vh; }
+.home-page .home-introduction p { font-size: var(--font-md); line-height: 1.6; margin-bottom: var(--spacing-md); }
+.home-page .home-introduction p a { font-weight: bold; text-decoration: underline; }
+.home-page .home-presenters h3 { font-size: 16px; padding: 16px 0; border-bottom: 1px solid var(--light-gray); }
+.home-page .home-presenters h3 span { font-weight: var(--weight-light); color: var(--text-gray); font-style: italic; }
+.home-page .home-presenters ul { list-style: none; }
+.home-page .home-presenters li > * { display: block; position: relative; padding: 18px 30px 18px 0; border-bottom: 1px solid var(--light-gray); font-size: 16px; text-decoration: none; line-height: 1.4; }
+.home-page .home-presenters li > *::after { position: absolute; content: ''; right: 8px; top: calc(50% - 7px); width: 14px; height: 14px; border-radius: 50%; background: var(--highlight-yellow); }
+.home-page .home-presenters a:hover { background: var(--canvas-yellow-a250); font-style: italic; }
+.home-page .home-highlights { position: relative; overflow: clip; touch-action: pan-y pinch-zoom; }
+.home-page .home-highlight-track { display: flex; transition: transform 0.4s ease; }
+.home-page .home-highlight { flex: 0 0 100%; min-width: 0; position: relative; height: 100vh; height: 100svh; min-height: 400px; }
+.home-page .home-highlight > img { width: 100%; height: 100%; object-fit: cover; }
+.home-page .home-highlight-caption { position: absolute; inset: auto 0 0; padding: 80px 5vw 90px; color: var(--color-surface); background: linear-gradient(transparent, rgba(0,0,0,.7)); font-style: italic; }
+.home-page .home-highlight-caption p { font-size: clamp(20px, 3vw, 48px); line-height: 1.2; }
+.home-page .home-highlight-caption a { display: inline-flex; gap: 20px; align-items: center; font-size: clamp(24px, 3vw, 48px); margin-top: 12px; text-decoration: none; }
+.home-page .home-highlight-caption a span { display: inline-flex; align-items: center; justify-content: center; background: var(--color-surface); color: var(--color-ink); border-radius: var(--radius-pill); width: 90px; height: 52px; }
+.home-page .home-carousel-controls { position: absolute; bottom: 16px; left: 5vw; display: flex; gap: 12px; align-items: center; color: var(--color-surface); }
+.home-page .home-carousel-controls button { min-width: 44px; min-height: 44px; border: 1px solid var(--color-surface); border-radius: var(--radius-pill); background: var(--primary-purple); color: var(--color-surface); font-size: 16px; }
+.home-page .home-footer { background: var(--primary-purple); color: var(--color-surface); padding: 22px; text-align: center; font-size: var(--font-xs); }
+
+@media (max-width: 640px) {
+  .home-page .home-hero { height: auto; min-height: 100svh; padding: 95px 0 36px; background: url('/homepage/assets/phone-first-bg.png') center / cover; }
+  .home-page .home-campus-bar { height: 49px; padding: 10px 18px; gap: 26px; justify-content: center; }
+  .home-page .home-campus-bar img, .home-page .home-campus-bar img:first-child { max-width: 26%; height: 23px; }
+  .home-page .first-circle, .home-page .second-circle, .home-page .home-artwork { display: none; }
+  .home-page .last-text { position: relative; inset: auto; width: 100%; height: auto; border-radius: 0; background: none; animation: none; overflow: visible; }
+  .home-page .text-top { position: relative; inset: auto; width: 100%; height: auto; animation: none; overflow: visible; }
+  .home-page .home-title-art { width: 83.333%; max-width: 450px; aspect-ratio: 10/9; margin: 0 4.166%; background: url('/homepage/assets/title-homepage-phone.svg') center / contain no-repeat; }
+  .home-page .above-text, .home-page .below-text { display: none; }
+  .home-page .home-links { top: auto; align-items: flex-start; gap: 10px; padding: 24px 8.333% 0; }
+  .home-page .home-link { font-size: clamp(18px, 5.55vw, 28px); height: auto; min-height: 44px; padding: 7px 24px; }
+  .home-page .home-video-section { padding-bottom: 24px; }
+  .home-page .home-video-section h2 { padding: 48px 16px; font-size: clamp(26px, 7.7vw, 46px); }
+  .home-page .home-video-section video { width: 100%; max-height: none; }
+  .home-page .home-introduction { display: block; padding: 32px 5vw; }
+  .home-page .home-introduction h2 { font-size: clamp(30px, 8.5vw, 48px); }
+  .home-page .home-introduction p { font-size: 16px; line-height: 1.75; }
+  .home-page .home-presenters { margin-top: 32px; }
+  .home-page .home-highlight { height: auto; min-height: 0; aspect-ratio: 430/350; }
+  .home-page .home-highlight-caption { padding: 50px 5vw 72px; }
+  .home-page .home-highlight-caption p { font-size: 18px; }
+  .home-page .home-highlight-caption a { font-size: 24px; }
+  .home-page .home-highlight-caption a span { width: 58px; height: 36px; }
+  .home-page .home-footer { font-size: 14px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-page *, .home-page *::before, .home-page *::after { animation: none !important; transition: none !important; }
+  .home-page .last-text { width: var(--sqrt-line); height: var(--sqrt-line); bottom: calc((var(--sqrt-line) - var(--height-line))/-2); left: -50vw; right: -50vw; }
+  .home-page .text-top { top: calc((var(--sqrt-line) - var(--height-line))/2 - (var(--width-line)/1.246 * var(--ultra-wide))/3.969*3); }
+  .home-page .hidden-text { visibility: hidden; }
+  .home-page .below-text { top: calc((var(--width-line)/1.2 * var(--ultra-wide))/3.969*-1 + 10px); left: 10px; }
+  .home-page .home-link { opacity: 1; }
+  @media (max-width: 640px) {
+    .home-page .last-text { inset: auto; width: 100%; height: auto; }
+    .home-page .text-top { top: auto; }
+  }
+}
+/* Keep the artwork's coordinate space stable while its parent circle expands. */
+.home-page .home-artwork { inset: auto auto 0 50%; transform: translateX(-50%); width: var(--sqrt-line); height: var(--sqrt-line); }
+@media (min-width: 641px) {
+  .home-page .home-hero { min-height: max(650px, calc(32vw + 320px)); }
+}

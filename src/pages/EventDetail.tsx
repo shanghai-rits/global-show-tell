@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import Navbar from '../components/Navbar/Navbar';
 import { getEventDetailById } from '../data/eventDetails';
 import './EventDetail.css';
 
@@ -24,7 +23,6 @@ const EventDetail: React.FC = () => {
   if (!item) {
     return (
       <div className="detail-container">
-        <Navbar />
         <div className="content-container">
           <div className="content-wrapper event-content-wrapper">
             <h1 className="title1 event-detail-title">Event not found</h1>
@@ -39,7 +37,6 @@ const EventDetail: React.FC = () => {
 
   return (
     <div className="detail-container">
-      <Navbar />
 
       <div className="hero-image-container">
         <img className="hero-image" src={item.coverImage} alt={item.title} />

@@ -1,0 +1,8 @@
+:where(#root, .navbar-container) button {
+  padding: 0em 1em;
+  font-size: 1em;
+  font-weight: var(--weight-medium);
+  font-family: inherit;
+  background-color: var(--color-control-base);
+  cursor: pointer;
+}

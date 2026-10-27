@@ -18,7 +18,8 @@
     "compress-images": "npm run compress-jpg && npm run compress-png",
     "compress-all": "npm run compress-videos && npm run compress-images",
     "deploy": "gh-pages -d dist",
-    "deploy-no-videos": "mkdir -p .video-backup && find public -name \"*.mp4\" -o -name \"*.mov\" -exec mv {} .video-backup/ \\; && npm run build && gh-pages -d dist && find .video-backup -type f -exec mv {} public/ \\; && rm -rf .video-backup"
+    "deploy-no-videos": "mkdir -p .video-backup && find public -name \"*.mp4\" -o -name \"*.mov\" -exec mv {} .video-backup/ \\; && npm run build && gh-pages -d dist && find .video-backup -type f -exec mv {} public/ \\; && rm -rf .video-backup",
+    "test:navigation": "node --test tests/navigation.test.js"
   },
   "dependencies": {
     "@types/styled-components": "^5.1.34",

@@ -1,0 +1,5 @@
+/* Shared by static HTML pages; React keeps its own layout reset. */
+:where(.static-page, .static-page *) { padding: 0; margin: 0; }
+:where(.static-page) { font-family: var(--font-family-body); color: var(--color-body); }
+.art-backdrop { position: absolute; inset: 0; z-index: -2; background: var(--canvas-yellow); }
+.art-canvas { position: absolute; inset: 0; z-index: -1; margin: 0 auto; text-align: center; }
