@@ -1,3 +1,5 @@
+let artColors = {};
+
 class GradientCircle {
     constructor() {
         this.startX = random(10, width-10);
@@ -68,7 +70,7 @@ class GradientCircle {
 
     show() {
         noStroke();
-        fill(51);
+        fill(artColors['color-body']);
         let gradient = drawingContext.createRadialGradient(this.startX, this.startY, this.startR, this.endX, this.endY, this.endR);
         for (let i = 0; i < this.colorLayer; i++) {
             gradient.addColorStop(this.colorOffset[i], this.gradientColor[i]);
@@ -92,9 +94,9 @@ class Ball {
         this.colorOffset.push(0);
 
         this.gradientColor = [];
-        this.gradientColor.push(color(255, 255, 255, 255));
-        this.gradientColor.push(color(234, 255, 127, 255));
-        this.gradientColor.push(color(255, 255, 255, 0));
+        this.gradientColor.push(color(artColors['color-surface']));
+        this.gradientColor.push(color(artColors['color-art-lime']));
+        this.gradientColor.push(color(artColors['color-surface-a0']));
 
         this.velocity = createVector(0, 0);
         this.acceleration = createVector(0, 0);
@@ -197,7 +199,7 @@ class Ball {
 
     show() {
         noStroke();
-        fill(51);
+        fill(artColors['color-body']);
         let gradient = drawingContext.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.r);
         for (let i = 0; i < this.colorLayer; i++) {
             gradient.addColorStop(this.colorOffset[i], this.gradientColor[i]);
@@ -230,7 +232,7 @@ class Bubble {
 
     show() {
         noFill();
-        stroke(255); // White outline
+        stroke(artColors['color-surface']); // White outline
         strokeWeight(1);
         ellipse(this.x, this.y, this.r * 2);
     }
@@ -238,7 +240,7 @@ class Bubble {
 
 // Function to draw connecting lines between gradient circles
 function drawConnectingLines() {
-    stroke(255); // White lines
+    stroke(artColors['color-surface']); // White lines
     strokeWeight(1);
     let margin = 6; // Margin between lines and circles
 
@@ -281,24 +283,26 @@ let bubbles = [];
 let bubbleCount = 7; // Number of bubbles
 
 function setup() {
+    const theme = getComputedStyle(document.documentElement);
+    artColors = Object.fromEntries(["color-surface","color-art-lime","color-surface-a0","canvas-yellow","color-art-chartreuse","color-art-green","color-art-leaf","color-art-purple","color-art-pink","color-art-cyan","canvas-yellow-a0","color-body"].map(name => [name, theme.getPropertyValue('--' + name).trim()]));
     createCanvas(windowWidth, 450);
     frameRate(12)
 
     colorPalette_1 = [
-        color(234, 234, 36, 255),
-        color(234, 255, 127, 255),
-        color(200, 255, 42, 255),
-        color(201, 255, 99, 255),
+        color(artColors['canvas-yellow']),
+        color(artColors['color-art-lime']),
+        color(artColors['color-art-chartreuse']),
+        color(artColors['color-art-green']),
     ];
     colorPalette_2 = [
-        color(173, 255, 85, 255),
-        color(204, 143, 243, 255),
-        color(255, 148, 228, 255),
-        color(170, 249, 255, 255)
+        color(artColors['color-art-leaf']),
+        color(artColors['color-art-purple']),
+        color(artColors['color-art-pink']),
+        color(artColors['color-art-cyan'])
     ];
     colorPaletteOutter = [
-        color(234, 234, 36, 0),
-        color(255, 255, 255, 0),
+        color(artColors['canvas-yellow-a0']),
+        color(artColors['color-surface-a0']),
     ];
     ball = new Ball();
     for (let i = 0; i < gradientCount; i++) {
@@ -313,7 +317,7 @@ function setup() {
 }
 
 function draw() {
-    background(234, 234, 36, 255);
+    background(artColors['canvas-yellow']);
 
     // Draw connecting lines between gradient circles
     drawConnectingLines();
