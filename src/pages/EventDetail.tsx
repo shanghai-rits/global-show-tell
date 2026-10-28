@@ -23,7 +23,7 @@ const EventDetail: React.FC = () => {
   if (!item) {
     return (
       <div className="detail-container">
-        <div className="content-container">
+        <div className="content-container content-frame">
           <div className="content-wrapper event-content-wrapper">
             <h1 className="title1 event-detail-title">Event not found</h1>
             <button className="back-button" onClick={handleBack}>
@@ -42,7 +42,7 @@ const EventDetail: React.FC = () => {
         <img className="hero-image" src={item.coverImage} alt={item.title} />
       </div>
 
-      <div className="content-container">
+      <div className="content-container content-frame">
         <div className="content-wrapper event-content-wrapper">
           <h1 className="title1 event-detail-title">{item.title}</h1>
           <p className="authors event-detail-subtitle">{item.subtitle}</p>
@@ -72,6 +72,7 @@ const EventDetail: React.FC = () => {
             {item.sectionImages.map((image, index) => (
               <img
                 key={`${image.src}-${index}`}
+                loading="lazy" decoding="async"
                 src={image.src}
                 alt={image.alt}
                 className={`detail-image ${index === 0 ? 'full-width' : 'half-width'}`}

@@ -19,13 +19,8 @@ jobs:
       - name: Install dependencies
         run: npm ci
         
-      - name: Build
-        run: npm run build
-
-      - name: Create CNAME and 404 files
-        run: |
-          echo 'nyuglobal.show' > dist/CNAME
-          cp dist/index.html dist/404.html
+      - name: Validate and build
+        run: npm run check
         
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4

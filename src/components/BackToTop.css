@@ -1,0 +1,12 @@
+.document-back-to-top { box-sizing: border-box; width: 100%; max-width: var(--content-frame-width); margin: var(--back-to-top-space) auto; padding: 0 var(--content-frame-gutter); display: flex; justify-content: flex-end; clear: both; }
+.document-back-to-top button { display: block; width: var(--back-to-top-width); min-height: 44px; padding: 0; border: 0; background: transparent; cursor: pointer; }
+.document-back-to-top svg { display: block; width: 100%; height: auto; }
+.document-back-to-top button:focus-visible { outline: 2px solid var(--primary-purple); outline-offset: 6px; }
+@media (max-width: 640px) { .document-back-to-top { padding-inline: var(--content-frame-gutter-mobile); } }
+
+/* Legacy documents must include their overflowing content in normal flow;
+   otherwise the footer is laid out after only one viewport and hidden behind it. */
+body.static-page:has(> #site-document-footer) #app .page-body {
+  height: auto;
+  min-height: 100svh;
+}

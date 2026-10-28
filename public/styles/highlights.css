@@ -99,7 +99,6 @@
 .shared-highlights .highlights-preview { border: 0; padding: 0; margin: auto; background: transparent; max-width: 94vw; max-height: 94vh; overflow: visible; }
 .shared-highlights .highlights-preview::backdrop { background: var(--color-ink-a850); }
 .shared-highlights .highlights-preview img { display: block; max-width: 90vw; max-height: 85vh; object-fit: contain; }
-.shared-highlights .highlights-close { position: absolute; right: 0; top: 0; width: 44px; height: 44px; font-size: 30px; color: white; background: var(--primary-purple); border: 0; cursor: pointer; }
 @media (max-width: 640px) {
   .shared-highlights .photo-box { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 15px 10px; }
   .shared-highlights .photo-title { padding: 45px 10px 8px; }
@@ -107,3 +106,5 @@
   .shared-highlights .photo-title .sub-title, .shared-highlights .photo-title .location { font-size: 10px; }
 }
 @media (prefers-reduced-motion: reduce) { .shared-highlights .img-front, .shared-highlights .photo-title { transition: none; } }
+
+.shared-highlights .highlights-preview img { cursor: pointer; }

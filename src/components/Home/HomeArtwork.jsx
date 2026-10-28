@@ -8,7 +8,7 @@ function loadP5() {
   if (!p5Ready) {
     p5Ready = new Promise((resolve, reject) => {
       const script = document.createElement('script');
-      script.src = '/homepage/p5.js';
+      script.src = '/scripts/vendor/p5.js';
       script.onload = () => resolve(window.p5);
       script.onerror = () => {
         script.remove();
