@@ -127,12 +127,13 @@ class Ball {
                     this.gradientColor.splice(1, 0, palette[index]); // Add a new color
                 }
                 break;
-            case 1: // Change a color
+            case 1: { // Change a color
                 let palette = random([colorPalette_1, colorPalette_2]);
                 let index = floor(random(palette.length));
                 let colorIndex = floor(random(this.gradientColor.length));
                 this.gradientColor[colorIndex] = palette[index];
                 break;
+            }
             case 2: // Change the size of the ball
                 this.r += random(-2, 2.1); // Randomize size
                 break;
@@ -287,7 +288,8 @@ let bubbleCount = 7; // Number of bubbles
 function setup() {
     const theme = getComputedStyle(document.documentElement);
     artColors = Object.fromEntries(["color-surface","color-art-lime","color-surface-a0","canvas-yellow","color-art-chartreuse","color-art-green","color-art-leaf","color-art-purple","color-art-pink","color-art-cyan","canvas-yellow-a0","color-body"].map(name => [name, theme.getPropertyValue('--' + name).trim()]));
-    createCanvas(windowWidth, 450);
+    const artworkCanvas = createCanvas(windowWidth, 450);
+    window.NYUArtworkLifecycle.observe(artworkCanvas.elt);
     frameRate(30)
 
     colorPalette_1 = [

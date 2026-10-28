@@ -259,7 +259,7 @@ Creative Technologist, TouchDesigner Coder: Armon Naeini (NYU ITP)
 Consultant & Main Reference: Yuqian Sun | AI Nvshu, Weidi Zhang | Cangjie's Poetry
 Photo & Video Documentation: Baiyuan Xin (NYU ITP)
 Music & Sound Design: Cardin An Chung (USC Thornton)
-Technical Assistant: Henry Beach (Artechouse)`,
+Technical Assistant:\u00a0Henry Beach (Artechouse)`,
       program: `NYU Tisch ITP/IMA`,
       description: `PoeSpin (Poet+Spin) is a human-AI co-creating writing system and installation that transforms dance movements into poetry. Using machine learning techniques, we tokenize W.B. Yeats' poetry into a 2D interface for users to explore. It aims to liberate the human body from body shaming and to ‘let the dancer speak’—in Yeats' words.
 https://coryleeart.com/Poespin-Wherever-your-body-reach-there-is-a-poetry`,
@@ -792,6 +792,7 @@ https://github.com/emybayar/inputoutput`,
           {item.detailImages.map((img, index) => (
             <img
               key={index}
+              loading="lazy" decoding="async"
               src={img.src}
               alt={`Detail ${index + 1}`}
               className={`detail-image ${item.id === 18 ? 'full-width' :

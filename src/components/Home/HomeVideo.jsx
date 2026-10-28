@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 export default function HomeVideo() {
   const videoRef = useRef(null);
@@ -8,15 +8,30 @@ export default function HomeVideo() {
   const [load, setLoad] = useState(false);
   const [playing, setPlaying] = useState(false);
   const playRequested = useRef(false);
+  const playAttempt = useRef(0);
+  const playVideo = useCallback(() => {
+    const video = videoRef.current;
+    const attempt = ++playAttempt.current;
+    video.play().catch(() => {
+      if (attempt !== playAttempt.current) return;
+      playRequested.current = false;
+      setPlaying(false);
+    });
+  }, []);
+  useEffect(() => {
+    if (load && playRequested.current) playVideo();
+  }, [load, playVideo]);
   const startPlayback = () => {
     playRequested.current = true;
     setLoad(true);
-    videoRef.current.play().catch(() => {});
+    // The first render has no source; canplay resumes this request after loading.
+    if (videoRef.current.getAttribute('src')) playVideo();
   };
-  const pausePlayback = () => {
+  const pausePlayback = useCallback(() => {
     playRequested.current = false;
+    ++playAttempt.current;
     videoRef.current.pause();
-  };
+  }, []);
   const toggleFullscreen = async () => {
     try {
       if (document.fullscreenElement) await document.exitFullscreen();
@@ -30,37 +45,49 @@ export default function HomeVideo() {
   };
   useEffect(() => {
     const onFullscreen = () => setFullscreen(document.fullscreenElement === frameRef.current);
+    const video = videoRef.current;
+    const onNativeEnter = () => setFullscreen(true);
+    const onNativeExit = () => setFullscreen(false);
     document.addEventListener('fullscreenchange', onFullscreen);
-    return () => document.removeEventListener('fullscreenchange', onFullscreen);
+    video.addEventListener('webkitbeginfullscreen', onNativeEnter);
+    video.addEventListener('webkitendfullscreen', onNativeExit);
+    return () => {
+      document.removeEventListener('fullscreenchange', onFullscreen);
+      video.removeEventListener('webkitbeginfullscreen', onNativeEnter);
+      video.removeEventListener('webkitendfullscreen', onNativeExit);
+    };
   }, []);
   useEffect(() => {
     const video = videoRef.current;
     const observer = new IntersectionObserver(([entry]) => {
       if (entry.isIntersecting) setLoad(true);
-      else { playRequested.current = false; video.pause(); }
+      else pausePlayback();
     }, { threshold: 0.01 });
     observer.observe(video);
-    const onVisibility = () => { if (document.hidden) { playRequested.current = false; video.pause(); } };
+    const onVisibility = () => { if (document.hidden) pausePlayback(); };
     document.addEventListener('visibilitychange', onVisibility);
     return () => {
       observer.disconnect();
       document.removeEventListener('visibilitychange', onVisibility);
-      video.pause();
+      pausePlayback();
     };
-  }, []);
+  }, [pausePlayback]);
   return (
     <section className="home-video-section" aria-labelledby="home-video-title">
       <h2 id="home-video-title">&quot; Global Learning,<br />Artificial Intelligence,<br />&amp; Interactivity &quot;</h2>
       <div ref={frameRef} className="home-video-frame">
       <video ref={videoRef} src={load ? '/homepage/assets/nyuglobal-show-tell.mp4' : undefined}
         muted={muted} loop playsInline preload="none"
-        onCanPlay={() => { if (playRequested.current) videoRef.current.play().catch(() => {}); }}
-        onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)}
+        onCanPlay={() => { if (playRequested.current) playVideo(); }}
+        onPlay={() => setPlaying(true)}
+        onPause={() => { playRequested.current = false; setPlaying(false); }}
+        onError={() => { playRequested.current = false; ++playAttempt.current; setPlaying(false); }}
+        onVolumeChange={() => setMuted(videoRef.current.muted)}
         aria-label="NYU Global Show & Tell introduction" />
       <button type="button" className="home-video-toggle"
         aria-label={playing ? 'Pause introduction video' : 'Play introduction video'}
         onMouseEnter={startPlayback}
-        onClick={() => { if (playRequested.current) pausePlayback(); else startPlayback(); }} />
+        onClick={() => { if (videoRef.current.paused) startPlayback(); else pausePlayback(); }} />
       <div className="home-video-controls">
         <button type="button" aria-label={muted ? 'Turn sound on' : 'Turn sound off'}
           aria-pressed={!muted} onClick={() => { videoRef.current.muted = !muted; setMuted(!muted); }}>

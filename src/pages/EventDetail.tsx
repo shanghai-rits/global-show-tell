@@ -72,6 +72,7 @@ const EventDetail: React.FC = () => {
             {item.sectionImages.map((image, index) => (
               <img
                 key={`${image.src}-${index}`}
+                loading="lazy" decoding="async"
                 src={image.src}
                 alt={image.alt}
                 className={`detail-image ${index === 0 ? 'full-width' : 'half-width'}`}

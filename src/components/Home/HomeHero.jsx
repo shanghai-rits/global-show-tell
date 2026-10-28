@@ -1,32 +1,15 @@
-import { useEffect, useRef } from 'react';
 import { siteNavigation } from '../../data/navigation';
 import HomeArtwork from './HomeArtwork';
 import './HomeHero.css';
 
 export default function HomeHero() {
-  const heroRef = useRef(null);
-  useEffect(() => {
-    const hero = heroRef.current;
-    const resize = new ResizeObserver(([entry]) => {
-      const { width, height } = entry.contentRect;
-      hero.style.setProperty('--sqrt-line', `${Math.hypot(width, height)}px`);
-      hero.style.setProperty('--width-line', `${width}px`);
-      hero.style.setProperty('--height-line', `${height}px`);
-      hero.style.setProperty('--ultra-wide', width / height > 2 ? '0.8' : '1');
-    });
-    resize.observe(hero);
-    return () => resize.disconnect();
-  }, []);
-
   return (
-    <section className="home-hero" ref={heroRef} aria-labelledby="home-title">
+    <section className="home-hero" aria-labelledby="home-title">
       <div className="home-campus-bar" aria-label="NYU global campuses">
         <img src="/homepage/assets/NYU_Short_RGB_White.png.png" alt="NYU New York" />
         <img src="/homepage/assets/shanghai_white.png.png" alt="NYU Shanghai" />
         <img src="/homepage/assets/abudhabi_white.png.png" alt="NYU Abu Dhabi" />
       </div>
-      <div className="first-circle" aria-hidden="true" />
-      <div className="second-circle" aria-hidden="true" />
       <div className="last-text">
         <HomeArtwork />
         <div className="main-title">
@@ -47,7 +30,6 @@ export default function HomeHero() {
           </nav>
         </div>
       </div>
-      <div className="fade-blur-container" aria-hidden="true" />
     </section>
   );
 }

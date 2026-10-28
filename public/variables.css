@@ -4,7 +4,7 @@
   --home-video-control-size: 44px;
   --home-video-controls-inset: 20px;
   --home-video-aspect-ratio: 16 / 9;
-  --font-family-original: 'NYU', sans-serif;
+  /* --font-family-original: 'NYU', sans-serif; */
   --font-family: 'Montserrat';
   --font-family-brand: var(--font-family), sans-serif;
   --font-family-heading: var(--font-family-brand);
@@ -14,10 +14,7 @@
   --reviewer-role-font-size-mobile: 16px;
   --open-call-tab-font-size: 24px;
   --open-call-tab-font-size-mobile: 18px;
-  --font-family-body-original: var(--font-family-original);
-  --font-family-body-dm: 'DM Sans', sans-serif;
-  --font-family-body-manrope: 'Manrope', sans-serif;
-  --font-family-body-jakarta: 'Plus Jakarta Sans', sans-serif;
+  /* --font-family-body-original: var(--font-family-original); */
   --font-family-body-montserrat: 'Montserrat', sans-serif;
   /* Swap to var(--font-family-body-original) to restore Perstare body text. */
   --font-family-body: var(--font-family-body-montserrat);
@@ -25,7 +22,6 @@
   --footer-color: var(--color-surface);
   --footer-font-size: 12px;
   --footer-padding-block: 20px;
-  --footer-bottom-extra: 0px;
   --content-frame-width: 1280px;
   --back-to-top-width: clamp(110px, 12vw, 160px);
   --back-to-top-space: clamp(32px, 6vh, 72px);
@@ -342,15 +338,6 @@
   --layer-zoom: 1001;
   --layer-overlay: 9999;
   --motion-nav-collapse: 0.35s cubic-bezier(0.65, 0, 0.35, 1);
-}
-
-/* Runtime geometry set by the existing homepage script. */
-:root {
-  --sqrt-line: 0;
-  --height-line: 0;
-  --width-line: 0;
-  --img-multiple: 0;
-  --ultra-wide: 0;
 }
 
 /* Design adjustment controls: homepage and the original corner menu. */

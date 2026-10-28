@@ -9,7 +9,7 @@
 .home-page .home-link:hover { background: var(--canvas-yellow); }
 .home-page .home-video-section { display: flow-root; }
 .home-page .home-video-section h2 { padding: 5vh 20px; text-align: center; background: linear-gradient(180deg, var(--gradient-yellow), var(--color-video-fade-a0)); font-size: clamp(28px, 4vw, 64px); font-weight: var(--weight-semibold); font-style: italic; line-height: var(--leading-tight); color: var(--color-surface); text-shadow: 2px 2px 4px var(--color-home-heading); -webkit-text-stroke: 1px var(--color-home-heading); }
-.home-page .home-video-frame { position: relative; margin-block: var(--home-video-spacing); width: 100%;  background: var(--color-ink); }
+.home-page .home-video-frame { position: relative; margin-block: var(--home-video-spacing); width: 100%; background: var(--color-ink); }
 .home-page .home-video-section video { display: block; width: 100%; height: auto; aspect-ratio: auto var(--home-video-aspect-ratio); object-fit: contain; }
 .home-page .home-video-toggle { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; padding: 0; background: transparent; cursor: pointer; }
 .home-page .home-video-toggle:focus-visible { outline: 3px solid var(--lavender); outline-offset: -3px; }
@@ -26,7 +26,7 @@
 .home-page .home-highlights { position: relative; overflow: clip; touch-action: pan-y pinch-zoom; }
 .home-page .home-highlight-track { display: flex; transition: transform 0.4s ease; }
 .home-page .home-highlight { flex: 0 0 100%; min-width: 0; position: relative; height: 100vh; height: 100svh; min-height: 400px; }
-.home-page .home-highlight > img { width: 100%; height: auto; aspect-ratio: auto var(--home-video-aspect-ratio); object-fit: contain; }
+.home-page .home-highlight > img { width: 100%; height: 100%; object-fit: cover; }
 .home-page .home-highlight-caption { position: absolute; inset: auto 0 0; padding: 80px 5vw 90px; color: var(--color-surface); background: linear-gradient(transparent, rgba(0,0,0,.7)); font-style: italic; }
 .home-page .home-highlight-caption p { font-size: clamp(20px, 3vw, 48px); line-height: 1.2; }
 .home-page .home-highlight-caption a { display: inline-flex; gap: 20px; align-items: center; font-size: clamp(24px, 3vw, 48px); margin-top: 12px; text-decoration: none; }

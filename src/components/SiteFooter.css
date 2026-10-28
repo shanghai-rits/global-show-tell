@@ -3,7 +3,6 @@
   width: 100%;
   clear: both;
   padding: var(--footer-padding-block) 24px;
-  padding-bottom: calc(var(--footer-padding-block) + var(--footer-bottom-extra));
   background: var(--footer-background);
   color: var(--footer-color);
   text-align: center;

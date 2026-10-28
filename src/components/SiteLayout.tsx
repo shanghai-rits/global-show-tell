@@ -13,7 +13,7 @@ export default function SiteLayout() {
         <Outlet />
       </main>
       {isDocument && <BackToTop />}
-      <SiteFooter />
+      {pathname !== '/' && <SiteFooter />}
     </>
   );
 }

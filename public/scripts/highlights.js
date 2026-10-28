@@ -45,7 +45,7 @@
       const displayedImages = ref([]), nextImages = ref([]), crossFading = ref(false);
       const preview = ref(null), dialog = ref(null);
       let timer, fadeTimer, frame, opener;
-      let disposed = false;
+      let disposed = false, loading = false;
       const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
       function pick() {
         const pool = [...images];
@@ -55,25 +55,38 @@
         }
         return pool.slice(0, props.count);
       }
+      const shouldPause = () => disposed || document.hidden || motion.matches || preview.value;
       async function rotate() {
-        if (document.hidden || motion.matches || preview.value || crossFading.value) return;
-        const next = pick();
-        await Promise.all(next.map(img => new Promise(resolve => {
-          const preload = new Image();
-          preload.onload = preload.onerror = resolve;
-          preload.src = img.src;
-        })));
-        if (disposed) return;
-        nextImages.value = next;
-        await nextTick();
-        frame = requestAnimationFrame(() => {
+        if (shouldPause() || loading || crossFading.value) return;
+        loading = true;
+        try {
+          const next = pick();
+          await Promise.all(next.map(img => new Promise(resolve => {
+            const preload = new Image();
+            preload.onload = preload.onerror = resolve;
+            preload.src = img.src;
+          })));
+          if (shouldPause()) return;
+          nextImages.value = next;
+          await nextTick();
+          if (shouldPause()) { nextImages.value = []; return; }
+          // Lock before scheduling the frame, so another timer cannot enter.
           crossFading.value = true;
-          fadeTimer = setTimeout(() => {
-            displayedImages.value = next;
-            crossFading.value = false;
-            nextImages.value = [];
-          }, 800);
-        });
+          frame = requestAnimationFrame(() => {
+            if (shouldPause()) {
+              crossFading.value = false;
+              nextImages.value = [];
+              return;
+            }
+            fadeTimer = setTimeout(() => {
+              if (!shouldPause()) displayedImages.value = next;
+              crossFading.value = false;
+              nextImages.value = [];
+            }, 800);
+          });
+        } finally {
+          loading = false;
+        }
       }
       async function openPreview(img, event) {
         opener = event.currentTarget;
