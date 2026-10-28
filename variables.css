@@ -1,7 +1,45 @@
 /* Shared theme values for HTML, React, SVG, and canvas. */
 :root {
-  --font-family: 'NYU';
-  --font-family-body: var(--font-family), sans-serif;
+  --home-video-spacing: 100px;
+  --home-video-control-size: 44px;
+  --home-video-controls-inset: 20px;
+  --home-video-aspect-ratio: 16 / 9;
+  /* --font-family-original: 'NYU', sans-serif; */
+  --font-family: 'Montserrat';
+  --font-family-brand: var(--font-family), sans-serif;
+  --font-family-heading: var(--font-family-brand);
+  --font-family-menu: var(--font-family-brand);
+  --font-weight-menu: 500;
+  --reviewer-role-font-size: 18px;
+  --reviewer-role-font-size-mobile: 16px;
+  --open-call-tab-font-size: 24px;
+  --open-call-tab-font-size-mobile: 18px;
+  /* --font-family-body-original: var(--font-family-original); */
+  --font-family-body-montserrat: 'Montserrat', sans-serif;
+  /* Swap to var(--font-family-body-original) to restore Perstare body text. */
+  --font-family-body: var(--font-family-body-montserrat);
+  --footer-background: var(--lavender);
+  --footer-color: var(--color-surface);
+  --footer-font-size: 12px;
+  --footer-padding-block: 20px;
+  --content-frame-width: 1280px;
+  --back-to-top-width: clamp(110px, 12vw, 160px);
+  --back-to-top-space: clamp(32px, 6vh, 72px);
+  --content-frame-gutter: clamp(24px, 4vw, 48px);
+  --content-frame-gutter-mobile: 24px;
+  --content-prose-width: 900px;
+  --about-credits-left-column: 7fr;
+  --about-credits-right-column: 8fr;
+  --font-size-body-desktop: 18px;
+  --font-size-body-mobile: 16px;
+  --font-size-body: var(--font-size-body-desktop);
+  --line-height-body: 1.7;
+  --showcase-search-width: 326px;
+  --showcase-search-height: 45px;
+  --showcase-search-font: 20px;
+  --showcase-search-padding: 32px;
+  --showcase-search-icon-width: 16px;
+  --showcase-search-icon-height: 25px;
   --type-scale: 1;
   --space-scale: 1;
 
@@ -9,6 +47,9 @@
   --primary-yellow: rgb(var(--primary-yellow-rgb));
   --primary-purple-rgb: 87, 6, 140;
   --primary-purple: rgb(var(--primary-purple-rgb));
+  --lavender-rgb: 201, 155, 245;
+  --lavender: rgb(var(--lavender-rgb));
+  --lavender-deep: #ad7bdf;
   --primary-green-rgb: 109, 135, 42;
   --primary-green: rgb(var(--primary-green-rgb));
   --accent-green-rgb: 107, 136, 41;
@@ -45,6 +86,10 @@
   --color-caption: rgb(var(--color-caption-rgb));
   --color-home-heading-rgb: 176, 176, 18;
   --color-home-heading: rgb(var(--color-home-heading-rgb));
+  --color-home-intro-heading: var(--lavender);
+  --color-event-detail-title: var(--lavender-deep);
+  --color-about-journey-title: var(--lavender-deep);
+  --color-home-presenter-divider: var(--color-surface);
   --color-event-heading-rgb: 163, 163, 33;
   --color-event-heading: rgb(var(--color-event-heading-rgb));
   --color-text-secondary-rgb: 102, 102, 102;
@@ -282,7 +327,8 @@
   --motion-menu: 0.8s;
   --motion-normal: 0.3s;
   --motion-pulse: 2s;
-  --motion-tab: 0.75s;
+  --motion-tab: 0.6s;
+  --ease-tab: cubic-bezier(0.42, 0, 1, 1);
   --motion-slow: 1s;
   --motion-fade: 0.7s;
   --radius-38: 38px;
@@ -294,11 +340,47 @@
   --motion-nav-collapse: 0.35s cubic-bezier(0.65, 0, 0.35, 1);
 }
 
-/* Runtime geometry set by the existing homepage script. */
+/* Design adjustment controls: homepage and the original corner menu. */
 :root {
-  --sqrt-line: 0;
-  --height-line: 0;
-  --width-line: 0;
-  --img-multiple: 0;
-  --ultra-wide: 0;
+  --home-bottom-space: clamp(20px, 5svh, 56px);
+  --home-top-space: 10svh;
+  --home-title-menu-gap: 5svh;
+  --home-menu-offset: 4svh;
+  --home-menu-gap: clamp(6px, 1svh, 10px);
+  --home-menu-font: clamp(16px, 2.3svh, 20px);
+  --home-menu-height: clamp(44px, 6svh, 48px);
+  --home-menu-inline-padding: clamp(24px, 5vw, 64px);
+  --home-menu-border: 2px;
+  --home-menu-line-height: 1.2;
+  --home-menu-count: 5;
+  --home-menu-gap-count: 4;
+  --home-campus-height: 49px;
+  --home-title-max-width: 1200px;
+  --home-title-mobile-max-width: 450px;
+  --home-title-width: 84vw;
+  --home-title-mobile-width: 83.333vw;
+  --home-title-min-height: 80px;
+  --home-title-ratio: 3.951;
+  --home-title-mobile-ratio: 1.04709;
+  --home-title-shadow-offset: 8px;
+  --corner-menu-top: clamp(16px, 5svh, 40px);
+  --corner-menu-bottom: 16px;
+  --corner-menu-width: min(420px, 96vw);
+  --corner-menu-side-space: 16px;
+  --corner-menu-panel-gap: 12px;
+  --corner-menu-row-gap: clamp(8px, 1.6svh, 14px);
+  --corner-menu-font: clamp(16px, 2.8svh, 22px);
+  --corner-menu-link-height: 44px;
+  --corner-menu-link-padding: clamp(20px, 4vw, 36px);
+  --corner-menu-toggle-font: clamp(18px, 3svh, 22px);
+  --corner-menu-toggle-height: clamp(44px, 6.5svh, 50px);
+  --corner-menu-toggle-width: 128px;
+  --corner-menu-close-width: 52px;
+  --corner-menu-border: 2px;
+  --corner-menu-radius: 30px;
+  --corner-menu-logo-max-width: clamp(220px, 40svh, 360px);
+}
+
+@media (max-width: 640px) {
+  :root { --font-size-body: var(--font-size-body-mobile); }
 }

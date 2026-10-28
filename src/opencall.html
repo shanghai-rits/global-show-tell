@@ -10,7 +10,8 @@
     <link rel="stylesheet" href="/styles/opencall.css">
 
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    <script src="/opencall/assets/p5.js"></script>
+    <script src="/scripts/vendor/p5.js"></script>
+    <script src="/scripts/artwork-lifecycle.js"></script>
     <title>Open call - Global Show & Tell</title>
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no,viewport-fit=cover">
@@ -31,9 +32,10 @@
         })(document, window);
     </script>
     <script src="/opencall/assets/sketch.js"></script>
-  <script type="module" crossorigin src="/assets/SiteHeader-Co2tuC1P.js"></script>
-  <script type="module" crossorigin src="/assets/myPageEntry-Cf9sxv3W.js"></script>
-  <link rel="stylesheet" crossorigin href="/assets/SiteHeader-CDRZZO49.css">
+  <script type="module" crossorigin src="/assets/modulepreload-polyfill-B5Qt9EMX.js"></script>
+  <script type="module" crossorigin src="/assets/SiteFooter-Dh3EQVVv.js"></script>
+  <script type="module" crossorigin src="/assets/myPageEntry-BXs4IFzO.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/SiteFooter-CYqourXx.css">
 </head>
 
 <body class="static-page">
@@ -71,7 +73,7 @@
 
                 </div>
             </div>
-            <div class="content" id="content">
+            <div class="content content-frame" id="content">
                 <div class="tab-box">
                     <div class="tab-item" @click="classActive = true"
                         :class="{active : classActive,normal:!classActive }">
@@ -186,7 +188,7 @@
                         <p>Submission will be received on a rolling basis
                             until March 31, 2025. </p>
                     </div>
-                    <div class="paragraph-box">
+                    <div class="paragraph-box reviewers-section">
                         <div class="title">Reviewers of
                             submissions</div>
                         <div class="people-box">
@@ -195,27 +197,18 @@
                                     <img src="/about/assets/head1.png" alt>
                                 </div>
                                 <div class="name">Jung Hyun Moon</div>
-                                <div class="info">Interactive Media Arts
-                                    (IMA)
-                                    Foundation Coordinator,
-                                    Assistant Arts Professor of Interactive
-                                    Media Arts (IMA), NYU
-                                    Shanghai</div>
+                                <div class="info">Interactive Media Arts (IMA) Low Res Program Coordinator<br />Associate Arts Professor of IMA, NYU Shanghai</div>
                             </div>
                             <div class="people-item">
                                 <div class="head-img">
                                     <img src="/about/assets/head2.png" alt>
                                 </div>
                                 <div class="name">Aidan Nelson</div>
-                                <div class="info">Visiting Assistant Arts
-                                    Professor, Interactive
-                                    Telecommunications Program / Interactive
-                                    Media Arts, NYU Tisch School of
-                                    the Arts</div>
+                                <div class="info">Visiting Assistant Arts Professor<br />Interactive Telecommunications Program / Interactive Media Arts, NYU Tisch School of the Arts</div>
                             </div>
                         </div>
                         <div class="people-bottom-info">
-                            Professor Nelson and Professor Moon will review
+                            Professor Moon and Professor Nelson will review
                             the
                             submissions from the
                             open call and recommend exhibits for the spaces

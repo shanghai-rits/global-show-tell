@@ -1,0 +1,1 @@
+import{c as r,j as e,S as s,B as a,a as c}from"./SiteFooter-Dh3EQVVv.js";const o=document.getElementById("site-header-root");o&&r.createRoot(o).render(e.jsx(s,{contentId:"app"}));const n=document.getElementById("app");if(n){const t=document.createElement("div");t.id="site-document-footer",n.after(t),r.createRoot(t).render(e.jsxs(e.Fragment,{children:[e.jsx(a,{}),e.jsx(c,{})]}))}

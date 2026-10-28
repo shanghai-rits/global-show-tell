@@ -1,0 +1,44 @@
+/* One prose size, based on About. Excludes titles, navigation and captions. */
+#app .content p,
+#app .content li,
+#app .paragraph-box,
+#app .bottom-box-info,
+#app .right-content,
+#root .home-introduction p,
+#root .content-paragraph,
+#root .section-content,
+#root .section-content p,
+#root .section-content li {
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+}
+
+/* Limit reading width without narrowing galleries or full-width media. */
+#app .content p,
+#app .paragraph-box,
+#app .bottom-box-info,
+#app .right-content,
+#root .home-introduction p,
+#root .content-paragraph,
+#root .section-content p {
+  max-width: var(--content-prose-width);
+}
+
+/* Opt-in shared frame: do not apply to bespoke Showcase/Home/Events layouts. */
+#app .content-frame,
+#root .content-frame {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: var(--content-frame-width);
+  padding-left: var(--content-frame-gutter);
+  padding-right: var(--content-frame-gutter);
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
+}
+@media (max-width: 640px) {
+  #app .content-frame, #root .content-frame {
+    padding-left: var(--content-frame-gutter-mobile);
+    padding-right: var(--content-frame-gutter-mobile);
+  }
+}

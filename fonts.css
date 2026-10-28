@@ -14,20 +14,6 @@
   src: url("/homepage/font/NYUPerstare-ThinItalic.otf") format("opentype");
 }
 
-/* @font-face {
-    font-family: "NYU";
-    font-style: normal;
-    font-weight: 200;
-    font-display: swap;
-    src: url("font/Inter-ExtraLight.woff2?v=4.0") format("woff2");
-  }
-  @font-face {
-    font-family: "NYU";
-    font-style: italic;
-    font-weight: 200;
-    font-display: swap;
-    src: url("font/Inter-ExtraLightItalic.woff2?v=4.0") format("woff2");
-  } */
 @font-face {
   font-family: "NYU";
   font-style: normal;
@@ -76,20 +62,6 @@
   src: url("/homepage/font/NYUPerstare-MediumItalic.otf") format("opentype");
 }
 
-/* @font-face {
-    font-family: "NYU";
-    font-style: normal;
-    font-weight: 600;
-    font-display: swap;
-    src: url("font/Inter-SemiBold.woff2?v=4.0") format("woff2");
-  }
-  @font-face {
-    font-family: "NYU";
-    font-style: italic;
-    font-weight: 600;
-    font-display: swap;
-    src: url("font/Inter-SemiBoldItalic.woff2?v=4.0") format("woff2");
-  } */
 @font-face {
   font-family: "NYU";
   font-style: normal;
