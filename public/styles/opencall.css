@@ -122,11 +122,11 @@
         }
 
         .tab-box .active {
-            animation: active var(--motion-tab) forwards linear;
+            animation: active var(--motion-tab) forwards var(--ease-tab);
         }
 
         .tab-box .normal {
-            animation: noActive var(--motion-tab) forwards linear;
+            animation: noActive var(--motion-tab) forwards var(--ease-tab);
         }
 
         .paragraph-box {
@@ -300,12 +300,12 @@
             }
 
             .tab-box .normal {
-                animation: noActiveforMax1080 var(--motion-tab) forwards linear;
+                animation: noActiveforMax1080 var(--motion-tab) forwards var(--ease-tab);
                 margin-bottom: var(--spacing-10);
             }
 
             .tab-box .active {
-                animation: activeforMax1080 var(--motion-tab) forwards linear;
+                animation: activeforMax1080 var(--motion-tab) forwards var(--ease-tab);
                 margin-bottom: var(--spacing-10);
             }
 
@@ -388,12 +388,12 @@
             }
 
             .tab-box .normal {
-                animation: noActiveforMax1080 var(--motion-tab) forwards linear;
+                animation: noActiveforMax1080 var(--motion-tab) forwards var(--ease-tab);
                 margin-bottom: var(--spacing-10);
             }
 
             .tab-box .active {
-                animation: activeforMax1080 var(--motion-tab) forwards linear;
+                animation: activeforMax1080 var(--motion-tab) forwards var(--ease-tab);
                 margin-bottom: var(--spacing-10);
             }
 
@@ -465,3 +465,44 @@
 				margin-top: 0.6rem;
 			}
         }
+
+/* Use the same left edge as About, keeping prose narrow inside the wider page. */
+#app .paragraph-box { max-width: var(--content-prose-width); margin-left: 0; margin-right: auto; padding-left: 0; padding-right: 0; text-align: left; }
+
+/* Tabs share the prose column's start edge and maximum width. */
+#app .content-frame .tab-box {
+  box-sizing: border-box;
+  max-width: var(--content-prose-width);
+  margin-left: 0;
+  margin-right: auto;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+#app .tab-box .tab-item { font-size: var(--open-call-tab-font-size); }
+@media (max-width: 640px) {
+  #app .tab-box .tab-item { font-size: var(--open-call-tab-font-size-mobile); }
+}
+
+/* Reviewer profiles use the full document frame, rather than the prose measure. */
+#app .paragraph-box.reviewers-section { max-width: none; width: 100%; box-sizing: border-box; }
+
+#app .reviewers-section .info { font-size: var(--reviewer-role-font-size); line-height: 1.5; }
+@media (max-width: 640px) {
+  #app .reviewers-section .info { font-size: var(--reviewer-role-font-size-mobile); }
+}
+
+/* Equal reviewer columns: internal padding must not change the 50/50 split. */
+#app .reviewers-section .people-box { display: flex; flex-wrap: wrap; gap: 0; }
+#app .reviewers-section .people-item {
+  box-sizing: border-box;
+  flex: 0 0 50%;
+  width: 50%;
+  min-width: 0;
+  margin: 0;
+  padding: 24px 20px;
+}
+#app .reviewers-section .info { width: 100%; text-align: center; overflow-wrap: anywhere; }
+@media (max-width: 640px) {
+  #app .reviewers-section .people-item { flex-basis: 100%; width: 100%; padding-inline: 0; }
+}

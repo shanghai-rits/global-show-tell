@@ -1,5 +1,4 @@
-import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useLayoutEffect, useRef, useState, useMemo, useCallback } from 'react';
 import showcaseSampleCover from '../assets/showcase-sample-cover.png';
 import SearchBox from '../components/SearchBox';
 import './Showcase.css';
@@ -15,7 +14,6 @@ interface ShowcaseItem {
 }
 /**
  * Checks if two items (by top-left corner) with the same width/height/spacing overlap.
- * Adjust to fit your actual isOverlap function signature.
  */
 function isOverlap(
   x1: number,
@@ -35,117 +33,6 @@ function isOverlap(
   );
 }
 
-/**
- * Generates random non-overlapping positions around a center point in "rings".
- * - The first item is at the center.
- * - Then ring by ring, we place items at random angles.
- *
- * @param count Number of items to place
- * @param canvasWidth Overall canvas width
- * @param canvasHeight Overall canvas height
- * @param itemWidth The width of each item (for overlap checks)
- * @param itemHeight The height of each item (for overlap checks)
- * @param spacing Additional space to pad around items (prevents collisions)
- * @returns Array of (x,y) coordinates for each item’s top-left corner
- */
-// function generateNonOverlappingPositions(
-//   count: number,
-//   canvasWidth: number,
-//   canvasHeight: number,
-//   itemWidth: number,
-//   itemHeight: number,
-//   spacing: number
-// ): Array<{ x: number; y: number }> {
-//   const positions: Array<{ x: number; y: number }> = [];
-//   if (count <= 0) {
-//     return positions;
-//   }
-
-//   const indices = Array.from({ length: count }, (_, i) => i);
-//   for (let i = indices.length - 1; i > 0; i--) {
-//     const j = Math.floor(Math.random() * (i + 1));
-//     [indices[i], indices[j]] = [indices[j], indices[i]];
-//   }
-
-//   // Center of the canvas
-//   const centerX = canvasWidth / 2;
-//   const centerY = canvasHeight / 2;
-
-//   // Radius increment for each ring
-//   const radiusIncrement = 150 + spacing;
-
-//   // Place the first item in the center:
-//   positions[indices[0]] = {
-//     x: centerX - itemWidth / 2,
-//     y: centerY - itemHeight / 2,
-//   };
-
-//   // How many items have we successfully placed so far?
-//   let placedCount = 1;
-
-//   // Start from ring #1 outward
-//   let ringNumber = 1;
-
-//   // For demonstration, let’s say ring 1 can have 3 items, ring 2 can have 5, ring 3 can have 7, etc.
-//   // You can make this simpler or more complicated as you see fit.
-//   let itemsInThisRing = 4;
-
-//   while (placedCount < count) {
-//     // How many items do we still need to place?
-//     const itemsRemaining = count - placedCount;
-
-//     // For this ring, we only try to place as many as we still need:
-//     const ringSlots = Math.min(itemsInThisRing, itemsRemaining);
-
-//     // Current ring radius
-//     const ringRadius = ringNumber * radiusIncrement;
-
-//     let placedThisRing = 0;
-//     let attempt = 0;
-//     const maxAttempts = 10000; // Just to avoid infinite loops
-
-//     // Keep trying angles until we've placed ringSlots or run out of attempts
-//     while (placedThisRing < ringSlots && attempt < maxAttempts) {
-//       attempt++;
-
-//       // Pick a random angle for the item in this ring
-//       const angle = Math.random() * 2 * Math.PI;
-
-//       // Convert polar -> cartesian (with item offset for top-left)
-//       const x = centerX + ringRadius * Math.cos(angle) - itemWidth / 2;
-//       const y = centerY + ringRadius * Math.sin(angle) - itemHeight / 2;
-
-//       // Check overlap with already-placed positions
-//       let overlapFound = false;
-//       for (const pos of positions) {
-//         if (isOverlap(pos.x, pos.y, x, y, itemWidth, itemHeight, spacing)) {
-//           overlapFound = true;
-//           break;
-//         }
-//       }
-
-//       // If there's no collision, we can place it
-//       if (!overlapFound) {
-//         const idx = indices[placedCount];
-//         positions[idx] = { x, y };
-//         placedCount++;
-//         placedThisRing++;
-//       }
-//     }
-
-//     // Move on to the next ring
-//     ringNumber++;
-
-//     // If you want each ring to hold 3 more items than the previous ring, do:
-//     // itemsInThisRing += 3;
-//     // Or if you want a different pattern, just change it here:
-//     itemsInThisRing += 2; // Example: ring 1 has 3, ring 2 has 5, ring 3 has 7, etc.
-//   }
-
-//   return positions;
-// }
-
-// ...existing code...
 function generateNonOverlappingPositions(
   count: number,
   canvasWidth: number,
@@ -221,99 +108,8 @@ function generateNonOverlappingPositions(
   // Return positions in the shuffled order
   return positions;
 }
-// ...existing code...
 
-const Showcase: React.FC = () => {
-
-  // Details Page
-  const navigate = useNavigate();
-
-  // SearchBox
-  const [searchQuery, setSearchQuery] = useState('');
-  const [showResults, setShowResults] = useState(false);
-  const [filteredShowcaseItems, setFilteredShowcaseItems] = useState<ShowcaseItem[]>([]);
-
-  // Add state for mobile view mode
-  const [isMobile, setIsMobile] = useState(false);
-  const [viewMode, setViewMode] = useState<'grid' | 'gallery'>('grid');
-
-  // Add state for the tooltip
-  const [showTooltip, setShowTooltip] = useState(false);
-  const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
-  const tooltipTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  // Check if it's mobile and set default view mode
-  useEffect(() => {
-    const checkMobile = () => {
-      const mobileThreshold = 768;
-      const isMobileNow = window.innerWidth < mobileThreshold;
-      setIsMobile(isMobileNow);
-      if (isMobileNow) {
-        setViewMode('grid'); // Default to grid on mobile
-      }
-    };
-
-    window.addEventListener('resize', checkMobile);
-    checkMobile(); // Check initial viewport
-
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
-
-  const handleToggleView = () => {
-    setViewMode(prev => prev === 'grid' ? 'gallery' : 'grid');
-  };
-
-
-  // Add mouse move handler for tooltip
-  const handleTooltipMouseMove = (e: React.MouseEvent) => {
-    if (!showTooltip) {
-      setShowTooltip(true);
-      setTooltipPosition({ x: e.clientX, y: e.clientY });
-
-      // Clear existing timeout
-      if (tooltipTimeoutRef.current) {
-        clearTimeout(tooltipTimeoutRef.current);
-      }
-
-      // Hide tooltip after 5 seconds
-      tooltipTimeoutRef.current = setTimeout(() => {
-        setShowTooltip(false);
-      }, 2500);
-    } else {
-      // Update position while tooltip is visible
-      setTooltipPosition({ x: e.clientX, y: e.clientY });
-    }
-  };
-
-  // Clean up timeout on unmount
-  useEffect(() => {
-    return () => {
-      if (tooltipTimeoutRef.current) {
-        clearTimeout(tooltipTimeoutRef.current);
-      }
-    };
-  }, []);
-
-  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchQuery(e.target.value);
-  };
-
-  const handleSearchSubmit = () => {
-    setShowResults(true);
-    const filteredItems = items.filter(item =>
-      item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      item.authors.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-    setFilteredShowcaseItems(filteredItems);
-    setSearchQuery('');
-  };
-
-  const handleBackToAll = () => {
-    setSearchQuery('');
-    setShowResults(false);
-  };
-
-  const items: ShowcaseItem[] = [
+const items: ShowcaseItem[] = [
     { id: 1, title: 'Live-Diffusion', authors: 'Chenxuan Sun, Jinran Ye', program: "NYU Shanghai IMA ", size: { width: 420 }, real: true },
     { id: 2, title: 'DreamyBot', authors: 'Ruiqi Liu', program: "NYU Shanghai IMA", real: true },
     { id: 3, title: 'KUNST KAPUTT', authors: 'Senaida Ng, Brian Ho, Dadabots', program: "NYU IMA Low Res", real: true },
@@ -346,14 +142,82 @@ const Showcase: React.FC = () => {
   ];
 
   // Canvas = "map" we can drag around.
-  const CANVAS_WIDTH = 3400;
-  const CANVAS_HEIGHT = 3000;
+const CANVAS_WIDTH = 3400;
+const CANVAS_HEIGHT = 3000;
+  // Visible screen-space margins, independent of zoom.
+const DRAG_VERTICAL_PADDING = 100;
+const DRAG_HORIZONTAL_PADDING = 50;
 
-  const MAX_ITEM_WIDTH = 400; // Adjust as needed
-  const MAX_ITEM_HEIGHT = 400; // Adjust as needed
+const MAX_ITEM_WIDTH = 400; // Adjust as needed
+const MAX_ITEM_HEIGHT = 400; // Adjust as needed
 
   // Extra gap so items don’t overlap
-  const SPACING = 40;
+const SPACING = 40;
+
+
+const Showcase: React.FC = () => {
+
+
+  // SearchBox
+  const [searchQuery, setSearchQuery] = useState('');
+  const [showResults, setShowResults] = useState(false);
+  const [filteredShowcaseItems, setFilteredShowcaseItems] = useState<ShowcaseItem[]>([]);
+
+  // Add state for mobile view mode
+  const [isMobile, setIsMobile] = useState(() => window.matchMedia('(max-width: 767px)').matches);
+  const [viewMode, setViewMode] = useState<'grid' | 'gallery'>('grid');
+
+  // Add state for the tooltip
+  const [showTooltip, setShowTooltip] = useState(false);
+  const tooltipRef = useRef<HTMLDivElement>(null);
+  const tooltipPosition = useRef({ x: 0, y: 0 });
+  const tooltipTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const handleToggleView = () => {
+    setViewMode(prev => prev === 'grid' ? 'gallery' : 'grid');
+  };
+
+
+  const handleTooltipMouseMove = (e: React.MouseEvent) => {
+    tooltipPosition.current = { x: e.clientX + 10, y: e.clientY + 20 };
+    if (tooltipRef.current) {
+      tooltipRef.current.style.left = `${tooltipPosition.current.x}px`;
+      tooltipRef.current.style.top = `${tooltipPosition.current.y}px`;
+    }
+    if (!showTooltip) {
+      setShowTooltip(true);
+      clearTimeout(tooltipTimeoutRef.current ?? undefined);
+      tooltipTimeoutRef.current = setTimeout(() => setShowTooltip(false), 2500);
+    }
+  };
+
+  // Clean up timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (tooltipTimeoutRef.current) {
+        clearTimeout(tooltipTimeoutRef.current);
+      }
+    };
+  }, []);
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+  };
+
+  const handleSearchSubmit = () => {
+    setShowResults(true);
+    const filteredItems = items.filter(item =>
+      item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      item.authors.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+    setFilteredShowcaseItems(filteredItems);
+    setSearchQuery('');
+  };
+
+  const handleBackToAll = () => {
+    setSearchQuery('');
+    setShowResults(false);
+  };
 
   // Positions for each item
   const [positions, setPositions] = useState<{ x: number; y: number; id: number }[]>([]);
@@ -361,7 +225,7 @@ const Showcase: React.FC = () => {
   // For dragging the entire canvas
   const [offset, setOffset] = useState({ x: 0, y: 0 });
   const [dragging, setDragging] = useState(false);
-  const [lastPos, setLastPos] = useState({ x: 0, y: 0 });
+  const lastPos = useRef({ x: 0, y: 0 });
   const hasDraggedRef = useRef(false);
 
   // We'll measure the viewport size to clamp dragging
@@ -369,34 +233,52 @@ const Showcase: React.FC = () => {
   const [viewportWidth, setViewportWidth] = useState(0);
   const [viewportHeight, setViewportHeight] = useState(0);
 
-  // 在组件函数中添加：
-  const [scale, setScale] = useState(1);
+  const [scale, setScale] = useState(() => window.innerWidth < 768 ? 0.5 : 1);
+  const scaleRef = useRef(scale);
 
-  const handleZoomIn = () => {
-    const delta = 0.1;
-    setScale(prev => {
-      setOffset(prevOffset => ({
-        x: prevOffset.x - (CANVAS_WIDTH / 2) * delta,
-        y: prevOffset.y - (CANVAS_HEIGHT / 2) * delta,
-      }));
-      return prev + delta;
-    });
-  };
+  const clampOffset = useCallback((next: { x: number; y: number }) => {
+    if (!viewportWidth || !viewportHeight) return next;
+    const oppositeX = viewportWidth - CANVAS_WIDTH * scale - DRAG_HORIZONTAL_PADDING;
+    const oppositeY = viewportHeight - CANVAS_HEIGHT * scale - DRAG_VERTICAL_PADDING;
+    return {
+      x: Math.max(Math.min(DRAG_HORIZONTAL_PADDING, oppositeX), Math.min(Math.max(DRAG_HORIZONTAL_PADDING, oppositeX), next.x)),
+      y: Math.max(Math.min(DRAG_VERTICAL_PADDING, oppositeY), Math.min(Math.max(DRAG_VERTICAL_PADDING, oppositeY), next.y)),
+    };
+  }, [viewportWidth, viewportHeight, scale]);
 
-  const handleZoomOut = () => {
-    const delta = 0.1;
-    setScale(prev => {
-      const newScale = Math.max(0.1, prev - delta);
-      const actualDelta = newScale - prev;
-      if (actualDelta !== 0) {
-        setOffset(prevOffset => ({
-          x: prevOffset.x - (CANVAS_WIDTH / 2) * actualDelta,
-          y: prevOffset.y - (CANVAS_HEIGHT / 2) * actualDelta,
-        }));
-      }
-      return newScale;
+  useEffect(() => {
+    setOffset(prev => {
+      const next = clampOffset(prev);
+      return next.x === prev.x && next.y === prev.y ? prev : next;
     });
-  };
+  }, [clampOffset]);
+
+  useEffect(() => {
+    const viewport = outerRef.current;
+    if (!viewport) return;
+    const resize = new ResizeObserver(() => {
+      setViewportWidth(viewport.clientWidth);
+      setViewportHeight(viewport.clientHeight);
+    });
+    resize.observe(viewport);
+    return () => resize.disconnect();
+  }, [showResults, isMobile, viewMode]);
+
+
+  const zoomBy = useCallback((delta: number) => {
+    const previous = scaleRef.current;
+    const next = Math.max(0.1, previous + delta);
+    const actualDelta = next - previous;
+    if (!actualDelta) return;
+    scaleRef.current = next;
+    setScale(next);
+    setOffset(prev => ({
+      x: prev.x - (CANVAS_WIDTH / 2) * actualDelta,
+      y: prev.y - (CANVAS_HEIGHT / 2) * actualDelta,
+    }));
+  }, []);
+  const handleZoomIn = () => zoomBy(0.1);
+  const handleZoomOut = () => zoomBy(-0.1);
 
   useLayoutEffect(() => {
     setFilteredShowcaseItems(items);
@@ -427,7 +309,6 @@ const Showcase: React.FC = () => {
     }));
 
     setPositions(newPositions);
-    // setPositions(fixedPositions);
   }, []);
 
   useEffect(() => {
@@ -435,57 +316,34 @@ const Showcase: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    const updateScale = () => {
-      const mobileThreshold = 768; // adjust threshold as needed
-      if (window.innerWidth < mobileThreshold) {
-        setScale(0.5); // use a smaller scale on mobile
-      } else {
-        setScale(1);
-      }
+    const media = window.matchMedia('(max-width: 767px)');
+    const update = () => {
+      setIsMobile(media.matches);
+      scaleRef.current = media.matches ? 0.5 : 1;
+      setScale(scaleRef.current);
+      if (media.matches) setViewMode('grid');
     };
-
-    window.addEventListener('resize', updateScale);
-    updateScale(); // check initial viewport
-
-    return () => window.removeEventListener('resize', updateScale);
+    update();
+    media.addEventListener('change', update);
+    return () => media.removeEventListener('change', update);
   }, []);
 
   // DRAG handlers
   const handleMouseDown = (e: React.MouseEvent) => {
     setDragging(true);
     hasDraggedRef.current = false;
-    setLastPos({ x: e.clientX, y: e.clientY });
+    lastPos.current = { x: e.clientX, y: e.clientY };
   };
 
   const handleMouseMove = (e: React.MouseEvent) => {
     if (!dragging) return;
     hasDraggedRef.current = true;
-    const dx = e.clientX - lastPos.x;
-    const dy = e.clientY - lastPos.y;
+    const dx = e.clientX - lastPos.current.x;
+    const dy = e.clientY - lastPos.current.y;
 
-    setOffset(prev => {
-      let newX = prev.x + dx;
-      let newY = prev.y + dy;
+    setOffset(prev => clampOffset({ x: prev.x + dx, y: prev.y + dy }));
 
-      const scaledCanvasWidth = CANVAS_WIDTH * scale;
-      const scaledCanvasHeight = CANVAS_HEIGHT * scale;
-      const minX = viewportWidth - scaledCanvasWidth;
-      const minY = viewportHeight - scaledCanvasHeight;
-
-      // Only clamp when canvas is larger than viewport
-      if (minX < 0) {
-        if (newX < minX) newX = minX;
-        if (newX > 0) newX = 0;
-      }
-      if (minY < 0) {
-        if (newY < minY) newY = minY;
-        if (newY > 0) newY = 0;
-      }
-
-      return { x: newX, y: newY };
-    });
-
-    setLastPos({ x: e.clientX, y: e.clientY });
+    lastPos.current = { x: e.clientX, y: e.clientY };
   };
 
   const handleMouseUp = () => {
@@ -501,60 +359,29 @@ const Showcase: React.FC = () => {
     if (e.touches.length === 1) {
       setDragging(true);
       hasDraggedRef.current = false;
-      setLastPos({ x: e.touches[0].clientX, y: e.touches[0].clientY });
+      lastPos.current = { x: e.touches[0].clientX, y: e.touches[0].clientY };
     }
   };
 
   const handleTouchMove = (e: React.TouchEvent) => {
     if (!dragging || e.touches.length !== 1) return;
     hasDraggedRef.current = true;
-    const dx = e.touches[0].clientX - lastPos.x;
-    const dy = e.touches[0].clientY - lastPos.y;
+    const dx = e.touches[0].clientX - lastPos.current.x;
+    const dy = e.touches[0].clientY - lastPos.current.y;
 
-    setOffset(prev => {
-      let newX = prev.x + dx;
-      let newY = prev.y + dy;
+    setOffset(prev => clampOffset({ x: prev.x + dx, y: prev.y + dy }));
 
-      const scaledCanvasWidth = CANVAS_WIDTH * scale;
-      const scaledCanvasHeight = CANVAS_HEIGHT * scale;
-      const minX = viewportWidth - scaledCanvasWidth;
-      const minY = viewportHeight - scaledCanvasHeight;
-
-      if (minX < 0) {
-        if (newX < minX) newX = minX;
-        if (newX > 0) newX = 0;
-      }
-      if (minY < 0) {
-        if (newY < minY) newY = minY;
-        if (newY > 0) newY = 0;
-      }
-
-      return { x: newX, y: newY };
-    });
-
-    setLastPos({ x: e.touches[0].clientX, y: e.touches[0].clientY });
+    lastPos.current = { x: e.touches[0].clientX, y: e.touches[0].clientY };
   };
 
   const handleTouchEnd = () => {
     setDragging(false);
   };
 
-  // Scroll handlers - zoom in/out centered on canvas center
-  const handleWheel = (e: WheelEvent) => {
+  const handleWheel = useCallback((e: WheelEvent) => {
     e.preventDefault();
-    const delta = 0.009;
-    setScale(prev => {
-      const newScale = e.deltaY < 0 ? prev + delta : Math.max(0.1, prev - delta);
-      const actualDelta = newScale - prev;
-      if (actualDelta !== 0) {
-        setOffset(prevOffset => ({
-          x: prevOffset.x - (CANVAS_WIDTH / 2) * actualDelta,
-          y: prevOffset.y - (CANVAS_HEIGHT / 2) * actualDelta,
-        }));
-      }
-      return newScale;
-    });
-  };
+    zoomBy(e.deltaY < 0 ? 0.009 : -0.009);
+  }, [zoomBy]);
 
   useEffect(() => {
     const el = outerRef.current;
@@ -564,13 +391,64 @@ const Showcase: React.FC = () => {
     return () => {
       el.removeEventListener('wheel', handleWheel);
     };
-  }, [handleWheel]);
+  }, [handleWheel, showResults, isMobile, viewMode]);
 
+
+  const galleryCards = useMemo(() => (
+    positions.map(pos => {
+      const item = items.find(i => i.id === pos.id);
+      if (!item) return null;
+
+      const coverImagePath = `/showcase/${item.id}/cover.jpg`;
+
+      return (
+        <div
+          key={item.id}
+          className="gallery-card" style={{ left: pos.x, top: pos.y, cursor: item.real ? 'pointer' : 'default' }}
+
+          onClick={(e) => {
+            if (hasDraggedRef.current) return; // Prevent click after drag
+            if (!item.real) return;
+            e.stopPropagation();
+            const fullUrl = `${window.location.origin}/showcase/${item.id}`;
+            window.open(fullUrl, '_blank', 'noopener,noreferrer');
+          }}
+
+        >
+          <img
+            src={coverImagePath}
+            alt={`${item.title} cover`}
+            onError={(e) => { e.currentTarget.src = showcaseSampleCover; }}
+            onDragStart={(e) => e.preventDefault()}
+            className="gallery-cover" style={{ maxWidth: item.size?.width ?? MAX_ITEM_WIDTH, maxHeight: item.size?.height ?? MAX_ITEM_HEIGHT }}
+          />
+          <div className="gallery-item-title">
+            {item.title}
+          </div>
+          <div className="gallery-item-authors">
+            {item.authors.split('<br/>').map((part, i, arr) => (
+              <React.Fragment key={i}>
+                {part}
+                {i < arr.length - 1 && <br />}
+              </React.Fragment>
+            ))}
+          </div>
+          <div className="gallery-item-program">
+            {item.program.split('<br/>').map((part, i, arr) => (
+              <React.Fragment key={i}>
+                {part}
+                {i < arr.length - 1 && <br />}
+              </React.Fragment>
+            ))}
+          </div>
+        </div>
+      );
+    })
+  ), [positions]);
 
 
   return (
     <div>
-      {/* 添加 SearchBox */}
       <SearchBox
         searchQuery={searchQuery}
         onSearchChange={handleSearchChange}
@@ -603,7 +481,6 @@ const Showcase: React.FC = () => {
                 key={item.id}
                   className="grid-card" style={{ cursor: item.real ? 'pointer' : 'default' }}
 
-                // onClick={() => navigate(`/showcase/${item.id}`)}
 
                 onClick={(e) => {
                   if (!item.real) return; // Only navigate if the item is real
@@ -650,7 +527,6 @@ const Showcase: React.FC = () => {
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
-        // title="Press & hold left mouse button and drag"
         >
           <div
               className="showcase-offset" style={{ transform: `translate(${offset.x}px, ${offset.y}px)` }}
@@ -658,55 +534,7 @@ const Showcase: React.FC = () => {
             <div
               className="showcase-canvas" style={{ width: CANVAS_WIDTH, height: CANVAS_HEIGHT, transform: `scale(${scale})` }}
             >
-              {positions.map(pos => {
-                const item = items.find(i => i.id === pos.id);
-                if (!item) return null;
-
-                const coverImagePath = `/showcase/${item.id}/cover.jpg`;
-
-                return (
-                  <div
-                    key={item.id}
-                    className="gallery-card" style={{ left: pos.x, top: pos.y, cursor: item.real ? 'pointer' : 'default' }}
-
-                    onClick={(e) => {
-                      if (hasDraggedRef.current) return; // Prevent click after drag
-                      if (!item.real) return;
-                      e.stopPropagation();
-                      const fullUrl = `${window.location.origin}/showcase/${item.id}`;
-                      window.open(fullUrl, '_blank', 'noopener,noreferrer');
-                    }}
-
-                  >
-                    <img
-                      src={coverImagePath}
-                      alt={`${item.title} cover`}
-                      onError={(e) => { e.currentTarget.src = showcaseSampleCover; }}
-                      onDragStart={(e) => e.preventDefault()}
-                      className="gallery-cover" style={{ maxWidth: item.size?.width ?? MAX_ITEM_WIDTH, maxHeight: item.size?.height ?? MAX_ITEM_HEIGHT }}
-                    />
-                    <div className="gallery-item-title">
-                      {item.title}
-                    </div>
-                    <div className="gallery-item-authors">
-                      {item.authors.split('<br/>').map((part, i, arr) => (
-                        <React.Fragment key={i}>
-                          {part}
-                          {i < arr.length - 1 && <br />}
-                        </React.Fragment>
-                      ))}
-                    </div>
-                    <div className="gallery-item-program">
-                      {item.program.split('<br/>').map((part, i, arr) => (
-                        <React.Fragment key={i}>
-                          {part}
-                          {i < arr.length - 1 && <br />}
-                        </React.Fragment>
-                      ))}
-                    </div>
-                  </div>
-                );
-              })}
+              {galleryCards}
             </div>
           </div>
           <div className='zoom-in-out'>
@@ -737,7 +565,8 @@ const Showcase: React.FC = () => {
           {showTooltip && (
             <div
               className="tooltip-with-blur showcase-tooltip"
-              style={{ left: tooltipPosition.x + 10, top: tooltipPosition.y + 20 }}
+              ref={tooltipRef}
+              style={{ left: tooltipPosition.current.x, top: tooltipPosition.current.y }}
             >
               Press and hold to drag
             </div>

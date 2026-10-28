@@ -34,7 +34,6 @@ export default function Home() {
         </div>
       </section>
       <HomeHighlights />
-      <footer className="home-footer">NYU Global Show &amp; Tell @ 2025</footer>
     </div>
   );
 }

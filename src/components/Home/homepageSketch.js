@@ -1,6 +1,8 @@
 // Existing homepage artwork, isolated from page globals.
 export function homeArtwork(p, host) {
 let artColors = {};
+// Preserve the original 12 FPS pace at a fixed 30 FPS.
+const ARTWORK_SPEED_RATIO = 12 / 30;
 class GradientCircle {
   constructor() {
     this.startX = p.random(10, p.width - 10);
@@ -45,8 +47,8 @@ class GradientCircle {
   }
   update() {
     // Update position based on velocity
-    this.startX += this.velocity.x;
-    this.startY += this.velocity.y;
+    this.startX += this.velocity.x * ARTWORK_SPEED_RATIO;
+    this.startY += this.velocity.y * ARTWORK_SPEED_RATIO;
     this.endX = this.startX;
     this.endY = this.startY;
 
@@ -61,7 +63,7 @@ class GradientCircle {
     }
 
     // Dampen the velocity over time
-    this.velocity.mult(0.9);
+    this.velocity.mult(0.9 ** ARTWORK_SPEED_RATIO);
   }
   show() {
     p.noStroke();
@@ -138,14 +140,14 @@ class Ball {
     let distance = mouseForceSphere.dist(ballPos);
     if (distance < this.forceRadius && distance > 0) {
       let pushDirection = p.constructor.Vector.sub(mouseForceSphere, ballPos).normalize();
-      this.velocity.x += pushDirection.x * 0.7;
-      this.velocity.y += pushDirection.y * 0.7;
+      this.velocity.x += pushDirection.x * 0.7 * ARTWORK_SPEED_RATIO;
+      this.velocity.y += pushDirection.y * 0.7 * ARTWORK_SPEED_RATIO;
     }
     this.applyForce(this.gravity); //Apply gravity every frame
 
-    this.velocity.add(this.acceleration);
-    this.x += this.velocity.x;
-    this.y += this.velocity.y;
+    this.velocity.add(this.acceleration.copy().mult(ARTWORK_SPEED_RATIO));
+    this.x += this.velocity.x * ARTWORK_SPEED_RATIO;
+    this.y += this.velocity.y * ARTWORK_SPEED_RATIO;
     this.acceleration.mult(0); //reset acceleration
 
     //bounce off walls
@@ -206,8 +208,8 @@ class Bubble {
   }
   update() {
     // Move the bubble
-    this.x += this.velocity.x;
-    this.y += this.velocity.y;
+    this.x += this.velocity.x * ARTWORK_SPEED_RATIO;
+    this.y += this.velocity.y * ARTWORK_SPEED_RATIO;
 
     // Wrap around the edges of the canvas
     if (this.x > p.width + this.r) this.x = -this.r;
@@ -270,7 +272,7 @@ p.setup = function () {
   const theme = getComputedStyle(document.documentElement);
   artColors = Object.fromEntries(["color-surface", "color-art-lime", "color-surface-a0", "canvas-yellow", "color-art-chartreuse", "color-art-green", "color-art-leaf", "color-art-purple", "color-art-pink", "color-art-cyan", "canvas-yellow-a0", "color-body"].map(name => [name, theme.getPropertyValue('--' + name).trim()]));
   p.createCanvas(host.clientWidth, host.clientHeight);
-  p.frameRate(12);
+  p.frameRate(30);
   colorPalette_1 = [p.color(artColors['canvas-yellow']), p.color(artColors['color-art-lime']), p.color(artColors['color-art-chartreuse']), p.color(artColors['color-art-green'])];
   colorPalette_2 = [p.color(artColors['color-art-leaf']), p.color(artColors['color-art-purple']), p.color(artColors['color-art-pink']), p.color(artColors['color-art-cyan'])];
   colorPaletteOutter = [p.color(artColors['canvas-yellow-a0']), p.color(artColors['color-surface-a0'])];

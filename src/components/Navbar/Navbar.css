@@ -18,7 +18,7 @@
   right: 0;
   height: 750px;
   background-color: transparent;
-  font-family: var(--font-family);
+  font-family: var(--font-family-menu);
   font-size: var(--font-size-16px);
   line-height: var(--leading-normal);
   font-synthesis: none;
@@ -60,7 +60,7 @@
   align-items: center;
   justify-content: center;
   font-size: var(--font-size-28px);
-  font-weight: var(--weight-normal);
+  font-weight: var(--font-weight-menu);
   background: linear-gradient(90deg, var(--canvas-yellow) -10.32%, var(--color-control-accent) 33.55%);
   box-shadow: var(--shadow-menu);
   color: var(--color-ink);
@@ -79,7 +79,7 @@
   align-items: center;
   justify-content: center;
   font-size: var(--font-size-28px);
-  font-weight: var(--weight-normal);
+  font-weight: var(--font-weight-menu);
   background: linear-gradient(90deg, var(--canvas-yellow) -10.32%, var(--color-control-accent) 33.55%);
   box-shadow: var(--shadow-menu);
 }
@@ -255,7 +255,7 @@
 /* Button styling */
 .site-header .nav-button {
   font-size: var(--font-size-28px);
-  font-weight: var(--weight-normal);
+  font-weight: var(--font-weight-menu);
   padding: var(--spacing-xs) var(--spacing-50);
   border: 2px solid var(--color-ink);
   border-radius: var(--radius-30);
@@ -342,4 +342,24 @@
     animation: none !important;
     transition: none !important;
   }
+}
+
+/* Size-only tuning: preserve the original logo, pills, gradients and hover art. */
+.site-header .navbar-container { transform: none; width: var(--corner-menu-width); height: 100svh; }
+.site-header .expanded { width: var(--corner-menu-width); padding: 0; }
+.site-header .collapsed { top: var(--corner-menu-top); width: var(--corner-menu-toggle-width); height: var(--corner-menu-toggle-height); }
+.site-header .toggle-button, .site-header .toggle-button-close { top: var(--corner-menu-top); height: var(--corner-menu-toggle-height); font-size: var(--corner-menu-toggle-font); border-width: var(--corner-menu-border); border-radius: var(--corner-menu-radius) 0 0 var(--corner-menu-radius); }
+.site-header .toggle-button { width: var(--corner-menu-toggle-width); }
+.site-header .toggle-button-close { width: var(--corner-menu-close-width); }
+.site-header .collapsed .toggle-button { top: 0; }
+.site-header .menu-label { margin-left: -14px; }
+.site-header .toggle-button svg, .site-header .toggle-button:hover .vector { left: auto; right: 12px; top: 50%; transform: translateY(-50%); height: 28px; }
+.site-header .menu-close-icon svg { height: 28px; }
+.site-header .navbar { top: calc(var(--corner-menu-top) + var(--corner-menu-toggle-height) + var(--corner-menu-panel-gap)); right: var(--corner-menu-side-space); left: var(--corner-menu-side-space); max-height: calc(100svh - var(--corner-menu-top) - var(--corner-menu-toggle-height) - var(--corner-menu-panel-gap) - var(--corner-menu-bottom)); overflow-y: auto; overflow-x: hidden; padding: 6px; scrollbar-width: thin; }
+.site-header .nav-title { width: min(100%, var(--corner-menu-logo-max-width)); margin-left: auto; line-height: 0; }
+.site-header .nav-title svg { width: 100%; height: auto; }
+.site-header .nav-buttons { gap: var(--corner-menu-row-gap); }
+.site-header .nav-button { box-sizing: border-box; font-size: var(--corner-menu-font); min-height: var(--corner-menu-link-height); padding: 5px var(--corner-menu-link-padding); border-width: var(--corner-menu-border); border-radius: var(--corner-menu-radius); }
+@media (max-width: 768px) {
+  .site-header .navbar-container.collapsed { top: var(--corner-menu-top); }
 }

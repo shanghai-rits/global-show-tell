@@ -18,6 +18,12 @@
    ```
 4. Open http://localhost:5174/ in your browser to see the app running.
 
+## Validation
+
+Run `npm run check` for lint, TypeScript checking, all tests, and the production build.
+Individual commands: `npm run lint`, `npm run typecheck`, and `npm test`.
+The same check runs for pull requests and before deployment.
+
 ## Deployment
 
 Deployment is automatic via GitHub Actions. Simply:

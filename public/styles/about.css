@@ -183,7 +183,7 @@
         .bottom-box-title { color: var(--color-section-heading); font-size: var(--font-size-36px); font-style: italic; }
         .bottom-box-title-span { color: var(--text-gray); font-style: italic; font-weight: var(--weight-250); font-size: var(--font-md); margin-bottom: var(--spacing-30); }
         .bottom-box-info { margin-top: var(--spacing-xs); color: var(--color-heading); font-size: var(--font-sm); line-height: 30px; margin-bottom: 65px; display: flex; flex-direction: column; }
-        .grid-type-1 { display: grid; grid-template-columns: 1fr 2fr; gap: 0 var(--spacing-50); }
+        .grid-type-1 { display: grid; grid-template-columns: minmax(0, var(--about-credits-left-column)) minmax(0, var(--about-credits-right-column)); gap: 0 var(--spacing-50); }
         .grid-type-1 > div { margin-bottom: var(--spacing-30); }
         .grid-type-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
 
@@ -365,18 +365,26 @@
 .organizers-footer { padding-bottom: 100px; }
 
 /* About copy: preserve the supplied text, with a readable measure and hierarchy. */
-#content .about-prose { max-width: 960px; font-size: 18px; line-height: 1.7; color: var(--color-heading); }
+#content .about-prose { max-width: var(--content-prose-width); font-size: var(--font-size-body); line-height: var(--line-height-body); color: var(--color-heading); }
 #content .about-prose p { margin: 0 0 20px; }
 #content .about-introduction { margin-bottom: 64px; }
 #content .about-organizers-introduction { margin: 12px 0 32px; }
 #content .about-journey, #content .about-impact { margin-top: 64px; }
 #content .about-journey ol { padding-left: 1.6em; }
 #content .about-journey li { padding-left: 8px; margin: 28px 0; }
-#content .about-journey li::marker { font-weight: var(--weight-semibold); }
-#content .about-journey h3 { font-size: 20px; line-height: 1.4; font-weight: var(--weight-semibold); margin: 0 0 12px; }
+#content .about-journey li::marker { color: var(--color-about-journey-title); font-weight: var(--weight-semibold); }
+#content .about-journey h3 { color: var(--color-about-journey-title); font-size: 20px; line-height: 1.4; font-weight: var(--weight-semibold); margin: 0 0 12px; }
 @media (max-width: 640px) {
-  #content .about-prose { font-size: 16px; line-height: 1.7; }
+  #content .about-prose { font-size: var(--font-size-body); line-height: var(--line-height-body); }
   #content .about-introduction { margin-bottom: 40px; }
   #content .about-journey, #content .about-impact { margin-top: 40px; }
   #content .about-journey h3 { font-size: 18px; }
 }
+
+#content .about-prose,
+#content .bottom-box-info { max-width: var(--content-prose-width); margin-left: 0; margin-right: auto; }
+#content > .chapter-title,
+#content > .bottom-box-title,
+#content .shared-highlights { margin-left: 0; text-align: left; }
+
+#content .person-name { font-weight: var(--weight-bold); }

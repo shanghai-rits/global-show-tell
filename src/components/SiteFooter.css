@@ -1,0 +1,11 @@
+.site-footer {
+  box-sizing: border-box;
+  width: 100%;
+  clear: both;
+  padding: var(--footer-padding-block) 24px;
+  background: var(--footer-background);
+  color: var(--footer-color);
+  text-align: center;
+  font: var(--footer-font-size)/1.5 var(--font-family-body);
+}
+.site-footer small { font: inherit; }
