@@ -27,5 +27,4 @@
   .home-page .home-title-art { width: min(var(--home-title-mobile-width), calc(var(--hero-title-height) * var(--home-title-mobile-ratio))); max-width: var(--home-title-mobile-max-width); }
   .home-page .home-title-art .home-desktop-title-line { display: none; }
   .home-page .home-campus-bar img { height: 23px; }
-  .home-page .home-links { align-items: flex-start; }
 }

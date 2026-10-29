@@ -11,8 +11,8 @@
 <script src="/scripts/highlights.js"></script>
 
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    <script src="/scripts/vendor/p5.js"></script>
-    <script src="/scripts/artwork-lifecycle.js"></script>
+
+
     <title>Events - Global Show & Tell</title>
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no,viewport-fit=cover">
@@ -32,15 +32,15 @@
             doc.addEventListener('DOMContentLoaded', recalc, false);
         })(document, window);
     </script>
-    <script src="/about/assets/sketch.js"></script>
+
 </head>
 
-<body class="static-page">
+<body class="static-page" data-artwork="about">
     <div id="site-header-root"></div>
     <script type="module" src="/src/myPageEntry.jsx"></script>
     <div id="app" tabindex="-1">
         <div class="page-body" id="allText">
-            <div class="li-box">
+            <div class="li-box page-artwork-header">
                 <div class="zhuti">
                     <div class="shadow-title">
                         <div class="title-text-bg">
@@ -53,8 +53,7 @@
                             </div>
                             <div class="art-canvas"
                                 >
-                                <main>
-                                </main>
+
                             </div>
                         </div>
                     </div>
@@ -75,7 +74,7 @@
                             <img :src="item.image" :alt="item.titleLines.join(' ')" />
                         </div>
                         <div class="event-info" :style="labelStyle(item)">
-                            <div class="event-title" :style="titleStyle(item)">
+                            <div class="event-title">
                                 <div v-for="(line, lineIndex) in item.titleLines" :key="item.id + '-title-' + lineIndex"
                                     class="event-title-line" :style="titleLineStyle(item, lineIndex)">{{
                                     line }}</div>
@@ -101,7 +100,7 @@
                 <!-- Highlights Section -->
                 <div class="highlights-section">
                     <div class="chapter-title">Highlights</div>
-                    <site-highlights :count="9"></site-highlights>
+                    <site-highlights :count="12"></site-highlights>
                 </div>
 
             </div>
@@ -401,16 +400,6 @@
                     };
                 }
 
-                function combinedTags(item) {
-                    const contentTags = item.tags || [];
-                    const campusTags = (item.campuses || []).map((campus) => ({
-                        label: campus,
-                        type: 'campus',
-                    }));
-
-                    return [...contentTags, ...campusTags];
-                }
-
                 function tagLines(item) {
                     if (item.tagLines && item.tagLines.length > 0) {
                         return item.tagLines.filter((line) => (line || []).length > 0);
@@ -432,16 +421,6 @@
                     };
                 }
 
-                function titleStyle(item) {
-                    return {
-                        fontSize: item.titleSize
-                            ? typeof item.titleSize === 'number'
-                                ? `${item.titleSize}px`
-                                : item.titleSize
-                            : undefined,
-                    };
-                }
-
                 function titleLineStyle(item, lineIndex) {
                     if (lineIndex !== 0 || !item.firstLineWidth) {
                         return undefined;
@@ -460,10 +439,8 @@
                     circleEvents,
                     eventStyle,
                     bubbleCircleStyle,
-                    combinedTags,
                     tagLines,
                     labelStyle,
-                    titleStyle,
                     titleLineStyle,
                     openEventDetail,
                 }

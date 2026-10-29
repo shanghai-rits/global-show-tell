@@ -10,8 +10,8 @@
     <link rel="stylesheet" href="/styles/opencall.css">
 
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    <script src="/scripts/vendor/p5.js"></script>
-    <script src="/scripts/artwork-lifecycle.js"></script>
+
+
     <title>Open call - Global Show & Tell</title>
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no,viewport-fit=cover">
@@ -31,15 +31,15 @@
             doc.addEventListener('DOMContentLoaded', recalc, false);
         })(document, window);
     </script>
-    <script src="/opencall/assets/sketch.js"></script>
+
 </head>
 
-<body class="static-page">
+<body class="static-page" data-artwork="opencall">
     <div id="site-header-root"></div>
     <script type="module" src="/src/myPageEntry.jsx"></script>
     <div id="app" tabindex="-1">
         <div class="page-body" id="allText">
-            <div class="li-box">
+            <div class="li-box page-artwork-header">
                 <div class="zhuti">
                     <div class="shadow-title">
                         <div class="title-text-bg">
@@ -55,9 +55,7 @@
                             </div>
                             <div class="art-canvas"
                                 >
-                                <main>
 
-                                </main>
                             </div>
                         </div>
                     </div>

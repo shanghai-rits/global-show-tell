@@ -6,6 +6,7 @@
 @import url('/styles/base.css');
 @import url('/styles/controls.css');
 @import url('/styles/prose.css');
+@import url('/styles/artwork.css');
 
 :root { font-family: var(--font-family-body); }
 

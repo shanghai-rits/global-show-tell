@@ -2,6 +2,7 @@ import { createRoot } from 'react-dom/client';
 import SiteHeader from './components/SiteHeader/SiteHeader';
 import BackToTop from './components/BackToTop';
 import SiteFooter from './components/SiteFooter';
+import { mountArtwork } from './artwork/index.js';
 
 // React owns only this header root. The legacy page's #app stays owned by Vue.
 const container = document.getElementById('site-header-root');
@@ -17,3 +18,6 @@ if (documentBody) {
   documentBody.after(footer);
   createRoot(footer).render(<><BackToTop /><SiteFooter /></>);
 }
+
+const artworkHost = document.querySelector('.art-canvas');
+if (artworkHost) mountArtwork(artworkHost, document.body.dataset.artwork);
