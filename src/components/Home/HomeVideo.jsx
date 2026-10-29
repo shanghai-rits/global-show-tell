@@ -73,8 +73,7 @@ export default function HomeVideo() {
     };
   }, [pausePlayback]);
   return (
-    <section className="home-video-section" aria-labelledby="home-video-title">
-      <h2 id="home-video-title">&quot; Global Learning,<br />Artificial Intelligence,<br />&amp; Interactivity &quot;</h2>
+    <section className="home-video-section" aria-label="NYU Global Show and Tell introduction video">
       <div ref={frameRef} className="home-video-frame">
       <video ref={videoRef} src={load ? '/homepage/assets/nyuglobal-show-tell.mp4' : undefined}
         poster="/homepage/assets/nyuglobal-show-tell-poster.png"
