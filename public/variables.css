@@ -1,5 +1,7 @@
 /* Shared theme values for HTML, React, SVG, and canvas. */
 :root {
+  --calendar-accent-width: 40px;
+  --calendar-accent-width-mobile: 16px;
   --events-highlight-min-width: 280px;
   --events-highlight-gap: 18px;
   --page-artwork-height: clamp(180px, 25vw, 320px);

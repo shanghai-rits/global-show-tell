@@ -20,8 +20,8 @@
 
 ## Validation
 
-Run `npm run check` for lint, TypeScript checking, all tests, and the production build.
-Individual commands: `npm run lint`, `npm run typecheck`, and `npm test`.
+Run `npm run check` for lint, TypeScript checking, and the production build.
+Individual commands: `npm run lint` and `npm run typecheck`.
 The same check runs for pull requests and before deployment.
 
 ## Deployment
