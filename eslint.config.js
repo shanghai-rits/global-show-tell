@@ -13,7 +13,7 @@ export default [
     ignores: ['dist/**', 'public/scripts/vendor/**', 'public/about-old/**', '**/*.min.js', '**/__*', '**/__*/**'],
   },
   {
-    files: [...applicationFiles, 'tests/**/*.js', '*.config.js'],
+    files: [...applicationFiles, '*.config.js'],
     languageOptions: { ecmaVersion: 'latest', sourceType: 'module' },
     rules: js.configs.recommended.rules,
   },
@@ -36,6 +36,6 @@ export default [
     files: typescriptFiles,
     rules: { 'no-undef': 'off', 'react/prop-types': 'off' },
   },
-  { files: ['tests/**/*.js', '*.config.js'], languageOptions: { globals: globals.node } },
+  { files: ['*.config.js'], languageOptions: { globals: globals.node } },
   { files: ['public/scripts/highlights.js'], languageOptions: { sourceType: 'script', globals: { Vue: 'readonly' } } },
 ];

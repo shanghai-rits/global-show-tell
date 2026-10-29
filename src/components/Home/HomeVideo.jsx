@@ -77,6 +77,7 @@ export default function HomeVideo() {
       <h2 id="home-video-title">&quot; Global Learning,<br />Artificial Intelligence,<br />&amp; Interactivity &quot;</h2>
       <div ref={frameRef} className="home-video-frame">
       <video ref={videoRef} src={load ? '/homepage/assets/nyuglobal-show-tell.mp4' : undefined}
+        poster="/homepage/assets/nyuglobal-show-tell-poster.png"
         muted={muted} loop playsInline preload="none"
         onCanPlay={() => { if (playRequested.current) playVideo(); }}
         onPlay={() => setPlaying(true)}
