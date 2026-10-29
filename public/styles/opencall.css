@@ -8,15 +8,12 @@
         }
 
         .li-box {
-            height: 610px;
             width: 100%;
             position: relative;
             z-index: 1;
         }
 
         .zhuti {
-            height: 600px;
-            margin: 0px 0;
             position: relative;
             /* padding-bottom: 100px; */
         }
@@ -37,16 +34,12 @@
         }
 
         .center-box {
-            height: 300px;
-            margin-top: -60px;
-            position: relative;
             z-index: 1;
         }
 
         .img-bg {
             /*background: url('/opencall/assets/head-bg-all.png') no-repeat;*/
             width: 100%;
-            height: 310px;
 			background-size: cover;
 			position: relative;
 			overflow: hidden;
@@ -55,10 +48,8 @@
         .on-shadow-title-box {
             position: absolute;
             z-index: 3;
-            top: 0;
             left: 0;
             width: 100%;
-            height: 600px;
             pointer-events: none;
 
         }
@@ -76,7 +67,6 @@
 
         .content {
             position: relative;
-            top: 0;
             /* opacity: 0; */
             left: 0;
             right: 0;
@@ -320,26 +310,6 @@
         }
 
         @media screen and (max-width:640px) {
-            .li-box {
-                height: 6.1rem;
-            }
-
-            .zhuti {
-                height: 6rem;
-            }
-
-            .on-shadow-title-box {
-                height: 6rem;
-            }
-
-            .center-box {
-                height: 3rem;
-                margin-top: -0.6rem;
-            }
-
-            .img-bg {
-                height: 3rem;
-            }
 
             .title-text-bg {
                 background: url('/opencall/assets/opencall-fill.svg');

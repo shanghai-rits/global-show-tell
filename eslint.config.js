@@ -5,13 +5,8 @@ import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
 import tseslint from 'typescript-eslint';
 
-const applicationFiles = ['src/**/*.{js,jsx,ts,tsx}', 'public/scripts/**/*.js', 'public/{about,opencall}/assets/sketch.js'];
+const applicationFiles = ['src/**/*.{js,jsx,ts,tsx}', 'public/scripts/**/*.js'];
 const typescriptFiles = ['src/**/*.{ts,tsx}'];
-const p5Globals = Object.fromEntries([
-  'p5', 'random', 'width', 'height', 'ceil', 'floor', 'createVector', 'mouseX', 'mouseY',
-  'noStroke', 'fill', 'drawingContext', 'ellipse', 'noFill', 'stroke', 'strokeWeight',
-  'dist', 'constrain', 'line', 'createCanvas', 'windowWidth', 'frameRate', 'color', 'background',
-].map(name => [name, 'readonly']));
 
 export default [
   {
@@ -43,10 +38,4 @@ export default [
   },
   { files: ['tests/**/*.js', '*.config.js'], languageOptions: { globals: globals.node } },
   { files: ['public/scripts/highlights.js'], languageOptions: { sourceType: 'script', globals: { Vue: 'readonly' } } },
-  { files: ['public/scripts/artwork-lifecycle.js'], languageOptions: { sourceType: 'script' } },
-  {
-    files: ['public/{about,opencall}/assets/sketch.js'],
-    languageOptions: { sourceType: 'script', globals: p5Globals },
-    rules: { 'no-unused-vars': ['error', { varsIgnorePattern: '^(setup|draw|windowResized)$' }] },
-  },
 ];

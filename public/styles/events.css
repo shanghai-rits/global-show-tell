@@ -1,17 +1,4 @@
-/* ========================================
-   EVENTS.HTML - Extracted CSS
-   ======================================== */
-
-
-        /* ==========================================================================
-           RESET & BASE STYLES
-           ========================================================================== */
-
-        /* ==========================================================================
-           LAYOUT COMPONENTS
-           ========================================================================== */
-        .page-body {
-            --title-scroll-depth: 2.6rem;
+.page-body {
             --title-inline-offset: 20px;
             --detail-event-bubble-size: 138px;
             width: 100%;
@@ -19,15 +6,12 @@
         }
 
         .li-box {
-            height: var(--title-scroll-depth);
             width: 100%;
             position: relative;
             z-index: 1;
         }
 
         .zhuti {
-            height: var(--title-scroll-depth);
-            margin: 0px 0;
             position: relative;
         }
 
@@ -39,16 +23,6 @@
             color: var(--color-ink);
         }
 
-        /* .title-text-bg {
-            background: url('/events/title-text.svg');
-            width: 88%;
-            max-width: 1440px;
-            height: 12vw;
-            background-size: 100% 100%;
-            margin-top: 53px;
-            margin-left: -280px;
-        } */
-
         .title-text-bg {
             background: url('/events/title-text.svg');
             width: 68%;
@@ -59,19 +33,14 @@
             background-repeat: no-repeat;
             background-position: left top;
             background-size: contain;
-            margin-top: 53px;
         }
 
         .center-box {
-             height: 300px;
-            margin-top: -160px;
-            position: relative;
             z-index: 1;
         }
 
         .img-bg {
             width: 100%;
-            height: 310px;
             background-size: cover;
             position: relative;
             overflow: hidden;
@@ -80,24 +49,9 @@
         .on-shadow-title-box {
             position: absolute;
             z-index: 3;
-            top: 0;
             width: 100%;
-            height: var(--title-scroll-depth);
             pointer-events: none;
         }
-
-        /* .on-shadow-title-bg {
-            position: sticky;
-            z-index: -1;
-            left: -280px;
-            top: 0;
-            background: url('/events/title-shadow.svg');
-            width: 88%;
-            max-width: 1440px;
-            height: 12vw;
-            background-size: 100% 100%;
-            margin-left:-280px;
-        } */
 
          .on-shadow-title-bg {
             position: sticky;
@@ -114,12 +68,7 @@
             background-position: left top;
             background-size: contain;
         }
-
-        /* ==========================================================================
-           CONTENT AREA
-           ========================================================================== */
         .content {
-            margin-top: 15px;
             padding: var(--spacing-48);
             display: flex;
             justify-content: center;
@@ -132,10 +81,6 @@
         ::-webkit-scrollbar {
             width: 0px;
         }
-
-        /* ==========================================================================
-           EVENT BUBBLE LAYOUT
-           ========================================================================== */
         .events-layout {
             position: relative;
             width: 100%;
@@ -272,13 +217,10 @@
             border: 1px solid var(--color-ink);
             color: var(--color-ink);
         }
-
-        /* ==========================================================================
-           HIGHLIGHTS SECTION
-           ========================================================================== */
         .highlights-section {
+            box-sizing: border-box;
             width: 100%;
-            max-width: 1280px;
+            max-width: var(--content-frame-width);
             margin: 1px auto 0;
             padding: 0 18px;
         }
@@ -290,156 +232,12 @@
             font-style: italic;
             padding-bottom: var(--spacing-10);
         }
-
-        .photo-box {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 38px 18px;
-            justify-content: flex-start;
-            width: 100%;
-        }
-
-        .photo-item {
-            position: relative;
-            overflow: hidden;
-            aspect-ratio: 1272 / 715;
-            width: 100%;
-            background: var(--color-photo-placeholder);
-            cursor: pointer;
-        }
-
-        .photo-item .img-layer {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
-
-        .photo-item .img-layer img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
-
-        .photo-item .img-back {
-            z-index: 0;
-        }
-
-        .photo-item .img-front {
-            z-index: 1;
-            transition: opacity var(--motion-menu) ease;
-        }
-
-        .photo-item .img-front.cross-fade {
-            opacity: 0;
-        }
-
-        /* Hover title overlay */
-        .photo-title {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(180deg, var(--color-surface-a0) 1%, var(--color-caption-mid-a300) 25%, var(--color-caption-end) 85%);
-            color: var(--color-caption);
-            padding: 155px var(--spacing-md) 15px var(--spacing-md);
-            font-weight: bold;
-            transform: translateY(100%);
-            transition: transform var(--motion-normal) ease-in-out;
-            z-index: 10;
-            cursor: pointer;
-            pointer-events: auto;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-        }
-
-        .photo-item:hover .photo-title {
-            transform: translateY(0);
-        }
-
-        .photo-title .main-title {
-            font-size: var(--font-size-18px);
-            line-height: var(--leading-heading);
-            text-align: left;
-            width: 100%;
-        }
-
-        .photo-title .sub-title {
-            font-size: var(--font-size-11px);
-            font-weight: normal;
-            font-style: italic;
-            margin-top: 3px;
-            text-align: left;
-            width: 100%;
-        }
-
-        .photo-title .location {
-            font-size: var(--font-size-11px);
-            font-weight: normal;
-            font-style: italic;
-            margin-top: 3px;
-            text-align: left;
-            width: 100%;
-        }
-
-        /* Fullscreen preview overlay */
-        .preview-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--color-ink-a850);
-            z-index: var(--layer-overlay);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-        }
-
-        .preview-overlay img {
-            max-width: 90%;
-            max-height: 90%;
-            object-fit: contain;
-            border-radius: var(--radius-4);
-        }
-
-        /* ==========================================================================
-           RESPONSIVE DESIGN
-           ========================================================================== */
-        /* Tablet */
         @media screen and (max-width: 1024px) {
-            .page-body {
-                --title-scroll-depth: 2.8rem;
-            }
-
-            .zhuti,
-            .on-shadow-title-box,
-            .li-box {
-                height: var(--title-scroll-depth);
-            }
-
-            .on-shadow-title-box {
-                height: var(--title-scroll-depth);
-            }
-
-            .center-box {
-                height: 2.2rem;
-                margin-top: -0.55rem;
-            }
-
-            .img-bg {
-                height: 1.7rem;
-            }
 
             .content {
                 width: 100%;
                 box-sizing: border-box;
                 padding: 18px var(--spacing-32) 80px;
-                margin-top: 0px;
             }
 
             .events-layout {
@@ -492,9 +290,27 @@
             }
 
             .event-info {
-                width: auto !important;
+                width: 100% !important;
+                min-width: 0;
+                overflow-wrap: anywhere;
                 margin-left: 0 !important;
                 text-align: center;
+            }
+
+            .event-title-line {
+                max-width: 100%;
+            }
+
+            .event-tag-line {
+                max-width: 100%;
+                justify-content: center;
+                row-gap: var(--spacing-4);
+            }
+
+            .tag-pill {
+                max-width: 100%;
+                box-sizing: border-box;
+                white-space: normal;
             }
 
             .event-title {
@@ -531,145 +347,13 @@
             .chapter-title {
                 font-size: var(--font-size-32px);
             }
-
-            .photo-box {
-                gap: var(--spacing-md) var(--spacing-10);
-            }
         }
-
-        /* Mobile Large */
         @media screen and (max-width: 720px) {
-            .page-body {
-                --title-scroll-depth: 3rem;
-            }
-
-            .li-box {
-                height: var(--title-scroll-depth);
-            }
-
-            .zhuti,
-            .on-shadow-title-box {
-                height: var(--title-scroll-depth);
-            }
-
-            .center-box {
-                height: 2.2rem;
-                margin-top: -0.55rem;
-            }
-
-            .img-bg {
-                height: 1.7rem;
-            }
-
-            .content {
-                width: 100%;
-                box-sizing: border-box;
-                padding: 18px var(--spacing-32) 80px;
-                margin-top: 0px;
-            }
-
-            .events-layout {
-                aspect-ratio: auto;
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: center;
-                padding: 0 clamp(18px, 3vw, 34px);
-                box-sizing: border-box;
-                gap: clamp(34px, 4.8vw, 52px) clamp(42px, 6vw, 72px);
-            }
-
-            .event-bubble {
-                position: relative;
-                left: auto;
-                top: auto;
-                width: min(40%, 260px);
-            }
-
-            .event-bubble:not(.event-bubble--info-right) {
-                width: calc((100% - 72px) / 2);
-                max-width: calc((100% - 72px) / 2);
-                flex: 0 0 calc((100% - 72px) / 2);
-                align-items: center;
-            }
-
-            .event-bubble:not(.event-bubble--info-right) .event-bubble-circle {
-                width: min(100%, 252px);
-            }
-
-            .event-bubble:not(.event-bubble--info-right) .event-info {
-                order: 0;
-                margin-top: var(--spacing-16);
-                margin-bottom: 0;
-            }
-
-            .event-bubble:not(.event-bubble--info-right) .event-title {
-                padding-top: 0;
-            }
 
             .event-bubble--info-right {
                 width: calc((100% - 42px) / 2);
                 max-width: calc((100% - 42px) / 2);
                 flex: 0 0 calc((100% - 42px) / 2);
-                align-items: center;
-            }
-
-            .event-bubble--info-right .event-bubble-circle {
-                width: min(100%, clamp(112px, 15vw, var(--detail-event-bubble-size)));
-            }
-
-            .event-title {
-                font-size: var(--font-event-title-tablet);
-            }
-
-            .event-date {
-                font-size: var(--font-event-date-tablet);
-            }
-
-            .tag-pill {
-                font-size: var(--font-event-tag-tablet);
-                padding: 3px var(--spacing-xs);
-            }
-
-            .event-bubble--info-right .event-info {
-                position: static;
-                left: auto;
-                top: auto;
-                transform: none;
-                margin-top: var(--spacing-10);
-            }
-
-            .event-tags {
-                align-items: center;
-                gap: var(--spacing-4);
-            }
-
-            .highlights-section {
-                padding: 0 var(--spacing-10);
-                margin-top: var(--spacing-lg);
-            }
-
-            .chapter-title {
-                font-size: var(--font-size-32px);
-            }
-
-            .photo-box {
-                gap: var(--spacing-md) var(--spacing-10);
-            }
-
-            .photo-title {
-                padding: clamp(52px, 11vw, 96px) clamp(var(--spacing-10), 2vw, 14px) clamp(6px, 1.2vw, var(--spacing-10));
-            }
-
-            .photo-title .main-title {
-                font-size: var(--font-event-title-mobile);
-                line-height: 1.15;
-            }
-
-            .photo-title .sub-title,
-            .photo-title .location {
-                font-size: var(--font-event-tag-mobile);
-                line-height: var(--leading-heading);
-                margin-top: clamp(2px, 0.45vw, 3px);
             }
         }
 
@@ -695,20 +379,15 @@
             .event-bubble--info-right .event-bubble-circle {
                 width: min(100%, clamp(88px, 22vw, 112px));
             }
-
-            .photo-title {
-                padding: clamp(36px, 13vw, var(--spacing-xl)) clamp(var(--spacing-xs), 3vw, var(--spacing-sm)) clamp(5px, 1.4vw, var(--spacing-xs));
-            }
-
-            .photo-title .main-title {
-                font-size: var(--font-photo-title-mobile);
-                line-height: 1.15;
-            }
-
-            .photo-title .sub-title,
-            .photo-title .location {
-                font-size: var(--font-photo-caption-mobile);
-                line-height: var(--leading-heading);
-                margin-top: clamp(1px, 0.5vw, 2px);
-            }
         }
+
+.highlights-section .shared-highlights .photo-box {
+    display: flex;
+    flex-wrap: wrap;
+    gap: clamp(15px, 3vw, 38px) var(--events-highlight-gap);
+}
+.highlights-section .shared-highlights .photo-item {
+    flex: 1 1 max(var(--events-highlight-min-width), calc((100% - 2 * var(--events-highlight-gap)) / 3));
+    min-width: 0;
+    max-width: 100%;
+}
