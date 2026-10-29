@@ -1,0 +1,19 @@
+body.static-page #app .page-artwork-header {
+  height: calc(var(--page-artwork-offset) + var(--page-artwork-height) + var(--page-artwork-bottom-space));
+}
+body.static-page #app .page-artwork-header .zhuti { height: 100%; margin: 0; }
+body.static-page #app .page-artwork-header .shadow-title { padding-top: var(--page-artwork-title-top); }
+body.static-page #app .page-artwork-header .title-text-bg { margin-top: 0; }
+body.static-page #app .page-artwork-header .on-shadow-title-box {
+  top: var(--page-artwork-title-top);
+  height: calc(100% - var(--page-artwork-title-top));
+}
+body.static-page #app .page-artwork-header .center-box {
+  position: absolute;
+  inset: var(--page-artwork-offset) 0 auto;
+  height: var(--page-artwork-height);
+  margin: 0;
+}
+body.static-page #app .page-artwork-header .img-bg { height: 100%; isolation: isolate; }
+body.static-page #app .page-artwork-header canvas { display: block; width: 100%; height: 100%; }
+body.static-page #app .page-artwork-header + .content { top: 0; margin-top: 0; }

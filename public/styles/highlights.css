@@ -1,6 +1,6 @@
         .shared-highlights .photo-box {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(3, minmax(0, 1fr));
             gap: 38px 18px;
             justify-content: flex-start;
             width: 100%;
@@ -100,7 +100,7 @@
 .shared-highlights .highlights-preview::backdrop { background: var(--color-ink-a850); }
 .shared-highlights .highlights-preview img { display: block; max-width: 90vw; max-height: 85vh; object-fit: contain; }
 @media (max-width: 640px) {
-  .shared-highlights .photo-box { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 15px 10px; }
+  .shared-highlights .photo-box { grid-template-columns: minmax(0, 1fr); gap: 15px; }
   .shared-highlights .photo-title { padding: 45px 10px 8px; }
   .shared-highlights .photo-title .main-title { font-size: 12px; }
   .shared-highlights .photo-title .sub-title, .shared-highlights .photo-title .location { font-size: 10px; }

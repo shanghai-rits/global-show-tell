@@ -1,5 +1,11 @@
 /* Shared theme values for HTML, React, SVG, and canvas. */
 :root {
+  --events-highlight-min-width: 280px;
+  --events-highlight-gap: 18px;
+  --page-artwork-height: clamp(180px, 25vw, 320px);
+  --page-artwork-offset: clamp(64px, 7vw, 100px);
+  --page-artwork-title-top: 32px;
+  --page-artwork-bottom-space: 32px;
   --home-video-spacing: 100px;
   --home-video-control-size: 44px;
   --home-video-controls-inset: 20px;
@@ -244,10 +250,6 @@
   --font-event-title-tablet: calc(clamp(15px, 1.7vw, 18px) * var(--type-scale));
   --font-event-date-tablet: calc(clamp(11px, 1.1vw, 13px) * var(--type-scale));
   --font-event-tag-tablet: calc(clamp(10px, 0.9vw, 11px) * var(--type-scale));
-  --font-event-title-mobile: calc(clamp(12px, 2.1vw, 15px) * var(--type-scale));
-  --font-event-tag-mobile: calc(clamp(9px, 1.45vw, 10px) * var(--type-scale));
-  --font-photo-title-mobile: calc(clamp(10px, 2.8vw, 12px) * var(--type-scale));
-  --font-photo-caption-mobile: calc(clamp(7px, 2vw, 9px) * var(--type-scale));
   --font-size-0_32rem: calc(0.32rem * var(--type-scale));
   --font-size-0_28rem: calc(0.28rem * var(--type-scale));
   --font-size-0_3rem: calc(0.3rem * var(--type-scale));
