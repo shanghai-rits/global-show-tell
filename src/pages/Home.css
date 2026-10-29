@@ -17,7 +17,7 @@
 .home-page .home-introduction p { font-size: var(--font-md); line-height: 1.6; margin-bottom: var(--spacing-md); }
 .home-page .home-introduction p a { font-weight: bold; text-decoration: underline; }
 .home-page .home-presenters h3 { font-size: 16px; padding: 16px 0; border-bottom: 1px solid var(--color-home-presenter-divider); }
-.home-page .home-presenters h3 span { font-weight: var(--weight-light); color: var(--color-surface); font-style: italic; }
+.home-page .home-presenters h3 span { font-weight: var(--weight-normal); color: var(--color-surface); font-style: italic; }
 .home-page .home-presenters ul { list-style: none; }
 .home-page .home-presenters li > * { display: block; position: relative; padding: 18px 30px 18px 0; border-bottom: 1px solid var(--color-home-presenter-divider); font-size: 16px; text-decoration: none; line-height: 1.4; }
 .home-page .home-presenters li > *::after { position: absolute; content: ''; right: 10px; top: calc(50% - 5px); width: 10px; height: 10px; border: 1.5px solid var(--color-surface); border-radius: 50%; background: transparent; transition: border-color 0.18s ease; }
